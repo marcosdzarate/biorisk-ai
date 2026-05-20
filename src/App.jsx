@@ -4,6 +4,7 @@ import 'leaflet.heat'
 import L from 'leaflet'
 import { LineChart, Line, BarChart, Bar, Cell, ResponsiveContainer, Tooltip as RTooltip, YAxis } from 'recharts'
 import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI } from './gbif.js'
+import { jsPDF } from 'jspdf'
 
 const DEMO_KEY = import.meta.env.VITE_DEMO_KEY ?? ''
 const MODE = import.meta.env.VITE_MODE ?? 'demo'
@@ -1292,7 +1293,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords }) {
           key={mapCenter.toString() + mapZoom}
           center={mapCenter}
           zoom={mapZoom}
-          scrollWheelZoom={false}
+          scrollWheelZoom={true}
           style={{ height: '100%', width: '100%' }}
         >
           <TileLayer
@@ -4121,6 +4122,197 @@ export default function App() {
     return () => { cancelled = true }
   }, [])
 
+
+  function exportReport(data, project, name) {
+  if (!data?.riskScore) {
+    alert('Please run an analysis first before exporting a report.')
+    return
+  }
+
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
+  const W = 210
+  const margin = 16
+  let y = 20
+
+  // ─── Colors ───
+  const green  = [24, 169, 87]
+  const navy   = [6, 21, 43]
+  const gray   = [107, 114, 128]
+  const light  = [245, 247, 250]
+  const red    = [232, 76, 61]
+  const orange = [245, 166, 35]
+
+  // ─── Header ───
+  doc.setFillColor(...navy)
+  doc.rect(0, 0, W, 28, 'F')
+  doc.setTextColor(255, 255, 255)
+  doc.setFontSize(16)
+  doc.setFont('helvetica', 'bold')
+  doc.text('BioRisk AI', margin, 12)
+  doc.setFontSize(9)
+  doc.setFont('helvetica', 'normal')
+  doc.text('Biodiversity Risk Intelligence · ESG & TNFD Screening', margin, 20)
+  doc.text(`Generated: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`, W - margin, 20, { align: 'right' })
+  y = 38
+
+  // ─── Project title ───
+  doc.setTextColor(...navy)
+  doc.setFontSize(14)
+  doc.setFont('helvetica', 'bold')
+  doc.text(name || 'Biodiversity Risk Report', margin, y)
+  y += 6
+
+  const country = COUNTRY_NAMES[project?.country] || project?.country || 'Argentina'
+  const sector = project?.sector || 'Wind Energy'
+  doc.setFontSize(10)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(...gray)
+  doc.text(`${country} · ${sector} · ${new Date().toLocaleDateString()}`, margin, y)
+  y += 10
+
+  // ─── Divider ───
+  doc.setDrawColor(...green)
+  doc.setLineWidth(0.5)
+  doc.line(margin, y, W - margin, y)
+  y += 8
+
+  // ─── Risk Score box ───
+  const score = data.riskScore?.score ?? 0
+  const category = data.riskScore?.category ?? 'Unknown'
+  const scoreColor = score >= 76 ? red : score >= 51 ? orange : green
+
+  doc.setFillColor(...light)
+  doc.roundedRect(margin, y, W - margin * 2, 28, 3, 3, 'F')
+
+  doc.setFontSize(28)
+  doc.setFont('helvetica', 'bold')
+  doc.setTextColor(...scoreColor)
+  doc.text(`${score}`, margin + 8, y + 18)
+
+  doc.setFontSize(10)
+  doc.setFont('helvetica', 'bold')
+  doc.setTextColor(...navy)
+  doc.text(`/ 100 — ${category}`, margin + 24, y + 18)
+
+  doc.setFontSize(8)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(...gray)
+  doc.text(`Based on ${(data.polygonCount ?? 0).toLocaleString('en-US')} occurrence records · ${data.riskScore?.taxaFound ?? 0} taxa detected`, margin + 8, y + 24)
+  y += 36
+
+  // ─── Section helper ───
+  const section = (title) => {
+    doc.setFontSize(11)
+    doc.setFont('helvetica', 'bold')
+    doc.setTextColor(...navy)
+    doc.text(title, margin, y)
+    doc.setDrawColor(...green)
+    doc.setLineWidth(0.3)
+    doc.line(margin, y + 2, W - margin, y + 2)
+    y += 8
+  }
+
+  // ─── Taxa breakdown ───
+  section('Biodiversity Scan Results')
+  const taxa = data.taxaInPolygon?.filter(t => t.inPolygon > 0) ?? []
+  taxa.forEach(t => {
+    doc.setFontSize(9)
+    doc.setFont('helvetica', 'normal')
+    doc.setTextColor(...gray)
+    doc.text(`${t.name}`, margin + 4, y)
+    doc.setTextColor(...navy)
+    doc.setFont('helvetica', 'bold')
+    doc.text(`${t.inPolygon} records`, margin + 60, y)
+    doc.setFont('helvetica', 'normal')
+    doc.setTextColor(...gray)
+    doc.text(`(sample of ${t.sampleSize ?? 300})`, margin + 90, y)
+    y += 5.5
+  })
+  y += 4
+
+  // ─── NDVI ───
+  if (data.ndvi) {
+    section('Vegetation Health (Sentinel-2 NDVI)')
+    const ndvi = data.ndvi
+    const rows = [
+      ['NDVI Mean', ndvi.mean.toFixed(3), ndvi.interpretation],
+      ['Trend', ndvi.trend, `${ndvi.slope > 0 ? '+' : ''}${ndvi.slope.toFixed(4)}/period`],
+      ['ΔYoY', `${ndvi.deltaYoY > 0 ? '+' : ''}${ndvi.deltaYoY.toFixed(3)}`, `${ndvi.quarterly?.length ?? 0} periods analyzed`],
+    ]
+    rows.forEach(([label, val, note]) => {
+      doc.setFontSize(9)
+      doc.setFont('helvetica', 'normal')
+      doc.setTextColor(...gray)
+      doc.text(label, margin + 4, y)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(...navy)
+      doc.text(val, margin + 50, y)
+      doc.setFont('helvetica', 'normal')
+      doc.setTextColor(...gray)
+      doc.text(note, margin + 80, y)
+      y += 5.5
+    })
+    y += 4
+  }
+
+  // ─── Protected Areas ───
+  if (data.wdpa) {
+    section('Protected Areas (WDPA)')
+    doc.setFontSize(9)
+    doc.setFont('helvetica', 'normal')
+    doc.setTextColor(...gray)
+    doc.text(`${data.wdpa.total} protected areas identified in region`, margin + 4, y)
+    y += 5.5
+    data.wdpa.areas?.slice(0, 4).forEach(a => {
+      doc.text(`• ${a.name} (IUCN Cat. ${a.iucnCategory})`, margin + 8, y)
+      y += 5
+    })
+    y += 4
+  }
+
+  // ─── TNFD ───
+  section('TNFD LEAP Assessment')
+  const leapItems = [
+    { label: 'Locate',   done: (data.polygonCount ?? 0) > 0 || data.wdpa != null },
+    { label: 'Evaluate', done: (data.polygonCount ?? 0) > 0 },
+    { label: 'Assess',   done: data.riskScore != null },
+    { label: 'Prepare',  done: false },
+  ]
+  leapItems.forEach(item => {
+    doc.setFontSize(9)
+    doc.setFont('helvetica', 'bold')
+    doc.setTextColor(...(item.done ? green : gray))
+    doc.text(item.done ? '✓' : '—', margin + 4, y)
+    doc.setFont('helvetica', 'normal')
+    doc.setTextColor(...navy)
+    doc.text(item.label, margin + 12, y)
+    y += 5.5
+  })
+  y += 4
+
+  // ─── Disclaimer ───
+  if (y > 240) { doc.addPage(); y = 20 }
+
+  doc.setFillColor(...light)
+  doc.roundedRect(margin, y, W - margin * 2, 22, 3, 3, 'F')
+  doc.setFontSize(8)
+  doc.setFont('helvetica', 'italic')
+  doc.setTextColor(...gray)
+  const disclaimer = 'This report is a screening-grade assessment based on publicly available GBIF occurrence data. It does not replace formal Environmental & Social Impact Assessments (ESIA) or field surveys. Occurrence data from GBIF.org under CC BY 4.0.'
+  const lines = doc.splitTextToSize(disclaimer, W - margin * 2 - 8)
+  doc.text(lines, margin + 4, y + 7)
+  y += 26
+
+  // ─── Footer ───
+  doc.setFontSize(7)
+  doc.setTextColor(...gray)
+  doc.text('BioRisk AI · Powered by GBIF · Sentinel-2 · WDPA · Generated ' + new Date().toISOString().slice(0, 10), W / 2, 290, { align: 'center' })
+
+  // ─── Save ───
+  const filename = `BioRisk-AI-${(name || 'Report').replace(/\s+/g, '-')}-${new Date().toISOString().slice(0, 10)}.pdf`
+  doc.save(filename)
+}
+
   const isWizard = page === 'new-analysis'
   const isWelcome = page === 'welcome'
   const isProjects = page === 'projects'
@@ -4191,7 +4383,9 @@ export default function App() {
                 <div className="h-right">
                   <span className="badge">ID · BR-2026-0142</span>
                   <span className="badge">May 13, 2026</span>
-                  <button className="btn">Export Report</button>
+                  <button className="btn" onClick={() => exportReport(gbifData, analysisProject, projectName)}>
+                    Export Report
+                  </button>
                   <span
                     className="badge"
                     style={
