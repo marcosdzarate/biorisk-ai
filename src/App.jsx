@@ -3238,7 +3238,7 @@ function DrawingLayer({ drawnPoints, setDrawnPoints, drawnPolygon, setDrawnPolyg
     }
   }, [drawnPolygon, map])
 
- return (
+  return (
     <>
       {/* Completed polygon */}
       {drawnPolygon && drawnPolygon.length >= 3 && (
@@ -4190,7 +4190,8 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [projectName, setProjectName] = useState('Offshore Wind Farm – Patagonia')
   const [showStatsModal, setShowStatsModal] = useState(false)
-
+  const [dashboardTab, setDashboardTab] = useState('overview')
+  const [showFullAnalysis, setShowFullAnalysis] = useState(false)
 
   // ─── New Analysis wizard state ───
   const [page, setPage] = useState('welcome')
@@ -4905,51 +4906,142 @@ export default function App() {
 
               <WorkflowBar />
 
-              <div className="grid row-1">
-                <MapCard
-                  polygon={activePolygon}
-                  center={mapCenter}
-                  zoom={mapZoom}
-                  allTaxaRecords={gbifData?.allTaxaRecords}
-                />
-                <RiskScoreCard riskScore={gbifData?.riskScore} />
+              {/* Tab navigation */}
+              <div style={{
+                display: 'flex', gap: 4, padding: '0 24px 16px',
+                borderBottom: '1px solid #E5E7EB', marginBottom: 20,
+              }}>
+                {[
+                  { id: 'overview', label: '🏠 Overview' },
+                  { id: 'tnfd', label: '📋 TNFD & ESG' },
+                  { id: 'vegetation', label: '🛰 Vegetation' },
+                  { id: 'mitigation', label: '🛡 Mitigation' },
+                ].map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setDashboardTab(tab.id)}
+                    style={{
+                      padding: '8px 16px', borderRadius: 8, fontSize: 12,
+                      fontWeight: 600, border: '1px solid #E5E7EB',
+                      cursor: 'pointer', transition: 'all .15s',
+                      background: dashboardTab === tab.id ? '#18A957' : '#F9FAFB',
+                      color: dashboardTab === tab.id ? 'white' : '#6B7280',
+                      borderColor: dashboardTab === tab.id ? '#18A957' : '#E5E7EB',
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
 
-              <div className="grid row-2">
-                <KeyFindingsCard data={gbifData} loading={loading} />
-                <SpeciesRichnessCard data={gbifData} loading={loading} />
-                <EcosystemSensitivityCard data={gbifData} />
-                <HumanPressureCard data={gbifData} analysisProject={analysisProject} />
-              </div>
+              {/* OVERVIEW TAB */}
+              {dashboardTab === 'overview' && (
+                <>
+                  <div className="grid row-1">
+                    <MapCard
+                      polygon={activePolygon}
+                      center={mapCenter}
+                      zoom={mapZoom}
+                      allTaxaRecords={gbifData?.allTaxaRecords}
+                    />
+                    <RiskScoreCard riskScore={gbifData?.riskScore} />
+                  </div>
 
-              <div className="grid row-3">
-                <ThreatenedSpeciesCard data={gbifData} loading={loading} />
-                <BiodiversityMatrixCard data={gbifData} />
-              </div>
+                  <div className="grid row-2">
+                    <KeyFindingsCard data={gbifData} loading={loading} />
+                    <SpeciesRichnessCard data={gbifData} loading={loading} />
+                  </div>
 
-              <div className="grid row-4">
-                <TnfdCard data={gbifData} analysisProject={analysisProject} />
-                <TnfdMetricsCard data={gbifData} analysisProject={analysisProject} />
-                <DataSourcesCard data={gbifData} loading={loading} onShowStats={() => setShowStatsModal(true)} />
-              </div>
+                  {/* Progressive disclosure */}
+                  {!showFullAnalysis ? (
+                    <div style={{ textAlign: 'center', padding: '16px 0 8px' }}>
+                      <button
+                        onClick={() => setShowFullAnalysis(true)}
+                        style={{
+                          padding: '10px 24px', borderRadius: 8,
+                          background: '#F0FDF4', border: '1px solid #BBF7D0',
+                          color: '#18A957', fontSize: 12, fontWeight: 600,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        + Show full analysis
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="grid row-2">
+                        <EcosystemSensitivityCard data={gbifData} />
+                        <HumanPressureCard data={gbifData} analysisProject={analysisProject} />
+                      </div>
+                      <div className="grid row-3">
+                        <ThreatenedSpeciesCard data={gbifData} loading={loading} />
+                        <BiodiversityMatrixCard data={gbifData} />
+                      </div>
+                      <div style={{ textAlign: 'center', padding: '8px 0' }}>
+                        <button
+                          onClick={() => setShowFullAnalysis(false)}
+                          style={{
+                            padding: '6px 16px', borderRadius: 8,
+                            background: '#F9FAFB', border: '1px solid #E5E7EB',
+                            color: '#9CA3AF', fontSize: 11, cursor: 'pointer',
+                          }}
+                        >
+                          − Hide full analysis
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
 
-              <div className="grid row-5">
-                <DependenciesCard data={gbifData} analysisProject={analysisProject} />
-                <ImpactsCard data={gbifData} analysisProject={analysisProject} />
-              </div>
+              {/* TNFD & ESG TAB */}
+              {dashboardTab === 'tnfd' && (
+                <>
+                  <div className="grid row-4">
+                    <TnfdCard data={gbifData} analysisProject={analysisProject} />
+                    <TnfdMetricsCard data={gbifData} analysisProject={analysisProject} />
+                    <DataSourcesCard data={gbifData} loading={loading} onShowStats={() => setShowStatsModal(true)} />
+                  </div>
+                  <div className="grid row-5">
+                    <DependenciesCard data={gbifData} analysisProject={analysisProject} />
+                    <ImpactsCard data={gbifData} analysisProject={analysisProject} />
+                  </div>
+                </>
+              )}
 
-              <div className="grid row-3">
-                <ScenarioAnalysisCard data={gbifData} />
-              </div>
+              {/* VEGETATION TAB */}
+              {dashboardTab === 'vegetation' && (
+                <>
+                  <div className="grid row-2">
+                    <EcosystemSensitivityCard data={gbifData} />
+                    <ScenarioAnalysisCard data={gbifData} />
+                  </div>
+                  <div className="grid row-3">
+                    <BiodiversityMatrixCard data={gbifData} />
+                  </div>
+                </>
+              )}
 
+              {/* MITIGATION TAB */}
+              {dashboardTab === 'mitigation' && (
+                <>
+                  <div className="grid row-1">
+                    <RiskScoreCard riskScore={gbifData?.riskScore} />
+                    <HumanPressureCard data={gbifData} analysisProject={analysisProject} />
+                  </div>
+                  <div className="grid row-2">
+                    <DependenciesCard data={gbifData} analysisProject={analysisProject} />
+                    <ImpactsCard data={gbifData} analysisProject={analysisProject} />
+                  </div>
+                </>
+              )}
+
+              {/* Footer */}
               <div style={{
                 padding: '12px 24px',
                 borderTop: '1px solid #E5E7EB',
-                fontSize: 10,
-                color: '#9CA3AF',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                fontSize: 10, color: '#9CA3AF',
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               }}>
                 <span>
                   Occurrence data from{' '}
