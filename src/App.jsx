@@ -255,6 +255,9 @@ body {
   height: 280px; border-radius: var(--r-md); overflow: hidden;
   border: 1px solid var(--bd);
 }
+.map-wrap.full-width {
+  height: 420px;
+}
 .leaflet-container { background: #aedee8; font-family: var(--font); }
 
 /* ── Gauge ── */
@@ -1263,7 +1266,7 @@ function OccurrenceMarker({ occ, color, taxonName }) {
 }
 
 // ─── Cards ───────────────────────────────────────────────────────────────────
-function MapCard({ polygon, center, zoom, allTaxaRecords }) {
+function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false }) {
   const mapCenter = center || [-20, -60]
   const mapZoom = zoom ?? 7
   const hasPolygon = polygon && polygon.length >= 3
@@ -1302,7 +1305,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords }) {
           <button className="btn-ghost">Edit area</button>
         </div>
       </div>
-      <div className="map-wrap" style={{ position: 'relative' }}>
+      <div className={`map-wrap${fullWidth ? ' full-width' : ''}`} style={{ position: 'relative' }}>
         <MapContainer
           key={mapCenter.toString() + mapZoom}
           center={mapCenter}
@@ -4937,14 +4940,47 @@ export default function App() {
               {/* OVERVIEW TAB */}
               {dashboardTab === 'overview' && (
                 <>
-                  <div className="grid row-1">
+                  <div style={{ position: 'relative', marginBottom: 18 }}>
                     <MapCard
                       polygon={activePolygon}
                       center={mapCenter}
                       zoom={mapZoom}
                       allTaxaRecords={gbifData?.allTaxaRecords}
+                      fullWidth={true}
                     />
-                    <RiskScoreCard riskScore={gbifData?.riskScore} />
+                    {/* Risk Score flotante */}
+                    <div style={{
+                      position: 'absolute', top: 12, right: 12, zIndex: 1000,
+                      background: 'white', borderRadius: 12,
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                      border: '1px solid #E5E7EB',
+                      padding: '16px 20px', minWidth: 160, textAlign: 'center',
+                    }}>
+                      <div style={{ fontSize: 10, color: '#9CA3AF', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                        Risk Score
+                      </div>
+                      <div style={{
+                        fontSize: 36, fontWeight: 700, lineHeight: 1,
+                        color: gbifData?.riskScore?.score >= 76 ? '#E84C3D' :
+                          gbifData?.riskScore?.score >= 51 ? '#F5A623' :
+                            gbifData?.riskScore?.score >= 26 ? '#FBBF24' : '#18A957'
+                      }}>
+                        {gbifData?.riskScore?.score ?? '—'}
+                      </div>
+                      <div style={{
+                        fontSize: 10, marginTop: 4, fontWeight: 600,
+                        color: gbifData?.riskScore?.score >= 76 ? '#E84C3D' :
+                          gbifData?.riskScore?.score >= 51 ? '#F5A623' : '#18A957'
+                      }}>
+                        {gbifData?.riskScore?.category ?? 'No analysis'}
+                      </div>
+                      {gbifData?.riskScore && (
+                        <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 6, lineHeight: 1.4 }}>
+                          {gbifData.polygonCount?.toLocaleString('en-US')} records<br />
+                          {gbifData.riskScore.taxaFound} taxa detected
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="grid row-2">
