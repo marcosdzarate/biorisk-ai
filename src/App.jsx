@@ -1078,7 +1078,7 @@ function Gauge({ value, max = 100 }) {
 
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
 function Sidebar({ activePage, setActivePage, user, logout }) {
-    return (
+  return (
     <aside className="sidebar">
       <div className="logo">
         <div className="logo-title">
@@ -3654,6 +3654,322 @@ function GbifStatsModal({ onClose }) {
   )
 }
 
+function SpeciesExplorerPage() {
+  const [query, setQuery] = useState('')
+  const [results, setResults] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [selected, setSelected] = useState(null)
+  const [profile, setProfile] = useState(null)
+  const [loadingProfile, setLoadingProfile] = useState(false)
+
+  async function search() {
+    if (!query.trim()) return
+    setLoading(true)
+    setResults(null)
+    setSelected(null)
+    setProfile(null)
+    try {
+      const r = await fetch(
+        `https://api.gbif.org/v1/species/search?q=${encodeURIComponent(query)}&limit=10&status=ACCEPTED`,
+        { headers: { 'User-Agent': 'biorisk-ai/1.0' } }
+      )
+      const d = await r.json()
+      setResults(d.results ?? [])
+    } catch (e) {
+      setResults([])
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function loadProfile(species) {
+    setSelected(species)
+    setLoadingProfile(true)
+    setProfile(null)
+    try {
+      const [occ, vn] = await Promise.all([
+        fetch(`https://api.gbif.org/v1/occurrence/count?taxonKey=${species.key}`)
+          .then(r => r.json()),
+        fetch(`https://api.gbif.org/v1/species/${species.key}/vernacularNames?limit=10`)
+          .then(r => r.json()),
+      ])
+      setProfile({ occurrences: occ, vernacularNames: vn.results ?? [] })
+    } catch (e) {
+      setProfile({ occurrences: null, vernacularNames: [] })
+    } finally {
+      setLoadingProfile(false)
+    }
+  }
+
+  return (
+    <main className="main">
+      <div className="header">
+        <div className="h-left">
+          <h1>Species Explorer</h1>
+          <div className="h-sub">Search species in the GBIF backbone taxonomy</div>
+        </div>
+      </div>
+
+      <div style={{ padding: '0 24px', maxWidth: 900 }}>
+        {/* Search bar */}
+        <div style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
+          <input
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && search()}
+            placeholder="Search by scientific or common name... e.g. Eubalaena australis"
+            style={{
+              flex: 1, padding: '10px 14px', borderRadius: 8,
+              border: '1px solid #E5E7EB', fontSize: 13,
+              outline: 'none', fontFamily: 'Inter, sans-serif',
+            }}
+          />
+          <button
+            onClick={search}
+            style={{
+              padding: '10px 20px', background: '#18A957', color: 'white',
+              border: 'none', borderRadius: 8, fontSize: 13,
+              fontWeight: 600, cursor: 'pointer',
+            }}
+          >
+            {loading ? '...' : 'Search'}
+          </button>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 1fr' : '1fr', gap: 16 }}>
+          {/* Results list */}
+          {results && (
+            <div>
+              {results.length === 0 ? (
+                <div style={{ padding: 24, textAlign: 'center', color: '#9CA3AF', fontSize: 13 }}>
+                  No species found for "{query}"
+                </div>
+              ) : (
+                results.map((s, i) => (
+                  <div
+                    key={i}
+                    onClick={() => loadProfile(s)}
+                    style={{
+                      background: selected?.key === s.key ? '#F0FDF4' : 'white',
+                      border: `1px solid ${selected?.key === s.key ? '#BBF7D0' : '#E5E7EB'}`,
+                      borderRadius: 10, padding: '12px 16px', marginBottom: 8,
+                      cursor: 'pointer', transition: 'all .15s',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = '#18A957'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = selected?.key === s.key ? '#BBF7D0' : '#E5E7EB'}
+                  >
+                    <div style={{ fontSize: 13, fontWeight: 600, fontStyle: 'italic', color: '#1F2937', marginBottom: 3 }}>
+                      {s.scientificName}
+                    </div>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                      <span style={{ fontSize: 10, color: '#6B7280' }}>{s.rank}</span>
+                      {s.kingdom && <span style={{ fontSize: 10, color: '#9CA3AF' }}>· {s.kingdom}</span>}
+                      {s.family && <span style={{ fontSize: 10, color: '#9CA3AF' }}>· {s.family}</span>}
+                      {s.status && (
+                        <span style={{
+                          fontSize: 9, fontWeight: 700, padding: '1px 6px',
+                          borderRadius: 999, background: '#F0FDF4',
+                          color: '#18A957', border: '1px solid #BBF7D0',
+                        }}>{s.status}</span>
+                      )}
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+
+          {/* Species profile */}
+          {selected && (
+            <div style={{
+              background: 'white', border: '1px solid #E5E7EB',
+              borderRadius: 10, padding: '20px',
+            }}>
+              <div style={{ fontSize: 16, fontWeight: 700, fontStyle: 'italic', color: '#1F2937', marginBottom: 4 }}>
+                {selected.scientificName}
+              </div>
+              <div style={{ fontSize: 10, color: '#9CA3AF', marginBottom: 16 }}>
+                GBIF Key: {selected.key} ·{' '}
+
+                <a href={`https://www.gbif.org/species/${selected.key}`}
+                  target="_blank" rel="noreferrer"
+                  style={{ color: '#18A957' }}
+                >
+                  View on GBIF →
+                </a>
+              </div>
+
+              {/* Taxonomy */}
+              <div style={{ fontSize: 10, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+                Taxonomy
+              </div>
+              {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => (
+                selected[rank] && (
+                  <div key={rank} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, padding: '3px 0', borderBottom: '1px solid #F3F4F6' }}>
+                    <span style={{ color: '#9CA3AF', textTransform: 'capitalize' }}>{rank}</span>
+                    <span style={{ color: '#1F2937', fontWeight: 500 }}>{selected[rank]}</span>
+                  </div>
+                )
+              ))}
+
+              {loadingProfile && (
+                <div style={{ textAlign: 'center', padding: 16, color: '#9CA3AF', fontSize: 12 }}>
+                  Loading occurrence data...
+                </div>
+              )}
+
+              {profile && (
+                <>
+                  {/* Occurrences */}
+                  <div style={{ marginTop: 16 }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+                      GBIF Occurrences
+                    </div>
+                    <div style={{
+                      background: '#F0FDF4', borderRadius: 8, padding: '10px 14px',
+                      fontSize: 20, fontWeight: 700, color: '#18A957',
+                    }}>
+                      {profile.occurrences?.toLocaleString('en-US') ?? '—'}
+                      <span style={{ fontSize: 10, fontWeight: 400, color: '#6B7280', marginLeft: 8 }}>
+                        georeferenced records worldwide
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Vernacular names */}
+                  {profile.vernacularNames.length > 0 && (
+                    <div style={{ marginTop: 16 }}>
+                      <div style={{ fontSize: 10, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+                        Common Names
+                      </div>
+                      {profile.vernacularNames.slice(0, 6).map((v, i) => (
+                        <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, padding: '3px 0', borderBottom: '1px solid #F3F4F6' }}>
+                          <span style={{ color: '#1F2937' }}>{v.vernacularName}</span>
+                          <span style={{ color: '#9CA3AF', fontSize: 10 }}>{v.language}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </main>
+  )
+}
+
+function MonitoringPage() {
+  return (
+    <main className="main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ textAlign: 'center', maxWidth: 480, padding: '0 24px' }}>
+        <div style={{ fontSize: 48, marginBottom: 16 }}>🔭</div>
+        <h1 style={{ fontSize: 22, fontWeight: 700, color: '#1F2937', marginBottom: 8 }}>
+          Monitoring Insights
+        </h1>
+        <p style={{ fontSize: 13, color: '#6B7280', lineHeight: 1.75, marginBottom: 24 }}>
+          Re-run analyses over time to track biodiversity trends in your project areas.
+          Compare risk scores across different dates and detect early warning signals.
+        </p>
+        <div style={{
+          background: '#F0FDF4', border: '1px solid #BBF7D0',
+          borderRadius: 10, padding: '16px 20px',
+          fontSize: 12, color: '#166534', fontWeight: 600,
+        }}>
+          🚧 Coming soon — available after Challenge submission
+        </div>
+      </div>
+    </main>
+  )
+}
+
+function DataSourcesPage() {
+  return (
+    <main className="main">
+      <div className="header">
+        <div className="h-left">
+          <h1>Data Sources</h1>
+          <div className="h-sub">Open data powering BioRisk AI</div>
+        </div>
+      </div>
+      <div style={{ padding: '0 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, maxWidth: 900 }}>
+        {[
+          {
+            icon: '🌐', name: 'GBIF — Global Biodiversity Information Facility',
+            desc: 'The world\'s largest open-access biodiversity database with over 2 billion occurrence records from 70,000+ datasets worldwide.',
+            link: 'https://www.gbif.org',
+            badge: 'CC BY 4.0', badgeColor: '#18A957',
+            stats: '2B+ records · 70K+ datasets · Free API',
+          },
+          {
+            icon: '🛰', name: 'Sentinel-2 L2A — Copernicus Programme',
+            desc: 'ESA satellite imagery at 10m resolution updated every 5 days. Used for NDVI vegetation health and land cover analysis.',
+            link: 'https://dataspace.copernicus.eu',
+            badge: 'Free tier', badgeColor: '#3B82F6',
+            stats: '10m resolution · 5-day revisit · 2017–present',
+          },
+          {
+            icon: '🛡', name: 'WDPA — World Database of Protected Areas',
+            desc: 'The most comprehensive global database of marine and terrestrial protected areas, managed by UNEP-WCMC and IUCN.',
+            link: 'https://www.protectedplanet.net',
+            badge: 'Free API', badgeColor: '#18A957',
+            stats: '260K+ protected areas · Global coverage',
+          },
+          {
+            icon: '📚', name: 'GBIF Literature Index',
+            desc: 'Scientific papers that cite GBIF data, providing peer-reviewed evidence for biodiversity assessments.',
+            link: 'https://www.gbif.org/literature-search',
+            badge: 'CC BY 4.0', badgeColor: '#18A957',
+            stats: '10K+ papers indexed · Peer-reviewed',
+          },
+          {
+            icon: '📋', name: 'IUCN Red List of Threatened Species',
+            desc: 'The world\'s most comprehensive inventory of species conservation status. Integration pending approval.',
+            link: 'https://www.iucnredlist.org',
+            badge: 'Pending', badgeColor: '#F5A623',
+            stats: '150K+ species assessed · Updated annually',
+          },
+          {
+            icon: '☁️', name: 'AWS Open Data — GBIF S3 Snapshot',
+            desc: 'Complete GBIF occurrence dataset in Parquet format hosted on AWS S3 in São Paulo. Powers Full Analysis Mode.',
+            link: 'https://registry.opendata.aws/gbif/',
+            badge: 'Free access', badgeColor: '#3B82F6',
+            stats: 'Snapshot 2026-05-01 · sa-east-1 · ~180GB',
+          },
+        ].map((s, i) => (
+          <div key={i} style={{
+            background: 'white', border: '1px solid #E5E7EB',
+            borderRadius: 12, padding: '20px',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 10 }}>
+              <span style={{ fontSize: 28 }}>{s.icon}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: '#1F2937', marginBottom: 4 }}>{s.name}</div>
+                <span style={{
+                  fontSize: 9, fontWeight: 700, padding: '2px 7px',
+                  borderRadius: 999, background: s.badgeColor + '18',
+                  color: s.badgeColor, border: `1px solid ${s.badgeColor}40`,
+                }}>{s.badge}</span>
+              </div>
+            </div>
+            <p style={{ fontSize: 11, color: '#6B7280', lineHeight: 1.6, marginBottom: 8 }}>{s.desc}</p>
+            <div style={{ fontSize: 10, color: '#9CA3AF', marginBottom: 8 }}>{s.stats}</div>
+            <a href={s.link} target="_blank" rel="noreferrer"
+              style={{ fontSize: 11, color: '#18A957', textDecoration: 'none', fontWeight: 600 }}>
+              Visit source →
+            </a>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: '16px 24px', fontSize: 10, color: '#9CA3AF' }}>
+        Occurrence data from GBIF.org under CC BY 4.0 · BioRisk AI © 2026
+      </div>
+    </main>
+  )
+}
+
 function WelcomePage({ onStart }) {
   return (
     <main className="main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -3901,6 +4217,12 @@ export default function App() {
       setPage(gbifData?.polygonCount > 0 ? 'dashboard' : 'welcome')
     } else if (id === 'projects') {
       setPage('projects')
+    } else if (id === 'species') {
+      setPage('species')
+    } else if (id === 'sources') {
+      setPage('sources')
+    } else if (id === 'monitoring') {
+      setPage('monitoring')
     } else {
       setPage('welcome')
     }
@@ -4330,7 +4652,9 @@ export default function App() {
   const isWizard = page === 'new-analysis'
   const isWelcome = page === 'welcome'
   const isProjects = page === 'projects'
-
+  const isSpecies = page === 'species'
+  const isSources = page === 'sources'
+  const isMonitoring = page === 'monitoring'
   return (
     <>
       <style>{CSS}</style>
@@ -4447,6 +4771,12 @@ export default function App() {
             }}
             onNewAnalysis={() => { setPage('new-analysis'); setActivePage('new') }}
           />
+        ) : isSpecies ? (
+          <SpeciesExplorerPage />
+        ) : isMonitoring ? (
+          <MonitoringPage />
+        ) : isSources ? (
+          <DataSourcesPage />
         ) : (
           <>
             <main className="main">
