@@ -3218,6 +3218,7 @@ function DrawingLayer({ drawnPoints, setDrawnPoints, drawnPolygon, setDrawnPolyg
         if (dist < 25) {
           setDrawnPolygon([...drawnPoints])
           setDrawnPoints([])
+          map.getContainer().style.cursor = ''
           return
         }
       }
@@ -3225,55 +3226,59 @@ function DrawingLayer({ drawnPoints, setDrawnPoints, drawnPolygon, setDrawnPolyg
     }
   })
 
-  return (
+  useEffect(() => {
+    const container = map.getContainer()
+    if (drawnPolygon) {
+      container.style.cursor = ''
+    } else {
+      container.style.cursor = 'crosshair'
+    }
+    return () => {
+      container.style.cursor = ''
+    }
+  }, [drawnPolygon, map])
+
+ return (
     <>
-      {drawnPoints.map((p, i) => (
-        <CircleMarker
-          key={`pt-${i}`}
-          center={p}
-          radius={i === 0 ? 8 : 5}
+      {/* Completed polygon */}
+      {drawnPolygon && drawnPolygon.length >= 3 && (
+        <Polygon
+          positions={drawnPolygon}
           pathOptions={{
-            color: i === 0 ? '#F5A623' : '#18A957',
-            fillColor: i === 0 ? '#F5A623' : '#18A957',
-            fillOpacity: 0.9,
-            weight: 2,
+            color: '#ffffff', weight: 2,
+            fillColor: '#ffffff', fillOpacity: 0.04
           }}
-        >
-          {i === 0 && drawnPoints.length > 2 && (
-            <Tooltip permanent direction="top" offset={[0, -8]}>
-              Click to close
-            </Tooltip>
-          )}
-        </CircleMarker>
-      ))}
+        />
+      )}
+
+      {/* Lines connecting points while drawing */}
       {drawnPoints.length > 1 && (
         <Polyline
           positions={drawnPoints}
-          pathOptions={{ color: '#18A957', weight: 2, dashArray: '5,5' }}
+          pathOptions={{ color: '#18A957', weight: 2, dashArray: '6 4', opacity: 0.8 }}
         />
       )}
-      {drawnPolygon && (
-        <>
-          <Polygon
-            positions={drawnPolygon}
-            pathOptions={{
-              color: '#18A957', weight: 2,
-              fillColor: '#18A957', fillOpacity: 0.2,
-            }}
-          />
-          {drawnPolygon.map((p, i) => (
-            <CircleMarker
-              key={`v-${i}`}
-              center={p}
-              radius={4}
-              pathOptions={{
-                color: '#18A957', fillColor: '#18A957',
-                fillOpacity: 0.9, weight: 1,
-              }}
-            />
-          ))}
-        </>
+      {/* Closing line preview */}
+      {drawnPoints.length > 2 && (
+        <Polyline
+          positions={[drawnPoints[drawnPoints.length - 1], drawnPoints[0]]}
+          pathOptions={{ color: '#18A957', weight: 1.5, dashArray: '4 4', opacity: 0.5 }}
+        />
       )}
+      {/* Point markers while drawing */}
+      {drawnPoints.map((p, i) => (
+        <CircleMarker
+          key={i}
+          center={p}
+          radius={i === 0 ? 7 : 4}
+          pathOptions={{
+            color: '#18A957',
+            fillColor: i === 0 ? '#18A957' : 'white',
+            fillOpacity: 1,
+            weight: 2,
+          }}
+        />
+      ))}
     </>
   )
 }
