@@ -6,6 +6,7 @@ import L from 'leaflet'
 import { LineChart, Line, BarChart, Bar, Cell, ResponsiveContainer, Tooltip as RTooltip, YAxis } from 'recharts'
 import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI } from './gbif.js'
 import { jsPDF } from 'jspdf'
+import { supabase, getSupabaseWithAuth } from './supabase.js'
 
 const DEMO_KEY = import.meta.env.VITE_DEMO_KEY ?? ''
 const MODE = import.meta.env.VITE_MODE ?? 'demo'
@@ -4178,7 +4179,7 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
 
 // ─── Main app ────────────────────────────────────────────────────────────────
 export default function App() {
-  const { isAuthenticated, isLoading, loginWithRedirect, logout, user } = useAuth0()
+  const { isAuthenticated, isLoading, loginWithRedirect, logout, user, getAccessTokenSilently, getIdTokenClaims } = useAuth0()
   const [activePage, setActivePage] = useState('dashboard')
   const [gbifData, setGbifData] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -4359,7 +4360,7 @@ export default function App() {
     if (!scanResults) return
 
     // Save project to list
-    setProjects(prev => [...prev, {
+    const newProject = {
       id: Date.now(),
       name: analysisProject.name,
       country: analysisProject.country,
@@ -4383,7 +4384,31 @@ export default function App() {
         ndvi: scanResults.ndvi,
         queriedAt: new Date(),
       }
-    }])
+    }
+
+    // Save to state
+    setProjects(prev => [newProject, ...prev])
+
+    // Save to Supabase if user is logged in
+    if (user?.sub) {
+      getIdTokenClaims().then(claims => {
+        const token = claims?.__raw
+        const client = getSupabaseWithAuth(token)
+        client.from('projects').insert({
+          user_id: user.sub,
+          name: newProject.name,
+          country: newProject.country,
+          sector: newProject.sector,
+          risk_score: newProject.riskScore,
+          total_in_polygon: newProject.totalInPolygon,
+          polygon: newProject.polygon,
+          gbif_data: newProject.gbifData,
+        }).then(({ error }) => {
+          if (error) console.warn('Failed to save project to Supabase:', error.message)
+          else console.log('✅ Project saved to Supabase')
+        })
+      })
+    }
 
     // Update gbifData with real scan results
     const allRecords = scanResults.taxaInPolygon?.flatMap(t => t.records) ?? []
@@ -4446,9 +4471,7 @@ export default function App() {
           safe('resolve_taxon_full_profile', callGbif('resolve_taxon_full_profile', { name: 'Eubalaena australis' })),
         ])
         if (cancelled) return
-        console.log('papers result:', papers)
         const data = { gaps, avesCount, mammaliaCount, whales, papers, whaleProfile, queriedAt: new Date() }
-        console.log('🌿 BioRisk AI — real GBIF data loaded:', data)
         setGbifData(data)
       } finally {
         if (!cancelled) setLoading(false)
@@ -4457,6 +4480,43 @@ export default function App() {
     fetchAll()
     return () => { cancelled = true }
   }, [])
+
+
+  useEffect(() => {
+    if (!user?.sub) return
+    async function loadProjects() {
+      try {
+        const claims = await getIdTokenClaims()
+        const token = claims?.__raw
+        const client = getSupabaseWithAuth(token)
+        const { data, error } = await client
+          .from('projects')
+          .select('*')
+          .eq('user_id', user.sub)
+          .order('date', { ascending: false })
+        if (error) {
+          console.warn('Failed to load projects:', error.message)
+          return
+        }
+        if (data) {
+          setProjects(data.map(p => ({
+            id: p.id,
+            name: p.name,
+            country: p.country,
+            sector: p.sector,
+            riskScore: p.risk_score,
+            totalInPolygon: p.total_in_polygon,
+            polygon: p.polygon,
+            gbifData: p.gbif_data,
+            date: new Date(p.date).toLocaleDateString('en-US'),
+          })))
+        }
+      } catch (e) {
+        console.warn('Failed to load projects:', e.message)
+      }
+    }
+    loadProjects()
+  }, [user])
 
 
   function exportReport(data, project, name) {
