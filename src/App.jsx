@@ -1684,6 +1684,20 @@ function SpeciesRichnessCard({ data, loading }) {
   const polygonSample = data?.polygonSample
   const hasPolygonData = polygonCount != null && polygonCount > 0
   const taxaInPolygon = data?.taxaInPolygon?.filter(t => t.inPolygon > 0) ?? []
+  // Temporal baseline — records by year
+  const recordsByYear = useMemo(() => {
+    const allRecords = data?.taxaInPolygon?.flatMap(t => t.records ?? []) ?? []
+    const yearMap = {}
+    allRecords.forEach(r => {
+      const year = r.eventDate?.slice(0, 4)
+      if (year && year >= '2000' && year <= '2026') {
+        yearMap[year] = (yearMap[year] ?? 0) + 1
+      }
+    })
+    return Object.entries(yearMap)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([year, count]) => ({ year, count }))
+  }, [data])
 
   const bigValue = hasPolygonData
     ? fmt(polygonCount)
@@ -1718,37 +1732,49 @@ function SpeciesRichnessCard({ data, loading }) {
 
       {/* Representation % table */}
       {hasPolygonData && taxaInPolygon.length > 0 && (
-        <div style={{ marginTop: 10 }}>
+        <div style={{ height: 80, marginTop: 10 }}>
+          <ResponsiveContainer>
+            <BarChart
+              data={taxaInPolygon.map(t => ({ name: t.emoji, value: t.inPolygon, label: t.name }))}
+              margin={{ top: 4, right: 4, left: 0, bottom: 0 }}
+            >
+              <YAxis hide />
+              <RTooltip
+                contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+                formatter={(value, name, props) => [fmt(value), props.payload.label]}
+                labelFormatter={() => ''}
+              />
+              <Bar dataKey="value" radius={[3, 3, 0, 0]}>
+                {taxaInPolygon.map((t, i) => (
+                  <Cell key={i} fill={TAXON_COLORS[t.name] || '#18A957'} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      )}
+
+      {recordsByYear.length > 1 && (
+        <div style={{ marginTop: 12 }}>
           <div style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
-            Polygon vs Country (Argentina)
+            Records by year (temporal baseline)
           </div>
-          {taxaInPolygon.slice(0, 5).map((t, i) => {
-            const countryTotal = countryTotals[t.name] ?? null
-            const pct = countryTotal ? ((t.inPolygon / countryTotal) * 100).toFixed(4) : null
-            return (
-              <div key={i} style={{
-                display: 'flex', alignItems: 'center', gap: 6,
-                marginBottom: 4, fontSize: 10,
-              }}>
-                <span style={{ width: 16, textAlign: 'center' }}>{t.emoji}</span>
-                <span style={{ flex: 1, color: '#6B7280' }}>{t.name}</span>
-                <span style={{
-                  fontFamily: 'monospace', color: '#1F2937', fontWeight: 600,
-                  fontSize: 10, minWidth: 40, textAlign: 'right'
-                }}>{fmt(t.inPolygon)}</span>
-                {countryTotal && (
-                  <span style={{ color: '#9CA3AF', fontSize: 9, minWidth: 70, textAlign: 'right' }}>
-                    of {fmt(countryTotal)} ({pct}%)
-                  </span>
-                )}
-              </div>
-            )
-          })}
-          {taxaInPolygon.length > 5 && (
-            <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 2 }}>
-              +{taxaInPolygon.length - 5} more taxa
-            </div>
-          )}
+          <div style={{ height: 80 }}>
+            <ResponsiveContainer>
+              <BarChart data={recordsByYear} margin={{ top: 2, right: 4, left: 0, bottom: 0 }}>
+                <YAxis hide />
+                <RTooltip
+                  contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+                  formatter={(value) => [value, 'records']}
+                  labelFormatter={(label) => `Year: ${label}`}
+                />
+                <Bar dataKey="count" radius={[2, 2, 0, 0]} fill="#18A957" opacity={0.8} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 4 }}>
+            Based on eventDate field from GBIF occurrence records
+          </div>
         </div>
       )}
 
@@ -1772,6 +1798,7 @@ function SpeciesRichnessCard({ data, loading }) {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
+
         </div>
       )}
     </div>
@@ -5347,6 +5374,51 @@ export default function App() {
                     <KeyFindingsCard data={gbifData} loading={loading} />
                     <SpeciesRichnessCard data={gbifData} loading={loading} />
                   </div>
+
+                  {/* Temporal baseline */}
+                  {gbifData?.taxaInPolygon && (() => {
+                    const allRecords = gbifData.taxaInPolygon.flatMap(t => t.records ?? [])
+                    const yearMap = {}
+                    allRecords.forEach(r => {
+                      const year = r.eventDate?.slice(0, 4)
+                      if (year && year >= '2000' && year <= '2026') {
+                        yearMap[year] = (yearMap[year] ?? 0) + 1
+                      }
+                    })
+                    const recordsByYear = Object.entries(yearMap)
+                      .sort(([a], [b]) => a.localeCompare(b))
+                      .map(([year, count]) => ({ year, count }))
+
+                    if (recordsByYear.length < 2) return null
+
+                    return (
+                      <div style={{
+                        background: 'white', border: '1px solid #E5E7EB',
+                        borderRadius: 10, padding: '14px 16px', marginBottom: 18,
+                      }}>
+                        <div style={{ fontSize: 12, fontWeight: 600, color: '#1F2937', marginBottom: 10 }}>
+                          Temporal Baseline — Records by Year
+                        </div>
+                        <div style={{ height: 80 }}>
+                          <ResponsiveContainer>
+                            <BarChart data={recordsByYear} margin={{ top: 2, right: 4, left: 0, bottom: 0 }}>
+                              <YAxis hide />
+                              <RTooltip
+                                contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+                                formatter={(value) => [value, 'records']}
+                                labelFormatter={(label) => `Year: ${label}`}
+                              />
+                              <Bar dataKey="count" radius={[2, 2, 0, 0]} fill="#18A957" opacity={0.8} />
+                            </BarChart>
+                          </ResponsiveContainer>
+                        </div>
+                        <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 4 }}>
+                          Based on eventDate field · Sample of up to 300 records per taxon
+                        </div>
+                      </div>
+                    )
+                  })()}
+
                   {/* Buffer zone info */}
                   {gbifData?.bufferData && (
                     <div style={{
