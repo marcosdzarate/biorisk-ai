@@ -1367,7 +1367,7 @@ function OccurrenceMarker({ occ, color, taxonName }) {
 }
 
 // ─── Cards ───────────────────────────────────────────────────────────────────
-function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndviData, wdpaData }) {
+function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndviData, wdpaData, bufferData }) {
   const mapCenter = center || [-20, -60]
   const mapZoom = zoom ?? 7
   const hasPolygon = polygon && polygon.length >= 3
@@ -1421,6 +1421,17 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
               pathOptions={{
                 color: '#ffffff', weight: 2,
                 fillColor: '#ffffff', fillOpacity: 0.04
+              }}
+            />
+          )}
+          {/* Buffer zone polygon */}
+          {hasPolygon && bufferData?.polygon && (
+            <Polygon
+              positions={bufferData.polygon}
+              pathOptions={{
+                color: '#F5A623', weight: 1.5,
+                fillColor: '#F5A623', fillOpacity: 0.06,
+                dashArray: '6 4',
               }}
             />
           )}
@@ -4636,6 +4647,36 @@ export default function App() {
       })
       const totalInPolygon = taxaInPolygon.reduce((s, t) => s + t.inPolygon, 0)
 
+      // Buffer zone analysis (5km indirect influence area)
+      let bufferData = null
+      try {
+        const turfPolygon = turf.polygon([[...polygon.map(p => [p[1], p[0]]), [polygon[0][1], polygon[0][0]]]])
+        const buffered = turf.buffer(turfPolygon, 5, { units: 'kilometers' })
+        const bufferCoords = buffered.geometry.coordinates[0].map(c => [c[1], c[0]])
+
+        const inBuffer = SCAN_TAXA.map((taxon, i) => {
+          const results = taxaOccurrences[i]?.results ?? []
+          const insideBuffer = results.filter(occ =>
+            occ.lat != null && occ.lng != null &&
+            pointInPolygon([occ.lat, occ.lng], bufferCoords) &&
+            !pointInPolygon([occ.lat, occ.lng], polygon)
+          )
+          return {
+            name: taxon.name,
+            inBuffer: insideBuffer.length,
+          }
+        })
+
+        bufferData = {
+          totalInBuffer: inBuffer.reduce((s, t) => s + t.inBuffer, 0),
+          byTaxa: inBuffer,
+          bufferKm: 5,
+          polygon: bufferCoords,
+        }
+      } catch (e) {
+        console.warn('Buffer calculation failed:', e.message)
+      }
+
       setScanProgress(3)
       setScanStepLabel(`Filtering ${totalInPolygon} records by polygon boundary...`)
       await delay(600)
@@ -4658,6 +4699,7 @@ export default function App() {
         aves,
         mammalia,
         gaps,
+        bufferData,
         papers,
         wdpa,
         ndvi,
@@ -4744,6 +4786,7 @@ export default function App() {
         results: allRecords,
       },
       papers: scanResults.papers,
+      bufferData: scanResults.bufferData,
       riskScore: scanResults.riskScore,
       taxaInPolygon: scanResults.taxaInPolygon,
       allTaxaRecords: scanResults.taxaInPolygon,
@@ -5263,6 +5306,7 @@ export default function App() {
                       fullWidth={true}
                       ndviData={gbifData?.ndvi}
                       wdpaData={gbifData?.wdpa}
+                      bufferData={gbifData?.bufferData}
                     />
                     {/* Risk Score flotante */}
                     <div style={{
@@ -5303,6 +5347,31 @@ export default function App() {
                     <KeyFindingsCard data={gbifData} loading={loading} />
                     <SpeciesRichnessCard data={gbifData} loading={loading} />
                   </div>
+                  {/* Buffer zone info */}
+                  {gbifData?.bufferData && (
+                    <div style={{
+                      background: '#FFFBEB', border: '1px solid #FDE68A',
+                      borderRadius: 10, padding: '12px 16px', marginBottom: 18,
+                      display: 'flex', alignItems: 'center', gap: 16,
+                    }}>
+                      <div style={{ fontSize: 24 }}>🔶</div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: '#92400E', marginBottom: 2 }}>
+                          Indirect Influence Area (5km buffer)
+                        </div>
+                        <div style={{ fontSize: 11, color: '#6B7280' }}>
+                          {gbifData.bufferData.totalInBuffer.toLocaleString('en-US')} additional occurrence records
+                          detected within 5km of the project boundary — representing potential indirect biodiversity impacts.
+                        </div>
+                      </div>
+                      <div style={{ textAlign: 'center', flexShrink: 0 }}>
+                        <div style={{ fontSize: 20, fontWeight: 700, color: '#F5A623' }}>
+                          {gbifData.bufferData.totalInBuffer.toLocaleString('en-US')}
+                        </div>
+                        <div style={{ fontSize: 9, color: '#9CA3AF' }}>records in buffer</div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Progressive disclosure */}
                   {!showFullAnalysis ? (
