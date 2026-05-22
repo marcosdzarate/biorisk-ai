@@ -1380,6 +1380,20 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false }) {
 function RiskScoreCard({ riskScore }) {
   const score = riskScore?.score ?? 72
   const category = riskScore?.category ?? 'High Risk'
+  const components = riskScore?.components
+
+  const scoreColor = score >= 76 ? '#E84C3D' :
+                     score >= 51 ? '#F5A623' :
+                     score >= 26 ? '#FBBF24' : '#18A957'
+
+  const maxTotal = 100
+  const breakdown = components ? [
+    { label: 'Baseline',          value: components.base,      max: 30, color: '#6366F1', desc: 'Conservative precautionary baseline' },
+    { label: 'Species Richness',  value: components.richness,  max: 20, color: '#18A957', desc: `${riskScore.taxaFound} taxa detected (5pts each, max 20)` },
+    { label: 'Occurrence Density',value: components.density,   max: 30, color: '#F5A623', desc: `${riskScore.totalInPolygon?.toLocaleString('en-US')} records in polygon` },
+    { label: 'Literature Gap',    value: components.literature,max: 20, color: '#E84C3D', desc: `${riskScore.papers} papers found (fewer = higher uncertainty)` },
+  ] : null
+
   return (
     <div className="card">
       <div className="card-head">
@@ -1393,33 +1407,50 @@ function RiskScoreCard({ riskScore }) {
             based on observational evidence within your project boundary.
           </>
         ) : (
-          <>
-            The area presents <strong>high ecological sensitivity</strong> mainly due to threatened species,
-            ecosystem importance and moderate data uncertainty.
-          </>
+          <>The area presents <strong>high ecological sensitivity</strong> mainly due to threatened species,
+            ecosystem importance and moderate data uncertainty.</>
         )}
       </div>
-      <div className="explain-box">
-        {riskScore ? (
-          <>
-            Score based on: <strong>{fmt(riskScore.totalInPolygon)}</strong> occurrences across
-            {' '}<strong>{riskScore.taxaFound}</strong> taxonomic groups in polygon area
-            (sample of up to 300 per taxon), <strong>{fmt(riskScore.papers)}</strong> scientific
-            papers, conservative baseline per CLAUDE.md methodology.
-          </>
-        ) : (
-          'Demo analysis — run New Analysis to calculate score for your project area.'
-        )}
-      </div>
+
+      {/* Score breakdown */}
+      {breakdown && (
+        <div style={{ padding: '8px 12px 4px' }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+            Score breakdown
+          </div>
+          {breakdown.map((b, i) => (
+            <div key={i} style={{ marginBottom: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, marginBottom: 2 }}>
+                <span style={{ color: '#6B7280' }} title={b.desc}>{b.label} ⓘ</span>
+                <span style={{ fontFamily: 'monospace', fontWeight: 600, color: '#1F2937' }}>
+                  {b.value}/{b.max}
+                </span>
+              </div>
+              <div style={{ height: 5, background: '#E5E7EB', borderRadius: 3, overflow: 'hidden' }}>
+                <div style={{
+                  height: '100%', borderRadius: 3,
+                  background: b.color,
+                  width: `${(b.value / b.max) * 100}%`,
+                  transition: 'width 0.6s ease',
+                }}/>
+              </div>
+            </div>
+          ))}
+          <div style={{
+            display: 'flex', justifyContent: 'space-between',
+            borderTop: '1px solid #E5E7EB', paddingTop: 6, marginTop: 4,
+            fontSize: 10, fontWeight: 700,
+          }}>
+            <span style={{ color: '#1F2937' }}>Total</span>
+            <span style={{ color: scoreColor, fontFamily: 'monospace' }}>{score}/100</span>
+          </div>
+        </div>
+      )}
+
       <div style={{
-        margin: '8px 12px 0',
-        padding: '6px 10px',
-        background: '#FFFBEB',
-        border: '1px solid #FDE68A',
-        borderRadius: 6,
-        fontSize: 9,
-        color: '#92400E',
-        lineHeight: 1.5,
+        margin: '4px 12px 12px', padding: '6px 10px',
+        background: '#FFFBEB', border: '1px solid #FDE68A',
+        borderRadius: 6, fontSize: 9, color: '#92400E', lineHeight: 1.5,
       }}>
         ⚠ Screening-grade assessment only. Does not replace formal Environmental &amp; Social Impact Assessments (ESIA) or field surveys.
       </div>
