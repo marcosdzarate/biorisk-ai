@@ -1383,15 +1383,15 @@ function RiskScoreCard({ riskScore }) {
   const components = riskScore?.components
 
   const scoreColor = score >= 76 ? '#E84C3D' :
-                     score >= 51 ? '#F5A623' :
-                     score >= 26 ? '#FBBF24' : '#18A957'
+    score >= 51 ? '#F5A623' :
+      score >= 26 ? '#FBBF24' : '#18A957'
 
   const maxTotal = 100
   const breakdown = components ? [
-    { label: 'Baseline',          value: components.base,      max: 30, color: '#6366F1', desc: 'Conservative precautionary baseline' },
-    { label: 'Species Richness',  value: components.richness,  max: 20, color: '#18A957', desc: `${riskScore.taxaFound} taxa detected (5pts each, max 20)` },
-    { label: 'Occurrence Density',value: components.density,   max: 30, color: '#F5A623', desc: `${riskScore.totalInPolygon?.toLocaleString('en-US')} records in polygon` },
-    { label: 'Literature Gap',    value: components.literature,max: 20, color: '#E84C3D', desc: `${riskScore.papers} papers found (fewer = higher uncertainty)` },
+    { label: 'Baseline', value: components.base, max: 30, color: '#6366F1', desc: 'Conservative precautionary baseline' },
+    { label: 'Species Richness', value: components.richness, max: 20, color: '#18A957', desc: `${riskScore.taxaFound} taxa detected (5pts each, max 20)` },
+    { label: 'Occurrence Density', value: components.density, max: 30, color: '#F5A623', desc: `${riskScore.totalInPolygon?.toLocaleString('en-US')} records in polygon` },
+    { label: 'Literature Gap', value: components.literature, max: 20, color: '#E84C3D', desc: `${riskScore.papers} papers found (fewer = higher uncertainty)` },
   ] : null
 
   return (
@@ -1432,7 +1432,7 @@ function RiskScoreCard({ riskScore }) {
                   background: b.color,
                   width: `${(b.value / b.max) * 100}%`,
                   transition: 'width 0.6s ease',
-                }}/>
+                }} />
               </div>
             </div>
           ))}
@@ -2084,116 +2084,207 @@ function BiodiversityMatrixCard({ data }) {
   // Position dot on matrix (percentage from bottom-left)
   const dotX = intactness !== null ? intactness * 100 : 50
   const dotY = (1 - importance) * 100
+  const [showMatrixInfo, setShowMatrixInfo] = useState(false)
 
-  return (
-    <div className="card">
-      <div className="card-head">
-        <div className="card-title">Biodiversity Context Matrix</div>
-        <span style={{
-          fontSize: 9, fontWeight: 700, padding: '2px 7px',
-          borderRadius: 999, background: '#F3F4F6',
-          color: '#6B7280', border: '1px solid #E5E7EB'
-        }}>GBNAT methodology</span>
-      </div>
+  const MatrixInfoModal = () => (
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 9999,
+      background: 'rgba(0,0,0,0.5)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+    }} onClick={() => setShowMatrixInfo(false)}>
+      <div style={{
+        background: 'white', borderRadius: 12, padding: 24,
+        width: 440, maxWidth: '90vw',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+      }} onClick={e => e.stopPropagation()}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#1F2937' }}>
+            Biodiversity Context Matrix — Methodology
+          </div>
+          <button type="button" onClick={() => setShowMatrixInfo(false)} style={{
+            background: 'none', border: 'none', fontSize: 20,
+            cursor: 'pointer', color: '#9CA3AF',
+          }}>×</button>
+        </div>
 
-      <div style={{ padding: '12px 16px', display: 'flex', gap: 16 }}>
-        {/* Matrix grid */}
-        <div style={{ position: 'relative', width: 160, height: 160, flexShrink: 0 }}>
-          {/* Grid lines */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            display: 'grid', gridTemplateColumns: '1fr 1fr',
-            gridTemplateRows: '1fr 1fr',
-            border: '1px solid #E5E7EB',
-          }}>
-            {/* Quadrant I — top right */}
-            <div style={{ background: '#FEF2F2', borderRight: '1px solid #E5E7EB', borderBottom: '1px solid #E5E7EB', order: 2 }} />
-            {/* Quadrant II — top left */}
-            <div style={{ background: '#FFFBEB', borderBottom: '1px solid #E5E7EB', order: 1 }} />
-            {/* Quadrant III — bottom right */}
-            <div style={{ background: '#F0FDF4', borderRight: '1px solid #E5E7EB', order: 4 }} />
-            {/* Quadrant IV — bottom left */}
-            <div style={{ background: '#F9FAFB', order: 3 }} />
+        <div style={{ fontSize: 12, color: '#6B7280', lineHeight: 1.7 }}>
+          <p style={{ marginBottom: 12 }}>
+            The matrix positions your project area across two axes adapted from the
+            GBNAT (Think Nature) biodiversity assessment framework.
+          </p>
+
+          <div style={{ marginBottom: 12 }}>
+            <strong style={{ color: '#1F2937' }}>Importance axis (vertical)</strong>
+            <p style={{ margin: '4px 0 0' }}>
+              Calculated from GBIF occurrence data within the polygon:
+              60% weighted by occurrence density (records per km²) +
+              40% weighted by taxa richness (number of taxonomic groups detected out of 14).
+            </p>
           </div>
 
-          {/* Quadrant labels */}
-          <div style={{ position: 'absolute', top: 4, right: 4, fontSize: 8, fontWeight: 700, color: '#E84C3D' }}>I</div>
-          <div style={{ position: 'absolute', top: 4, left: 4, fontSize: 8, fontWeight: 700, color: '#F5A623' }}>II</div>
-          <div style={{ position: 'absolute', bottom: 4, right: 4, fontSize: 8, fontWeight: 700, color: '#18A957' }}>III</div>
-          <div style={{ position: 'absolute', bottom: 4, left: 4, fontSize: 8, fontWeight: 700, color: '#6B7280' }}>IV</div>
+          <div style={{ marginBottom: 12 }}>
+            <strong style={{ color: '#1F2937' }}>Intactness axis (horizontal)</strong>
+            <p style={{ margin: '4px 0 0' }}>
+              Derived from Sentinel-2 NDVI mean, scaled from [-1, +1] to [0, 1].
+              Higher NDVI indicates denser, healthier vegetation and greater ecosystem intactness.
+            </p>
+          </div>
 
-          {/* Project dot */}
-          {intactness !== null && (
-            <div style={{
-              position: 'absolute',
-              left: `${dotX}%`,
-              top: `${dotY}%`,
-              transform: 'translate(-50%, -50%)',
-              width: 12, height: 12,
-              borderRadius: '50%',
-              background: q?.color ?? '#06152B',
-              border: '2px solid white',
-              boxShadow: '0 1px 4px rgba(0,0,0,0.3)',
-              zIndex: 1,
-            }} title="Your project area" />
-          )}
+          <div style={{ marginBottom: 12 }}>
+            <strong style={{ color: '#1F2937' }}>Quadrant thresholds</strong>
+            <p style={{ margin: '4px 0 0' }}>
+              Both axes are divided at 0.5 (50%). Areas above 0.5 on importance
+              are considered high-value biodiversity areas. Areas above 0.5 on
+              intactness are considered ecologically intact.
+            </p>
+          </div>
 
-          {/* Axis labels */}
           <div style={{
-            position: 'absolute', bottom: -18, left: 0, right: 0,
-            textAlign: 'center', fontSize: 8, color: '#9CA3AF',
-          }}>← Intactness (NDVI) →</div>
-          <div style={{
-            position: 'absolute', top: 0, bottom: 0, left: -22,
-            display: 'flex', alignItems: 'center',
-            fontSize: 8, color: '#9CA3AF',
-            writingMode: 'vertical-rl',
-            transform: 'rotate(180deg)',
-          }}>← Importance →</div>
+            background: '#FFFBEB', border: '1px solid #FDE68A',
+            borderRadius: 6, padding: '8px 10px', fontSize: 10, color: '#92400E',
+          }}>
+            ⚠ This is a proxy-based screening tool. Importance uses observational
+            GBIF records (up to 300/taxon) which may reflect sampling bias.
+            Intactness uses quarterly NDVI composites which may not capture
+            seasonal variation. Field validation is recommended.
+          </div>
         </div>
 
-        {/* Right side info */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          {!data?.polygonCount ? (
-            <div style={{ fontSize: 11, color: '#9CA3AF', paddingTop: 8 }}>
-              Run an analysis to see your project's biodiversity context.
-            </div>
-          ) : intactness === null ? (
-            <div style={{ fontSize: 11, color: '#9CA3AF', paddingTop: 8 }}>
-              NDVI data required for full matrix analysis. Enable Sentinel-2 integration.
-            </div>
-          ) : (
-            <>
-              <div style={{
-                display: 'inline-block',
-                padding: '3px 10px', borderRadius: 999,
-                background: q?.bg, border: `1px solid ${q?.color}40`,
-                fontSize: 11, fontWeight: 700, color: q?.color,
-                marginBottom: 8,
-              }}>
-                Quadrant {quadrant} — {q?.label}
-              </div>
-              <p style={{ fontSize: 11, color: '#6B7280', lineHeight: 1.6, marginBottom: 8 }}>
-                {q?.desc}
-              </p>
-              <div style={{ fontSize: 10, color: '#9CA3AF' }}>
-                <div>Importance: {(importance * 100).toFixed(0)}% ({totalInPolygon} records · {taxaFound} taxa)</div>
-                <div>Intactness: {(intactness * 100).toFixed(0)}% (NDVI {ndviMean?.toFixed(3)})</div>
-              </div>
-            </>
-          )}
+        <div style={{ marginTop: 16, textAlign: 'right' }}>
+          <button type="button" onClick={() => setShowMatrixInfo(false)} style={{
+            padding: '8px 20px', background: '#18A957', color: 'white',
+            border: 'none', borderRadius: 6, fontSize: 12,
+            fontWeight: 600, cursor: 'pointer',
+          }}>Close</button>
         </div>
-      </div>
-
-      <div style={{
-        margin: '0 12px 12px', padding: '6px 10px',
-        background: '#F9FAFB', borderRadius: 6,
-        fontSize: 9, color: '#9CA3AF', lineHeight: 1.5,
-      }}>
-        Methodology adapted from GBNAT (Think Nature). Importance = GBIF occurrence density + taxa richness.
-        Intactness = Sentinel-2 NDVI proxy.
       </div>
     </div>
+  )
+  return (
+    <>
+      {showMatrixInfo && <MatrixInfoModal />}
+      <div className="card">
+        <div className="card-head">
+          <div className="card-title">Biodiversity Context Matrix</div>
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+            <span style={{
+              fontSize: 9, fontWeight: 700, padding: '2px 7px',
+              borderRadius: 999, background: '#F3F4F6',
+              color: '#6B7280', border: '1px solid #E5E7EB'
+            }}>GBNAT methodology</span>
+            <button
+              onClick={() => { console.log('ℹ clicked'); setShowMatrixInfo(true) }}
+              style={{
+                width: 20, height: 20, borderRadius: '50%',
+                background: '#E5E7EB', border: 'none',
+                fontSize: 11, cursor: 'pointer', color: '#6B7280',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontWeight: 700,
+              }}
+              title="How is this calculated?"
+            >ℹ</button>
+          </div>
+        </div>
+
+        <div style={{ padding: '12px 16px', display: 'flex', gap: 16 }}>
+          {/* Matrix grid */}
+          <div style={{ position: 'relative', width: 160, height: 160, flexShrink: 0 }}>
+            {/* Grid lines */}
+            <div style={{
+              position: 'absolute', inset: 0,
+              display: 'grid', gridTemplateColumns: '1fr 1fr',
+              gridTemplateRows: '1fr 1fr',
+              border: '1px solid #E5E7EB',
+            }}>
+              {/* Quadrant I — top right */}
+              <div style={{ background: '#FEF2F2', borderRight: '1px solid #E5E7EB', borderBottom: '1px solid #E5E7EB', order: 2 }} />
+              {/* Quadrant II — top left */}
+              <div style={{ background: '#FFFBEB', borderBottom: '1px solid #E5E7EB', order: 1 }} />
+              {/* Quadrant III — bottom right */}
+              <div style={{ background: '#F0FDF4', borderRight: '1px solid #E5E7EB', order: 4 }} />
+              {/* Quadrant IV — bottom left */}
+              <div style={{ background: '#F9FAFB', order: 3 }} />
+            </div>
+
+            {/* Quadrant labels */}
+            <div style={{ position: 'absolute', top: 4, right: 4, fontSize: 8, fontWeight: 700, color: '#E84C3D' }}>I</div>
+            <div style={{ position: 'absolute', top: 4, left: 4, fontSize: 8, fontWeight: 700, color: '#F5A623' }}>II</div>
+            <div style={{ position: 'absolute', bottom: 4, right: 4, fontSize: 8, fontWeight: 700, color: '#18A957' }}>III</div>
+            <div style={{ position: 'absolute', bottom: 4, left: 4, fontSize: 8, fontWeight: 700, color: '#6B7280' }}>IV</div>
+
+            {/* Project dot */}
+            {intactness !== null && (
+              <div style={{
+                position: 'absolute',
+                left: `${dotX}%`,
+                top: `${dotY}%`,
+                transform: 'translate(-50%, -50%)',
+                width: 12, height: 12,
+                borderRadius: '50%',
+                background: q?.color ?? '#06152B',
+                border: '2px solid white',
+                boxShadow: '0 1px 4px rgba(0,0,0,0.3)',
+                zIndex: 1,
+              }} title="Your project area" />
+            )}
+
+            {/* Axis labels */}
+            <div style={{
+              position: 'absolute', bottom: -18, left: 0, right: 0,
+              textAlign: 'center', fontSize: 8, color: '#9CA3AF',
+            }}>← Intactness (NDVI) →</div>
+            <div style={{
+              position: 'absolute', top: 0, bottom: 0, left: -22,
+              display: 'flex', alignItems: 'center',
+              fontSize: 8, color: '#9CA3AF',
+              writingMode: 'vertical-rl',
+              transform: 'rotate(180deg)',
+            }}>← Importance →</div>
+          </div>
+
+          {/* Right side info */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            {!data?.polygonCount ? (
+              <div style={{ fontSize: 11, color: '#9CA3AF', paddingTop: 8 }}>
+                Run an analysis to see your project's biodiversity context.
+              </div>
+            ) : intactness === null ? (
+              <div style={{ fontSize: 11, color: '#9CA3AF', paddingTop: 8 }}>
+                NDVI data required for full matrix analysis. Enable Sentinel-2 integration.
+              </div>
+            ) : (
+              <>
+                <div style={{
+                  display: 'inline-block',
+                  padding: '3px 10px', borderRadius: 999,
+                  background: q?.bg, border: `1px solid ${q?.color}40`,
+                  fontSize: 11, fontWeight: 700, color: q?.color,
+                  marginBottom: 8,
+                }}>
+                  Quadrant {quadrant} — {q?.label}
+                </div>
+                <p style={{ fontSize: 11, color: '#6B7280', lineHeight: 1.6, marginBottom: 8 }}>
+                  {q?.desc}
+                </p>
+                <div style={{ fontSize: 10, color: '#9CA3AF' }}>
+                  <div>Importance: {(importance * 100).toFixed(0)}% ({totalInPolygon} records · {taxaFound} taxa)</div>
+                  <div>Intactness: {(intactness * 100).toFixed(0)}% (NDVI {ndviMean?.toFixed(3)})</div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        <div style={{
+          margin: '0 12px 12px', padding: '6px 10px',
+          background: '#F9FAFB', borderRadius: 6,
+          fontSize: 9, color: '#9CA3AF', lineHeight: 1.5,
+        }}>
+          Methodology adapted from GBNAT (Think Nature). Importance = GBIF occurrence density + taxa richness.
+          Intactness = Sentinel-2 NDVI proxy.
+        </div>
+      </div>
+    </>
   )
 }
 
@@ -2220,6 +2311,8 @@ function ScenarioAnalysisCard({ data }) {
   const baseScore = data?.riskScore?.score ?? null
   const currentNdvi = ndvi?.mean ?? null
   const slope = ndvi?.slope ?? 0
+  const [showScenarioInfo, setShowScenarioInfo] = useState(false)
+
 
   if (!baseScore || !ndvi) {
     return (
@@ -2281,14 +2374,89 @@ function ScenarioAnalysisCard({ data }) {
     score >= 76 ? '#E84C3D' : score >= 51 ? '#F5A623' : score >= 26 ? '#FBBF24' : '#18A957'
 
   return (
+  <>
+    {showScenarioInfo && (
+      <div style={{
+        position: 'fixed', inset: 0, zIndex: 9999,
+        background: 'rgba(0,0,0,0.5)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }} onClick={() => setShowScenarioInfo(false)}>
+        <div style={{
+          background: 'white', borderRadius: 12, padding: 24,
+          width: 440, maxWidth: '90vw',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+        }} onClick={e => e.stopPropagation()}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#1F2937' }}>
+              Scenario Analysis — Methodology
+            </div>
+            <button type="button" onClick={() => setShowScenarioInfo(false)} style={{
+              background: 'none', border: 'none', fontSize: 20,
+              cursor: 'pointer', color: '#9CA3AF',
+            }}>×</button>
+          </div>
+          <div style={{ fontSize: 12, color: '#6B7280', lineHeight: 1.7 }}>
+            <p style={{ marginBottom: 12 }}>
+              Projects the biodiversity risk score 10 years forward under 3 scenarios
+              based on extrapolation of the current Sentinel-2 NDVI trend.
+            </p>
+            <div style={{ marginBottom: 12 }}>
+              <strong style={{ color: '#1F2937' }}>Status Quo</strong>
+              <p style={{ margin: '4px 0 0' }}>Current NDVI slope continues unchanged.</p>
+            </div>
+            <div style={{ marginBottom: 12 }}>
+              <strong style={{ color: '#1F2937' }}>Mitigation Applied</strong>
+              <p style={{ margin: '4px 0 0' }}>Slope multiplied by -2 — active habitat management reverses the trend at double the rate.</p>
+            </div>
+            <div style={{ marginBottom: 12 }}>
+              <strong style={{ color: '#1F2937' }}>Accelerated Degradation</strong>
+              <p style={{ margin: '4px 0 0' }}>Slope multiplied by 3 — increased pressure triples the rate of vegetation decline.</p>
+            </div>
+            <div style={{ marginBottom: 12 }}>
+              <strong style={{ color: '#1F2937' }}>Risk score projection</strong>
+              <p style={{ margin: '4px 0 0' }}>
+                NDVI {'>'}0.6 → -15pts · NDVI 0.4-0.6 → -8pts ·
+                NDVI 0.2-0.4 → unchanged · NDVI 0-0.2 → +8pts · NDVI {'<'}0 → +15pts
+              </p>
+            </div>
+            <div style={{
+              background: '#FFFBEB', border: '1px solid #FDE68A',
+              borderRadius: 6, padding: '8px 10px', fontSize: 10, color: '#92400E',
+            }}>
+              ⚠ Heuristic projections based on linear NDVI extrapolation. Not a predictive ecological model.
+            </div>
+          </div>
+          <div style={{ marginTop: 16, textAlign: 'right' }}>
+            <button type="button" onClick={() => setShowScenarioInfo(false)} style={{
+              padding: '8px 20px', background: '#18A957', color: 'white',
+              border: 'none', borderRadius: 6, fontSize: 12,
+              fontWeight: 600, cursor: 'pointer',
+            }}>Close</button>
+          </div>
+        </div>
+      </div>
+    )}
     <div className="card">
       <div className="card-head">
         <div className="card-title">Scenario Analysis</div>
-        <span style={{
-          fontSize: 9, fontWeight: 700, padding: '2px 7px',
-          borderRadius: 999, background: '#EFF6FF',
-          color: '#1D4ED8', border: '1px solid #BFDBFE'
-        }}>NDVI-based · 10yr projection</span>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <span style={{
+            fontSize: 9, fontWeight: 700, padding: '2px 7px',
+            borderRadius: 999, background: '#EFF6FF',
+            color: '#1D4ED8', border: '1px solid #BFDBFE'
+          }}>NDVI-based · 10yr projection</span>
+          <button
+            type="button"
+            onClick={() => setShowScenarioInfo(true)}
+            style={{
+              width: 20, height: 20, borderRadius: '50%',
+              background: '#E5E7EB', border: 'none',
+              fontSize: 11, cursor: 'pointer', color: '#6B7280',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontWeight: 700,
+            }}
+          >ℹ</button>
+        </div>
       </div>
 
       <div style={{ padding: '8px 16px' }}>
@@ -2362,6 +2530,7 @@ function ScenarioAnalysisCard({ data }) {
         ⚠ Projections are heuristic estimates based on NDVI trend extrapolation. Not a predictive ecological model.
       </div>
     </div>
+  </>
   )
 }
 
