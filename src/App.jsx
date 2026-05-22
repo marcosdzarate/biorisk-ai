@@ -7,6 +7,7 @@ import { LineChart, Line, BarChart, Bar, Cell, ResponsiveContainer, Tooltip as R
 import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI } from './gbif.js'
 import { jsPDF } from 'jspdf'
 import { supabase, getSupabaseWithAuth } from './supabase.js'
+import * as turf from '@turf/turf'
 
 const DEMO_KEY = import.meta.env.VITE_DEMO_KEY ?? ''
 const MODE = import.meta.env.VITE_MODE ?? 'demo'
@@ -1158,6 +1159,106 @@ function WorkflowBar() {
   )
 }
 
+function NdviLayer({ polygon, ndviData }) {
+  const map = useMap()
+
+  useEffect(() => {
+    if (!polygon || !ndviData) return
+
+    const lats = polygon.map(p => p[0])
+    const lngs = polygon.map(p => p[1])
+    const minLat = Math.min(...lats)
+    const maxLat = Math.max(...lats)
+    const minLng = Math.min(...lngs)
+    const maxLng = Math.max(...lngs)
+
+    const mean = ndviData.mean ?? 0
+    const trend = ndviData.trend
+
+    // Color based on NDVI mean
+    const color = mean > 0.6 ? '#15803D' :
+      mean > 0.4 ? '#18A957' :
+        mean > 0.2 ? '#FBBF24' :
+          mean > 0.0 ? '#F5A623' : '#E84C3D'
+
+    const rect = L.rectangle(
+      [[minLat, minLng], [maxLat, maxLng]],
+      {
+        color: color,
+        weight: 1,
+        fillColor: color,
+        fillOpacity: 0.35,
+      }
+    ).addTo(map)
+
+    const trendIcon = trend === 'Improving' ? '↗' : trend === 'Declining' ? '↘' : '→'
+    rect.bindTooltip(
+      `NDVI: ${mean.toFixed(3)} · ${ndviData.interpretation}<br/>Trend: ${trendIcon} ${trend}`,
+      { permanent: false, sticky: true }
+    )
+
+    return () => map.removeLayer(rect)
+  }, [map, polygon, ndviData])
+
+  return null
+}
+
+function WdpaLayer({ wdpaData, polygon }) {
+  const map = useMap()
+
+  useEffect(() => {
+    if (!wdpaData?.areas?.length || !polygon) return
+
+    const layers = []
+
+    // Convert user polygon to turf format for intersection check
+    const userPolygon = {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[...polygon.map(p => [p[1], p[0]]), [polygon[0][1], polygon[0][0]]]]
+      }
+    }
+
+    wdpaData.areas.forEach(area => {
+      if (!area.geometry) return
+
+      let intersects = false
+      try {
+        const areaFeature = { type: 'Feature', geometry: area.geometry }
+        intersects = turf.booleanIntersects(userPolygon, areaFeature)
+      } catch (e) {
+        intersects = false
+      }
+
+      // Only show areas that intersect with project polygon
+      if (!intersects) return
+
+      const layer = L.geoJSON(area.geometry, {
+        style: {
+          color: '#E84C3D',
+          weight: 2,
+          fillColor: '#E84C3D',
+          fillOpacity: 0.25,
+        }
+      }).addTo(map)
+
+      layer.bindTooltip(
+        `⚠️ OVERLAP: ${area.name}<br/>
+     IUCN Cat. ${area.iucnCategory} · ${area.designationType}<br/>
+     <strong style="color:#E84C3D">Intersects with project area</strong>`,
+        { permanent: false, sticky: true, maxWidth: 250 }
+      )
+
+      layers.push(layer)
+    })
+
+    return () => layers.forEach(l => map.removeLayer(l))
+  }, [map, wdpaData, polygon])
+
+  return null
+}
+
 function HeatmapLayer({ allTaxaRecords }) {
   const map = useMap()
 
@@ -1266,7 +1367,7 @@ function OccurrenceMarker({ occ, color, taxonName }) {
 }
 
 // ─── Cards ───────────────────────────────────────────────────────────────────
-function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false }) {
+function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndviData, wdpaData }) {
   const mapCenter = center || [-20, -60]
   const mapZoom = zoom ?? 7
   const hasPolygon = polygon && polygon.length >= 3
@@ -1280,29 +1381,26 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false }) {
         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
           {hasPolygon && (
             <>
-              <button
-                onClick={() => setViewMode('points')}
-                style={{
-                  padding: '4px 10px', borderRadius: 6, fontSize: 11,
-                  fontWeight: 600, border: '1px solid #E5E7EB', cursor: 'pointer',
-                  background: viewMode === 'points' ? '#18A957' : '#F9FAFB',
-                  color: viewMode === 'points' ? 'white' : '#6B7280',
-                }}>
-                📍 Points
-              </button>
-              <button
-                onClick={() => setViewMode('heatmap')}
-                style={{
-                  padding: '4px 10px', borderRadius: 6, fontSize: 11,
-                  fontWeight: 600, border: '1px solid #E5E7EB', cursor: 'pointer',
-                  background: viewMode === 'heatmap' ? '#18A957' : '#F9FAFB',
-                  color: viewMode === 'heatmap' ? 'white' : '#6B7280',
-                }}>
-                🌡 Heatmap
-              </button>
+              {[
+                { id: 'points', label: '📍 Points' },
+                { id: 'heatmap', label: '🌡 Heatmap' },
+                { id: 'ndvi', label: '🛰 NDVI' },
+                { id: 'protected', label: '🛡 Areas' },
+              ].map(mode => (
+                <button
+                  key={mode.id}
+                  onClick={() => setViewMode(mode.id)}
+                  style={{
+                    padding: '4px 10px', borderRadius: 6, fontSize: 11,
+                    fontWeight: 600, border: '1px solid #E5E7EB', cursor: 'pointer',
+                    background: viewMode === mode.id ? '#18A957' : '#F9FAFB',
+                    color: viewMode === mode.id ? 'white' : '#6B7280',
+                  }}>
+                  {mode.label}
+                </button>
+              ))}
             </>
           )}
-          <button className="btn-ghost">Edit area</button>
         </div>
       </div>
       <div className={`map-wrap${fullWidth ? ' full-width' : ''}`} style={{ position: 'relative' }}>
@@ -1326,7 +1424,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false }) {
               }}
             />
           )}
-          {hasPolygon && viewMode === 'points' && allTaxaRecords?.flatMap((taxon, ti) => {
+          {hasPolygon && (viewMode === 'points' || viewMode === 'protected') && allTaxaRecords?.flatMap((taxon, ti) => {
             const color = TAXON_COLORS[taxon.name] || '#18A957'
             return (taxon.records ?? []).map((occ, i) => (
               (occ.lat != null && occ.lng != null) ? (
@@ -1341,6 +1439,16 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false }) {
           })}
           {hasPolygon && viewMode === 'heatmap' && (
             <HeatmapLayer allTaxaRecords={allTaxaRecords} />
+          )}
+
+          {/* NDVI Layer */}
+          {hasPolygon && viewMode === 'ndvi' && ndviData && (
+            <NdviLayer polygon={polygon} ndviData={ndviData} />
+          )}
+
+          {/* Protected Areas Layer */}
+          {hasPolygon && viewMode === 'protected' && wdpaData && (
+            <WdpaLayer wdpaData={wdpaData} polygon={polygon} />
           )}
         </MapContainer>
 
@@ -2374,163 +2482,163 @@ function ScenarioAnalysisCard({ data }) {
     score >= 76 ? '#E84C3D' : score >= 51 ? '#F5A623' : score >= 26 ? '#FBBF24' : '#18A957'
 
   return (
-  <>
-    {showScenarioInfo && (
-      <div style={{
-        position: 'fixed', inset: 0, zIndex: 9999,
-        background: 'rgba(0,0,0,0.5)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-      }} onClick={() => setShowScenarioInfo(false)}>
+    <>
+      {showScenarioInfo && (
         <div style={{
-          background: 'white', borderRadius: 12, padding: 24,
-          width: 440, maxWidth: '90vw',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-        }} onClick={e => e.stopPropagation()}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-            <div style={{ fontSize: 14, fontWeight: 700, color: '#1F2937' }}>
-              Scenario Analysis — Methodology
-            </div>
-            <button type="button" onClick={() => setShowScenarioInfo(false)} style={{
-              background: 'none', border: 'none', fontSize: 20,
-              cursor: 'pointer', color: '#9CA3AF',
-            }}>×</button>
-          </div>
-          <div style={{ fontSize: 12, color: '#6B7280', lineHeight: 1.7 }}>
-            <p style={{ marginBottom: 12 }}>
-              Projects the biodiversity risk score 10 years forward under 3 scenarios
-              based on extrapolation of the current Sentinel-2 NDVI trend.
-            </p>
-            <div style={{ marginBottom: 12 }}>
-              <strong style={{ color: '#1F2937' }}>Status Quo</strong>
-              <p style={{ margin: '4px 0 0' }}>Current NDVI slope continues unchanged.</p>
-            </div>
-            <div style={{ marginBottom: 12 }}>
-              <strong style={{ color: '#1F2937' }}>Mitigation Applied</strong>
-              <p style={{ margin: '4px 0 0' }}>Slope multiplied by -2 — active habitat management reverses the trend at double the rate.</p>
-            </div>
-            <div style={{ marginBottom: 12 }}>
-              <strong style={{ color: '#1F2937' }}>Accelerated Degradation</strong>
-              <p style={{ margin: '4px 0 0' }}>Slope multiplied by 3 — increased pressure triples the rate of vegetation decline.</p>
-            </div>
-            <div style={{ marginBottom: 12 }}>
-              <strong style={{ color: '#1F2937' }}>Risk score projection</strong>
-              <p style={{ margin: '4px 0 0' }}>
-                NDVI {'>'}0.6 → -15pts · NDVI 0.4-0.6 → -8pts ·
-                NDVI 0.2-0.4 → unchanged · NDVI 0-0.2 → +8pts · NDVI {'<'}0 → +15pts
-              </p>
-            </div>
-            <div style={{
-              background: '#FFFBEB', border: '1px solid #FDE68A',
-              borderRadius: 6, padding: '8px 10px', fontSize: 10, color: '#92400E',
-            }}>
-              ⚠ Heuristic projections based on linear NDVI extrapolation. Not a predictive ecological model.
-            </div>
-          </div>
-          <div style={{ marginTop: 16, textAlign: 'right' }}>
-            <button type="button" onClick={() => setShowScenarioInfo(false)} style={{
-              padding: '8px 20px', background: '#18A957', color: 'white',
-              border: 'none', borderRadius: 6, fontSize: 12,
-              fontWeight: 600, cursor: 'pointer',
-            }}>Close</button>
-          </div>
-        </div>
-      </div>
-    )}
-    <div className="card">
-      <div className="card-head">
-        <div className="card-title">Scenario Analysis</div>
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-          <span style={{
-            fontSize: 9, fontWeight: 700, padding: '2px 7px',
-            borderRadius: 999, background: '#EFF6FF',
-            color: '#1D4ED8', border: '1px solid #BFDBFE'
-          }}>NDVI-based · 10yr projection</span>
-          <button
-            type="button"
-            onClick={() => setShowScenarioInfo(true)}
-            style={{
-              width: 20, height: 20, borderRadius: '50%',
-              background: '#E5E7EB', border: 'none',
-              fontSize: 11, cursor: 'pointer', color: '#6B7280',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontWeight: 700,
-            }}
-          >ℹ</button>
-        </div>
-      </div>
-
-      <div style={{ padding: '8px 16px' }}>
-        {/* Scenario summary */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, marginBottom: 12 }}>
-          {scenarios.map(s => {
-            const endScore = chartData[chartData.length - 1][s.id]
-            const delta = endScore - baseScore
-            return (
-              <div key={s.id} style={{
-                background: '#F9FAFB', borderRadius: 8, padding: '8px 10px',
-                border: `1px solid ${s.color}30`,
-              }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: s.color, marginBottom: 2 }}>
-                  {s.label}
-                </div>
-                <div style={{ fontSize: 18, fontWeight: 700, color: getScoreColor(endScore) }}>
-                  {endScore}
-                </div>
-                <div style={{ fontSize: 9, color: '#9CA3AF' }}>
-                  in 10 years ({delta >= 0 ? '+' : ''}{delta} pts)
-                </div>
+          position: 'fixed', inset: 0, zIndex: 9999,
+          background: 'rgba(0,0,0,0.5)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }} onClick={() => setShowScenarioInfo(false)}>
+          <div style={{
+            background: 'white', borderRadius: 12, padding: 24,
+            width: 440, maxWidth: '90vw',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+          }} onClick={e => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#1F2937' }}>
+                Scenario Analysis — Methodology
               </div>
-            )
-          })}
-        </div>
-
-        {/* Chart */}
-        <div style={{ height: 140 }}>
-          <ResponsiveContainer>
-            <LineChart data={chartData} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
-              <YAxis domain={[0, 100]} hide />
-              <RTooltip
-                contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
-                formatter={(value, name) => {
-                  const s = scenarios.find(sc => sc.id === name)
-                  return [value, s?.label ?? name]
-                }}
-              />
-              {scenarios.map(s => (
-                <Line
-                  key={s.id}
-                  type="monotone"
-                  dataKey={s.id}
-                  stroke={s.color}
-                  strokeWidth={2}
-                  dot={{ r: 3, fill: s.color }}
-                  strokeDasharray={s.id === 'statusquo' ? '4 2' : undefined}
-                />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Legend */}
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 6 }}>
-          {scenarios.map(s => (
-            <div key={s.id} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-              <div style={{ width: 20, height: 2, background: s.color, borderRadius: 1 }} />
-              <span style={{ fontSize: 9, color: '#6B7280' }}>{s.label}</span>
+              <button type="button" onClick={() => setShowScenarioInfo(false)} style={{
+                background: 'none', border: 'none', fontSize: 20,
+                cursor: 'pointer', color: '#9CA3AF',
+              }}>×</button>
             </div>
-          ))}
+            <div style={{ fontSize: 12, color: '#6B7280', lineHeight: 1.7 }}>
+              <p style={{ marginBottom: 12 }}>
+                Projects the biodiversity risk score 10 years forward under 3 scenarios
+                based on extrapolation of the current Sentinel-2 NDVI trend.
+              </p>
+              <div style={{ marginBottom: 12 }}>
+                <strong style={{ color: '#1F2937' }}>Status Quo</strong>
+                <p style={{ margin: '4px 0 0' }}>Current NDVI slope continues unchanged.</p>
+              </div>
+              <div style={{ marginBottom: 12 }}>
+                <strong style={{ color: '#1F2937' }}>Mitigation Applied</strong>
+                <p style={{ margin: '4px 0 0' }}>Slope multiplied by -2 — active habitat management reverses the trend at double the rate.</p>
+              </div>
+              <div style={{ marginBottom: 12 }}>
+                <strong style={{ color: '#1F2937' }}>Accelerated Degradation</strong>
+                <p style={{ margin: '4px 0 0' }}>Slope multiplied by 3 — increased pressure triples the rate of vegetation decline.</p>
+              </div>
+              <div style={{ marginBottom: 12 }}>
+                <strong style={{ color: '#1F2937' }}>Risk score projection</strong>
+                <p style={{ margin: '4px 0 0' }}>
+                  NDVI {'>'}0.6 → -15pts · NDVI 0.4-0.6 → -8pts ·
+                  NDVI 0.2-0.4 → unchanged · NDVI 0-0.2 → +8pts · NDVI {'<'}0 → +15pts
+                </p>
+              </div>
+              <div style={{
+                background: '#FFFBEB', border: '1px solid #FDE68A',
+                borderRadius: 6, padding: '8px 10px', fontSize: 10, color: '#92400E',
+              }}>
+                ⚠ Heuristic projections based on linear NDVI extrapolation. Not a predictive ecological model.
+              </div>
+            </div>
+            <div style={{ marginTop: 16, textAlign: 'right' }}>
+              <button type="button" onClick={() => setShowScenarioInfo(false)} style={{
+                padding: '8px 20px', background: '#18A957', color: 'white',
+                border: 'none', borderRadius: 6, fontSize: 12,
+                fontWeight: 600, cursor: 'pointer',
+              }}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="card">
+        <div className="card-head">
+          <div className="card-title">Scenario Analysis</div>
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+            <span style={{
+              fontSize: 9, fontWeight: 700, padding: '2px 7px',
+              borderRadius: 999, background: '#EFF6FF',
+              color: '#1D4ED8', border: '1px solid #BFDBFE'
+            }}>NDVI-based · 10yr projection</span>
+            <button
+              type="button"
+              onClick={() => setShowScenarioInfo(true)}
+              style={{
+                width: 20, height: 20, borderRadius: '50%',
+                background: '#E5E7EB', border: 'none',
+                fontSize: 11, cursor: 'pointer', color: '#6B7280',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontWeight: 700,
+              }}
+            >ℹ</button>
+          </div>
+        </div>
+
+        <div style={{ padding: '8px 16px' }}>
+          {/* Scenario summary */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, marginBottom: 12 }}>
+            {scenarios.map(s => {
+              const endScore = chartData[chartData.length - 1][s.id]
+              const delta = endScore - baseScore
+              return (
+                <div key={s.id} style={{
+                  background: '#F9FAFB', borderRadius: 8, padding: '8px 10px',
+                  border: `1px solid ${s.color}30`,
+                }}>
+                  <div style={{ fontSize: 10, fontWeight: 700, color: s.color, marginBottom: 2 }}>
+                    {s.label}
+                  </div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: getScoreColor(endScore) }}>
+                    {endScore}
+                  </div>
+                  <div style={{ fontSize: 9, color: '#9CA3AF' }}>
+                    in 10 years ({delta >= 0 ? '+' : ''}{delta} pts)
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Chart */}
+          <div style={{ height: 140 }}>
+            <ResponsiveContainer>
+              <LineChart data={chartData} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+                <YAxis domain={[0, 100]} hide />
+                <RTooltip
+                  contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+                  formatter={(value, name) => {
+                    const s = scenarios.find(sc => sc.id === name)
+                    return [value, s?.label ?? name]
+                  }}
+                />
+                {scenarios.map(s => (
+                  <Line
+                    key={s.id}
+                    type="monotone"
+                    dataKey={s.id}
+                    stroke={s.color}
+                    strokeWidth={2}
+                    dot={{ r: 3, fill: s.color }}
+                    strokeDasharray={s.id === 'statusquo' ? '4 2' : undefined}
+                  />
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Legend */}
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 6 }}>
+            {scenarios.map(s => (
+              <div key={s.id} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <div style={{ width: 20, height: 2, background: s.color, borderRadius: 1 }} />
+                <span style={{ fontSize: 9, color: '#6B7280' }}>{s.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{
+          margin: '0 12px 12px', padding: '6px 10px',
+          background: '#FFFBEB', border: '1px solid #FDE68A',
+          borderRadius: 6, fontSize: 9, color: '#92400E',
+        }}>
+          ⚠ Projections are heuristic estimates based on NDVI trend extrapolation. Not a predictive ecological model.
         </div>
       </div>
-
-      <div style={{
-        margin: '0 12px 12px', padding: '6px 10px',
-        background: '#FFFBEB', border: '1px solid #FDE68A',
-        borderRadius: 6, fontSize: 9, color: '#92400E',
-      }}>
-        ⚠ Projections are heuristic estimates based on NDVI trend extrapolation. Not a predictive ecological model.
-      </div>
-    </div>
-  </>
+    </>
   )
 }
 
@@ -4423,6 +4531,11 @@ export default function App() {
     if (id === 'new') {
       setPage('new-analysis')
       setAnalysisStep(1)
+      setActivePolygon(null)
+      setAnalysisProject({ name: '', country: 'AR', sector: 'Wind Energy' })
+      setDrawnPoints([])
+      setDrawnPolygon(null)
+      setScanResults(null)
     } else if (id === 'dashboard') {
       setPage(gbifData?.polygonCount > 0 ? 'dashboard' : 'welcome')
     } else if (id === 'projects') {
@@ -4446,6 +4559,7 @@ export default function App() {
     setScanProgress(0)
     setScanning(false)
     setAnalysisProject({ name: '', country: 'AR', sector: 'Wind Energy' })
+    setActivePolygon(null)
   }
 
   async function runScan() {
@@ -5147,10 +5261,12 @@ export default function App() {
                       zoom={mapZoom}
                       allTaxaRecords={gbifData?.allTaxaRecords}
                       fullWidth={true}
+                      ndviData={gbifData?.ndvi}
+                      wdpaData={gbifData?.wdpa}
                     />
                     {/* Risk Score flotante */}
                     <div style={{
-                      position: 'absolute', top: 12, right: 12, zIndex: 1000,
+                      position: 'absolute', bottom: 12, right: 12, zIndex: 1000,
                       background: 'white', borderRadius: 12,
                       boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
                       border: '1px solid #E5E7EB',

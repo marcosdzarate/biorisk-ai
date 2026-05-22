@@ -371,8 +371,7 @@ export async function queryProtectedAreas(bbox, country) {
 
   try {
     const iso3 = ISO2_TO_ISO3[country] ?? country
-    const url = `/api/wdpa/v3/protected_areas/search?token=${token}&country=${iso3}&page=1&per_page=10`
-
+    const url = `/api/wdpa/v3/protected_areas/search?token=${token}&country=${iso3}&page=1&per_page=50&with_geometry=true`
     const response = await fetch(url)
     if (!response.ok) throw new Error(`WDPA API ${response.status}`)
 
@@ -381,13 +380,14 @@ export async function queryProtectedAreas(bbox, country) {
 
     return {
       total: areas.length,
-      areas: areas.slice(0, 5).map(a => ({
+      areas: areas.slice(0, 50).map(a => ({
         name: a.name,
         iucnCategory: a.iucn_category?.name ?? 'Unknown',
         designationType: a.designation?.name ?? 'Unknown',
         status: a.legal_status?.name ?? 'Unknown',
         area: a.reported_area,
         link: a.links?.protected_planet ?? null,
+        geometry: a.geojson?.geometry ?? null,
       })),
       source: 'wdpa-api',
     }
