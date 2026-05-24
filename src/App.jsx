@@ -3739,6 +3739,44 @@ function NewAnalysisPage({
                 {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
 
+              {/* CSRD Scope Checker */}
+              {(() => {
+                const csrdSectors = ['Agriculture & Forestry', 'Mining & Extractives', 'Oil & Gas', 'Hydroelectric']
+                const euExportCountries = ['BR', 'AR', 'CO', 'PE', 'EC', 'BO', 'PY', 'GT', 'HN', 'NI']
+                const isHighRiskSector = csrdSectors.includes(analysisProject.sector)
+                const isEuExportCountry = euExportCountries.includes(analysisProject.country)
+
+                if (!isHighRiskSector && !isEuExportCountry) return null
+
+                return (
+                  <div style={{
+                    background: '#EFF6FF', border: '1px solid #BFDBFE',
+                    borderRadius: 8, padding: '10px 12px', marginTop: 10,
+                    fontSize: 11, color: '#1D4ED8', lineHeight: 1.6,
+                  }}>
+                    <div style={{ fontWeight: 700, marginBottom: 4 }}>
+                      ⚠ CSRD Scope Alert
+                    </div>
+                    {isHighRiskSector && (
+                      <div style={{ marginBottom: 3 }}>
+                        <strong>{analysisProject.sector}</strong> is a high-impact sector
+                        under CSRD ESRS E4 biodiversity disclosure requirements.
+                      </div>
+                    )}
+                    {isEuExportCountry && (
+                      <div>
+                        Companies in <strong>{COUNTRY_NAMES[analysisProject.country]}</strong> exporting
+                        to the EU with &gt;€150M EU revenue may be subject to
+                        CSRD (Directive 2022/2464) reporting obligations.
+                      </div>
+                    )}
+                    <div style={{ marginTop: 6, fontSize: 10, color: '#3B82F6' }}>
+                      BioRisk AI provides the biodiversity baseline data required for ESRS E4 disclosure.
+                    </div>
+                  </div>
+                )
+              })()}
+
               <div className="wiz-divider" />
 
               <div className="wiz-info">
