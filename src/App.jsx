@@ -3084,8 +3084,10 @@ function TnfdCard({ data, analysisProject }) {
       desc: 'Identify nature-related issues across operations',
       done: hasGbif || hasWdpa,
       evidence: hasWdpa
-        ? `${data.wdpa.total} protected areas identified via WDPA`
-        : hasGbif ? 'Project area mapped with GBIF occurrence data' : null,
+        ? data.wdpa.intersectingCount > 0
+          ? `${data.wdpa.intersectingCount} protected area${data.wdpa.intersectingCount > 1 ? 's' : ''} intersecting project boundary`
+          : 'No protected areas intersecting project boundary'
+        : hasGbif ? 'Project area mapped with GBIF data' : null,
     },
     {
       label: 'Evaluate',
@@ -3114,12 +3116,24 @@ function TnfdCard({ data, analysisProject }) {
   return (
     <div className="card">
       <div className="card-head">
-        <div className="card-title">TNFD Alignment</div>
-        <span style={{
-          fontSize: 9, fontWeight: 700, padding: '2px 7px',
-          borderRadius: 999, background: '#F3F4F6',
-          color: '#6B7280', border: '1px solid #E5E7EB'
-        }}>{sector}</span>
+        <div className="card-title">TNFD & CSRD Alignment</div>
+        <div style={{ display: 'flex', gap: 4, alignItems: 'center', flexWrap: 'wrap' }}>
+          <span style={{
+            fontSize: 9, fontWeight: 700, padding: '2px 7px',
+            borderRadius: 999, background: '#F0FDF4',
+            color: '#18A957', border: '1px solid #BBF7D0'
+          }}>TNFD ✓</span>
+          <span style={{
+            fontSize: 9, fontWeight: 700, padding: '2px 7px',
+            borderRadius: 999, background: '#EFF6FF',
+            color: '#1D4ED8', border: '1px solid #BFDBFE'
+          }}>CSRD ESRS E4 ✓</span>
+          <span style={{
+            fontSize: 9, fontWeight: 700, padding: '2px 7px',
+            borderRadius: 999, background: '#F3F4F6',
+            color: '#6B7280', border: '1px solid #E5E7EB'
+          }}>{sector}</span>
+        </div>
       </div>
 
       <div className="tnfd-list">
@@ -3151,7 +3165,11 @@ function TnfdCard({ data, analysisProject }) {
       <div style={{ fontSize: 10, color: '#9CA3AF', padding: '0 12px 12px' }}>
         Screening-grade. Field validation recommended for regulatory sign-off.
       </div>
+      <div style={{ fontSize: 10, color: '#9CA3AF', padding: '0 12px 12px', fontStyle: 'italic' }}>
+        One analysis · Two frameworks — all 14 TNFD disclosures reflected in CSRD ESRS E4
+      </div>
     </div>
+
   )
 }
 function DataSourcesCard({ data, loading, onShowStats }) {
@@ -4353,8 +4371,8 @@ function WelcomePage({ onStart }) {
             Welcome to BioRisk AI
           </h1>
           <p style={{ fontSize: 13, color: '#6B7280', lineHeight: 1.7 }}>
-            Latin America hosts 40% of the world's known species —<br/>
-            yet biodiversity is rarely factored into investment decisions.<br/>
+            Latin America hosts 40% of the world's known species —<br />
+            yet biodiversity is rarely factored into investment decisions.<br />
             <strong style={{ color: '#1F2937' }}>BioRisk AI changes that.</strong>
           </p>
         </div>
@@ -4453,7 +4471,7 @@ function WelcomePage({ onStart }) {
 
         {/* Footer */}
         <div style={{ textAlign: 'center', fontSize: 10, color: '#9CA3AF', lineHeight: 1.8 }}>
-          Covering 16 countries across Latin America and the Caribbean<br/>
+          Covering 16 countries across Latin America and the Caribbean<br />
           Powered by GBIF · Sentinel-2 · WDPA · FAO Whisp · Global Forest Watch
         </div>
 
@@ -4770,13 +4788,34 @@ export default function App() {
       setScanStepLabel('')
       await delay(400)
 
+      // Calculate WDPA areas that intersect with the polygon
+      let wdpaIntersecting = []
+      if (wdpa?.areas?.length && polygon) {
+        const turfPolygon = turf.polygon([[...polygon.map(p => [p[1], p[0]]), [polygon[0][1], polygon[0][0]]]])
+        wdpaIntersecting = wdpa.areas.filter(area => {
+          if (!area.geometry) return false
+          try {
+            const areaFeature = { type: 'Feature', geometry: area.geometry }
+            return turf.booleanIntersects(turfPolygon, areaFeature)
+          } catch (e) {
+            return false
+          }
+        })
+      }
+
+      const wdpaEnriched = wdpa ? {
+        ...wdpa,
+        intersecting: wdpaIntersecting,
+        intersectingCount: wdpaIntersecting.length,
+      } : null
+
       setScanResults({
         aves,
         mammalia,
         gaps,
         bufferData,
         papers,
-        wdpa,
+        wdpa: wdpaEnriched,
         ndvi,
         spatialData,
         riskScore,
