@@ -354,7 +354,8 @@ export async function queryOccurrencesInPolygon(polygon, taxonName) {
 const ISO2_TO_ISO3 = {
   AR: 'ARG', BR: 'BRA', CO: 'COL', CL: 'CHL',
   EC: 'ECU', MX: 'MEX', PE: 'PER', BO: 'BOL',
-  UY: 'URY', PY: 'PRY'
+  UY: 'URY', PY: 'PRY', CR: 'CRI', PA: 'PAN',
+  GT: 'GTM', VE: 'VEN', HN: 'HND', NI: 'NIC',
 }
 
 export async function queryProtectedAreas(bbox, country) {

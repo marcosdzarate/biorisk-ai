@@ -922,9 +922,22 @@ const fmt = n => n == null ? '—' : Number(n).toLocaleString('en-US')
 const delay = ms => new Promise(r => setTimeout(r, ms))
 
 const COUNTRY_NAMES = {
-  AR: 'Argentina', BR: 'Brazil', CO: 'Colombia', CL: 'Chile',
-  EC: 'Ecuador', MX: 'Mexico', PE: 'Peru', BO: 'Bolivia',
-  UY: 'Uruguay', PY: 'Paraguay',
+  AR: 'Argentina',
+  BR: 'Brazil',
+  CO: 'Colombia',
+  CL: 'Chile',
+  EC: 'Ecuador',
+  MX: 'Mexico',
+  PE: 'Peru',
+  BO: 'Bolivia',
+  UY: 'Uruguay',
+  PY: 'Paraguay',
+  CR: 'Costa Rica',
+  PA: 'Panama',
+  GT: 'Guatemala',
+  VE: 'Venezuela',
+  HN: 'Honduras',
+  NI: 'Nicaragua',
 }
 
 const COUNTRY_CENTERS = {
