@@ -4328,87 +4328,122 @@ function DataSourcesPage() {
 function WelcomePage({ onStart }) {
   return (
     <main className="main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{
-        textAlign: 'center', maxWidth: 520, padding: '0 24px',
-      }}>
-        <div style={{ fontSize: 64, marginBottom: 20 }}>🌿</div>
-        <h1 style={{
-          fontSize: 28, fontWeight: 700, color: '#1F2937',
-          letterSpacing: '-0.02em', marginBottom: 12,
-        }}>
-          Welcome to BioRisk AI
-        </h1>
-        <p style={{
-          fontSize: 14, color: '#6B7280', lineHeight: 1.75,
-          marginBottom: 16, textAlign: 'left',
-        }}>
-          BioRisk AI turns open GBIF occurrence data into actionable
-          biodiversity intelligence — in minutes, not months.
-        </p>
-        <p style={{
-          fontSize: 14, color: '#6B7280', lineHeight: 1.75,
-          marginBottom: 16, textAlign: 'left',
-        }}>
-          Draw your project area, run a scan, and get a screening-grade
-          risk profile backed by real species records, satellite vegetation
-          data, and protected area analysis.
-        </p>
-        <div style={{
-          background: '#F9FAFB', border: '1px solid #E5E7EB',
-          borderRadius: 8, padding: '12px 16px', marginBottom: 32,
-          textAlign: 'left',
-        }}>
-          <div style={{ fontSize: 12, marginBottom: 4 }}>
-            <strong style={{ color: '#1F2937' }}>Designed for:</strong>{' '}
-            <span style={{ color: '#6B7280' }}>ESG teams, environmental consultants, and financial institutions.</span>
-          </div>
-          <div style={{ fontSize: 12 }}>
-            <strong style={{ color: '#1F2937' }}>Not a replacement for:</strong>{' '}
-            <span style={{ color: '#6B7280' }}>formal field surveys or ESIA assessments.</span>
-          </div>
+      <div style={{ maxWidth: 560, padding: '0 24px', width: '100%' }}>
+
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: 32 }}>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>🌿</div>
+          <h1 style={{
+            fontSize: 26, fontWeight: 700, color: '#1F2937',
+            letterSpacing: '-0.02em', marginBottom: 8,
+          }}>
+            Welcome to BioRisk AI
+          </h1>
+          <p style={{ fontSize: 13, color: '#6B7280', lineHeight: 1.7 }}>
+            Latin America hosts 40% of the world's known species —<br/>
+            yet biodiversity is rarely factored into investment decisions.<br/>
+            <strong style={{ color: '#1F2937' }}>BioRisk AI changes that.</strong>
+          </p>
         </div>
 
-        <button
-          onClick={onStart}
-          style={{
-            background: '#18A957', color: 'white', border: 'none',
-            borderRadius: 10, padding: '14px 40px',
-            fontSize: 16, fontWeight: 600, cursor: 'pointer',
-            boxShadow: '0 4px 16px rgba(24,169,87,0.35)',
-            transition: 'all .15s',
-            display: 'block', width: '100%', maxWidth: 280, margin: '0 auto 16px',
-          }}
-        >
-          ➕ Start New Analysis
-        </button>
+        {/* What it is */}
+        <div style={{
+          background: '#F9FAFB', border: '1px solid #E5E7EB',
+          borderRadius: 10, padding: '16px 20px', marginBottom: 16,
+        }}>
+          <p style={{ fontSize: 13, color: '#6B7280', lineHeight: 1.75, marginBottom: 10 }}>
+            BioRisk AI turns open GBIF occurrence data into actionable biodiversity
+            intelligence — in minutes, not months. Draw your project area, run a scan,
+            and get a screening-grade risk profile backed by real species records,
+            satellite vegetation data, and protected area analysis.
+          </p>
+          <p style={{ fontSize: 12, color: '#9CA3AF', lineHeight: 1.6 }}>
+            Supports <strong style={{ color: '#1F2937' }}>TNFD LEAP</strong> and{' '}
+            <strong style={{ color: '#1F2937' }}>CSRD ESRS E4</strong> — a single analysis
+            covers both frameworks. Used by 500+ companies and 129 financial institutions
+            representing $17.7T in assets globally.
+          </p>
+        </div>
 
+        {/* Designed for */}
+        <div style={{
+          background: '#F0FDF4', border: '1px solid #BBF7D0',
+          borderRadius: 10, padding: '14px 20px', marginBottom: 16,
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#166534', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            Designed for
+          </div>
+          {[
+            'ESG analysts preparing TNFD / CSRD disclosures',
+            'Environmental consultants screening project sites',
+            'Multilateral Development Banks applying IFC PS6 / Equator Principles safeguards',
+            'Companies exporting to the EU under CSRD scope (Directive 2022/2464)',
+            'Researchers studying anthropogenic impacts on biodiversity',
+          ].map((item, i) => (
+            <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 4, fontSize: 12, color: '#166534' }}>
+              <span style={{ color: '#18A957', flexShrink: 0 }}>✓</span>
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Not a replacement */}
+        <div style={{
+          background: '#FFFBEB', border: '1px solid #FDE68A',
+          borderRadius: 10, padding: '10px 16px', marginBottom: 28,
+          fontSize: 11, color: '#92400E',
+        }}>
+          ⚠ <strong>Not a replacement for:</strong> formal field surveys or ESIA assessments.
+          Screening-grade results only.
+        </div>
+
+        {/* CTA */}
+        <div style={{ textAlign: 'center', marginBottom: 32 }}>
+          <button
+            onClick={onStart}
+            style={{
+              background: '#18A957', color: 'white', border: 'none',
+              borderRadius: 10, padding: '14px 40px',
+              fontSize: 15, fontWeight: 600, cursor: 'pointer',
+              boxShadow: '0 4px 16px rgba(24,169,87,0.35)',
+              transition: 'all .15s', display: 'inline-block',
+            }}
+          >
+            Start New Analysis →
+          </button>
+        </div>
+
+        {/* Steps */}
         <div style={{
           display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 12, marginTop: 40,
+          gap: 10, marginBottom: 24,
         }}>
           {[
             { icon: '🗺', title: 'Draw polygon', desc: 'Define your project area on the map' },
-            { icon: '🔬', title: 'GBIF scan', desc: '14 taxa queried in real time' },
-            { icon: '📊', title: 'Risk report', desc: 'Score, NDVI, WDPA & AI insights' },
+            { icon: '🔬', title: 'GBIF scan', desc: '14 taxa · 16 LAC countries' },
+            { icon: '📊', title: 'Risk report', desc: 'TNFD · CSRD · IFC PS6 aligned' },
           ].map((step, i) => (
             <div key={i} style={{
               background: 'white', border: '1px solid #E5E7EB',
-              borderRadius: 10, padding: '16px 12px', textAlign: 'center',
+              borderRadius: 8, padding: '14px 10px', textAlign: 'center',
             }}>
-              <div style={{ fontSize: 24, marginBottom: 8 }}>{step.icon}</div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#1F2937', marginBottom: 4 }}>
+              <div style={{ fontSize: 22, marginBottom: 6 }}>{step.icon}</div>
+              <div style={{ fontSize: 11, fontWeight: 600, color: '#1F2937', marginBottom: 3 }}>
                 {step.title}
               </div>
-              <div style={{ fontSize: 11, color: '#9CA3AF', lineHeight: 1.5 }}>
+              <div style={{ fontSize: 10, color: '#9CA3AF', lineHeight: 1.5 }}>
                 {step.desc}
               </div>
             </div>
           ))}
         </div>
 
-        <div style={{ marginTop: 32, fontSize: 11, color: '#9CA3AF', lineHeight: 1.6 }}>
-          Powered by GBIF · Sentinel-2 · WDPA · AWS S3
+        {/* Footer */}
+        <div style={{ textAlign: 'center', fontSize: 10, color: '#9CA3AF', lineHeight: 1.8 }}>
+          Covering 16 countries across Latin America and the Caribbean<br/>
+          Powered by GBIF · Sentinel-2 · WDPA · FAO Whisp · Global Forest Watch
         </div>
+
       </div>
     </main>
   )
