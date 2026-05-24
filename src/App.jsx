@@ -2954,10 +2954,6 @@ function TnfdMetricsCard({ data, analysisProject }) {
   const wdpa = data?.wdpa
   const riskScore = data?.riskScore
 
-  // Calculate polygon area approximation from bbox
-  const bbox = data?.taxaInPolygon?.[0]?.records?.length > 0
-    ? null : null // placeholder
-
   const metrics = [
     {
       label: 'Species affected (proxy)',
@@ -2965,6 +2961,7 @@ function TnfdMetricsCard({ data, analysisProject }) {
       source: 'GBIF',
       real: taxaFound > 0,
       tnfd: 'B15',
+      standards: ['TNFD', 'ESRS E4', 'GRI 304'],
     },
     {
       label: 'Occurrence records in AOI',
@@ -2972,6 +2969,7 @@ function TnfdMetricsCard({ data, analysisProject }) {
       source: 'GBIF',
       real: totalInPolygon > 0,
       tnfd: 'B16',
+      standards: ['TNFD', 'IFC PS6'],
     },
     {
       label: 'Ecosystem integrity (NDVI)',
@@ -2979,6 +2977,7 @@ function TnfdMetricsCard({ data, analysisProject }) {
       source: 'Sentinel-2',
       real: ndvi != null,
       tnfd: 'E4',
+      standards: ['TNFD', 'ESRS E4', 'ISSB BEES'],
     },
     {
       label: 'Vegetation trend',
@@ -2986,13 +2985,15 @@ function TnfdMetricsCard({ data, analysisProject }) {
       source: 'Sentinel-2',
       real: ndvi != null,
       tnfd: 'E4',
+      standards: ['TNFD', 'ESRS E4'],
     },
     {
       label: 'Protected areas intersected',
-      value: wdpa ? `${wdpa.total} areas` : '—',
+      value: wdpa ? `${wdpa.intersectingCount ?? wdpa.total} areas` : '—',
       source: 'WDPA',
       real: wdpa != null,
       tnfd: 'B8',
+      standards: ['TNFD', 'ESRS E4', 'IFC PS6', 'EQ-P'],
     },
     {
       label: 'Biodiversity risk score',
@@ -3000,6 +3001,7 @@ function TnfdMetricsCard({ data, analysisProject }) {
       source: 'BioRisk AI',
       real: riskScore != null,
       tnfd: 'B1',
+      standards: ['TNFD', 'IFC PS6', 'EQ-P'],
     },
     {
       label: 'Scientific literature',
@@ -3007,6 +3009,7 @@ function TnfdMetricsCard({ data, analysisProject }) {
       source: 'GBIF Literature',
       real: data?.papers?.total != null,
       tnfd: 'B2',
+      standards: ['TNFD', 'GRI 304'],
     },
     {
       label: 'Land use change (NDVI ΔYoY)',
@@ -3014,18 +3017,40 @@ function TnfdMetricsCard({ data, analysisProject }) {
       source: 'Sentinel-2',
       real: ndvi != null,
       tnfd: 'E3',
+      standards: ['TNFD', 'ESRS E4', 'EUDR'],
     },
   ]
+
+  const STANDARD_COLORS = {
+    'TNFD': { bg: '#F0FDF4', color: '#18A957', border: '#BBF7D0' },
+    'ESRS E4': { bg: '#EFF6FF', color: '#1D4ED8', border: '#BFDBFE' },
+    'IFC PS6': { bg: '#FEF3C7', color: '#92400E', border: '#FDE68A' },
+    'EQ-P': { bg: '#F5F3FF', color: '#7C3AED', border: '#DDD6FE' },
+    'GRI 304': { bg: '#FFF1F2', color: '#BE123C', border: '#FECDD3' },
+    'EUDR': { bg: '#FFF7ED', color: '#C2410C', border: '#FED7AA' },
+    'ISSB BEES': { bg: '#F0F9FF', color: '#0369A1', border: '#BAE6FD' },
+  }
 
   return (
     <div className="card">
       <div className="card-head">
-        <div className="card-title">TNFD Core Metrics</div>
+        <div className="card-title">Core Metrics & Standards</div>
         <span style={{
           fontSize: 9, fontWeight: 700, padding: '2px 7px',
           borderRadius: 999, background: '#EFF6FF',
           color: '#1D4ED8', border: '1px solid #BFDBFE'
         }}>screening-grade</span>
+      </div>
+
+      {/* Standards legend */}
+      <div style={{ padding: '6px 12px 8px', display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+        {Object.entries(STANDARD_COLORS).map(([std, c]) => (
+          <span key={std} style={{
+            fontSize: 8, fontWeight: 700, padding: '1px 6px',
+            borderRadius: 3, background: c.bg, color: c.color,
+            border: `1px solid ${c.border}`,
+          }}>{std}</span>
+        ))}
       </div>
 
       <div style={{ overflowY: 'auto', maxHeight: 280 }}>
@@ -3034,25 +3059,31 @@ function TnfdMetricsCard({ data, analysisProject }) {
             <tr style={{ background: '#F9FAFB', position: 'sticky', top: 0 }}>
               <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Metric</th>
               <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Value</th>
-              <th style={{ padding: '6px 12px', textAlign: 'center', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>TNFD</th>
-              <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Source</th>
+              <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Frameworks</th>
             </tr>
           </thead>
           <tbody>
             {metrics.map((m, i) => (
               <tr key={i} style={{ borderTop: '1px solid #E5E7EB' }}>
-                <td style={{ padding: '7px 12px', color: '#6B7280' }}>{m.label}</td>
-                <td style={{ padding: '7px 12px', fontWeight: m.real ? 600 : 400, color: m.real ? '#1F2937' : '#9CA3AF', fontStyle: m.real ? 'normal' : 'italic' }}>
+                <td style={{ padding: '7px 12px', color: '#6B7280', fontSize: 10 }}>{m.label}</td>
+                <td style={{ padding: '7px 12px', fontWeight: m.real ? 600 : 400, color: m.real ? '#1F2937' : '#9CA3AF', fontStyle: m.real ? 'normal' : 'italic', fontSize: 10 }}>
                   {m.value}
                 </td>
-                <td style={{ padding: '7px 12px', textAlign: 'center' }}>
-                  <span style={{
-                    fontSize: 9, fontWeight: 700,
-                    padding: '1px 5px', borderRadius: 4,
-                    background: '#F3F4F6', color: '#6B7280',
-                  }}>{m.tnfd}</span>
+                <td style={{ padding: '7px 12px' }}>
+                  <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+                    {m.standards.map(std => {
+                      const c = STANDARD_COLORS[std] || { bg: '#F3F4F6', color: '#6B7280', border: '#E5E7EB' }
+                      return (
+                        <span key={std} style={{
+                          fontSize: 8, fontWeight: 700, padding: '1px 5px',
+                          borderRadius: 3, background: c.bg,
+                          color: c.color, border: `1px solid ${c.border}`,
+                          whiteSpace: 'nowrap',
+                        }}>{std}</span>
+                      )
+                    })}
+                  </div>
                 </td>
-                <td style={{ padding: '7px 12px', fontSize: 9, color: '#9CA3AF' }}>{m.source}</td>
               </tr>
             ))}
           </tbody>
@@ -3064,7 +3095,7 @@ function TnfdMetricsCard({ data, analysisProject }) {
         background: '#FFFBEB', border: '1px solid #FDE68A',
         borderRadius: 6, fontSize: 9, color: '#92400E',
       }}>
-        ⚠ Screening-grade metrics. TNFD references are indicative only — formal disclosure requires qualified assessment.
+        ⚠ Screening-grade metrics. Framework references are indicative — formal disclosure requires qualified assessment.
       </div>
     </div>
   )
