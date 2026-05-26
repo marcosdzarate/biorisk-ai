@@ -1172,6 +1172,27 @@ function WorkflowBar() {
   )
 }
 
+function GbifDensityLayer({ polygon }) {
+  const map = useMap()
+
+  useEffect(() => {
+    if (!polygon || polygon.length < 3) return
+
+    // Create a clip mask using SVG
+    const svgLayer = L.svg().addTo(map)
+
+    return () => map.removeLayer(svgLayer)
+  }, [map, polygon])
+
+  return (
+    <TileLayer
+      url="https://api.gbif.org/v2/map/occurrence/density/{z}/{x}/{y}@1x.png?style=fire.point"
+      opacity={0.75}
+      attribution="&copy; GBIF"
+    />
+  )
+}
+
 function NdviLayer({ polygon, ndviData }) {
   const map = useMap()
 
@@ -1399,6 +1420,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
                 { id: 'heatmap', label: '🌡 Heatmap' },
                 { id: 'ndvi', label: '🛰 NDVI' },
                 { id: 'protected', label: '🛡 Areas' },
+                { id: 'gbif', label: '🌍 GBIF Density' },
               ].map(mode => (
                 <button
                   key={mode.id}
@@ -1432,8 +1454,11 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
             <Polygon
               positions={polygon}
               pathOptions={{
-                color: '#ffffff', weight: 2,
-                fillColor: '#ffffff', fillOpacity: 0.04
+                color: viewMode === 'gbif' ? '#ffffff' : '#ffffff',
+                weight: viewMode === 'gbif' ? 3 : 2,
+                fillColor: '#ffffff',
+                fillOpacity: viewMode === 'gbif' ? 0 : 0.04,
+                dashArray: viewMode === 'gbif' ? '6 4' : undefined,
               }}
             />
           )}
@@ -1474,6 +1499,10 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
           {hasPolygon && viewMode === 'protected' && wdpaData && (
             <WdpaLayer wdpaData={wdpaData} polygon={polygon} />
           )}
+
+          {viewMode === 'gbif' && (
+            <GbifDensityLayer polygon={polygon} />
+          )}
         </MapContainer>
 
         {presentTaxa.length > 0 && viewMode === 'points' && (
@@ -1502,6 +1531,19 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
             lineHeight: 1.4,
           }}>
             ⚠ Heatmap reflects GBIF observation density, not confirmed habitat connectivity.
+          </div>
+        )}
+        {viewMode === 'gbif' && (
+          <div style={{
+            position: 'absolute', bottom: 8, left: 8, right: 8, zIndex: 1000,
+            background: 'rgba(255,251,235,0.95)',
+            border: '1px solid #FDE68A',
+            borderRadius: 6, padding: '5px 10px',
+            fontSize: 9, color: '#92400E',
+            lineHeight: 1.4,
+          }}>
+            🌍 Global GBIF occurrence density — 2B+ records from 70,000+ datasets worldwide.
+            Darker areas indicate higher sampling effort. Data via GBIF Maps API.
           </div>
         )}
       </div>
