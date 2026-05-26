@@ -45,6 +45,7 @@ International financial institutions operating in LAC — including the IDB, Wor
 
 ## Key Features
 
+- **TNFD LEAP site-level evidence** — provides the biodiversity baseline data that feeds into Strategy (Disclosure D: priority sites) and Metrics (Disclosures A and B) pillars of TNFD reporting, reducing initial site assessment from months to minutes
 - **14-taxa GBIF scan** — real-time query of occurrence records for vertebrates, invertebrates and plants within any project polygon
 - **TNFD LEAP alignment** — Locate, Evaluate, Assess and Prepare phases with real data evidence
 - **CSRD ESRS E4 support** — all 14 TNFD recommended disclosures are reflected in ESRS; one analysis covers both frameworks
