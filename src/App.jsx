@@ -1740,6 +1740,7 @@ function SpeciesRichnessCard({ data, loading }) {
   const hasPolygonData = polygonCount != null && polygonCount > 0
   const taxaInPolygon = data?.taxaInPolygon?.filter(t => t.inPolygon > 0) ?? []
   // Temporal baseline — records by year
+  const chao1 = data?.chao1
   const recordsByYear = useMemo(() => {
     const allRecords = data?.taxaInPolygon?.flatMap(t => t.records ?? []) ?? []
     const yearMap = {}
@@ -4930,6 +4931,24 @@ export default function App() {
           records: inside,
         }
       })
+
+      // Chao1 species richness estimator
+      const allRecordsInPolygon = taxaInPolygon.flatMap(t => t.records ?? [])
+      const speciesCounts = {}
+      allRecordsInPolygon.forEach(r => {
+        const sp = r.scientificName ?? 'unknown'
+        speciesCounts[sp] = (speciesCounts[sp] ?? 0) + 1
+      })
+      const sObs = Object.keys(speciesCounts).length
+      const n1 = Object.values(speciesCounts).filter(c => c === 1).length // singletons
+      const n2 = Object.values(speciesCounts).filter(c => c === 2).length // doubletons
+      const chao1 = n2 > 0
+        ? Math.round(sObs + (n1 * n1) / (2 * n2))
+        : n1 > 0 ? Math.round(sObs + (n1 * (n1 - 1)) / 2) : sObs
+      const samplingCompleteness = chao1 > 0 ? Math.round((sObs / chao1) * 100) : 100
+
+      console.log(`🔬 Chao1: ${chao1} estimated species (${sObs} observed, ${samplingCompleteness}% completeness)`)
+
       const totalInPolygon = taxaInPolygon.reduce((s, t) => s + t.inPolygon, 0)
 
       // Buffer zone analysis (5km indirect influence area)
@@ -5017,6 +5036,7 @@ export default function App() {
         polygon,
         country,
         forestLoss: forestLoss,
+        chao1: { estimated: chao1, observed: sObs, completeness: samplingCompleteness, singletons: n1, doubletons: n2 },
       })
 
       setAnalysisStep(3)
@@ -5104,8 +5124,7 @@ export default function App() {
       queriedAt: new Date(),
       ndvi: scanResults.ndvi,
       forestLoss: scanResults.forestLoss,
-
-
+      chao1: scanResults.chao1,
     })
 
     // Update project name in header
@@ -5695,6 +5714,33 @@ export default function App() {
                             </BarChart>
                           </ResponsiveContainer>
                         </div>
+                        {gbifData?.chao1 && (
+                          <div style={{ padding: '8px 12px 4px' }}>
+                            <div style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+                              Species Richness Estimate (Chao1)
+                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
+                              <div style={{ background: '#F9FAFB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
+                                <div style={{ fontSize: 14, fontWeight: 700, color: '#1F2937', fontFamily: 'monospace' }}>{gbifData?.chao1.observed}</div>
+                                <div style={{ fontSize: 9, color: '#9CA3AF' }}>observed</div>
+                              </div>
+                              <div style={{ background: '#F9FAFB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
+                                <div style={{ fontSize: 14, fontWeight: 700, color: '#18A957', fontFamily: 'monospace' }}>{gbifData?.chao1.estimated}</div>
+                                <div style={{ fontSize: 9, color: '#9CA3AF' }}>estimated</div>
+                              </div>
+                              <div style={{ background: gbifData?.chao1.completeness >= 80 ? '#F0FDF4' : '#FFFBEB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
+                                <div style={{
+                                  fontSize: 14, fontWeight: 700, fontFamily: 'monospace',
+                                  color: gbifData.chao1.completeness >= 80 ? '#18A957' : '#F5A623'
+                                }}>{gbifData?.chao1.completeness}%</div>
+                                <div style={{ fontSize: 9, color: '#9CA3AF' }}>completeness</div>
+                              </div>
+                            </div>
+                            <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 6 }}>
+                              Chao1 estimator · {gbifData?.chao1.singletons} singletons · {gbifData?.chao1.doubletons} doubletons
+                            </div>
+                          </div>
+                        )}
                         <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 4 }}>
                           Based on eventDate field · Sample of up to 300 records per taxon
                         </div>
