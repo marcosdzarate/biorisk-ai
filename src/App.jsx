@@ -1095,16 +1095,34 @@ function Gauge({ value, max = 100 }) {
 }
 
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
-function Sidebar({ activePage, setActivePage, user, logout }) {
+function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle }) {
   return (
-    <aside className="sidebar">
-      <div className="logo">
-        <div className="logo-title">
-          <span className="logo-mark">🌿</span>
-          BioRisk AI
-        </div>
-        <div className="logo-sub">Biodiversity Intelligence for ESG &amp; TNFD</div>
+    <aside className="sidebar" style={{ 
+      width: collapsed ? 56 : undefined,
+      transition: 'width 0.2s ease',
+      overflow: 'hidden',
+    }}>
+      <div className="logo" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+        {!collapsed && (
+          <div className="logo-title">
+            <span className="logo-mark">🌿</span>
+            BioRisk AI
+          </div>
+        )}
+        {collapsed && <span className="logo-mark" style={{ margin: '0 auto' }}>🌿</span>}
+        <button
+          onClick={onToggle}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            fontSize: 14, color: '#9CA3AF', padding: '2px 4px',
+            flexShrink: 0,
+          }}
+          title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        >
+          {collapsed ? '→' : '←'}
+        </button>
       </div>
+      {!collapsed && <div className="logo-sub">Biodiversity Intelligence for ESG &amp; TNFD</div>}
 
       <div className="nav-section-label">Workspace</div>
       <nav>
@@ -1115,7 +1133,7 @@ function Sidebar({ activePage, setActivePage, user, logout }) {
             onClick={() => setActivePage(item.id)}
           >
             <span className="nav-icon">{item.icon}</span>
-            <span>{item.label}</span>
+            {!collapsed && <span>{item.label}</span>}
           </div>
         ))}
       </nav>
@@ -4798,6 +4816,7 @@ export default function App() {
   const [projectName, setProjectName] = useState('Offshore Wind Farm – Patagonia')
   const [showStatsModal, setShowStatsModal] = useState(false)
   const [dashboardTab, setDashboardTab] = useState('overview')
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [showFullAnalysis, setShowFullAnalysis] = useState(false)
 
   // ─── New Analysis wizard state ───
@@ -5486,7 +5505,14 @@ export default function App() {
           gridTemplateColumns: isWizard ? '220px 1fr' : '220px 1fr 340px',
         }}
       >
-        <Sidebar activePage={activePage} setActivePage={handleNav} user={user} logout={logout} />
+        <Sidebar
+          activePage={activePage}
+          setActivePage={handleNav}
+          user={user}
+          logout={logout}
+          collapsed={sidebarCollapsed}
+          onToggle={() => setSidebarCollapsed(p => !p)}
+        />
         {isWizard ? (
           <NewAnalysisPage
             analysisStep={analysisStep}
