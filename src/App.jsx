@@ -4920,6 +4920,8 @@ export default function App() {
           occ.lat != null && occ.lng != null &&
           pointInPolygon([occ.lat, occ.lng], polygon)
         )
+        const issueFiltered = (taxaOccurrences[i]?.results?.length ?? 0) - results.length
+        if (issueFiltered > 0) console.log(`🔍 ${taxon.name}: ${issueFiltered} records excluded by issue filters`)
         return {
           ...taxon,
           total: taxaOccurrences[i]?.total ?? 0,

@@ -95,6 +95,7 @@ export async function callGbif(name, inp) {
         year: yr,
         hasCoordinate: inp.has_coordinate,
         occurrenceStatus: 'PRESENT',
+        issues: 'not:ZERO_COORDINATE,not:COORDINATE_OUT_OF_RANGE,not:COORDINATE_INVALID,not:COUNTRY_COORDINATE_MISMATCH',
         limit: inp.limit ?? 10
       });
       return {
@@ -608,7 +609,7 @@ export async function queryForestLoss(polygon) {
     const last5 = rows.slice(-5).reduce((s, r) => s + r.area_ha, 0) / 5
     const prev5 = rows.slice(-10, -5).reduce((s, r) => s + r.area_ha, 0) / 5
     const trend = last5 > prev5 * 1.2 ? 'Increasing' :
-                  last5 < prev5 * 0.8 ? 'Decreasing' : 'Stable'
+      last5 < prev5 * 0.8 ? 'Decreasing' : 'Stable'
 
     return {
       totalLoss: Math.round(totalLoss),
