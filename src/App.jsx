@@ -1992,34 +1992,48 @@ function EcosystemSensitivityCard({ data }) {
 
 const MITIGATION_ACTIONS = {
   'Wind Energy': [
-    { id: 'seasonal', label: 'Seasonal construction restriction', desc: 'Avoid construction during bird migration season (Sep–Nov)', scoreReduction: 8 },
-    { id: 'buffer', label: 'Add 500m buffer zone', desc: 'Restrict activity within 500m of protected areas', scoreReduction: 6 },
-    { id: 'monitoring', label: 'Implement bird monitoring', desc: 'Real-time radar monitoring for bird activity', scoreReduction: 4 },
+    { id: 'avoid_siting', label: 'Avoid sensitive habitat zones', desc: 'Relocate turbines 1km+ from WDPA boundaries and identified bird corridors', scoreReduction: 12, hierarchy: 'Avoid' },
+    { id: 'seasonal', label: 'Seasonal construction restriction', desc: 'Avoid construction during bird migration season (Sep–Nov)', scoreReduction: 8, hierarchy: 'Minimize' },
+    { id: 'buffer', label: 'Add 500m buffer zone', desc: 'Restrict activity within 500m of protected areas', scoreReduction: 6, hierarchy: 'Minimize' },
+    { id: 'monitoring', label: 'Implement bird monitoring', desc: 'Real-time radar monitoring and automatic turbine shutdown', scoreReduction: 4, hierarchy: 'Minimize' },
+    { id: 'restore', label: 'Habitat restoration plan', desc: 'Restore equivalent native habitat within project footprint', scoreReduction: 5, hierarchy: 'Restore' },
+    { id: 'offset', label: 'Biodiversity net gain offset', desc: 'Fund conservation of equivalent habitat area within same ecoregion', scoreReduction: 4, hierarchy: 'Offset' },
   ],
   'Mining & Extractives': [
-    { id: 'water', label: 'Water management plan', desc: 'Zero discharge policy for process water', scoreReduction: 10 },
-    { id: 'rehab', label: 'Progressive rehabilitation', desc: 'Restore habitat as extraction progresses', scoreReduction: 8 },
-    { id: 'buffer', label: 'Riparian buffer zones', desc: 'Maintain 200m undisturbed buffer along waterways', scoreReduction: 6 },
+    { id: 'avoid_critical', label: 'Avoid critical habitat areas', desc: 'Exclude areas with threatened species records from extraction plan', scoreReduction: 15, hierarchy: 'Avoid' },
+    { id: 'water', label: 'Water management plan', desc: 'Zero discharge policy for process water', scoreReduction: 10, hierarchy: 'Minimize' },
+    { id: 'buffer', label: 'Riparian buffer zones', desc: 'Maintain 200m undisturbed buffer along waterways', scoreReduction: 6, hierarchy: 'Minimize' },
+    { id: 'rehab', label: 'Progressive rehabilitation', desc: 'Restore habitat as extraction progresses, not after closure', scoreReduction: 8, hierarchy: 'Restore' },
+    { id: 'offset', label: 'Habitat offset program', desc: 'Fund conservation of equivalent ecosystem type', scoreReduction: 5, hierarchy: 'Offset' },
   ],
   'Agriculture & Forestry': [
-    { id: 'corridors', label: 'Wildlife corridors', desc: 'Maintain 10% of area as native vegetation strips', scoreReduction: 9 },
-    { id: 'pesticides', label: 'Reduce pesticide use', desc: 'Integrated pest management to protect pollinators', scoreReduction: 7 },
-    { id: 'native', label: 'Native species planting', desc: 'Replace exotic species with native plants', scoreReduction: 5 },
+    { id: 'avoid_forest', label: 'Avoid native forest conversion', desc: 'Restrict operations to already-degraded land', scoreReduction: 14, hierarchy: 'Avoid' },
+    { id: 'pesticides', label: 'Reduce pesticide use', desc: 'Integrated pest management to protect pollinators', scoreReduction: 7, hierarchy: 'Minimize' },
+    { id: 'corridors', label: 'Wildlife corridors', desc: 'Maintain 10% of area as native vegetation strips', scoreReduction: 9, hierarchy: 'Minimize' },
+    { id: 'native', label: 'Native species planting', desc: 'Replace exotic species with native plants in buffer zones', scoreReduction: 5, hierarchy: 'Restore' },
+    { id: 'offset', label: 'Forest conservation offset', desc: 'Fund protection of equivalent native forest area', scoreReduction: 4, hierarchy: 'Offset' },
   ],
   'Infrastructure': [
-    { id: 'culverts', label: 'Wildlife culverts', desc: 'Install underpasses every 500m for wildlife crossing', scoreReduction: 8 },
-    { id: 'lighting', label: 'Dark sky lighting', desc: 'Directional lighting to reduce nocturnal disturbance', scoreReduction: 5 },
-    { id: 'noise', label: 'Noise barriers', desc: 'Install barriers in sensitive habitat areas', scoreReduction: 4 },
+    { id: 'avoid_wetlands', label: 'Avoid wetlands and riparian zones', desc: 'Route infrastructure 500m+ away from water bodies', scoreReduction: 12, hierarchy: 'Avoid' },
+    { id: 'culverts', label: 'Wildlife culverts', desc: 'Install underpasses every 500m for wildlife crossing', scoreReduction: 8, hierarchy: 'Minimize' },
+    { id: 'lighting', label: 'Dark sky lighting', desc: 'Directional lighting to reduce nocturnal disturbance', scoreReduction: 5, hierarchy: 'Minimize' },
+    { id: 'restore', label: 'Vegetation restoration', desc: 'Restore construction corridor with native species after completion', scoreReduction: 6, hierarchy: 'Restore' },
+    { id: 'offset', label: 'Connectivity offset', desc: 'Fund wildlife corridor project in same landscape', scoreReduction: 4, hierarchy: 'Offset' },
   ],
   'Hydroelectric': [
-    { id: 'flow', label: 'Environmental flow regime', desc: 'Maintain minimum ecological flow downstream', scoreReduction: 12 },
-    { id: 'passage', label: 'Fish passage facility', desc: 'Install fish ladder or bypass channel', scoreReduction: 10 },
-    { id: 'riparian', label: 'Riparian restoration', desc: 'Restore 1km of riparian habitat upstream', scoreReduction: 6 },
+    { id: 'avoid_critical', label: 'Avoid critical fish habitats', desc: 'Exclude spawning areas from reservoir inundation zone', scoreReduction: 14, hierarchy: 'Avoid' },
+    { id: 'flow', label: 'Environmental flow regime', desc: 'Maintain minimum ecological flow downstream', scoreReduction: 12, hierarchy: 'Minimize' },
+    { id: 'passage', label: 'Fish passage facility', desc: 'Install fish ladder or bypass channel', scoreReduction: 10, hierarchy: 'Minimize' },
+    { id: 'riparian', label: 'Riparian restoration', desc: 'Restore 1km of riparian habitat upstream', scoreReduction: 6, hierarchy: 'Restore' },
+    { id: 'offset', label: 'Aquatic habitat offset', desc: 'Fund restoration of degraded river habitat in same basin', scoreReduction: 5, hierarchy: 'Offset' },
   ],
   'Oil & Gas': [
-    { id: 'spill', label: 'Enhanced spill prevention', desc: 'Double-hull infrastructure and rapid response plan', scoreReduction: 10 },
-    { id: 'marine', label: 'Marine mammal observer', desc: 'Halt operations when mammals detected within 500m', scoreReduction: 7 },
-    { id: 'seasonal', label: 'Seasonal drilling restrictions', desc: 'No drilling during whale calving season', scoreReduction: 8 },
+    { id: 'avoid_marine', label: 'Avoid marine mammal corridors', desc: 'Exclude known whale and dolphin migration routes from drilling plan', scoreReduction: 14, hierarchy: 'Avoid' },
+    { id: 'spill', label: 'Enhanced spill prevention', desc: 'Double-hull infrastructure and rapid response plan', scoreReduction: 10, hierarchy: 'Minimize' },
+    { id: 'seasonal', label: 'Seasonal drilling restrictions', desc: 'No drilling during whale calving season', scoreReduction: 8, hierarchy: 'Minimize' },
+    { id: 'marine', label: 'Marine mammal observer', desc: 'Halt operations when mammals detected within 500m', scoreReduction: 7, hierarchy: 'Minimize' },
+    { id: 'restore', label: 'Seabed restoration plan', desc: 'Restore disturbed seabed habitat post-operations', scoreReduction: 5, hierarchy: 'Restore' },
+    { id: 'offset', label: 'Marine conservation offset', desc: 'Fund marine protected area management in same region', scoreReduction: 4, hierarchy: 'Offset' },
   ],
 }
 
@@ -2090,45 +2104,66 @@ function HumanPressureCard({ data, analysisProject }) {
         )}
       </div>
 
-      {/* Actions list */}
+      {/* Actions list grouped by hierarchy */}
       <div style={{ padding: '8px 12px', flex: 1, overflowY: 'auto' }}>
-        {actions.map(action => (
-          <div
-            key={action.id}
-            onClick={() => toggleAction(action.id)}
-            style={{
-              display: 'flex', alignItems: 'flex-start', gap: 8,
-              padding: '8px', borderRadius: 8, cursor: 'pointer',
-              marginBottom: 4, transition: 'all .15s',
-              background: selected.includes(action.id) ? '#F0FDF4' : 'transparent',
-              border: `1px solid ${selected.includes(action.id) ? '#BBF7D0' : 'transparent'}`,
-            }}
-          >
-            <div style={{
-              width: 18, height: 18, borderRadius: 4, flexShrink: 0, marginTop: 1,
-              background: selected.includes(action.id) ? '#18A957' : '#E5E7EB',
-              border: `1.5px solid ${selected.includes(action.id) ? '#18A957' : '#D1D5DB'}`,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 10, color: 'white',
-            }}>
-              {selected.includes(action.id) ? '✓' : ''}
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 11, fontWeight: 600, color: '#1F2937', marginBottom: 1 }}>
-                {action.label}
+        {['Avoid', 'Minimize', 'Restore', 'Offset'].map(level => {
+          const levelActions = actions.filter(a => a.hierarchy === level)
+          if (!levelActions.length) return null
+          const levelColors = {
+            Avoid: { bg: '#FEF2F2', color: '#E84C3D', border: '#FECACA' },
+            Minimize: { bg: '#FFFBEB', color: '#F5A623', border: '#FDE68A' },
+            Restore: { bg: '#F0FDF4', color: '#18A957', border: '#BBF7D0' },
+            Offset: { bg: '#EFF6FF', color: '#1D4ED8', border: '#BFDBFE' },
+          }
+          const c = levelColors[level]
+          return (
+            <div key={level} style={{ marginBottom: 10 }}>
+              <div style={{
+                fontSize: 9, fontWeight: 700, color: c.color,
+                textTransform: 'uppercase', letterSpacing: '0.06em',
+                padding: '3px 8px', borderRadius: 4,
+                background: c.bg, border: `1px solid ${c.border}`,
+                display: 'inline-block', marginBottom: 5,
+              }}>
+                {level}
               </div>
-              <div style={{ fontSize: 10, color: '#9CA3AF', lineHeight: 1.4 }}>
-                {action.desc}
-              </div>
+              {levelActions.map(action => (
+                <div
+                  key={action.id}
+                  onClick={() => toggleAction(action.id)}
+                  style={{
+                    display: 'flex', alignItems: 'flex-start', gap: 8,
+                    padding: '7px 8px', borderRadius: 8, cursor: 'pointer',
+                    marginBottom: 3, transition: 'all .15s',
+                    background: selected.includes(action.id) ? '#F0FDF4' : 'transparent',
+                    border: `1px solid ${selected.includes(action.id) ? '#BBF7D0' : 'transparent'}`,
+                  }}
+                >
+                  <div style={{
+                    width: 16, height: 16, borderRadius: 4, flexShrink: 0, marginTop: 1,
+                    background: selected.includes(action.id) ? '#18A957' : '#E5E7EB',
+                    border: `1.5px solid ${selected.includes(action.id) ? '#18A957' : '#D1D5DB'}`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 9, color: 'white',
+                  }}>
+                    {selected.includes(action.id) ? '✓' : ''}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: '#1F2937', marginBottom: 1 }}>
+                      {action.label}
+                    </div>
+                    <div style={{ fontSize: 10, color: '#9CA3AF', lineHeight: 1.4 }}>
+                      {action.desc}
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 10, fontWeight: 700, color: '#18A957', flexShrink: 0, marginTop: 2 }}>
+                    -{action.scoreReduction}
+                  </div>
+                </div>
+              ))}
             </div>
-            <div style={{
-              fontSize: 10, fontWeight: 700, color: '#18A957',
-              flexShrink: 0, marginTop: 2
-            }}>
-              -{action.scoreReduction}
-            </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
       {selected.length === 0 && (
@@ -4592,17 +4627,16 @@ function WelcomePage({ onStart }) {
           background: '#F9FAFB', border: '1px solid #E5E7EB',
           borderRadius: 10, padding: '16px 20px', marginBottom: 16,
         }}>
-          <p style={{ fontSize: 13, color: '#6B7280', lineHeight: 1.75, marginBottom: 10 }}>
+          <p style={{ fontSize: 13, color: '#6B7280', lineHeight: 1.75, marginBottom: 8 }}>
             BioRisk AI turns open GBIF occurrence data into actionable biodiversity
             intelligence — in minutes, not months. Draw your project area, run a scan,
             and get a screening-grade risk profile backed by real species records,
             satellite vegetation data, and protected area analysis.
           </p>
-          <p style={{ fontSize: 12, color: '#9CA3AF', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 11, color: '#9CA3AF', lineHeight: 1.6 }}>
             Supports <strong style={{ color: '#1F2937' }}>TNFD LEAP</strong> and{' '}
-            <strong style={{ color: '#1F2937' }}>CSRD ESRS E4</strong> — a single analysis
-            covers both frameworks. Used by 500+ companies and 129 financial institutions
-            representing $17.7T in assets globally.
+            <strong style={{ color: '#1F2937' }}>CSRD ESRS E4</strong> — one analysis, two frameworks.
+            500+ companies · 129 financial institutions · $17.7T AUM globally.
           </p>
         </div>
 
