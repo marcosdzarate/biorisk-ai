@@ -3314,8 +3314,10 @@ function TnfdCard({ data, analysisProject }) {
         </div>
       )}
 
-      <div style={{ fontSize: 10, color: '#9CA3AF', padding: '0 12px 12px' }}>
-        Screening-grade. Field validation recommended for regulatory sign-off.
+      <div style={{ fontSize: 10, color: '#6B7280', padding: '0 12px 8px', lineHeight: 1.6 }}>
+        BioRisk AI supports Strategy (Disclosure D) and Metrics (A, B) pillars of TNFD reporting —
+        providing the site-level evidence base that reduces initial biodiversity assessment from months to minutes.
+        Field validation recommended for full disclosure.
       </div>
       <div style={{ fontSize: 10, color: '#9CA3AF', padding: '0 12px 12px', fontStyle: 'italic' }}>
         One analysis · Two frameworks — all 14 TNFD disclosures reflected in CSRD ESRS E4
