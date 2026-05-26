@@ -29,7 +29,21 @@ export default defineConfig({
         target: 'https://sh.dataspace.copernicus.eu',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/sentinel/, ''),
-      }
+      },
+      '/api/gfw': {
+        target: 'https://data-api.globalforestwatch.org',
+        changeOrigin: true,
+        secure: false,
+        followRedirects: true,
+        rewrite: (path) => path.replace(/^\/api\/gfw/, ''),
+        configure: (proxy) => {
+          proxy.on('proxyRes', (proxyRes) => {
+            if (proxyRes.statusCode === 308) {
+              proxyRes.statusCode = 301
+            }
+          })
+        }
+      },
     }
   }
 })

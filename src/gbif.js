@@ -564,3 +564,66 @@ export async function getDatasetDOI(datasetKey) {
     return null
   }
 }
+
+// ─── Global Forest Watch — Tree Cover Loss ───────────────────────────────────
+
+export async function queryForestLoss(polygon) {
+  const apiKey = import.meta.env.VITE_GFW_API_KEY
+  if (!apiKey) {
+    console.warn('GFW API key not configured')
+    return null
+  }
+
+  try {
+    const geometry = {
+      type: 'Polygon',
+      coordinates: [[...polygon.map(p => [p[1], p[0]]), [polygon[0][1], polygon[0][0]]]]
+    }
+
+    const response = await fetch('/api/gfw/dataset/umd_tree_cover_loss/v1.13/query', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        sql: 'SELECT umd_tree_cover_loss__year, SUM(area__ha) as area_ha FROM data GROUP BY umd_tree_cover_loss__year ORDER BY umd_tree_cover_loss__year',
+        geometry,
+      })
+    })
+
+    if (!response.ok) throw new Error(`GFW API ${response.status}`)
+
+    const data = await response.json()
+    const rows = data.data ?? []
+
+    if (rows.length === 0) return { totalLoss: 0, byYear: [], trend: 'No forest cover detected' }
+
+    const totalLoss = rows.reduce((s, r) => s + r.area_ha, 0)
+    const recent = rows.filter(r => r.umd_tree_cover_loss__year >= 2015)
+    const recentLoss = recent.reduce((s, r) => s + r.area_ha, 0)
+    const avgAnnual = totalLoss / rows.length
+
+    // Detect trend — compare last 5 years vs previous 5 years
+    const last5 = rows.slice(-5).reduce((s, r) => s + r.area_ha, 0) / 5
+    const prev5 = rows.slice(-10, -5).reduce((s, r) => s + r.area_ha, 0) / 5
+    const trend = last5 > prev5 * 1.2 ? 'Increasing' :
+                  last5 < prev5 * 0.8 ? 'Decreasing' : 'Stable'
+
+    return {
+      totalLoss: Math.round(totalLoss),
+      recentLoss: Math.round(recentLoss),
+      avgAnnual: Math.round(avgAnnual),
+      byYear: rows.map(r => ({
+        year: r.umd_tree_cover_loss__year,
+        ha: Math.round(r.area_ha * 100) / 100,
+      })),
+      trend,
+      source: 'Global Forest Watch · UMD Tree Cover Loss v1.13',
+    }
+
+  } catch (e) {
+    console.warn('GFW query failed:', e.message)
+    return null
+  }
+}

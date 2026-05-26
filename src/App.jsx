@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Polygon, Polyline, CircleMarker, Tooltip, Popu
 import 'leaflet.heat'
 import L from 'leaflet'
 import { LineChart, Line, BarChart, Bar, Cell, ResponsiveContainer, Tooltip as RTooltip, YAxis } from 'recharts'
-import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI } from './gbif.js'
+import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss } from './gbif.js'
 import { jsPDF } from 'jspdf'
 import { supabase, getSupabaseWithAuth } from './supabase.js'
 import * as turf from '@turf/turf'
@@ -2507,6 +2507,84 @@ function calcPolygonAreaKm2(polygon) {
   return Math.round(area * 100) / 100
 }
 
+function ForestLossCard({ data }) {
+  const forestLoss = data?.forestLoss
+  if (!forestLoss || forestLoss.totalLoss === 0) return null
+
+  const trendColor = forestLoss.trend === 'Increasing' ? '#E84C3D' :
+    forestLoss.trend === 'Decreasing' ? '#18A957' : '#F5A623'
+  const trendIcon = forestLoss.trend === 'Increasing' ? '↗' :
+    forestLoss.trend === 'Decreasing' ? '↘' : '→'
+
+  return (
+    <div className="card">
+      <div className="card-head">
+        <div className="card-title">Forest Cover Loss</div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          <span style={{
+            fontSize: 9, fontWeight: 700, padding: '2px 7px',
+            borderRadius: 999, background: '#F0FDF4',
+            color: '#18A957', border: '1px solid #BBF7D0'
+          }}>GFW</span>
+          <span style={{
+            fontSize: 9, fontWeight: 700, padding: '2px 7px',
+            borderRadius: 999, background: '#FFF7ED',
+            color: '#C2410C', border: '1px solid #FED7AA'
+          }}>EUDR</span>
+        </div>
+      </div>
+
+      {/* Stats row */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, padding: '8px 12px' }}>
+        <div style={{ background: '#F9FAFB', borderRadius: 8, padding: '8px 10px', textAlign: 'center' }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#1F2937', fontFamily: 'monospace' }}>
+            {forestLoss.totalLoss.toLocaleString('en-US')}
+          </div>
+          <div style={{ fontSize: 9, color: '#9CA3AF' }}>ha total loss</div>
+        </div>
+        <div style={{ background: '#F9FAFB', borderRadius: 8, padding: '8px 10px', textAlign: 'center' }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#1F2937', fontFamily: 'monospace' }}>
+            {forestLoss.recentLoss.toLocaleString('en-US')}
+          </div>
+          <div style={{ fontSize: 9, color: '#9CA3AF' }}>ha since 2015</div>
+        </div>
+        <div style={{ background: '#F9FAFB', borderRadius: 8, padding: '8px 10px', textAlign: 'center' }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: trendColor, fontFamily: 'monospace' }}>
+            {trendIcon} {forestLoss.trend}
+          </div>
+          <div style={{ fontSize: 9, color: '#9CA3AF' }}>trend</div>
+        </div>
+      </div>
+
+      {/* Chart */}
+      {forestLoss.byYear?.length > 0 && (
+        <div style={{ height: 80, padding: '0 12px' }}>
+          <ResponsiveContainer>
+            <BarChart data={forestLoss.byYear} margin={{ top: 2, right: 4, left: 0, bottom: 0 }}>
+              <YAxis hide />
+              <RTooltip
+                contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+                formatter={(value) => [`${value} ha`, 'Forest loss']}
+                labelFormatter={(label) => `Year: ${label}`}
+              />
+              <Bar dataKey="ha" radius={[2, 2, 0, 0]} fill="#E84C3D" opacity={0.7} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      )}
+
+      <div style={{
+        margin: '4px 12px 12px', padding: '6px 10px',
+        background: '#FFF7ED', border: '1px solid #FED7AA',
+        borderRadius: 6, fontSize: 9, color: '#92400E',
+      }}>
+        Tree cover loss data from Global Forest Watch (UMD v1.13, 2001–2025).
+        Relevant for EUDR due diligence on deforestation-linked commodities.
+      </div>
+    </div>
+  )
+}
+
 function ScenarioAnalysisCard({ data }) {
   const ndvi = data?.ndvi
   const baseScore = data?.riskScore?.score ?? null
@@ -4583,7 +4661,7 @@ function WelcomePage({ onStart }) {
         {/* Footer */}
         <div style={{ textAlign: 'center', fontSize: 10, color: '#9CA3AF', lineHeight: 1.8 }}>
           Covering 16 countries across Latin America and the Caribbean<br />
-          Powered by GBIF · Sentinel-2 · WDPA · FAO Whisp · Global Forest Watch
+          Powered by GBIF · Sentinel-2 · WDPA · Global Forest Watch
         </div>
 
       </div>
@@ -4805,7 +4883,7 @@ export default function App() {
 
       // 6 parallel bbox-filtered occurrence queries (one per taxon)
       // plus the existing country-level metadata queries.
-      const [taxaOccurrences, aves, mammalia, gaps, papers, wdpa, ndvi] = await Promise.all([
+      const [taxaOccurrences, aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss] = await Promise.all([
         Promise.all(
           SCAN_TAXA.map(taxon =>
             callGbif('search_occurrences', {
@@ -4830,6 +4908,7 @@ export default function App() {
         }).catch(() => null),
         queryProtectedAreas(bbox, country).catch(() => null),
         queryNDVI(drawnPolygon).catch(() => null),
+        queryForestLoss(drawnPolygon).catch(() => null),
 
 
       ])
@@ -4935,6 +5014,7 @@ export default function App() {
         mode: MODE,
         polygon,
         country,
+        forestLoss: forestLoss,
       })
 
       setAnalysisStep(3)
@@ -5002,6 +5082,7 @@ export default function App() {
 
     // Update gbifData with real scan results
     const allRecords = scanResults.taxaInPolygon?.flatMap(t => t.records) ?? []
+    console.log('🌳 Forest Loss:', scanResults.forestLoss)
     setGbifData({
       avesCount: scanResults.aves,
       mammaliaCount: scanResults.mammalia,
@@ -5020,6 +5101,8 @@ export default function App() {
       wdpa: scanResults.wdpa,
       queriedAt: new Date(),
       ndvi: scanResults.ndvi,
+      forestLoss: scanResults.forestLoss,
+
 
     })
 
@@ -5707,12 +5790,12 @@ export default function App() {
                     <EcosystemSensitivityCard data={gbifData} />
                     <ScenarioAnalysisCard data={gbifData} />
                   </div>
+                  <ForestLossCard data={gbifData} />
                   <div className="grid row-3">
                     <BiodiversityMatrixCard data={gbifData} />
                   </div>
                 </>
               )}
-
               {/* MITIGATION TAB */}
               {dashboardTab === 'mitigation' && (
                 <>
