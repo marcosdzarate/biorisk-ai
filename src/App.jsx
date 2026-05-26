@@ -1097,7 +1097,7 @@ function Gauge({ value, max = 100 }) {
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
 function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle }) {
   return (
-    <aside className="sidebar" style={{ 
+    <aside className="sidebar" style={{
       width: collapsed ? 56 : undefined,
       transition: 'width 0.2s ease',
       overflow: 'hidden',
@@ -4817,6 +4817,7 @@ export default function App() {
   const [showStatsModal, setShowStatsModal] = useState(false)
   const [dashboardTab, setDashboardTab] = useState('overview')
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [copilotCollapsed, setCopilotCollapsed] = useState(false)
   const [showFullAnalysis, setShowFullAnalysis] = useState(false)
 
   // ─── New Analysis wizard state ───
@@ -5904,11 +5905,29 @@ export default function App() {
               </div>
             </main>
 
-            <CopilotPanel
-              key={copilotKey}
-              gbifData={gbifData}
-              analysisProject={analysisProject}
-            />
+            <>
+              {!copilotCollapsed && (
+                <CopilotPanel
+                  key={copilotKey}
+                  gbifData={gbifData}
+                  analysisProject={analysisProject}
+                />
+              )}
+              <button
+                onClick={() => setCopilotCollapsed(p => !p)}
+                style={{
+                  position: 'fixed', bottom: 24, right: copilotCollapsed ? 16 : 316,
+                  zIndex: 1000,
+                  background: '#18A957', color: 'white',
+                  border: 'none', borderRadius: 20,
+                  padding: '8px 14px', fontSize: 12, fontWeight: 600,
+                  cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                  transition: 'right 0.2s ease',
+                }}
+              >
+                {copilotCollapsed ? '🤖 Copilot →' : '← Hide'}
+              </button>
+            </>
           </>
         )}
       </div>
