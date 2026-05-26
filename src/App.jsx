@@ -2561,6 +2561,72 @@ function calcPolygonAreaKm2(polygon) {
   return Math.round(area * 100) / 100
 }
 
+function FinancialMaterialityCard({ data, analysisProject }) {
+  const score = data?.riskScore?.score
+  const sector = analysisProject?.sector || 'Wind Energy'
+  if (!score) return null
+
+  const getImpacts = (score, sector) => {
+    const delay = score >= 76 ? '12-24 months' : score >= 51 ? '6-12 months' : score >= 26 ? '1-6 months' : 'Minimal'
+    const cost = score >= 76 ? 'USD 500K–5M' : score >= 51 ? 'USD 100K–500K' : score >= 26 ? 'USD 10K–100K' : 'USD <10K'
+    const license = score >= 76 ? 'High' : score >= 51 ? 'Medium' : score >= 26 ? 'Low' : 'Minimal'
+    const reputational = score >= 76 ? 'Significant — investor scrutiny likely' :
+      score >= 51 ? 'Moderate — ESG disclosure required' :
+        score >= 26 ? 'Low — monitoring recommended' : 'Minimal'
+    return { delay, cost, license, reputational }
+  }
+
+  const impacts = getImpacts(score, sector)
+  const scoreColor = score >= 76 ? '#E84C3D' : score >= 51 ? '#F5A623' : score >= 26 ? '#FBBF24' : '#18A957'
+
+  return (
+    <div className="card">
+      <div className="card-head">
+        <div className="card-title">Financial Materiality</div>
+        <span style={{
+          fontSize: 9, fontWeight: 700, padding: '2px 7px',
+          borderRadius: 999, background: '#F5F3FF',
+          color: '#7C3AED', border: '1px solid #DDD6FE'
+        }}>indicative</span>
+      </div>
+      <div style={{ padding: '8px 12px' }}>
+        <div style={{ fontSize: 10, color: '#6B7280', marginBottom: 10, lineHeight: 1.5 }}>
+          Based on Risk Score <strong style={{ color: scoreColor }}>{score}/100</strong> — estimated financial exposure for <strong>{sector}</strong> projects with similar biodiversity risk profiles.
+        </div>
+        {[
+          { label: 'Permitting delay risk', value: impacts.delay, icon: '⏱' },
+          { label: 'Remediation cost estimate', value: impacts.cost, icon: '💰' },
+          { label: 'License to operate risk', value: impacts.license, icon: '📋' },
+          { label: 'Reputational exposure', value: impacts.reputational, icon: '👁' },
+        ].map((item, i) => (
+          <div key={i} style={{
+            display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
+            padding: '7px 0', borderBottom: i < 3 ? '1px solid #E5E7EB' : 'none',
+            gap: 8,
+          }}>
+            <div style={{ fontSize: 11, color: '#6B7280', display: 'flex', gap: 6, alignItems: 'center' }}>
+              <span>{item.icon}</span>
+              <span>{item.label}</span>
+            </div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#1F2937', textAlign: 'right', maxWidth: '55%' }}>
+              {item.value}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{
+        margin: '4px 12px 12px', padding: '6px 10px',
+        background: '#F5F3FF', border: '1px solid #DDD6FE',
+        borderRadius: 6, fontSize: 9, color: '#7C3AED', lineHeight: 1.5,
+      }}>
+        ⚠ Indicative estimates based on industry benchmarks. Not financial advice. Consult environmental legal counsel for project-specific assessment.
+      </div>
+    </div>
+  )
+}
+
+
+
 function ForestLossCard({ data }) {
   const forestLoss = data?.forestLoss
   if (!forestLoss || forestLoss.totalLoss === 0) return null
@@ -5914,6 +5980,7 @@ export default function App() {
                     <RiskScoreCard riskScore={gbifData?.riskScore} />
                     <HumanPressureCard data={gbifData} analysisProject={analysisProject} />
                   </div>
+                  <FinancialMaterialityCard data={gbifData} analysisProject={analysisProject} />
                   <div className="grid row-2">
                     <DependenciesCard data={gbifData} analysisProject={analysisProject} />
                     <ImpactsCard data={gbifData} analysisProject={analysisProject} />
