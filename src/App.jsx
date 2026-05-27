@@ -99,7 +99,8 @@ body {
 .logo-mark {
   width: 28px; height: 28px; border-radius: 7px;
   background: linear-gradient(135deg, var(--green) 0%, var(--green-lt) 100%);
-  display: grid; place-items: center; font-size: 15px;
+  display: grid; place-items: center;
+  flex-shrink: 0;
 }
 .logo-sub {
   font-size: 10px; color: var(--green-lt); margin-top: 4px;
@@ -538,7 +539,6 @@ body {
   border-bottom: 1px solid var(--bd);
 }
 .taxa-row:last-child { border-bottom: none; }
-.taxa-emoji { font-size: 16px; text-align: center; line-height: 1; }
 .taxa-name { color: var(--text); font-weight: 500; }
 .taxa-count {
   font-variant-numeric: tabular-nums;
@@ -585,7 +585,6 @@ body {
 .map-legend-dot {
   width: 8px; height: 8px; border-radius: 50%;
 }
-.map-legend-emoji { font-size: 12px; line-height: 1; }
 .map-legend-name { color: var(--text); }
 .map-legend-count {
   color: var(--text2); font-weight: 600;
@@ -960,20 +959,20 @@ const SCAN_STEPS = [
 ]
 
 const SCAN_TAXA = [
-  { name: 'Aves', emoji: '🐦', taxon_rank: 'class', group: 'Vertebrates' },
-  { name: 'Mammalia', emoji: '🐾', taxon_rank: 'class', group: 'Vertebrates' },
-  { name: 'Amphibia', emoji: '🐸', taxon_rank: 'class', group: 'Vertebrates' },
-  { name: 'Reptilia', emoji: '🦎', taxon_rank: 'class', group: 'Vertebrates' },
-  { name: 'Actinopterygii', emoji: '🐟', taxon_rank: 'class', group: 'Vertebrates' },
-  { name: 'Chondrichthyes', emoji: '🦈', taxon_rank: 'class', group: 'Vertebrates' },
-  { name: 'Cetacea', emoji: '🐋', taxon_rank: 'order', group: 'Vertebrates' },
-  { name: 'Lepidoptera', emoji: '🦋', taxon_rank: 'order', group: 'Invertebrates' },
-  { name: 'Insecta', emoji: '🐛', taxon_rank: 'class', group: 'Invertebrates' },
-  { name: 'Orchidaceae', emoji: '🌸', taxon_rank: 'family', group: 'Plants' },
-  { name: 'Pinopsida', emoji: '🌲', taxon_rank: 'class', group: 'Plants' },
-  { name: 'Magnoliopsida', emoji: '🌿', taxon_rank: 'class', group: 'Plants' },
-  { name: 'Plantae', emoji: '🌱', taxon_rank: 'kingdom', group: 'Plants' },
-  { name: 'Anura', emoji: '🐸', taxon_rank: 'order', group: 'Vertebrates' },
+  { name: 'Aves',           abbr: 'AVES', taxon_rank: 'class', group: 'Vertebrates' },
+  { name: 'Mammalia',       abbr: 'MAMM', taxon_rank: 'class', group: 'Vertebrates' },
+  { name: 'Amphibia',       abbr: 'AMPH', taxon_rank: 'class', group: 'Vertebrates' },
+  { name: 'Reptilia',       abbr: 'REPT', taxon_rank: 'class', group: 'Vertebrates' },
+  { name: 'Actinopterygii', abbr: 'ACTI', taxon_rank: 'class', group: 'Vertebrates' },
+  { name: 'Chondrichthyes', abbr: 'CHON', taxon_rank: 'class', group: 'Vertebrates' },
+  { name: 'Cetacea',        abbr: 'CETA', taxon_rank: 'order', group: 'Vertebrates' },
+  { name: 'Lepidoptera',    abbr: 'LEPI', taxon_rank: 'order', group: 'Invertebrates' },
+  { name: 'Insecta',        abbr: 'INSE', taxon_rank: 'class', group: 'Invertebrates' },
+  { name: 'Orchidaceae',    abbr: 'ORCH', taxon_rank: 'family', group: 'Plants' },
+  { name: 'Pinopsida',      abbr: 'PINO', taxon_rank: 'class', group: 'Plants' },
+  { name: 'Magnoliopsida',  abbr: 'MAGN', taxon_rank: 'class', group: 'Plants' },
+  { name: 'Plantae',        abbr: 'PLAN', taxon_rank: 'kingdom', group: 'Plants' },
+  { name: 'Anura',          abbr: 'ANUR', taxon_rank: 'order', group: 'Vertebrates' },
 ]
 const TAXON_COLORS = {
   Aves: '#18A957',
@@ -1104,12 +1103,13 @@ function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle 
     }}>
       <div className="logo" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
         {!collapsed && (
-          <div className="logo-title">
-            <span className="logo-mark">🌿</span>
-            BioRisk AI
+          <div className="logo-mark">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" fill="white" fillOpacity="0.9" />
+            </svg>
           </div>
         )}
-        {collapsed && <span className="logo-mark" style={{ margin: '0 auto' }}>🌿</span>}
+        {collapsed && <span className="logo-mark" style={{ margin: '0 auto' }}>''</span>}
         <button
           onClick={onToggle}
           style={{
@@ -1296,7 +1296,7 @@ function WdpaLayer({ wdpaData, polygon }) {
       }).addTo(map)
 
       layer.bindTooltip(
-        `⚠️ OVERLAP: ${area.name}<br/>
+        `''OVERLAP: ${area.name}<br/>
      IUCN Cat. ${area.iucnCategory} · ${area.designationType}<br/>
      <strong style="color:#E84C3D">Intersects with project area</strong>`,
         { permanent: false, sticky: true, maxWidth: 250 }
@@ -1434,11 +1434,11 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
           {hasPolygon && (
             <>
               {[
-                { id: 'points', label: '📍 Points' },
-                { id: 'heatmap', label: '🌡 Heatmap' },
-                { id: 'ndvi', label: '🛰 NDVI' },
-                { id: 'protected', label: '🛡 Areas' },
-                { id: 'gbif', label: '🌍 GBIF Density' },
+                { id: 'points', label: 'Points' },
+                { id: 'heatmap', label: 'Heatmap' },
+                { id: 'ndvi', label: 'NDVI' },
+                { id: 'protected', label: 'Areas' },
+                { id: 'gbif', label: 'GBIF Density' },
               ].map(mode => (
                 <button
                   key={mode.id}
@@ -1531,7 +1531,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
                   className="map-legend-dot"
                   style={{ background: TAXON_COLORS[t.name] || '#18A957' }}
                 />
-                <span className="map-legend-emoji">{t.emoji}</span>
+               <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#6B7280' }}>{t.abbr}</span>
                 <span className="map-legend-name">{t.name}</span>
                 <span className="map-legend-count">{t.inPolygon}</span>
               </div>
@@ -1806,18 +1806,17 @@ function SpeciesRichnessCard({ data, loading }) {
 
       {/* Representation % table */}
       {hasPolygonData && taxaInPolygon.length > 0 && (
-        <div style={{ height: 80, marginTop: 10 }}>
+        <><div style={{ height: 80, marginTop: 10 }}>
           <ResponsiveContainer>
             <BarChart
-              data={taxaInPolygon.map(t => ({ name: t.emoji, value: t.inPolygon, label: t.name }))}
+              data={taxaInPolygon.map(t => ({ name: t.abbr, value: t.inPolygon, label: t.name }))}
               margin={{ top: 4, right: 4, left: 0, bottom: 0 }}
             >
               <YAxis hide />
               <RTooltip
                 contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
                 formatter={(value, name, props) => [fmt(value), props.payload.label]}
-                labelFormatter={() => ''}
-              />
+                labelFormatter={() => ''} />
               <Bar dataKey="value" radius={[3, 3, 0, 0]}>
                 {taxaInPolygon.map((t, i) => (
                   <Cell key={i} fill={TAXON_COLORS[t.name] || '#18A957'} />
@@ -1825,7 +1824,14 @@ function SpeciesRichnessCard({ data, loading }) {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-        </div>
+        </div><div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 10px', marginTop: 6 }}>
+            {taxaInPolygon.map((t, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 9, color: '#6B7280' }}>
+                <div style={{ width: 8, height: 8, borderRadius: 2, background: TAXON_COLORS[t.name] || '#18A957', flexShrink: 0 }} />
+                <span>{t.abbr} {t.name}</span>
+              </div>
+            ))}
+          </div></>
       )}
 
       {recordsByYear.length > 1 && (
@@ -1856,7 +1862,7 @@ function SpeciesRichnessCard({ data, loading }) {
         <div style={{ height: 80, marginTop: 10 }}>
           <ResponsiveContainer>
             <BarChart
-              data={taxaInPolygon.map(t => ({ name: t.emoji, value: t.inPolygon, label: t.name }))}
+              data={taxaInPolygon.map(t => ({ name: t.abbr, value: t.inPolygon, label: t.name }))}
               margin={{ top: 4, right: 4, left: 0, bottom: 0 }}
             >
               <YAxis hide />
@@ -2180,13 +2186,12 @@ function HumanPressureCard({ data, analysisProject }) {
 }
 function ThreatenedSpeciesCard({ data, loading }) {
   const queriedAt = data?.queriedAt
-    ? data.queriedAt.toLocaleDateString()
-    : new Date().toLocaleDateString()
+  new Date(data.queriedAt).toLocaleDateString()
 
   // Build species list from real taxaInPolygon records
   const allRecords = data?.taxaInPolygon
     ?.filter(t => t.inPolygon > 0)
-    ?.flatMap(t => (t.records ?? []).map(r => ({ ...r, taxonGroup: t.name, emoji: t.emoji })))
+    ?.flatMap(t => (t.records ?? []).map(r => ({ ...r, taxonGroup: t.name, abbr: t.abbr })))
     ?? []
 
   // Get unique species with most recent record
@@ -2197,7 +2202,7 @@ function ThreatenedSpeciesCard({ data, loading }) {
       speciesMap[key] = {
         scientificName: r.scientificName || r.taxonGroup,
         taxonGroup: r.taxonGroup,
-        emoji: r.emoji,
+        abbr: r.abbr,
         lastRecord: r.eventDate?.slice(0, 10) ?? '—',
         count: 0,
       }
@@ -2263,7 +2268,7 @@ function ThreatenedSpeciesCard({ data, loading }) {
             {species.map((s, i) => (
               <tr key={i}>
                 <td>
-                  <span className="sp-icon">{s.emoji}</span>
+                 <span style={{ fontSize: 9, fontWeight: 700, color: '#6B7280', fontFamily: 'monospace', background: '#F3F4F6', padding: '1px 4px', borderRadius: 3 }}>{s.abbr}</span>
                   <span className="sp-sci">{s.scientificName}</span>
                 </td>
                 <td style={{ fontSize: 11, color: '#6B7280' }}>{s.taxonGroup}</td>
@@ -2299,6 +2304,83 @@ function ThreatenedSpeciesCard({ data, loading }) {
     </div>
   )
 }
+
+function TemporalBaselineCard({ data }) {
+  const allRecords = useMemo(() =>
+    data?.taxaInPolygon?.flatMap(t => t.records ?? []) ?? []
+    , [data])
+
+  const recordsByYear = useMemo(() => {
+    const yearMap = {}
+    allRecords.forEach(r => {
+      const year = r.eventDate?.slice(0, 4)
+      if (year && year >= '2000' && year <= '2026') {
+        yearMap[year] = (yearMap[year] ?? 0) + 1
+      }
+    })
+    return Object.entries(yearMap)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([year, count]) => ({ year, count }))
+  }, [allRecords])
+
+  if (recordsByYear.length < 2) return null
+
+  const chao1 = data?.chao1
+
+  return (
+    <div style={{
+      background: 'white', border: '1px solid #E5E7EB',
+      borderRadius: 10, padding: '14px 16px', marginBottom: 18,
+    }}>
+      <div style={{ fontSize: 12, fontWeight: 600, color: '#1F2937', marginBottom: 10 }}>
+        Temporal Baseline — Records by Year
+      </div>
+      <div style={{ height: 80 }}>
+        <ResponsiveContainer>
+          <BarChart data={recordsByYear} margin={{ top: 2, right: 4, left: 0, bottom: 0 }}>
+            <YAxis hide />
+            <RTooltip
+              contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+              formatter={(value) => [value, 'records']}
+              labelFormatter={(label) => `Year: ${label}`}
+            />
+            <Bar dataKey="count" radius={[2, 2, 0, 0]} fill="#18A957" opacity={0.8} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      {chao1 && (
+        <div style={{ marginTop: 12 }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+            Species Richness Estimate (Chao1)
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
+            <div style={{ background: '#F9FAFB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#1F2937', fontFamily: 'monospace' }}>{chao1.observed}</div>
+              <div style={{ fontSize: 9, color: '#9CA3AF' }}>observed</div>
+            </div>
+            <div style={{ background: '#F9FAFB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#18A957', fontFamily: 'monospace' }}>{chao1.estimated}</div>
+              <div style={{ fontSize: 9, color: '#9CA3AF' }}>estimated</div>
+            </div>
+            <div style={{ background: chao1.completeness >= 80 ? '#F0FDF4' : '#FFFBEB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
+              <div style={{ fontSize: 14, fontWeight: 700, fontFamily: 'monospace', color: chao1.completeness >= 80 ? '#18A957' : '#F5A623' }}>
+                {chao1.completeness}%
+              </div>
+              <div style={{ fontSize: 9, color: '#9CA3AF' }}>completeness</div>
+            </div>
+          </div>
+          <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 6 }}>
+            Chao1 estimator · {chao1.singletons} singletons · {chao1.doubletons} doubletons
+          </div>
+        </div>
+      )}
+      <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 4 }}>
+        Based on eventDate field · Sample of up to 300 records per taxon
+      </div>
+    </div>
+  )
+}
+
 
 function BiodiversityMatrixCard({ data }) {
   const totalInPolygon = data?.polygonCount ?? 0
@@ -3583,7 +3665,7 @@ function buildCopilotSystem(gbifData, analysisProject) {
   const sectorCtx = SECTOR_CONTEXT[sector] || SECTOR_CONTEXT['Wind Energy']
 
   const taxaLines = gbifData?.taxaInPolygon
-    ?.map(t => `  ${t.emoji} ${t.name}: ${t.inPolygon} records in polygon (sample of ${t.sampleSize})`)
+    ?.map(t => `  ${t.abbr} ${t.name}: ${t.inPolygon} records in polygon (sample of ${t.sampleSize})`)
     .join('\n') || '  No taxa data available yet'
 
   const totalInPolygon = gbifData?.polygonCount ?? 0
@@ -4155,7 +4237,7 @@ function NewAnalysisPage({
                     <div className="taxa-table">
                       {taxaInPolygon.filter(t => t.inPolygon > 0).map(t => (
                         <div key={t.name} className="taxa-row">
-                          <span className="taxa-emoji">{t.emoji}</span>
+                          <span style={{ fontSize: 9, fontWeight: 700, color: '#6B7280', fontFamily: 'monospace', background: '#F3F4F6', padding: '1px 4px', borderRadius: 3 }}>{t.abbr}</span>
                           <span className="taxa-name">{t.name}</span>
                           <span
                             className="taxa-count"
@@ -4167,7 +4249,6 @@ function NewAnalysisPage({
                         </div>
                       ))}
                       <div className="taxa-row taxa-row-total">
-                        <span className="taxa-emoji" />
                         <span className="taxa-name">Total</span>
                         <span className="taxa-count">{fmt(totalInPolygon)}</span>
                         <span className="taxa-unit">georeferenced occurrences</span>
@@ -4674,7 +4755,7 @@ function WelcomePage({ onStart }) {
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>🌿</div>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>''</div>
           <h1 style={{
             fontSize: 26, fontWeight: 700, color: '#1F2937',
             letterSpacing: '-0.02em', marginBottom: 8,
@@ -5544,7 +5625,7 @@ export default function App() {
           zIndex: 99999,
         }}>
           <div style={{ textAlign: 'center', color: 'white' }}>
-            <div style={{ fontSize: 48, marginBottom: 16 }}>🌿</div>
+            <div style={{ fontSize: 48, marginBottom: 16 }}>''</div>
             <div style={{ fontSize: 16, fontWeight: 600 }}>BioRisk AI</div>
             <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginTop: 8 }}>Loading...</div>
           </div>
@@ -5563,7 +5644,7 @@ export default function App() {
             width: 400, maxWidth: '90vw', textAlign: 'center',
             boxShadow: '0 24px 80px rgba(0,0,0,0.4)',
           }}>
-            <div style={{ fontSize: 48, marginBottom: 16 }}>🌿</div>
+            <div style={{ fontSize: 48, marginBottom: 16 }}>''</div>
             <h1 style={{
               fontSize: 24, fontWeight: 700, color: '#1F2937',
               marginBottom: 8, letterSpacing: '-0.02em',
@@ -5693,7 +5774,7 @@ export default function App() {
 
               {showDemoBanner && (
                 <div className="demo-banner" style={{ margin: '0 0 18px' }}>
-                  <span className="demo-banner-icon">🌿</span>
+                  <span className="demo-banner-icon">''</span>
                   <div className="demo-banner-body">
                     <div className="demo-banner-title">You're viewing a demo analysis</div>
                     <div className="demo-banner-sub">
@@ -5730,10 +5811,11 @@ export default function App() {
                 borderBottom: '1px solid #E5E7EB', marginBottom: 20,
               }}>
                 {[
-                  { id: 'overview', label: '🏠 Overview' },
-                  { id: 'tnfd', label: '📋 TNFD & ESG' },
-                  { id: 'vegetation', label: '🛰 Vegetation' },
-                  { id: 'mitigation', label: '🛡 Mitigation' },
+                  { id: 'overview', label: 'Overview' },
+                  { id: 'biodiversity', label: 'Biodiversity' },
+                  { id: 'tnfd', label: 'TNFD & ESG' },
+                  { id: 'vegetation', label: 'Vegetation & Forest' },
+                  { id: 'mitigation', label: 'Mitigation' },
                 ].map(tab => (
                   <button
                     key={tab.id}
@@ -5766,7 +5848,6 @@ export default function App() {
                       wdpaData={gbifData?.wdpa}
                       bufferData={gbifData?.bufferData}
                     />
-                    {/* Risk Score flotante */}
                     <div style={{
                       position: 'absolute', bottom: 12, right: 12, zIndex: 1000,
                       background: 'white', borderRadius: 12,
@@ -5806,92 +5887,22 @@ export default function App() {
                     <SpeciesRichnessCard data={gbifData} loading={loading} />
                   </div>
 
-                  {/* Temporal baseline */}
-                  {gbifData?.taxaInPolygon && (() => {
-                    const allRecords = gbifData.taxaInPolygon.flatMap(t => t.records ?? [])
-                    const yearMap = {}
-                    allRecords.forEach(r => {
-                      const year = r.eventDate?.slice(0, 4)
-                      if (year && year >= '2000' && year <= '2026') {
-                        yearMap[year] = (yearMap[year] ?? 0) + 1
-                      }
-                    })
-                    const recordsByYear = Object.entries(yearMap)
-                      .sort(([a], [b]) => a.localeCompare(b))
-                      .map(([year, count]) => ({ year, count }))
+                  <FinancialMaterialityCard data={gbifData} analysisProject={analysisProject} />
 
-                    if (recordsByYear.length < 2) return null
-
-                    return (
-                      <div style={{
-                        background: 'white', border: '1px solid #E5E7EB',
-                        borderRadius: 10, padding: '14px 16px', marginBottom: 18,
-                      }}>
-                        <div style={{ fontSize: 12, fontWeight: 600, color: '#1F2937', marginBottom: 10 }}>
-                          Temporal Baseline — Records by Year
-                        </div>
-                        <div style={{ height: 80 }}>
-                          <ResponsiveContainer>
-                            <BarChart data={recordsByYear} margin={{ top: 2, right: 4, left: 0, bottom: 0 }}>
-                              <YAxis hide />
-                              <RTooltip
-                                contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
-                                formatter={(value) => [value, 'records']}
-                                labelFormatter={(label) => `Year: ${label}`}
-                              />
-                              <Bar dataKey="count" radius={[2, 2, 0, 0]} fill="#18A957" opacity={0.8} />
-                            </BarChart>
-                          </ResponsiveContainer>
-                        </div>
-                        {gbifData?.chao1 && (
-                          <div style={{ padding: '8px 12px 4px' }}>
-                            <div style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
-                              Species Richness Estimate (Chao1)
-                            </div>
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
-                              <div style={{ background: '#F9FAFB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
-                                <div style={{ fontSize: 14, fontWeight: 700, color: '#1F2937', fontFamily: 'monospace' }}>{gbifData?.chao1.observed}</div>
-                                <div style={{ fontSize: 9, color: '#9CA3AF' }}>observed</div>
-                              </div>
-                              <div style={{ background: '#F9FAFB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
-                                <div style={{ fontSize: 14, fontWeight: 700, color: '#18A957', fontFamily: 'monospace' }}>{gbifData?.chao1.estimated}</div>
-                                <div style={{ fontSize: 9, color: '#9CA3AF' }}>estimated</div>
-                              </div>
-                              <div style={{ background: gbifData?.chao1.completeness >= 80 ? '#F0FDF4' : '#FFFBEB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
-                                <div style={{
-                                  fontSize: 14, fontWeight: 700, fontFamily: 'monospace',
-                                  color: gbifData.chao1.completeness >= 80 ? '#18A957' : '#F5A623'
-                                }}>{gbifData?.chao1.completeness}%</div>
-                                <div style={{ fontSize: 9, color: '#9CA3AF' }}>completeness</div>
-                              </div>
-                            </div>
-                            <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 6 }}>
-                              Chao1 estimator · {gbifData?.chao1.singletons} singletons · {gbifData?.chao1.doubletons} doubletons
-                            </div>
-                          </div>
-                        )}
-                        <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 4 }}>
-                          Based on eventDate field · Sample of up to 300 records per taxon
-                        </div>
-                      </div>
-                    )
-                  })()}
-
-                  {/* Buffer zone info */}
                   {gbifData?.bufferData && (
                     <div style={{
                       background: '#FFFBEB', border: '1px solid #FDE68A',
                       borderRadius: 10, padding: '12px 16px', marginBottom: 18,
                       display: 'flex', alignItems: 'center', gap: 16,
                     }}>
-                      <div style={{ fontSize: 24 }}>🔶</div>
+                      <div style={{ fontSize: 24 }}>''</div>
                       <div style={{ flex: 1 }}>
                         <div style={{ fontSize: 12, fontWeight: 700, color: '#92400E', marginBottom: 2 }}>
                           Indirect Influence Area (5km buffer)
                         </div>
                         <div style={{ fontSize: 11, color: '#6B7280' }}>
                           {gbifData.bufferData.totalInBuffer.toLocaleString('en-US')} additional occurrence records
-                          detected within 5km of the project boundary — representing potential indirect biodiversity impacts.
+                          detected within 5km of the project boundary.
                         </div>
                       </div>
                       <div style={{ textAlign: 'center', flexShrink: 0 }}>
@@ -5902,46 +5913,22 @@ export default function App() {
                       </div>
                     </div>
                   )}
+                </>
+              )}
 
-                  {/* Progressive disclosure */}
-                  {!showFullAnalysis ? (
-                    <div style={{ textAlign: 'center', padding: '16px 0 8px' }}>
-                      <button
-                        onClick={() => setShowFullAnalysis(true)}
-                        style={{
-                          padding: '10px 24px', borderRadius: 8,
-                          background: '#F0FDF4', border: '1px solid #BBF7D0',
-                          color: '#18A957', fontSize: 12, fontWeight: 600,
-                          cursor: 'pointer',
-                        }}
-                      >
-                        + Show full analysis
-                      </button>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="grid row-2">
-                        <EcosystemSensitivityCard data={gbifData} />
-                        <HumanPressureCard data={gbifData} analysisProject={analysisProject} />
-                      </div>
-                      <div className="grid row-3">
-                        <ThreatenedSpeciesCard data={gbifData} loading={loading} />
-                        <BiodiversityMatrixCard data={gbifData} />
-                      </div>
-                      <div style={{ textAlign: 'center', padding: '8px 0' }}>
-                        <button
-                          onClick={() => setShowFullAnalysis(false)}
-                          style={{
-                            padding: '6px 16px', borderRadius: 8,
-                            background: '#F9FAFB', border: '1px solid #E5E7EB',
-                            color: '#9CA3AF', fontSize: 11, cursor: 'pointer',
-                          }}
-                        >
-                          − Hide full analysis
-                        </button>
-                      </div>
-                    </>
-                  )}
+              {/* BIODIVERSITY TAB */}
+              {dashboardTab === 'biodiversity' && (
+                <>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18, marginBottom: 18 }}>
+                    <SpeciesRichnessCard data={gbifData} loading={loading} />
+                    <ThreatenedSpeciesCard data={gbifData} loading={loading} />
+                  </div>
+
+                  <TemporalBaselineCard data={gbifData} />
+
+                  <div className="grid row-3">
+                    <BiodiversityMatrixCard data={gbifData} />
+                  </div>
                 </>
               )}
 
@@ -5960,7 +5947,7 @@ export default function App() {
                 </>
               )}
 
-              {/* VEGETATION TAB */}
+              {/* VEGETATION & FOREST TAB */}
               {dashboardTab === 'vegetation' && (
                 <>
                   <div className="grid row-2">
@@ -5968,11 +5955,9 @@ export default function App() {
                     <ScenarioAnalysisCard data={gbifData} />
                   </div>
                   <ForestLossCard data={gbifData} />
-                  <div className="grid row-3">
-                    <BiodiversityMatrixCard data={gbifData} />
-                  </div>
                 </>
               )}
+
               {/* MITIGATION TAB */}
               {dashboardTab === 'mitigation' && (
                 <>
@@ -5980,7 +5965,6 @@ export default function App() {
                     <RiskScoreCard riskScore={gbifData?.riskScore} />
                     <HumanPressureCard data={gbifData} analysisProject={analysisProject} />
                   </div>
-                  <FinancialMaterialityCard data={gbifData} analysisProject={analysisProject} />
                   <div className="grid row-2">
                     <DependenciesCard data={gbifData} analysisProject={analysisProject} />
                     <ImpactsCard data={gbifData} analysisProject={analysisProject} />
