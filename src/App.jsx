@@ -579,8 +579,8 @@ body {
 }
 .map-legend-row {
   display: grid;
-  grid-template-columns: 10px 14px 1fr auto;
-  align-items: center; gap: 6px;
+  grid-template-columns: 10px 36px 1fr auto;
+  align-items: center; gap: 4px;
 }
 .map-legend-dot {
   width: 8px; height: 8px; border-radius: 50%;
@@ -4642,7 +4642,6 @@ function MonitoringPage() {
   return (
     <main className="main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ textAlign: 'center', maxWidth: 480, padding: '0 24px' }}>
-        <div style={{ fontSize: 48, marginBottom: 16 }}>🔭</div>
         <h1 style={{ fontSize: 22, fontWeight: 700, color: '#1F2937', marginBottom: 8 }}>
           Monitoring Insights
         </h1>
@@ -4755,7 +4754,7 @@ function WelcomePage({ onStart }) {
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>''</div>
+         
           <h1 style={{
             fontSize: 26, fontWeight: 700, color: '#1F2937',
             letterSpacing: '-0.02em', marginBottom: 8,
@@ -5625,7 +5624,6 @@ export default function App() {
           zIndex: 99999,
         }}>
           <div style={{ textAlign: 'center', color: 'white' }}>
-            <div style={{ fontSize: 48, marginBottom: 16 }}>''</div>
             <div style={{ fontSize: 16, fontWeight: 600 }}>BioRisk AI</div>
             <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginTop: 8 }}>Loading...</div>
           </div>
@@ -5644,7 +5642,6 @@ export default function App() {
             width: 400, maxWidth: '90vw', textAlign: 'center',
             boxShadow: '0 24px 80px rgba(0,0,0,0.4)',
           }}>
-            <div style={{ fontSize: 48, marginBottom: 16 }}>''</div>
             <h1 style={{
               fontSize: 24, fontWeight: 700, color: '#1F2937',
               marginBottom: 8, letterSpacing: '-0.02em',
