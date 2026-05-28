@@ -959,20 +959,20 @@ const SCAN_STEPS = [
 ]
 
 const SCAN_TAXA = [
-  { name: 'Aves',           abbr: 'AVES', taxon_rank: 'class', group: 'Vertebrates' },
-  { name: 'Mammalia',       abbr: 'MAMM', taxon_rank: 'class', group: 'Vertebrates' },
-  { name: 'Amphibia',       abbr: 'AMPH', taxon_rank: 'class', group: 'Vertebrates' },
-  { name: 'Reptilia',       abbr: 'REPT', taxon_rank: 'class', group: 'Vertebrates' },
+  { name: 'Aves', abbr: 'AVES', taxon_rank: 'class', group: 'Vertebrates' },
+  { name: 'Mammalia', abbr: 'MAMM', taxon_rank: 'class', group: 'Vertebrates' },
+  { name: 'Amphibia', abbr: 'AMPH', taxon_rank: 'class', group: 'Vertebrates' },
+  { name: 'Reptilia', abbr: 'REPT', taxon_rank: 'class', group: 'Vertebrates' },
   { name: 'Actinopterygii', abbr: 'ACTI', taxon_rank: 'class', group: 'Vertebrates' },
   { name: 'Chondrichthyes', abbr: 'CHON', taxon_rank: 'class', group: 'Vertebrates' },
-  { name: 'Cetacea',        abbr: 'CETA', taxon_rank: 'order', group: 'Vertebrates' },
-  { name: 'Lepidoptera',    abbr: 'LEPI', taxon_rank: 'order', group: 'Invertebrates' },
-  { name: 'Insecta',        abbr: 'INSE', taxon_rank: 'class', group: 'Invertebrates' },
-  { name: 'Orchidaceae',    abbr: 'ORCH', taxon_rank: 'family', group: 'Plants' },
-  { name: 'Pinopsida',      abbr: 'PINO', taxon_rank: 'class', group: 'Plants' },
-  { name: 'Magnoliopsida',  abbr: 'MAGN', taxon_rank: 'class', group: 'Plants' },
-  { name: 'Plantae',        abbr: 'PLAN', taxon_rank: 'kingdom', group: 'Plants' },
-  { name: 'Anura',          abbr: 'ANUR', taxon_rank: 'order', group: 'Vertebrates' },
+  { name: 'Cetacea', abbr: 'CETA', taxon_rank: 'order', group: 'Vertebrates' },
+  { name: 'Lepidoptera', abbr: 'LEPI', taxon_rank: 'order', group: 'Invertebrates' },
+  { name: 'Insecta', abbr: 'INSE', taxon_rank: 'class', group: 'Invertebrates' },
+  { name: 'Orchidaceae', abbr: 'ORCH', taxon_rank: 'family', group: 'Plants' },
+  { name: 'Pinopsida', abbr: 'PINO', taxon_rank: 'class', group: 'Plants' },
+  { name: 'Magnoliopsida', abbr: 'MAGN', taxon_rank: 'class', group: 'Plants' },
+  { name: 'Plantae', abbr: 'PLAN', taxon_rank: 'kingdom', group: 'Plants' },
+  { name: 'Anura', abbr: 'ANUR', taxon_rank: 'order', group: 'Vertebrates' },
 ]
 const TAXON_COLORS = {
   Aves: '#18A957',
@@ -1531,7 +1531,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
                   className="map-legend-dot"
                   style={{ background: TAXON_COLORS[t.name] || '#18A957' }}
                 />
-               <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#6B7280' }}>{t.abbr}</span>
+                <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#6B7280' }}>{t.abbr}</span>
                 <span className="map-legend-name">{t.name}</span>
                 <span className="map-legend-count">{t.inPolygon}</span>
               </div>
@@ -2268,7 +2268,7 @@ function ThreatenedSpeciesCard({ data, loading }) {
             {species.map((s, i) => (
               <tr key={i}>
                 <td>
-                 <span style={{ fontSize: 9, fontWeight: 700, color: '#6B7280', fontFamily: 'monospace', background: '#F3F4F6', padding: '1px 4px', borderRadius: 3 }}>{s.abbr}</span>
+                  <span style={{ fontSize: 9, fontWeight: 700, color: '#6B7280', fontFamily: 'monospace', background: '#F3F4F6', padding: '1px 4px', borderRadius: 3 }}>{s.abbr}</span>
                   <span className="sp-sci">{s.scientificName}</span>
                 </td>
                 <td style={{ fontSize: 11, color: '#6B7280' }}>{s.taxonGroup}</td>
@@ -4033,7 +4033,8 @@ function NewAnalysisPage({
   drawnPolygon, setDrawnPolygon,
   analysisProject, setAnalysisProject,
   scanResults, scanProgress, scanStepLabel,
-  onBack, onRunScan, onViewDashboard, onResetWizard,
+  onBack, onRunScan, onViewDashboard, onResetWizard, loadCountryTaxa,
+  loadingTaxa,
 }) {
   const center = COUNTRY_CENTERS[analysisProject.country] || [-34, -64]
   const canRun = analysisProject.name.trim() && drawnPolygon
@@ -4077,8 +4078,10 @@ function NewAnalysisPage({
               <label className="wiz-label">Country</label>
               <select
                 className="wiz-select"
-                value={analysisProject.country}
-                onChange={e => setAnalysisProject(p => ({ ...p, country: e.target.value }))}
+                onChange={e => {
+                  setAnalysisProject(p => ({ ...p, country: e.target.value }))
+                  loadCountryTaxa(e.target.value)
+                }}
               >
                 {Object.entries(COUNTRY_NAMES).map(([code, name]) => (
                   <option key={code} value={code}>{name} ({code})</option>
@@ -4754,7 +4757,7 @@ function WelcomePage({ onStart }) {
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-         
+
           <h1 style={{
             fontSize: 26, fontWeight: 700, color: '#1F2937',
             letterSpacing: '-0.02em', marginBottom: 8,
@@ -4997,6 +5000,8 @@ export default function App() {
   const [showStatsModal, setShowStatsModal] = useState(false)
   const [dashboardTab, setDashboardTab] = useState('overview')
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [dynamicTaxa, setDynamicTaxa] = useState(SCAN_TAXA)
+  const [loadingTaxa, setLoadingTaxa] = useState(false)
   const [copilotCollapsed, setCopilotCollapsed] = useState(false)
   const [showFullAnalysis, setShowFullAnalysis] = useState(false)
 
@@ -5047,6 +5052,59 @@ export default function App() {
     }
   }
 
+  async function loadCountryTaxa(countryCode) {
+    setLoadingTaxa(true)
+    try {
+      // Get top classes by occurrence count for the country
+      const facetRes = await fetch(
+        `https://api.gbif.org/v1/occurrence/search?country=${countryCode}&limit=0&facet=classKey&facetMincount=500&facetLimit=40`
+      )
+      const facetData = await facetRes.json()
+      const classKeys = facetData.facets?.[0]?.counts?.map(c => c.name) ?? []
+
+      if (classKeys.length === 0) {
+        setDynamicTaxa(SCAN_TAXA)
+        return
+      }
+
+      // Resolve class names
+      const resolved = await Promise.all(
+        classKeys.slice(0, 30).map(key =>
+          fetch(`https://api.gbif.org/v1/species/${key}`)
+            .then(r => r.json())
+            .then(d => ({ key, name: d.canonicalName, rank: d.rank, kingdom: d.kingdom }))
+            .catch(() => null)
+        )
+      )
+
+      // Filter relevant taxa for ESG analysis
+      const EXCLUDE = [
+        'Lecanoromycetes', 'Sordariomycetes', 'Eurotiomycetes', 'Dothideomycetes',
+        'Jungermanniopsida', 'Bryopsida', 'Polypodiopsida', 'Leotiomycetes',
+        'Tremellomycetes', 'Pezizomycetes', 'Arthoniomycetes', 'Thelephorales',
+      ]
+
+      const taxa = resolved
+        .filter(t => t && t.name && !EXCLUDE.includes(t.name))
+        .map(t => ({
+          name: t.name,
+          abbr: t.name.slice(0, 4).toUpperCase(),
+          taxon_rank: t.rank?.toLowerCase() ?? 'class',
+          group: t.kingdom === 'Plantae' ? 'Plants' :
+            t.kingdom === 'Fungi' ? 'Fungi' :
+              t.kingdom === 'Animalia' ? 'Vertebrates' : 'Other',
+        }))
+
+      setDynamicTaxa(taxa.length >= 5 ? taxa : SCAN_TAXA)
+      console.log(`🔬 Loaded ${taxa.length} taxa for ${countryCode}`)
+    } catch (e) {
+      console.warn('Failed to load country taxa:', e.message)
+      setDynamicTaxa(SCAN_TAXA)
+    } finally {
+      setLoadingTaxa(false)
+    }
+  }
+
   function resetWizard() {
     setAnalysisStep(1)
     setDrawnPoints([])
@@ -5088,17 +5146,18 @@ export default function App() {
       // plus the existing country-level metadata queries.
       const [taxaOccurrences, aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss] = await Promise.all([
         Promise.all(
-          SCAN_TAXA.map(taxon =>
-            callGbif('search_occurrences', {
-              taxon_name: taxon.name,
-              taxon_rank: taxon.taxon_rank,
-              has_coordinate: true,
-              lat_min: bbox.minLat,
-              lat_max: bbox.maxLat,
-              lng_min: bbox.minLng,
-              lng_max: bbox.maxLng,
-              limit: 300,
-            }).catch(() => null)
+          dynamicTaxa.slice(0, 15).map((taxon, idx) =>
+            new Promise(resolve => setTimeout(resolve, idx * 150))
+              .then(() => callGbif('search_occurrences', {
+                taxon_name: taxon.name,
+                taxon_rank: taxon.taxon_rank,
+                has_coordinate: true,
+                lat_min: bbox.minLat,
+                lat_max: bbox.maxLat,
+                lng_min: bbox.minLng,
+                lng_max: bbox.maxLng,
+                limit: 300,
+              }).catch(() => null))
           )
         ),
         callGbif('count_occurrences', { taxon_name: 'Aves', country }).catch(() => null),
@@ -5117,7 +5176,7 @@ export default function App() {
       ])
 
       // Per-taxon point-in-polygon refinement.
-      const taxaInPolygon = SCAN_TAXA.map((taxon, i) => {
+      const taxaInPolygon = dynamicTaxa.map((taxon, i) => {
         const results = taxaOccurrences[i]?.results ?? []
         const inside = results.filter(occ =>
           occ.lat != null && occ.lng != null &&
@@ -5160,7 +5219,7 @@ export default function App() {
         const buffered = turf.buffer(turfPolygon, 5, { units: 'kilometers' })
         const bufferCoords = buffered.geometry.coordinates[0].map(c => [c[1], c[0]])
 
-        const inBuffer = SCAN_TAXA.map((taxon, i) => {
+        const inBuffer = dynamicTaxa.map((taxon, i) => {
           const results = taxaOccurrences[i]?.results ?? []
           const insideBuffer = results.filter(occ =>
             occ.lat != null && occ.lng != null &&
@@ -5694,6 +5753,8 @@ export default function App() {
         />
         {isWizard ? (
           <NewAnalysisPage
+            loadCountryTaxa={loadCountryTaxa}
+            loadingTaxa={loadingTaxa}
             analysisStep={analysisStep}
             setAnalysisStep={setAnalysisStep}
             drawnPoints={drawnPoints}
