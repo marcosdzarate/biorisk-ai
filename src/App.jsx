@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Polygon, Polyline, CircleMarker, Tooltip, Popu
 import 'leaflet.heat'
 import L from 'leaflet'
 import { LineChart, Line, BarChart, Bar, Cell, ResponsiveContainer, Tooltip as RTooltip, YAxis } from 'recharts'
-import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss } from './gbif.js'
+import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss, queryGbifAthena } from './gbif.js'
 import { jsPDF } from 'jspdf'
 import { supabase, getSupabaseWithAuth } from './supabase.js'
 import * as turf from '@turf/turf'
@@ -5142,10 +5142,38 @@ export default function App() {
         })
       }
 
-      // 6 parallel bbox-filtered occurrence queries (one per taxon)
-      // plus the existing country-level metadata queries.
-      const [taxaOccurrences, aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss] = await Promise.all([
-        Promise.all(
+      // Query GBIF via Athena (no rate limits) with fallback to REST API
+      let taxaOccurrences
+      const athenaRecords = await queryGbifAthena({
+        minLat: bbox.minLat,
+        maxLat: bbox.maxLat,
+        minLng: bbox.minLng,
+        maxLng: bbox.maxLng,
+        countryCode: country,
+        taxa: dynamicTaxa.slice(0, 15).map(t => t.name),
+      }).catch(() => null)
+
+      if (athenaRecords && athenaRecords.length > 0) {
+        console.log(`✅ Using Athena: ${athenaRecords.length} records`)
+        const byClass = {}
+        athenaRecords.forEach(r => {
+          const cls = r.class
+          if (!byClass[cls]) byClass[cls] = []
+          byClass[cls].push({
+            scientificName: r.scientificname,
+            lat: parseFloat(r.decimallatitude),
+            lng: parseFloat(r.decimallongitude),
+            eventDate: r.year ? `${r.year}-${String(r.month).padStart(2, '0')}-${String(r.day).padStart(2, '0')}` : null,
+            key: r.taxonkey,
+          })
+        })
+        taxaOccurrences = dynamicTaxa.slice(0, 15).map(taxon => ({
+          results: byClass[taxon.name] ?? [],
+          total: byClass[taxon.name]?.length ?? 0,
+        }))
+      } else {
+        console.log('⚠ Athena unavailable, falling back to GBIF REST API')
+        taxaOccurrences = await Promise.all(
           dynamicTaxa.slice(0, 15).map((taxon, idx) =>
             new Promise(resolve => setTimeout(resolve, idx * 150))
               .then(() => callGbif('search_occurrences', {
@@ -5159,7 +5187,10 @@ export default function App() {
                 limit: 300,
               }).catch(() => null))
           )
-        ),
+        )
+      }
+
+      const [aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss] = await Promise.all([
         callGbif('count_occurrences', { taxon_name: 'Aves', country }).catch(() => null),
         callGbif('count_occurrences', { taxon_name: 'Mammalia', country }).catch(() => null),
         callGbif('analyze_sampling_gaps', { taxon_name: 'Aves', countries: [country] }).catch(() => null),
@@ -5171,8 +5202,6 @@ export default function App() {
         queryProtectedAreas(bbox, country).catch(() => null),
         queryNDVI(drawnPolygon).catch(() => null),
         queryForestLoss(drawnPolygon).catch(() => null),
-
-
       ])
 
       // Per-taxon point-in-polygon refinement.

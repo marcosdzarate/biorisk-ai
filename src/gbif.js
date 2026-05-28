@@ -628,3 +628,31 @@ export async function queryForestLoss(polygon) {
     return null
   }
 }
+
+// ─── GBIF via AWS Athena (no rate limits) ────────────────────────────────────
+
+export async function queryGbifAthena({ minLat, maxLat, minLng, maxLng, countryCode, taxa }) {
+  const url = import.meta.env.VITE_LAMBDA_GBIF_URL
+  if (!url) {
+    console.warn('Lambda GBIF URL not configured')
+    return null
+  }
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ minLat, maxLat, minLng, maxLng, countryCode, taxa }),
+    })
+
+    if (!response.ok) throw new Error(`Lambda ${response.status}`)
+
+    const data = await response.json()
+    console.log(`🔬 Athena: ${data.count} records for ${countryCode}`)
+    return data.records ?? []
+
+  } catch (e) {
+    console.warn('Athena query failed:', e.message)
+    return null
+  }
+}
