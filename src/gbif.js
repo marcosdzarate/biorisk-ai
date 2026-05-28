@@ -457,8 +457,11 @@ export async function queryNDVI(polygon) {
     // Auto-calculate resolution to stay under 2500x2500 pixel limit
     const bboxWidth = bbox[2] - bbox[0]
     const bboxHeight = bbox[3] - bbox[1]
-    const resx = Math.max(bboxWidth / 400, 0.005)
-    const resy = Math.max(bboxHeight / 400, 0.005)
+    // Cap resolution to stay under Sentinel-2 1500m/pixel limit
+    // 1500m/pixel ≈ 0.0135 degrees at equator
+    const MAX_RES = 0.013
+    const resx = Math.min(Math.max(bboxWidth / 400, 0.005), MAX_RES)
+    const resy = Math.min(Math.max(bboxHeight / 400, 0.005), MAX_RES)
 
     const body = {
       input: {

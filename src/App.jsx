@@ -5164,7 +5164,7 @@ export default function App() {
             lat: parseFloat(r.decimallatitude),
             lng: parseFloat(r.decimallongitude),
             eventDate: r.year ? `${r.year}-${String(r.month).padStart(2, '0')}-${String(r.day).padStart(2, '0')}` : null,
-            key: r.taxonkey,
+            key: r.gbifid,
           })
         })
         taxaOccurrences = dynamicTaxa.slice(0, 15).map(taxon => ({
