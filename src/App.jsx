@@ -1759,6 +1759,7 @@ function SpeciesRichnessCard({ data, loading }) {
   const taxaInPolygon = data?.taxaInPolygon?.filter(t => t.inPolygon > 0) ?? []
   // Temporal baseline — records by year
   const chao1 = data?.chao1
+  const basisCount = data?.basisCount
   const recordsByYear = useMemo(() => {
     const allRecords = data?.taxaInPolygon?.flatMap(t => t.records ?? []) ?? []
     const yearMap = {}
@@ -2371,6 +2372,33 @@ function TemporalBaselineCard({ data }) {
           </div>
           <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 6 }}>
             Chao1 estimator · {chao1.singletons} singletons · {chao1.doubletons} doubletons
+          </div>
+        </div>
+      )}
+
+      {basisCount && Object.keys(basisCount).length > 0 && (
+        <div style={{ padding: '8px 12px 4px' }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+            Basis of Record
+          </div>
+          {Object.entries(basisCount)
+            .sort(([, a], [, b]) => b - a)
+            .map(([basis, count], i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, marginBottom: 3 }}>
+                <span style={{ color: '#6B7280' }}>
+                  {basis === 'HUMAN_OBSERVATION' ? 'Human observation' :
+                    basis === 'MACHINE_OBSERVATION' ? 'Machine observation' :
+                      basis === 'PRESERVED_SPECIMEN' ? 'Preserved specimen' :
+                        basis === 'LIVING_SPECIMEN' ? 'Living specimen' :
+                          basis === 'MATERIAL_CITATION' ? 'Material citation' : basis}
+                </span>
+                <span style={{ fontFamily: 'monospace', fontWeight: 600, color: '#1F2937' }}>
+                  {count.toLocaleString('en-US')}
+                </span>
+              </div>
+            ))}
+          <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 4, fontStyle: 'italic' }}>
+            Risk score based on HUMAN_OBSERVATION and MACHINE_OBSERVATION only
           </div>
         </div>
       )}
@@ -5128,10 +5156,11 @@ export default function App() {
 
     try {
       setScanProgress(1)
+      setScanStepLabel(`Loading taxonomic groups for ${COUNTRY_NAMES[country] ?? country}...`)
       await delay(500)
 
       setScanProgress(2)
-      setScanStepLabel(`Querying GBIF for ${SCAN_TAXA.length} taxonomic groups...`)
+      setScanStepLabel(`Querying GBIF occurrence data via AWS Athena for ${country}...`)
 
       let spatialData = null
       if (MODE === 'full') {
@@ -5153,9 +5182,11 @@ export default function App() {
         taxa: dynamicTaxa.slice(0, 15).map(t => t.name),
       }).catch(() => null)
 
+      let basisCount = {}
       if (athenaRecords && athenaRecords.length > 0) {
         console.log(`✅ Using Athena: ${athenaRecords.length} records`)
         const byClass = {}
+        const basisCount = {}
         athenaRecords.forEach(r => {
           const cls = r.class
           if (!byClass[cls]) byClass[cls] = []
@@ -5165,7 +5196,10 @@ export default function App() {
             lng: parseFloat(r.decimallongitude),
             eventDate: r.year ? `${r.year}-${String(r.month).padStart(2, '0')}-${String(r.day).padStart(2, '0')}` : null,
             key: r.gbifid,
+            basisOfRecord: r.basisofrecord,
           })
+          const basis = r.basisofrecord ?? 'UNKNOWN'
+          basisCount[basis] = (basisCount[basis] ?? 0) + 1
         })
         taxaOccurrences = dynamicTaxa.slice(0, 15).map(taxon => ({
           results: byClass[taxon.name] ?? [],
@@ -5272,7 +5306,7 @@ export default function App() {
       }
 
       setScanProgress(3)
-      setScanStepLabel(`Filtering ${totalInPolygon} records by polygon boundary...`)
+      setScanStepLabel(`Filtering ${totalInPolygon.toLocaleString('en-US')} records within project boundary...`)
       await delay(600)
 
       setScanProgress(4)
@@ -5326,6 +5360,7 @@ export default function App() {
         polygon,
         country,
         forestLoss: forestLoss,
+        basisCount: basisCount,
         chao1: { estimated: chao1, observed: sObs, completeness: samplingCompleteness, singletons: n1, doubletons: n2 },
       })
 
@@ -5415,6 +5450,7 @@ export default function App() {
       ndvi: scanResults.ndvi,
       forestLoss: scanResults.forestLoss,
       chao1: scanResults.chao1,
+      basisCount: scanResults.basisCount,
     })
 
     // Update project name in header
