@@ -5173,20 +5173,22 @@ export default function App() {
 
       // Query GBIF via Athena (no rate limits) with fallback to REST API
       let taxaOccurrences
-      const athenaRecords = await queryGbifAthena({
-        minLat: bbox.minLat,
-        maxLat: bbox.maxLat,
-        minLng: bbox.minLng,
-        maxLng: bbox.maxLng,
-        countryCode: country,
-        taxa: dynamicTaxa.slice(0, 15).map(t => t.name),
-      }).catch(() => null)
+      //const athenaRecords = await queryGbifAthena({
+      // Athena disabled — cost optimization pending partitioned table
+      // const athenaRecords = await queryGbifAthena({
+      //   minLat: bbox.minLat,
+      //   maxLat: bbox.maxLat,
+      //   minLng: bbox.minLng,
+      //   maxLng: bbox.maxLng,
+      //   countryCode: country,
+      //   taxa: dynamicTaxa.slice(0, 15).map(t => t.name),
+      // }).catch(() => null)
+      const athenaRecords = null
 
       let basisCount = {}
       if (athenaRecords && athenaRecords.length > 0) {
         console.log(`✅ Using Athena: ${athenaRecords.length} records`)
         const byClass = {}
-        const basisCount = {}
         athenaRecords.forEach(r => {
           const cls = r.class
           if (!byClass[cls]) byClass[cls] = []
@@ -5373,6 +5375,12 @@ export default function App() {
     }
   }
 
+  function generateAnalysisId(country) {
+    const date = new Date().toISOString().slice(0, 10)
+    const random = Math.random().toString(36).slice(2, 10).toUpperCase()
+    return `BioRisk-${country}-${date}-${random}`
+  }
+
   function viewDashboardFromScan() {
     if (!scanResults) return
 
@@ -5420,6 +5428,7 @@ export default function App() {
           total_in_polygon: newProject.totalInPolygon,
           polygon: newProject.polygon,
           gbif_data: newProject.gbifData,
+          analysis_id: newProject.analysisId,
         }).then(({ error }) => {
           if (error) console.warn('Failed to save project to Supabase:', error.message)
           else console.log('✅ Project saved to Supabase')
@@ -5429,6 +5438,8 @@ export default function App() {
 
     // Update gbifData with real scan results
     const allRecords = scanResults.taxaInPolygon?.flatMap(t => t.records) ?? []
+    const analysisId = generateAnalysisId(scanResults.country ?? 'XX')
+
     console.log('🌳 Forest Loss:', scanResults.forestLoss)
     setGbifData({
       avesCount: scanResults.aves,
@@ -5436,8 +5447,9 @@ export default function App() {
       gaps: scanResults.gaps,
       whales: {
         total: scanResults.totalInPolygon,
-        results: allRecords,
+        results: allRecords,        
       },
+      analysisId: analysisId,
       papers: scanResults.papers,
       bufferData: scanResults.bufferData,
       riskScore: scanResults.riskScore,
@@ -5571,6 +5583,12 @@ export default function App() {
     doc.text('Biodiversity Risk Intelligence · ESG & TNFD Screening', margin, 20)
     doc.text(`Generated: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`, W - margin, 20, { align: 'right' })
     y = 38
+    // Analysis ID
+    doc.setFontSize(8)
+    doc.setFont('helvetica', 'normal')
+    doc.setTextColor(...gray)
+    doc.text(`Analysis Reference ID: ${data?.analysisId ?? 'N/A'}`, margin, y)
+    y += 8
 
     // ─── Project title ───
     doc.setTextColor(...navy)
@@ -5874,7 +5892,7 @@ export default function App() {
                   <div className="h-sub">{projectName}</div>
                 </div>
                 <div className="h-right">
-                  <span className="badge">ID · BR-2026-0142</span>
+                  <span className="badge">{gbifData?.analysisId ?? 'No analysis'}</span>
                   <span className="badge">May 13, 2026</span>
                   <button className="btn" onClick={() => exportReport(gbifData, analysisProject, projectName)}>
                     Export Report
