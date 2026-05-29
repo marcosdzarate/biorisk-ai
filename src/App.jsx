@@ -5564,6 +5564,103 @@ export default function App() {
     loadProjects()
   }, [user])
 
+  function exportJSON(data, project, name) {
+    if (!data?.riskScore) {
+      alert('Please run an analysis first before exporting.')
+      return
+    }
+    const output = {
+      analysisId: data.analysisId,
+      generatedAt: new Date().toISOString(),
+      project: {
+        name: name,
+        country: project?.country,
+        sector: project?.sector,
+      },
+      riskScore: data.riskScore,
+      biodiversity: {
+        totalRecords: data.polygonCount,
+        taxaDetected: data.taxaInPolygon?.filter(t => t.inPolygon > 0).length,
+        chao1: data.chao1,
+        basisCount: data.basisCount,
+        taxaInPolygon: data.taxaInPolygon?.map(t => ({
+          name: t.name,
+          group: t.group,
+          recordsInPolygon: t.inPolygon,
+          totalInCountry: t.total,
+        })),
+      },
+      vegetation: {
+        ndviMean: data.ndvi?.mean,
+        ndviTrend: data.ndvi?.trend,
+        interpretation: data.ndvi?.interpretation,
+      },
+      protectedAreas: {
+        intersecting: data.wdpa?.intersectingCount,
+        areas: data.wdpa?.areas?.map(a => ({
+          name: a.name,
+          iucnCategory: a.iucnCategory,
+          intersects: data.wdpa?.intersecting?.some(i => i.name === a.name),
+        })),
+      },
+      forestLoss: data.forestLoss,
+      bufferZone: {
+        radiusKm: data.bufferData?.bufferKm,
+        recordsInBuffer: data.bufferData?.totalInBuffer,
+      },
+      dataSource: 'GBIF.org · Sentinel-2 Copernicus · WDPA Protected Planet · Global Forest Watch',
+      methodology: 'https://github.com/marcosdzarate/biorisk-ai',
+    }
+
+    const blob = new Blob([JSON.stringify(output, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${data.analysisId ?? 'biorisk-analysis'}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function exportCSV(data, project, name) {
+    if (!data?.riskScore) {
+      alert('Please run an analysis first before exporting.')
+      return
+    }
+    const rows = [
+      ['Analysis ID', data.analysisId ?? 'N/A'],
+      ['Generated At', new Date().toISOString()],
+      ['Project Name', name],
+      ['Country', project?.country],
+      ['Sector', project?.sector],
+      ['Risk Score', data.riskScore?.score],
+      ['Risk Category', data.riskScore?.category],
+      ['Total Records in Polygon', data.polygonCount],
+      ['Taxa Detected', data.taxaInPolygon?.filter(t => t.inPolygon > 0).length],
+      ['Chao1 Estimated Species', data.chao1?.estimated],
+      ['Sampling Completeness %', data.chao1?.completeness],
+      ['NDVI Mean', data.ndvi?.mean],
+      ['NDVI Trend', data.ndvi?.trend],
+      ['Protected Areas Intersecting', data.wdpa?.intersectingCount],
+      ['Forest Loss Total (ha)', data.forestLoss?.totalLoss],
+      ['Forest Loss Trend', data.forestLoss?.trend],
+      ['Buffer Zone Records (5km)', data.bufferData?.totalInBuffer],
+      [],
+      ['Taxa Breakdown'],
+      ['Taxon', 'Group', 'Records in Polygon', 'Total in Country'],
+      ...(data.taxaInPolygon?.filter(t => t.inPolygon > 0).map(t => [
+        t.name, t.group, t.inPolygon, t.total
+      ]) ?? []),
+    ]
+
+    const csv = rows.map(row => row.map(cell => `"${cell ?? ''}"`).join(',')).join('\n')
+    const blob = new Blob([csv], { type: 'text/csv' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${data.analysisId ?? 'biorisk-analysis'}.csv`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
 
   function exportReport(data, project, name) {
     if (!data?.riskScore) {
@@ -5909,6 +6006,12 @@ export default function App() {
                   <span className="badge">May 13, 2026</span>
                   <button className="btn" onClick={() => exportReport(gbifData, analysisProject, projectName)}>
                     Export Report
+                  </button>
+                  <button className="btn" onClick={() => exportJSON(gbifData, analysisProject, projectName)}>
+                    Export JSON
+                  </button>
+                  <button className="btn" onClick={() => exportCSV(gbifData, analysisProject, projectName)}>
+                    Export CSV
                   </button>
                   <span
                     className="badge"
