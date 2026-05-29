@@ -940,9 +940,22 @@ const COUNTRY_NAMES = {
 }
 
 const COUNTRY_CENTERS = {
-  AR: [-34, -64], BR: [-10, -52], CO: [4, -72], CL: [-30, -71],
-  EC: [-1.8, -78], MX: [23, -102], PE: [-9, -75], BO: [-17, -65],
-  UY: [-33, -56], PY: [-23, -58],
+  AR: [-34, -64],
+  BR: [-10, -52],
+  CO: [4, -72],
+  CL: [-30, -71],
+  EC: [-1.8, -78],
+  MX: [23, -102],
+  PE: [-9, -75],
+  BO: [-17, -65],
+  UY: [-33, -56],
+  PY: [-23, -58],
+  CR: [9.7, -83.8],
+  PA: [8.5, -80],
+  GT: [15.5, -90.3],
+  VE: [6.4, -66.6],
+  HN: [14.8, -86.2],
+  NI: [12.8, -85.2],
 }
 
 const SECTORS = [
@@ -4064,7 +4077,7 @@ function NewAnalysisPage({
   onBack, onRunScan, onViewDashboard, onResetWizard, loadCountryTaxa,
   loadingTaxa,
 }) {
-  const center = COUNTRY_CENTERS[analysisProject.country] || [-34, -64]
+  const center = COUNTRY_CENTERS[analysisProject.country] || [-15, -60]
   const canRun = analysisProject.name.trim() && drawnPolygon
 
   let polyStatus
@@ -5447,7 +5460,7 @@ export default function App() {
       gaps: scanResults.gaps,
       whales: {
         total: scanResults.totalInPolygon,
-        results: allRecords,        
+        results: allRecords,
       },
       analysisId: analysisId,
       papers: scanResults.papers,
