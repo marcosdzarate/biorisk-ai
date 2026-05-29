@@ -1672,16 +1672,20 @@ function KeyFindingsCard({ data, loading }) {
   const protectedAreasVal = loading
     ? <Spinner />
     : wdpa != null
-      ? <span style={{ color: '#18A957', fontWeight: 600 }}>{wdpa.total}</span>
-      : <span style={{ color: '#9CA3AF', fontStyle: 'italic' }} title="Add VITE_WDPA_TOKEN to enable">—</span>
+      ? <span style={{ color: wdpa.intersectingCount > 0 ? '#E84C3D' : '#18A957', fontWeight: 600 }}>
+        {wdpa.intersectingCount ?? 0}
+      </span>
+      : <span style={{ color: '#9CA3AF', fontStyle: 'italic' }}>—</span>
 
-  const protectedAreasSub = wdpa?.total > 0
-    ? <div style={{ fontSize: 9, color: '#18A957', marginTop: 2 }}>
-      {wdpa.areas.slice(0, 2).map((a, i) => (
-        <div key={i}>🛡 {a.name} ({a.iucnCategory})</div>
+  const protectedAreasSub = wdpa?.intersectingCount > 0
+    ? <div style={{ fontSize: 9, color: '#E84C3D', marginTop: 2 }}>
+      {wdpa.intersecting?.slice(0, 2).map((a, i) => (
+        <div key={i}>{a.name} ({a.iucnCategory})</div>
       ))}
     </div>
-    : null
+    : wdpa != null
+      ? <div style={{ fontSize: 9, color: '#18A957', marginTop: 2 }}>No overlap with project boundary</div>
+      : null
 
   const naField = (tooltip) => (
     <span style={{ color: '#9CA3AF', fontStyle: 'italic', fontSize: 11 }}
@@ -2320,6 +2324,7 @@ function ThreatenedSpeciesCard({ data, loading }) {
 }
 
 function TemporalBaselineCard({ data }) {
+  const basisCount = data?.basisCount
   const allRecords = useMemo(() =>
     data?.taxaInPolygon?.flatMap(t => t.records ?? []) ?? []
     , [data])
@@ -3574,7 +3579,8 @@ function DataSourcesCard({ data, loading, onShowStats }) {
   const wdpa = data?.wdpa
   const ndvi = data?.ndvi
   const queriedAt = data?.queriedAt
-    ? data.queriedAt.toLocaleDateString()
+  const queriedDate = queriedAt
+    ? new Date(queriedAt).toLocaleDateString()
     : new Date().toLocaleDateString()
 
   const gbifVal = loading
