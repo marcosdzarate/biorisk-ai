@@ -20,31 +20,31 @@ const CSS = `
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --sidebar: #06152B;
-  --navy: #0F2544;
-  --green: #18A957;
-  --green-lt: #1fc863;
-  --green-pale: #E6F7EC;
-  --bg: #F5F7FA;
-  --card: #FFFFFF;
-  --warning: #F5A623;
-  --warning-pale: #FEF3E0;
-  --danger: #E84C3D;
-  --danger-pale: #FDE8E5;
-  --crit: #8E1B0F;
-  --text: #1F2937;
-  --text2: #6B7280;
-  --text3: #9CA3AF;
-  --bd: #E5E7EB;
-  --bd2: #D1D5DB;
+  --sidebar: #111111;
+  --navy: #0a0a0a;
+  --green: #22c55e;
+  --green-lt: #16a34a;
+  --green-pale: rgba(34,197,94,0.1);
+  --bg: #0a0a0a;
+  --card: #111111;
+  --warning: #f97316;
+  --warning-pale: rgba(249,115,22,0.1);
+  --danger: #ef4444;
+  --danger-pale: rgba(239,68,68,0.1);
+  --crit: #ef4444;
+  --text: #ededed;
+  --text2: #a1a1a1;
+  --text3: #6b6b6b;
+  --bd: #252525;
+  --bd2: #2e2e2e;
 
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --r-sm: 6px;
   --r-md: 8px;
-  --r-lg: 12px;
+  --r-lg: 8px;
   --r-pill: 999px;
-  --sh1: 0 1px 2px rgba(15, 37, 68, 0.05), 0 1px 3px rgba(15, 37, 68, 0.04);
-  --sh2: 0 4px 12px rgba(15, 37, 68, 0.06), 0 2px 4px rgba(15, 37, 68, 0.04);
+  --sh1: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.2);
+  --sh2: 0 4px 12px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
 }
 
 html, body, #root { height: 100%; }
@@ -1127,7 +1127,7 @@ function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle 
           onClick={onToggle}
           style={{
             background: 'none', border: 'none', cursor: 'pointer',
-            fontSize: 14, color: '#9CA3AF', padding: '2px 4px',
+            fontSize: 14, color: 'var(--text3)', padding: '2px 4px',
             flexShrink: 0,
           }}
           title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
@@ -1389,7 +1389,7 @@ function OccurrenceMarker({ occ, color, taxonName }) {
             {occ.scientificName || taxonName}
           </div>
           {occ.eventDate && (
-            <div style={{ color: '#6B7280', fontSize: 11 }}>
+            <div style={{ color: 'var(--text2)', fontSize: 11 }}>
               📅 {occ.eventDate?.slice(0, 10)}
             </div>
           )}
@@ -1404,13 +1404,13 @@ function OccurrenceMarker({ occ, color, taxonName }) {
             </a>
           </div>
           {loadingDOI && (
-            <div style={{ fontSize: 10, color: '#9CA3AF', marginTop: 4 }}>
+            <div style={{ fontSize: 10, color: 'var(--text3)', marginTop: 4 }}>
               Loading dataset info...
             </div>
           )}
           {popupData && (
             <div style={{ marginTop: 6, borderTop: '1px solid #E5E7EB', paddingTop: 6 }}>
-              <div style={{ fontSize: 10, color: '#6B7280', marginBottom: 2 }}>
+              <div style={{ fontSize: 10, color: 'var(--text2)', marginBottom: 2 }}>
                 Dataset: {popupData.title}
               </div>
               {popupData.doi && (
@@ -1458,9 +1458,9 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
                   onClick={() => setViewMode(mode.id)}
                   style={{
                     padding: '4px 10px', borderRadius: 6, fontSize: 11,
-                    fontWeight: 600, border: '1px solid #E5E7EB', cursor: 'pointer',
-                    background: viewMode === mode.id ? '#18A957' : '#F9FAFB',
-                    color: viewMode === mode.id ? 'white' : '#6B7280',
+                    fontWeight: 600, border: '1px solid var(--bd)', cursor: 'pointer',
+                    background: viewMode === mode.id ? '#18A957' : 'var(--card)',
+                    color: viewMode === mode.id ? 'white' : 'var(--text2)',
                   }}>
                   {mode.label}
                 </button>
@@ -1485,9 +1485,9 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
             <Polygon
               positions={polygon}
               pathOptions={{
-                color: viewMode === 'gbif' ? '#ffffff' : '#ffffff',
+                color: viewMode === 'gbif' ? 'var(--card)' : 'var(--card)',
                 weight: viewMode === 'gbif' ? 3 : 2,
-                fillColor: '#ffffff',
+                fillColor: 'var(--card)',
                 fillOpacity: viewMode === 'gbif' ? 0 : 0.04,
                 dashArray: viewMode === 'gbif' ? '6 4' : undefined,
               }}
@@ -1544,7 +1544,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
                   className="map-legend-dot"
                   style={{ background: TAXON_COLORS[t.name] || '#18A957' }}
                 />
-                <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#6B7280' }}>{t.abbr}</span>
+                <span style={{ fontSize: 10, fontFamily: 'monospace', color: 'var(--text2)' }}>{t.abbr}</span>
                 <span className="map-legend-name">{t.name}</span>
                 <span className="map-legend-count">{t.inPolygon}</span>
               </div>
@@ -1620,18 +1620,18 @@ function RiskScoreCard({ riskScore }) {
       {/* Score breakdown */}
       {breakdown && (
         <div style={{ padding: '8px 12px 4px' }}>
-          <div style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
             Score breakdown
           </div>
           {breakdown.map((b, i) => (
             <div key={i} style={{ marginBottom: 6 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, marginBottom: 2 }}>
-                <span style={{ color: '#6B7280' }} title={b.desc}>{b.label} ⓘ</span>
-                <span style={{ fontFamily: 'monospace', fontWeight: 600, color: '#1F2937' }}>
+                <span style={{ color: 'var(--text2)' }} title={b.desc}>{b.label} ⓘ</span>
+                <span style={{ fontFamily: 'monospace', fontWeight: 600, color: 'var(--text)' }}>
                   {b.value}/{b.max}
                 </span>
               </div>
-              <div style={{ height: 5, background: '#E5E7EB', borderRadius: 3, overflow: 'hidden' }}>
+              <div style={{ height: 5, background: 'var(--bd)', borderRadius: 3, overflow: 'hidden' }}>
                 <div style={{
                   height: '100%', borderRadius: 3,
                   background: b.color,
@@ -1646,7 +1646,7 @@ function RiskScoreCard({ riskScore }) {
             borderTop: '1px solid #E5E7EB', paddingTop: 6, marginTop: 4,
             fontSize: 10, fontWeight: 700,
           }}>
-            <span style={{ color: '#1F2937' }}>Total</span>
+            <span style={{ color: 'var(--text)' }}>Total</span>
             <span style={{ color: scoreColor, fontFamily: 'monospace' }}>{score}/100</span>
           </div>
         </div>
@@ -1675,7 +1675,7 @@ function KeyFindingsCard({ data, loading }) {
       ? <span style={{ color: wdpa.intersectingCount > 0 ? '#E84C3D' : '#18A957', fontWeight: 600 }}>
         {wdpa.intersectingCount ?? 0}
       </span>
-      : <span style={{ color: '#9CA3AF', fontStyle: 'italic' }}>—</span>
+      : <span style={{ color: 'var(--text3)', fontStyle: 'italic' }}>—</span>
 
   const protectedAreasSub = wdpa?.intersectingCount > 0
     ? <div style={{ fontSize: 9, color: '#E84C3D', marginTop: 2 }}>
@@ -1688,7 +1688,7 @@ function KeyFindingsCard({ data, loading }) {
       : null
 
   const naField = (tooltip) => (
-    <span style={{ color: '#9CA3AF', fontStyle: 'italic', fontSize: 11 }}
+    <span style={{ color: 'var(--text3)', fontStyle: 'italic', fontSize: 11 }}
       title={tooltip}>
       — <span style={{ fontSize: 9 }}>ⓘ</span>
     </span>
@@ -1832,7 +1832,7 @@ function SpeciesRichnessCard({ data, loading }) {
             >
               <YAxis hide />
               <RTooltip
-                contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+                contentStyle={{ fontSize: 11, padding: 6, border: '1px solid var(--bd)', borderRadius: 6 }}
                 formatter={(value, name, props) => [fmt(value), props.payload.label]}
                 labelFormatter={() => ''} />
               <Bar dataKey="value" radius={[3, 3, 0, 0]}>
@@ -1844,7 +1844,7 @@ function SpeciesRichnessCard({ data, loading }) {
           </ResponsiveContainer>
         </div><div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 10px', marginTop: 6 }}>
             {taxaInPolygon.map((t, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 9, color: '#6B7280' }}>
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 9, color: 'var(--text2)' }}>
                 <div style={{ width: 8, height: 8, borderRadius: 2, background: TAXON_COLORS[t.name] || '#18A957', flexShrink: 0 }} />
                 <span>{t.abbr} {t.name}</span>
               </div>
@@ -1854,7 +1854,7 @@ function SpeciesRichnessCard({ data, loading }) {
 
       {recordsByYear.length > 1 && (
         <div style={{ marginTop: 12 }}>
-          <div style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
             Records by year (temporal baseline)
           </div>
           <div style={{ height: 80 }}>
@@ -1862,7 +1862,7 @@ function SpeciesRichnessCard({ data, loading }) {
               <BarChart data={recordsByYear} margin={{ top: 2, right: 4, left: 0, bottom: 0 }}>
                 <YAxis hide />
                 <RTooltip
-                  contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+                  contentStyle={{ fontSize: 11, padding: 6, border: '1px solid var(--bd)', borderRadius: 6 }}
                   formatter={(value) => [value, 'records']}
                   labelFormatter={(label) => `Year: ${label}`}
                 />
@@ -1870,7 +1870,7 @@ function SpeciesRichnessCard({ data, loading }) {
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 4 }}>
+          <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 4 }}>
             Based on eventDate field from GBIF occurrence records
           </div>
         </div>
@@ -1885,7 +1885,7 @@ function SpeciesRichnessCard({ data, loading }) {
             >
               <YAxis hide />
               <RTooltip
-                contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+                contentStyle={{ fontSize: 11, padding: 6, border: '1px solid var(--bd)', borderRadius: 6 }}
                 formatter={(value, name, props) => [fmt(value), props.payload.label]}
                 labelFormatter={() => ''}
               />
@@ -1942,17 +1942,17 @@ function EcosystemSensitivityCard({ data }) {
 
       {/* NDVI mean */}
       <div style={{ padding: '12px 16px 0' }}>
-        <div style={{ fontSize: 10, color: '#9CA3AF', marginBottom: 4 }}>NDVI Mean</div>
+        <div style={{ fontSize: 10, color: 'var(--text3)', marginBottom: 4 }}>NDVI Mean</div>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
           <span style={{ fontSize: 28, fontWeight: 700, color: meanColor }}>
             {ndvi.mean.toFixed(3)}
           </span>
-          <span style={{ fontSize: 12, color: '#6B7280' }}>{ndvi.interpretation}</span>
+          <span style={{ fontSize: 12, color: 'var(--text2)' }}>{ndvi.interpretation}</span>
         </div>
 
         {/* NDVI bar */}
         <div style={{
-          height: 6, background: '#E5E7EB', borderRadius: 3,
+          height: 6, background: 'var(--bd)', borderRadius: 3,
           overflow: 'hidden', margin: '8px 0'
         }}>
           <div style={{
@@ -1963,7 +1963,7 @@ function EcosystemSensitivityCard({ data }) {
         </div>
         <div style={{
           display: 'flex', justifyContent: 'space-between',
-          fontSize: 8, color: '#9CA3AF'
+          fontSize: 8, color: 'var(--text3)'
         }}>
           <span>-1 (water)</span>
           <span>0</span>
@@ -1977,26 +1977,26 @@ function EcosystemSensitivityCard({ data }) {
         gap: 8, padding: '12px 16px'
       }}>
         <div style={{
-          background: '#F9FAFB', borderRadius: 6,
+          background: 'var(--card)', borderRadius: 6,
           padding: '8px 10px'
         }}>
-          <div style={{ fontSize: 9, color: '#9CA3AF', marginBottom: 2 }}>Trend</div>
+          <div style={{ fontSize: 9, color: 'var(--text3)', marginBottom: 2 }}>Trend</div>
           <div style={{ fontSize: 13, fontWeight: 600, color: trendColor }}>
             {trendIcon} {ndvi.trend}
           </div>
-          <div style={{ fontSize: 9, color: '#9CA3AF' }}>
+          <div style={{ fontSize: 9, color: 'var(--text3)' }}>
             {ndvi.slope > 0 ? '+' : ''}{ndvi.slope.toFixed(4)}/period
           </div>
         </div>
         <div style={{
-          background: '#F9FAFB', borderRadius: 6,
+          background: 'var(--card)', borderRadius: 6,
           padding: '8px 10px'
         }}>
-          <div style={{ fontSize: 9, color: '#9CA3AF', marginBottom: 2 }}>ΔYoY</div>
+          <div style={{ fontSize: 9, color: 'var(--text3)', marginBottom: 2 }}>ΔYoY</div>
           <div style={{ fontSize: 13, fontWeight: 600, color: ndvi.deltaYoY >= 0 ? '#18A957' : '#E84C3D' }}>
             {ndvi.deltaYoY >= 0 ? '+' : ''}{ndvi.deltaYoY.toFixed(3)}
           </div>
-          <div style={{ fontSize: 9, color: '#9CA3AF' }}>
+          <div style={{ fontSize: 9, color: 'var(--text3)' }}>
             {ndvi.quarterly?.length ?? 0} periods
           </div>
         </div>
@@ -2108,11 +2108,11 @@ function HumanPressureCard({ data, analysisProject }) {
       {/* Score comparison */}
       <div style={{
         display: 'flex', alignItems: 'center', gap: 10,
-        padding: '10px 16px', background: '#F9FAFB',
+        padding: '10px 16px', background: 'var(--card)',
         borderBottom: '1px solid #E5E7EB'
       }}>
         <div style={{ textAlign: 'center', flex: 1 }}>
-          <div style={{ fontSize: 9, color: '#9CA3AF', marginBottom: 2 }}>Current</div>
+          <div style={{ fontSize: 9, color: 'var(--text3)', marginBottom: 2 }}>Current</div>
           <div style={{ fontSize: 22, fontWeight: 700, color: getColor(baseScore) }}>
             {baseScore}
           </div>
@@ -2123,7 +2123,7 @@ function HumanPressureCard({ data, analysisProject }) {
           <>
             <div style={{ fontSize: 18, color: '#18A957' }}>→</div>
             <div style={{ textAlign: 'center', flex: 1 }}>
-              <div style={{ fontSize: 9, color: '#9CA3AF', marginBottom: 2 }}>Mitigated</div>
+              <div style={{ fontSize: 9, color: 'var(--text3)', marginBottom: 2 }}>Mitigated</div>
               <div style={{ fontSize: 22, fontWeight: 700, color: getColor(mitigatedScore) }}>
                 {mitigatedScore}
               </div>
@@ -2170,7 +2170,7 @@ function HumanPressureCard({ data, analysisProject }) {
                 >
                   <div style={{
                     width: 16, height: 16, borderRadius: 4, flexShrink: 0, marginTop: 1,
-                    background: selected.includes(action.id) ? '#18A957' : '#E5E7EB',
+                    background: selected.includes(action.id) ? '#18A957' : 'var(--bd)',
                     border: `1.5px solid ${selected.includes(action.id) ? '#18A957' : '#D1D5DB'}`,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: 9, color: 'white',
@@ -2178,10 +2178,10 @@ function HumanPressureCard({ data, analysisProject }) {
                     {selected.includes(action.id) ? '✓' : ''}
                   </div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 11, fontWeight: 600, color: '#1F2937', marginBottom: 1 }}>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--text)', marginBottom: 1 }}>
                       {action.label}
                     </div>
-                    <div style={{ fontSize: 10, color: '#9CA3AF', lineHeight: 1.4 }}>
+                    <div style={{ fontSize: 10, color: 'var(--text3)', lineHeight: 1.4 }}>
                       {action.desc}
                     </div>
                   </div>
@@ -2198,8 +2198,8 @@ function HumanPressureCard({ data, analysisProject }) {
       {selected.length === 0 && (
         <div style={{
           margin: '0 12px 12px', padding: '6px 10px',
-          background: '#F9FAFB', borderRadius: 6,
-          fontSize: 9, color: '#9CA3AF', textAlign: 'center'
+          background: 'var(--card)', borderRadius: 6,
+          fontSize: 9, color: 'var(--text3)', textAlign: 'center'
         }}>
           Select actions to see mitigated risk score
         </div>
@@ -2265,13 +2265,13 @@ function KeyIndicatorSpeciesCard({ data }) {
         }}>GBIF verified</span>
       </div>
       <div style={{ padding: '8px 12px' }}>
-        <div style={{ fontSize: 11, color: '#6B7280', marginBottom: 10, lineHeight: 1.5 }}>
+        <div style={{ fontSize: 11, color: 'var(--text2)', marginBottom: 10, lineHeight: 1.5 }}>
           {threatened.length > 0
             ? 'Threatened species detected within project boundary — requires priority attention under IFC PS6 and TNFD.'
             : 'Most recorded species within project boundary — key ecological indicators for this area.'}
         </div>
         {indicators.map((s, i) => {
-          const iucn = IUCN_COLORS[s.iucn] ?? { bg: '#F9FAFB', color: '#6B7280', label: s.iucn ?? 'Not assessed' }
+          const iucn = IUCN_COLORS[s.iucn] ?? { bg: 'var(--card)', color: 'var(--text2)', label: s.iucn ?? 'Not assessed' }
           return (
             <div key={i} style={{
               display: 'flex', alignItems: 'flex-start', gap: 10,
@@ -2285,10 +2285,10 @@ function KeyIndicatorSpeciesCard({ data }) {
                 {s.iucn ?? 'NE'}
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 11, fontWeight: 600, fontStyle: 'italic', color: '#1F2937' }}>
+                <div style={{ fontSize: 11, fontWeight: 600, fontStyle: 'italic', color: 'var(--text)' }}>
                   {s.scientificName}
                 </div>
-                <div style={{ fontSize: 10, color: '#9CA3AF' }}>
+                <div style={{ fontSize: 10, color: 'var(--text3)' }}>
                   {s.taxonGroup} · {s.count} records · {iucn.label}
                 </div>
               </div>
@@ -2298,8 +2298,8 @@ function KeyIndicatorSpeciesCard({ data }) {
       </div>
       <div style={{
         margin: '4px 12px 12px', padding: '6px 10px',
-        background: '#F9FAFB', border: '1px solid #E5E7EB',
-        borderRadius: 6, fontSize: 9, color: '#9CA3AF',
+        background: 'var(--card)', border: '1px solid var(--bd)',
+        borderRadius: 6, fontSize: 9, color: 'var(--text3)',
       }}>
         IUCN Red List status from GBIF occurrence records · Species with CR/EN/VU status require enhanced due diligence under IFC PS6 Critical Habitat policy.
       </div>
@@ -2348,7 +2348,7 @@ function ThreatenedSpeciesCard({ data, loading }) {
         <div className="card-head">
           <div className="card-title">Species Records in Polygon</div>
         </div>
-        <div style={{ padding: 24, textAlign: 'center', color: '#9CA3AF' }}>
+        <div style={{ padding: 24, textAlign: 'center', color: 'var(--text3)' }}>
           <Spinner /> Loading...
         </div>
       </div>
@@ -2361,7 +2361,7 @@ function ThreatenedSpeciesCard({ data, loading }) {
         <div className="card-head">
           <div className="card-title">Species Records in Polygon</div>
         </div>
-        <div style={{ padding: 32, textAlign: 'center', color: '#9CA3AF', fontSize: 13 }}>
+        <div style={{ padding: 32, textAlign: 'center', color: 'var(--text3)', fontSize: 13 }}>
           No species records found in this polygon.<br />
           <span style={{ fontSize: 11 }}>Try drawing a larger area or a different location.</span>
         </div>
@@ -2373,7 +2373,7 @@ function ThreatenedSpeciesCard({ data, loading }) {
     <div className="card">
       <div className="card-head">
         <div className="card-title">Species Records in Polygon</div>
-        <span style={{ fontSize: 11, color: '#6B7280' }}>
+        <span style={{ fontSize: 11, color: 'var(--text2)' }}>
           {totalSpecies} unique species · top {species.length} shown
         </span>
       </div>
@@ -2391,10 +2391,10 @@ function ThreatenedSpeciesCard({ data, loading }) {
             {species.map((s, i) => (
               <tr key={i}>
                 <td>
-                  <span style={{ fontSize: 9, fontWeight: 700, color: '#6B7280', fontFamily: 'monospace', background: '#F3F4F6', padding: '1px 4px', borderRadius: 3 }}>{s.abbr}</span>
+                  <span style={{ fontSize: 9, fontWeight: 700, color: 'var(--text2)', fontFamily: 'monospace', background: 'var(--bd)', padding: '1px 4px', borderRadius: 3 }}>{s.abbr}</span>
                   <span className="sp-sci">{s.scientificName}</span>
                 </td>
-                <td style={{ fontSize: 11, color: '#6B7280' }}>{s.taxonGroup}</td>
+                <td style={{ fontSize: 11, color: 'var(--text2)' }}>{s.taxonGroup}</td>
                 <td>
                   <span style={{
                     background: '#F0FDF4', color: '#18A957',
@@ -2405,7 +2405,7 @@ function ThreatenedSpeciesCard({ data, loading }) {
                     {s.count}
                   </span>
                 </td>
-                <td style={{ fontSize: 11, color: '#6B7280' }}>{s.lastRecord}</td>
+                <td style={{ fontSize: 11, color: 'var(--text2)' }}>{s.lastRecord}</td>
               </tr>
             ))}
           </tbody>
@@ -2453,10 +2453,10 @@ function TemporalBaselineCard({ data }) {
 
   return (
     <div style={{
-      background: 'white', border: '1px solid #E5E7EB',
+      background: 'var(--card)', border: '1px solid var(--bd)',
       borderRadius: 10, padding: '14px 16px', marginBottom: 18,
     }}>
-      <div style={{ fontSize: 12, fontWeight: 600, color: '#1F2937', marginBottom: 10 }}>
+      <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text)', marginBottom: 10 }}>
         Temporal Baseline — Records by Year
       </div>
       <div style={{ height: 80 }}>
@@ -2464,7 +2464,7 @@ function TemporalBaselineCard({ data }) {
           <BarChart data={recordsByYear} margin={{ top: 2, right: 4, left: 0, bottom: 0 }}>
             <YAxis hide />
             <RTooltip
-              contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+              contentStyle={{ fontSize: 11, padding: 6, border: '1px solid var(--bd)', borderRadius: 6 }}
               formatter={(value) => [value, 'records']}
               labelFormatter={(label) => `Year: ${label}`}
             />
@@ -2474,26 +2474,26 @@ function TemporalBaselineCard({ data }) {
       </div>
       {chao1 && (
         <div style={{ marginTop: 12 }}>
-          <div style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
             Species Richness Estimate (Chao1)
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
-            <div style={{ background: '#F9FAFB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#1F2937', fontFamily: 'monospace' }}>{chao1.observed}</div>
-              <div style={{ fontSize: 9, color: '#9CA3AF' }}>observed</div>
+            <div style={{ background: 'var(--card)', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)', fontFamily: 'monospace' }}>{chao1.observed}</div>
+              <div style={{ fontSize: 9, color: 'var(--text3)' }}>observed</div>
             </div>
-            <div style={{ background: '#F9FAFB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
+            <div style={{ background: 'var(--card)', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: '#18A957', fontFamily: 'monospace' }}>{chao1.estimated}</div>
-              <div style={{ fontSize: 9, color: '#9CA3AF' }}>estimated</div>
+              <div style={{ fontSize: 9, color: 'var(--text3)' }}>estimated</div>
             </div>
             <div style={{ background: chao1.completeness >= 80 ? '#F0FDF4' : '#FFFBEB', borderRadius: 6, padding: '6px 8px', textAlign: 'center' }}>
               <div style={{ fontSize: 14, fontWeight: 700, fontFamily: 'monospace', color: chao1.completeness >= 80 ? '#18A957' : '#F5A623' }}>
                 {chao1.completeness}%
               </div>
-              <div style={{ fontSize: 9, color: '#9CA3AF' }}>completeness</div>
+              <div style={{ fontSize: 9, color: 'var(--text3)' }}>completeness</div>
             </div>
           </div>
-          <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 6 }}>
+          <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 6 }}>
             Chao1 estimator · {chao1.singletons} singletons · {chao1.doubletons} doubletons
           </div>
         </div>
@@ -2501,31 +2501,31 @@ function TemporalBaselineCard({ data }) {
 
       {basisCount && Object.keys(basisCount).length > 0 && (
         <div style={{ padding: '8px 12px 4px' }}>
-          <div style={{ fontSize: 9, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
             Basis of Record
           </div>
           {Object.entries(basisCount)
             .sort(([, a], [, b]) => b - a)
             .map(([basis, count], i) => (
               <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, marginBottom: 3 }}>
-                <span style={{ color: '#6B7280' }}>
+                <span style={{ color: 'var(--text2)' }}>
                   {basis === 'HUMAN_OBSERVATION' ? 'Human observation' :
                     basis === 'MACHINE_OBSERVATION' ? 'Machine observation' :
                       basis === 'PRESERVED_SPECIMEN' ? 'Preserved specimen' :
                         basis === 'LIVING_SPECIMEN' ? 'Living specimen' :
                           basis === 'MATERIAL_CITATION' ? 'Material citation' : basis}
                 </span>
-                <span style={{ fontFamily: 'monospace', fontWeight: 600, color: '#1F2937' }}>
+                <span style={{ fontFamily: 'monospace', fontWeight: 600, color: 'var(--text)' }}>
                   {count.toLocaleString('en-US')}
                 </span>
               </div>
             ))}
-          <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 4, fontStyle: 'italic' }}>
+          <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 4, fontStyle: 'italic' }}>
             Risk score based on HUMAN_OBSERVATION and MACHINE_OBSERVATION only
           </div>
         </div>
       )}
-      <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 4 }}>
+      <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 4 }}>
         Based on eventDate field · Sample of up to 300 records per taxon
       </div>
     </div>
@@ -2564,7 +2564,7 @@ function BiodiversityMatrixCard({ data }) {
     'I': { label: 'Priority Conservation Area', color: '#E84C3D', bg: '#FEF2F2', desc: 'High biodiversity importance and intactness. Priority area to be protected. Maximum risk for new projects.' },
     'II': { label: 'Degraded High-Value Area', color: '#F5A623', bg: '#FFFBEB', desc: 'High biodiversity importance but already degraded. High effectiveness of nature-positive restoration activities expected.' },
     'III': { label: 'Suitable for Development', color: '#18A957', bg: '#F0FDF4', desc: 'Low biodiversity importance and high intactness. Low conflict with other activities — suitable for renewable energy or infrastructure projects.' },
-    'IV': { label: 'Restoration Opportunity', color: '#6B7280', bg: '#F9FAFB', desc: 'Low biodiversity importance and intactness. Large potential for improvement through restoration activities.' },
+    'IV': { label: 'Restoration Opportunity', color: 'var(--text2)', bg: 'var(--card)', desc: 'Low biodiversity importance and intactness. Large potential for improvement through restoration activities.' },
   }
 
   const q = quadrant ? QUADRANTS[quadrant] : null
@@ -2581,28 +2581,28 @@ function BiodiversityMatrixCard({ data }) {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
     }} onClick={() => setShowMatrixInfo(false)}>
       <div style={{
-        background: 'white', borderRadius: 12, padding: 24,
+        background: 'var(--card)', borderRadius: 12, padding: 24,
         width: 440, maxWidth: '90vw',
         boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
       }} onClick={e => e.stopPropagation()}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-          <div style={{ fontSize: 14, fontWeight: 700, color: '#1F2937' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)' }}>
             Biodiversity Context Matrix — Methodology
           </div>
           <button type="button" onClick={() => setShowMatrixInfo(false)} style={{
             background: 'none', border: 'none', fontSize: 20,
-            cursor: 'pointer', color: '#9CA3AF',
+            cursor: 'pointer', color: 'var(--text3)',
           }}>×</button>
         </div>
 
-        <div style={{ fontSize: 12, color: '#6B7280', lineHeight: 1.7 }}>
+        <div style={{ fontSize: 12, color: 'var(--text2)', lineHeight: 1.7 }}>
           <p style={{ marginBottom: 12 }}>
             The matrix positions your project area across two axes adapted from the
             GBNAT (Think Nature) biodiversity assessment framework.
           </p>
 
           <div style={{ marginBottom: 12 }}>
-            <strong style={{ color: '#1F2937' }}>Importance axis (vertical)</strong>
+            <strong style={{ color: 'var(--text)' }}>Importance axis (vertical)</strong>
             <p style={{ margin: '4px 0 0' }}>
               Calculated from GBIF occurrence data within the polygon:
               60% weighted by occurrence density (records per km²) +
@@ -2611,7 +2611,7 @@ function BiodiversityMatrixCard({ data }) {
           </div>
 
           <div style={{ marginBottom: 12 }}>
-            <strong style={{ color: '#1F2937' }}>Intactness axis (horizontal)</strong>
+            <strong style={{ color: 'var(--text)' }}>Intactness axis (horizontal)</strong>
             <p style={{ margin: '4px 0 0' }}>
               Derived from Sentinel-2 NDVI mean, scaled from [-1, +1] to [0, 1].
               Higher NDVI indicates denser, healthier vegetation and greater ecosystem intactness.
@@ -2619,7 +2619,7 @@ function BiodiversityMatrixCard({ data }) {
           </div>
 
           <div style={{ marginBottom: 12 }}>
-            <strong style={{ color: '#1F2937' }}>Quadrant thresholds</strong>
+            <strong style={{ color: 'var(--text)' }}>Quadrant thresholds</strong>
             <p style={{ margin: '4px 0 0' }}>
               Both axes are divided at 0.5 (50%). Areas above 0.5 on importance
               are considered high-value biodiversity areas. Areas above 0.5 on
@@ -2657,15 +2657,15 @@ function BiodiversityMatrixCard({ data }) {
           <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
             <span style={{
               fontSize: 9, fontWeight: 700, padding: '2px 7px',
-              borderRadius: 999, background: '#F3F4F6',
-              color: '#6B7280', border: '1px solid #E5E7EB'
+              borderRadius: 999, background: 'var(--bd)',
+              color: 'var(--text2)', border: '1px solid var(--bd)'
             }}>GBNAT methodology</span>
             <button
               onClick={() => { console.log('ℹ clicked'); setShowMatrixInfo(true) }}
               style={{
                 width: 20, height: 20, borderRadius: '50%',
-                background: '#E5E7EB', border: 'none',
-                fontSize: 11, cursor: 'pointer', color: '#6B7280',
+                background: 'var(--bd)', border: 'none',
+                fontSize: 11, cursor: 'pointer', color: 'var(--text2)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontWeight: 700,
               }}
@@ -2682,7 +2682,7 @@ function BiodiversityMatrixCard({ data }) {
               position: 'absolute', inset: 0,
               display: 'grid', gridTemplateColumns: '1fr 1fr',
               gridTemplateRows: '1fr 1fr',
-              border: '1px solid #E5E7EB',
+              border: '1px solid var(--bd)',
             }}>
               {/* Quadrant I — top right */}
               <div style={{ background: '#FEF2F2', borderRight: '1px solid #E5E7EB', borderBottom: '1px solid #E5E7EB', order: 2 }} />
@@ -2691,14 +2691,14 @@ function BiodiversityMatrixCard({ data }) {
               {/* Quadrant III — bottom right */}
               <div style={{ background: '#F0FDF4', borderRight: '1px solid #E5E7EB', order: 4 }} />
               {/* Quadrant IV — bottom left */}
-              <div style={{ background: '#F9FAFB', order: 3 }} />
+              <div style={{ background: 'var(--card)', order: 3 }} />
             </div>
 
             {/* Quadrant labels */}
             <div style={{ position: 'absolute', top: 4, right: 4, fontSize: 8, fontWeight: 700, color: '#E84C3D' }}>I</div>
             <div style={{ position: 'absolute', top: 4, left: 4, fontSize: 8, fontWeight: 700, color: '#F5A623' }}>II</div>
             <div style={{ position: 'absolute', bottom: 4, right: 4, fontSize: 8, fontWeight: 700, color: '#18A957' }}>III</div>
-            <div style={{ position: 'absolute', bottom: 4, left: 4, fontSize: 8, fontWeight: 700, color: '#6B7280' }}>IV</div>
+            <div style={{ position: 'absolute', bottom: 4, left: 4, fontSize: 8, fontWeight: 700, color: 'var(--text2)' }}>IV</div>
 
             {/* Project dot */}
             {intactness !== null && (
@@ -2719,12 +2719,12 @@ function BiodiversityMatrixCard({ data }) {
             {/* Axis labels */}
             <div style={{
               position: 'absolute', bottom: -18, left: 0, right: 0,
-              textAlign: 'center', fontSize: 8, color: '#9CA3AF',
+              textAlign: 'center', fontSize: 8, color: 'var(--text3)',
             }}>← Intactness (NDVI) →</div>
             <div style={{
               position: 'absolute', top: 0, bottom: 0, left: -22,
               display: 'flex', alignItems: 'center',
-              fontSize: 8, color: '#9CA3AF',
+              fontSize: 8, color: 'var(--text3)',
               writingMode: 'vertical-rl',
               transform: 'rotate(180deg)',
             }}>← Importance →</div>
@@ -2733,11 +2733,11 @@ function BiodiversityMatrixCard({ data }) {
           {/* Right side info */}
           <div style={{ flex: 1, minWidth: 0 }}>
             {!data?.polygonCount ? (
-              <div style={{ fontSize: 11, color: '#9CA3AF', paddingTop: 8 }}>
+              <div style={{ fontSize: 11, color: 'var(--text3)', paddingTop: 8 }}>
                 Run an analysis to see your project's biodiversity context.
               </div>
             ) : intactness === null ? (
-              <div style={{ fontSize: 11, color: '#9CA3AF', paddingTop: 8 }}>
+              <div style={{ fontSize: 11, color: 'var(--text3)', paddingTop: 8 }}>
                 NDVI data required for full matrix analysis. Enable Sentinel-2 integration.
               </div>
             ) : (
@@ -2751,10 +2751,10 @@ function BiodiversityMatrixCard({ data }) {
                 }}>
                   Quadrant {quadrant} — {q?.label}
                 </div>
-                <p style={{ fontSize: 11, color: '#6B7280', lineHeight: 1.6, marginBottom: 8 }}>
+                <p style={{ fontSize: 11, color: 'var(--text2)', lineHeight: 1.6, marginBottom: 8 }}>
                   {q?.desc}
                 </p>
-                <div style={{ fontSize: 10, color: '#9CA3AF' }}>
+                <div style={{ fontSize: 10, color: 'var(--text3)' }}>
                   <div>Importance: {(importance * 100).toFixed(0)}% ({totalInPolygon} records · {taxaFound} taxa)</div>
                   <div>Intactness: {(intactness * 100).toFixed(0)}% (NDVI {ndviMean?.toFixed(3)})</div>
                 </div>
@@ -2765,8 +2765,8 @@ function BiodiversityMatrixCard({ data }) {
 
         <div style={{
           margin: '0 12px 12px', padding: '6px 10px',
-          background: '#F9FAFB', borderRadius: 6,
-          fontSize: 9, color: '#9CA3AF', lineHeight: 1.5,
+          background: 'var(--card)', borderRadius: 6,
+          fontSize: 9, color: 'var(--text3)', lineHeight: 1.5,
         }}>
           Methodology adapted from GBNAT (Think Nature). Importance = GBIF occurrence density + taxa richness.
           Intactness = Sentinel-2 NDVI proxy.
@@ -2847,7 +2847,7 @@ function EcosystemServicesCard({ data, polygon }) {
         }}>de Groot et al. 2012</span>
       </div>
       <div style={{ padding: '8px 12px' }}>
-        <div style={{ fontSize: 10, color: '#6B7280', marginBottom: 10 }}>
+        <div style={{ fontSize: 10, color: 'var(--text2)', marginBottom: 10 }}>
           Area: <strong>{area.toLocaleString('en-US')} km²</strong> ·
           Ecosystem: <strong>{ecosystemType}</strong> ·
           NDVI: <strong>{ndviMean.toFixed(3)}</strong>
@@ -2855,10 +2855,10 @@ function EcosystemServicesCard({ data, polygon }) {
         {services.map((s, i) => (
           <div key={i} style={{ marginBottom: 8 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 3 }}>
-              <span style={{ color: '#6B7280' }}>{s.label}</span>
-              <span style={{ fontFamily: 'monospace', fontWeight: 600, color: '#1F2937' }}>{fmt(s.value)}/yr</span>
+              <span style={{ color: 'var(--text2)' }}>{s.label}</span>
+              <span style={{ fontFamily: 'monospace', fontWeight: 600, color: 'var(--text)' }}>{fmt(s.value)}/yr</span>
             </div>
-            <div style={{ height: 4, background: '#E5E7EB', borderRadius: 2, overflow: 'hidden' }}>
+            <div style={{ height: 4, background: 'var(--bd)', borderRadius: 2, overflow: 'hidden' }}>
               <div style={{
                 height: '100%', borderRadius: 2,
                 background: s.color,
@@ -2873,7 +2873,7 @@ function EcosystemServicesCard({ data, polygon }) {
           borderTop: '1px solid #E5E7EB', paddingTop: 8, marginTop: 4,
           fontSize: 12, fontWeight: 700,
         }}>
-          <span style={{ color: '#1F2937' }}>Total estimated value</span>
+          <span style={{ color: 'var(--text)' }}>Total estimated value</span>
           <span style={{ color: '#18A957', fontFamily: 'monospace' }}>{fmt(total)}/yr</span>
         </div>
       </div>
@@ -2918,7 +2918,7 @@ function FinancialMaterialityCard({ data, analysisProject }) {
         }}>indicative</span>
       </div>
       <div style={{ padding: '8px 12px' }}>
-        <div style={{ fontSize: 10, color: '#6B7280', marginBottom: 10, lineHeight: 1.5 }}>
+        <div style={{ fontSize: 10, color: 'var(--text2)', marginBottom: 10, lineHeight: 1.5 }}>
           Based on Risk Score <strong style={{ color: scoreColor }}>{score}/100</strong> — estimated financial exposure for <strong>{sector}</strong> projects with similar biodiversity risk profiles.
         </div>
         {[
@@ -2932,11 +2932,11 @@ function FinancialMaterialityCard({ data, analysisProject }) {
             padding: '7px 0', borderBottom: i < 3 ? '1px solid #E5E7EB' : 'none',
             gap: 8,
           }}>
-            <div style={{ fontSize: 11, color: '#6B7280', display: 'flex', gap: 6, alignItems: 'center' }}>
+            <div style={{ fontSize: 11, color: 'var(--text2)', display: 'flex', gap: 6, alignItems: 'center' }}>
               <span>{item.icon}</span>
               <span>{item.label}</span>
             </div>
-            <div style={{ fontSize: 11, fontWeight: 600, color: '#1F2937', textAlign: 'right', maxWidth: '55%' }}>
+            <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--text)', textAlign: 'right', maxWidth: '55%' }}>
               {item.value}
             </div>
           </div>
@@ -2984,23 +2984,23 @@ function ForestLossCard({ data }) {
 
       {/* Stats row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, padding: '8px 12px' }}>
-        <div style={{ background: '#F9FAFB', borderRadius: 8, padding: '8px 10px', textAlign: 'center' }}>
-          <div style={{ fontSize: 16, fontWeight: 700, color: '#1F2937', fontFamily: 'monospace' }}>
+        <div style={{ background: 'var(--card)', borderRadius: 8, padding: '8px 10px', textAlign: 'center' }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--text)', fontFamily: 'monospace' }}>
             {forestLoss.totalLoss.toLocaleString('en-US')}
           </div>
-          <div style={{ fontSize: 9, color: '#9CA3AF' }}>ha total loss</div>
+          <div style={{ fontSize: 9, color: 'var(--text3)' }}>ha total loss</div>
         </div>
-        <div style={{ background: '#F9FAFB', borderRadius: 8, padding: '8px 10px', textAlign: 'center' }}>
-          <div style={{ fontSize: 16, fontWeight: 700, color: '#1F2937', fontFamily: 'monospace' }}>
+        <div style={{ background: 'var(--card)', borderRadius: 8, padding: '8px 10px', textAlign: 'center' }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--text)', fontFamily: 'monospace' }}>
             {forestLoss.recentLoss.toLocaleString('en-US')}
           </div>
-          <div style={{ fontSize: 9, color: '#9CA3AF' }}>ha since 2015</div>
+          <div style={{ fontSize: 9, color: 'var(--text3)' }}>ha since 2015</div>
         </div>
-        <div style={{ background: '#F9FAFB', borderRadius: 8, padding: '8px 10px', textAlign: 'center' }}>
+        <div style={{ background: 'var(--card)', borderRadius: 8, padding: '8px 10px', textAlign: 'center' }}>
           <div style={{ fontSize: 16, fontWeight: 700, color: trendColor, fontFamily: 'monospace' }}>
             {trendIcon} {forestLoss.trend}
           </div>
-          <div style={{ fontSize: 9, color: '#9CA3AF' }}>trend</div>
+          <div style={{ fontSize: 9, color: 'var(--text3)' }}>trend</div>
         </div>
       </div>
 
@@ -3011,7 +3011,7 @@ function ForestLossCard({ data }) {
             <BarChart data={forestLoss.byYear} margin={{ top: 2, right: 4, left: 0, bottom: 0 }}>
               <YAxis hide />
               <RTooltip
-                contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+                contentStyle={{ fontSize: 11, padding: 6, border: '1px solid var(--bd)', borderRadius: 6 }}
                 formatter={(value) => [`${value} ha`, 'Forest loss']}
                 labelFormatter={(label) => `Year: ${label}`}
               />
@@ -3045,7 +3045,7 @@ function ScenarioAnalysisCard({ data }) {
     return (
       <div className="card">
         <div className="card-head"><div className="card-title">Scenario Analysis</div></div>
-        <div style={{ padding: 24, textAlign: 'center', color: '#9CA3AF', fontSize: 12 }}>
+        <div style={{ padding: 24, textAlign: 'center', color: 'var(--text3)', fontSize: 12 }}>
           Run an analysis with NDVI data to see scenario projections.
         </div>
       </div>
@@ -3109,38 +3109,38 @@ function ScenarioAnalysisCard({ data }) {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }} onClick={() => setShowScenarioInfo(false)}>
           <div style={{
-            background: 'white', borderRadius: 12, padding: 24,
+            background: 'var(--card)', borderRadius: 12, padding: 24,
             width: 440, maxWidth: '90vw',
             boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
           }} onClick={e => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#1F2937' }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)' }}>
                 Scenario Analysis — Methodology
               </div>
               <button type="button" onClick={() => setShowScenarioInfo(false)} style={{
                 background: 'none', border: 'none', fontSize: 20,
-                cursor: 'pointer', color: '#9CA3AF',
+                cursor: 'pointer', color: 'var(--text3)',
               }}>×</button>
             </div>
-            <div style={{ fontSize: 12, color: '#6B7280', lineHeight: 1.7 }}>
+            <div style={{ fontSize: 12, color: 'var(--text2)', lineHeight: 1.7 }}>
               <p style={{ marginBottom: 12 }}>
                 Projects the biodiversity risk score 10 years forward under 3 scenarios
                 based on extrapolation of the current Sentinel-2 NDVI trend.
               </p>
               <div style={{ marginBottom: 12 }}>
-                <strong style={{ color: '#1F2937' }}>Status Quo</strong>
+                <strong style={{ color: 'var(--text)' }}>Status Quo</strong>
                 <p style={{ margin: '4px 0 0' }}>Current NDVI slope continues unchanged.</p>
               </div>
               <div style={{ marginBottom: 12 }}>
-                <strong style={{ color: '#1F2937' }}>Mitigation Applied</strong>
+                <strong style={{ color: 'var(--text)' }}>Mitigation Applied</strong>
                 <p style={{ margin: '4px 0 0' }}>Slope multiplied by -2 — active habitat management reverses the trend at double the rate.</p>
               </div>
               <div style={{ marginBottom: 12 }}>
-                <strong style={{ color: '#1F2937' }}>Accelerated Degradation</strong>
+                <strong style={{ color: 'var(--text)' }}>Accelerated Degradation</strong>
                 <p style={{ margin: '4px 0 0' }}>Slope multiplied by 3 — increased pressure triples the rate of vegetation decline.</p>
               </div>
               <div style={{ marginBottom: 12 }}>
-                <strong style={{ color: '#1F2937' }}>Risk score projection</strong>
+                <strong style={{ color: 'var(--text)' }}>Risk score projection</strong>
                 <p style={{ margin: '4px 0 0' }}>
                   NDVI {'>'}0.6 → -15pts · NDVI 0.4-0.6 → -8pts ·
                   NDVI 0.2-0.4 → unchanged · NDVI 0-0.2 → +8pts · NDVI {'<'}0 → +15pts
@@ -3177,8 +3177,8 @@ function ScenarioAnalysisCard({ data }) {
               onClick={() => setShowScenarioInfo(true)}
               style={{
                 width: 20, height: 20, borderRadius: '50%',
-                background: '#E5E7EB', border: 'none',
-                fontSize: 11, cursor: 'pointer', color: '#6B7280',
+                background: 'var(--bd)', border: 'none',
+                fontSize: 11, cursor: 'pointer', color: 'var(--text2)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontWeight: 700,
               }}
@@ -3194,7 +3194,7 @@ function ScenarioAnalysisCard({ data }) {
               const delta = endScore - baseScore
               return (
                 <div key={s.id} style={{
-                  background: '#F9FAFB', borderRadius: 8, padding: '8px 10px',
+                  background: 'var(--card)', borderRadius: 8, padding: '8px 10px',
                   border: `1px solid ${s.color}30`,
                 }}>
                   <div style={{ fontSize: 10, fontWeight: 700, color: s.color, marginBottom: 2 }}>
@@ -3203,7 +3203,7 @@ function ScenarioAnalysisCard({ data }) {
                   <div style={{ fontSize: 18, fontWeight: 700, color: getScoreColor(endScore) }}>
                     {endScore}
                   </div>
-                  <div style={{ fontSize: 9, color: '#9CA3AF' }}>
+                  <div style={{ fontSize: 9, color: 'var(--text3)' }}>
                     in 10 years ({delta >= 0 ? '+' : ''}{delta} pts)
                   </div>
                 </div>
@@ -3217,7 +3217,7 @@ function ScenarioAnalysisCard({ data }) {
               <LineChart data={chartData} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
                 <YAxis domain={[0, 100]} hide />
                 <RTooltip
-                  contentStyle={{ fontSize: 11, padding: 6, border: '1px solid #E5E7EB', borderRadius: 6 }}
+                  contentStyle={{ fontSize: 11, padding: 6, border: '1px solid var(--bd)', borderRadius: 6 }}
                   formatter={(value, name) => {
                     const s = scenarios.find(sc => sc.id === name)
                     return [value, s?.label ?? name]
@@ -3243,7 +3243,7 @@ function ScenarioAnalysisCard({ data }) {
             {scenarios.map(s => (
               <div key={s.id} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                 <div style={{ width: 20, height: 2, background: s.color, borderRadius: 1 }} />
-                <span style={{ fontSize: 9, color: '#6B7280' }}>{s.label}</span>
+                <span style={{ fontSize: 9, color: 'var(--text2)' }}>{s.label}</span>
               </div>
             ))}
           </div>
@@ -3282,8 +3282,8 @@ function ImpactsCard({ data, analysisProject }) {
     'Significant': { bg: '#FEF2F2', color: '#E84C3D', border: '#FECACA' },
     'Moderate': { bg: '#FFFBEB', color: '#F5A623', border: '#FDE68A' },
     'Low': { bg: '#F0FDF4', color: '#18A957', border: '#BBF7D0' },
-    'Unknown': { bg: '#F9FAFB', color: '#9CA3AF', border: '#E5E7EB' },
-  }[level] || { bg: '#F9FAFB', color: '#9CA3AF', border: '#E5E7EB' })
+    'Unknown': { bg: 'var(--card)', color: 'var(--text3)', border: 'var(--bd)' },
+  }[level] || { bg: 'var(--card)', color: 'var(--text3)', border: 'var(--bd)' })
 
   const getImpactLevel = () => {
     const score = riskScore?.score ?? 0
@@ -3367,20 +3367,20 @@ function ImpactsCard({ data, analysisProject }) {
       <div style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
           <thead>
-            <tr style={{ background: '#F9FAFB' }}>
-              <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Impact Category</th>
-              <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Metric</th>
-              <th style={{ padding: '6px 12px', textAlign: 'center', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Level</th>
-              <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Source</th>
+            <tr style={{ background: 'var(--card)' }}>
+              <th style={{ padding: '6px 12px', textAlign: 'left', color: 'var(--text3)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Impact Category</th>
+              <th style={{ padding: '6px 12px', textAlign: 'left', color: 'var(--text3)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Metric</th>
+              <th style={{ padding: '6px 12px', textAlign: 'center', color: 'var(--text3)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Level</th>
+              <th style={{ padding: '6px 12px', textAlign: 'left', color: 'var(--text3)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Source</th>
             </tr>
           </thead>
           <tbody>
             {impacts.map((imp, i) => (
               <tr key={i} style={{ borderTop: '1px solid #E5E7EB' }}>
-                <td style={{ padding: '7px 12px', color: '#1F2937', fontWeight: 500 }}>{imp.category}</td>
-                <td style={{ padding: '7px 12px', color: '#6B7280' }}>{imp.metric}</td>
+                <td style={{ padding: '7px 12px', color: 'var(--text)', fontWeight: 500 }}>{imp.category}</td>
+                <td style={{ padding: '7px 12px', color: 'var(--text2)' }}>{imp.metric}</td>
                 <td style={{ padding: '7px 12px', textAlign: 'center' }}><Badge level={imp.impact} /></td>
-                <td style={{ padding: '7px 12px', color: '#9CA3AF', fontSize: 10 }}>{imp.source}</td>
+                <td style={{ padding: '7px 12px', color: 'var(--text3)', fontSize: 10 }}>{imp.source}</td>
               </tr>
             ))}
           </tbody>
@@ -3457,7 +3457,7 @@ function DependenciesCard({ data, analysisProject }) {
     'High': { bg: '#FEF2F2', color: '#E84C3D', border: '#FECACA' },
     'Moderate': { bg: '#FFFBEB', color: '#F5A623', border: '#FDE68A' },
     'Low': { bg: '#F0FDF4', color: '#18A957', border: '#BBF7D0' },
-  }[level] || { bg: '#F9FAFB', color: '#6B7280', border: '#E5E7EB' })
+  }[level] || { bg: 'var(--card)', color: 'var(--text2)', border: 'var(--bd)' })
 
   const Badge = ({ level }) => {
     const c = getColor(level)
@@ -3483,20 +3483,20 @@ function DependenciesCard({ data, analysisProject }) {
       <div style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
           <thead>
-            <tr style={{ background: '#F9FAFB' }}>
-              <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Ecosystem Service</th>
-              <th style={{ padding: '6px 12px', textAlign: 'center', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Dependency</th>
-              <th style={{ padding: '6px 12px', textAlign: 'center', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Financial Risk</th>
-              <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Note</th>
+            <tr style={{ background: 'var(--card)' }}>
+              <th style={{ padding: '6px 12px', textAlign: 'left', color: 'var(--text3)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Ecosystem Service</th>
+              <th style={{ padding: '6px 12px', textAlign: 'center', color: 'var(--text3)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Dependency</th>
+              <th style={{ padding: '6px 12px', textAlign: 'center', color: 'var(--text3)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Financial Risk</th>
+              <th style={{ padding: '6px 12px', textAlign: 'left', color: 'var(--text3)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Note</th>
             </tr>
           </thead>
           <tbody>
             {deps.map((d, i) => (
               <tr key={i} style={{ borderTop: '1px solid #E5E7EB' }}>
-                <td style={{ padding: '7px 12px', color: '#1F2937', fontWeight: 500 }}>{d.service}</td>
+                <td style={{ padding: '7px 12px', color: 'var(--text)', fontWeight: 500 }}>{d.service}</td>
                 <td style={{ padding: '7px 12px', textAlign: 'center' }}><Badge level={d.dependency} /></td>
                 <td style={{ padding: '7px 12px', textAlign: 'center' }}><Badge level={d.financial} /></td>
-                <td style={{ padding: '7px 12px', color: '#9CA3AF', fontSize: 10 }}>{d.note}</td>
+                <td style={{ padding: '7px 12px', color: 'var(--text3)', fontSize: 10 }}>{d.note}</td>
               </tr>
             ))}
           </tbody>
@@ -3505,8 +3505,8 @@ function DependenciesCard({ data, analysisProject }) {
 
       <div style={{
         margin: '8px 12px 12px', padding: '6px 10px',
-        background: '#F9FAFB', borderRadius: 6,
-        fontSize: 9, color: '#9CA3AF', lineHeight: 1.5,
+        background: 'var(--card)', borderRadius: 6,
+        fontSize: 9, color: 'var(--text3)', lineHeight: 1.5,
       }}>
         Dependencies based on sector-specific analysis. Adapted from TNFD LEAP framework and IFC PS6 methodology.
       </div>
@@ -3624,23 +3624,23 @@ function TnfdMetricsCard({ data, analysisProject }) {
       <div style={{ overflowY: 'auto', maxHeight: 280 }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
           <thead>
-            <tr style={{ background: '#F9FAFB', position: 'sticky', top: 0 }}>
-              <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Metric</th>
-              <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Value</th>
-              <th style={{ padding: '6px 12px', textAlign: 'left', color: '#9CA3AF', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Frameworks</th>
+            <tr style={{ background: 'var(--card)', position: 'sticky', top: 0 }}>
+              <th style={{ padding: '6px 12px', textAlign: 'left', color: 'var(--text3)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Metric</th>
+              <th style={{ padding: '6px 12px', textAlign: 'left', color: 'var(--text3)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Value</th>
+              <th style={{ padding: '6px 12px', textAlign: 'left', color: 'var(--text3)', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Frameworks</th>
             </tr>
           </thead>
           <tbody>
             {metrics.map((m, i) => (
               <tr key={i} style={{ borderTop: '1px solid #E5E7EB' }}>
-                <td style={{ padding: '7px 12px', color: '#6B7280', fontSize: 10 }}>{m.label}</td>
-                <td style={{ padding: '7px 12px', fontWeight: m.real ? 600 : 400, color: m.real ? '#1F2937' : '#9CA3AF', fontStyle: m.real ? 'normal' : 'italic', fontSize: 10 }}>
+                <td style={{ padding: '7px 12px', color: 'var(--text2)', fontSize: 10 }}>{m.label}</td>
+                <td style={{ padding: '7px 12px', fontWeight: m.real ? 600 : 400, color: m.real ? 'var(--text)' : 'var(--text3)', fontStyle: m.real ? 'normal' : 'italic', fontSize: 10 }}>
                   {m.value}
                 </td>
                 <td style={{ padding: '7px 12px' }}>
                   <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
                     {m.standards.map(std => {
-                      const c = STANDARD_COLORS[std] || { bg: '#F3F4F6', color: '#6B7280', border: '#E5E7EB' }
+                      const c = STANDARD_COLORS[std] || { bg: 'var(--bd)', color: 'var(--text2)', border: 'var(--bd)' }
                       return (
                         <span key={std} style={{
                           fontSize: 8, fontWeight: 700, padding: '1px 5px',
@@ -3729,8 +3729,8 @@ function TnfdCard({ data, analysisProject }) {
           }}>CSRD ESRS E4 ✓</span>
           <span style={{
             fontSize: 9, fontWeight: 700, padding: '2px 7px',
-            borderRadius: 999, background: '#F3F4F6',
-            color: '#6B7280', border: '1px solid #E5E7EB'
+            borderRadius: 999, background: 'var(--bd)',
+            color: 'var(--text2)', border: '1px solid var(--bd)'
           }}>{sector}</span>
         </div>
       </div>
@@ -3742,7 +3742,7 @@ function TnfdCard({ data, analysisProject }) {
             <div style={{ flex: 1 }}>
               <div>{it.label}</div>
               {it.evidence && (
-                <div style={{ fontSize: 9, color: it.done ? '#18A957' : '#9CA3AF', marginTop: 1 }}>
+                <div style={{ fontSize: 9, color: it.done ? '#18A957' : 'var(--text3)', marginTop: 1 }}>
                   {it.evidence}
                 </div>
               )}
@@ -3754,19 +3754,19 @@ function TnfdCard({ data, analysisProject }) {
       {sectorCtx && (
         <div style={{
           margin: '8px 12px', padding: '7px 10px',
-          background: '#F9FAFB', borderRadius: 6,
-          fontSize: 9, color: '#6B7280', lineHeight: 1.6,
+          background: 'var(--card)', borderRadius: 6,
+          fontSize: 9, color: 'var(--text2)', lineHeight: 1.6,
         }}>
-          <strong style={{ color: '#1F2937' }}>Sector metrics:</strong> {sectorCtx.tnfd}
+          <strong style={{ color: 'var(--text)' }}>Sector metrics:</strong> {sectorCtx.tnfd}
         </div>
       )}
 
-      <div style={{ fontSize: 10, color: '#6B7280', padding: '0 12px 8px', lineHeight: 1.6 }}>
+      <div style={{ fontSize: 10, color: 'var(--text2)', padding: '0 12px 8px', lineHeight: 1.6 }}>
         BioRisk AI supports Strategy (Disclosure D) and Metrics (A, B) pillars of TNFD reporting —
         providing the site-level evidence base that reduces initial biodiversity assessment from months to minutes.
         Field validation recommended for full disclosure.
       </div>
-      <div style={{ fontSize: 10, color: '#9CA3AF', padding: '0 12px 12px', fontStyle: 'italic' }}>
+      <div style={{ fontSize: 10, color: 'var(--text3)', padding: '0 12px 12px', fontStyle: 'italic' }}>
         One analysis · Two frameworks — all 14 TNFD disclosures reflected in CSRD ESRS E4
       </div>
     </div>
@@ -3795,11 +3795,11 @@ function DataSourcesCard({ data, loading, onShowStats }) {
     ? <Spinner />
     : wdpa != null
       ? `${wdpa.total} areas found`
-      : <span style={{ color: '#9CA3AF', fontStyle: 'italic' }}>Not queried</span>
+      : <span style={{ color: 'var(--text3)', fontStyle: 'italic' }}>Not queried</span>
 
   const ndviVal = ndvi
     ? `NDVI ${ndvi.mean} · ${ndvi.quarterly?.length ?? 0} periods`
-    : <span style={{ color: '#9CA3AF', fontStyle: 'italic' }}>Not available</span>
+    : <span style={{ color: 'var(--text3)', fontStyle: 'italic' }}>Not available</span>
 
   const items = [
     {
@@ -3811,7 +3811,7 @@ function DataSourcesCard({ data, loading, onShowStats }) {
     { icon: '🛰', name: 'Sentinel-2 L2A (NDVI)', val: ndviVal, real: ndvi != null },
     {
       icon: '📋', name: 'IUCN Red List',
-      val: <span style={{ color: '#9CA3AF', fontStyle: 'italic' }}>Pending integration ⓘ</span>,
+      val: <span style={{ color: 'var(--text3)', fontStyle: 'italic' }}>Pending integration ⓘ</span>,
       real: false,
       tooltip: 'IUCN Red List API access requested — pending approval'
     },
@@ -3828,7 +3828,7 @@ function DataSourcesCard({ data, loading, onShowStats }) {
               <div>
                 <span className="source-name">{s.name}</span>
                 {s.note && (
-                  <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 1 }}>{s.note}</div>
+                  <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 1 }}>{s.note}</div>
                 )}
               </div>
               {s.real && (
@@ -4227,8 +4227,8 @@ function DrawingLayer({ drawnPoints, setDrawnPoints, drawnPolygon, setDrawnPolyg
         <Polygon
           positions={drawnPolygon}
           pathOptions={{
-            color: '#ffffff', weight: 2,
-            fillColor: '#ffffff', fillOpacity: 0.04
+            color: 'var(--card)', weight: 2,
+            fillColor: 'var(--card)', fillOpacity: 0.04
           }}
         />
       )}
@@ -4487,7 +4487,7 @@ function NewAnalysisPage({
                     <div className="taxa-table">
                       {taxaInPolygon.filter(t => t.inPolygon > 0).map(t => (
                         <div key={t.name} className="taxa-row">
-                          <span style={{ fontSize: 9, fontWeight: 700, color: '#6B7280', fontFamily: 'monospace', background: '#F3F4F6', padding: '1px 4px', borderRadius: 3 }}>{t.abbr}</span>
+                          <span style={{ fontSize: 9, fontWeight: 700, color: 'var(--text2)', fontFamily: 'monospace', background: 'var(--bd)', padding: '1px 4px', borderRadius: 3 }}>{t.abbr}</span>
                           <span className="taxa-name">{t.name}</span>
                           <span
                             className="taxa-count"
@@ -4604,58 +4604,58 @@ function GbifStatsModal({ onClose }) {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
     }} onClick={onClose}>
       <div style={{
-        background: 'white', borderRadius: 12, padding: '24px',
+        background: 'var(--card)', borderRadius: 12, padding: '24px',
         width: 480, maxWidth: '90vw',
         boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
       }} onClick={e => e.stopPropagation()}>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <div>
-            <div style={{ fontSize: 15, fontWeight: 700, color: '#1F2937' }}>
+            <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text)' }}>
               GBIF Global Occurrence Stats
             </div>
-            <div style={{ fontSize: 11, color: '#9CA3AF', marginTop: 2 }}>
+            <div style={{ fontSize: 11, color: 'var(--text3)', marginTop: 2 }}>
               Live data from GBIF REST API · Not the S3 snapshot
             </div>
           </div>
           <button type="button" onClick={onClose} style={{
             background: 'none', border: 'none', fontSize: 20,
-            cursor: 'pointer', color: '#9CA3AF', padding: '0 4px',
+            cursor: 'pointer', color: 'var(--text3)', padding: '0 4px',
           }}>×</button>
         </div>
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '32px', color: '#9CA3AF' }}>
+          <div style={{ textAlign: 'center', padding: '32px', color: 'var(--text3)' }}>
             Querying GBIF API...
           </div>
         ) : (
           <>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
               <thead>
-                <tr style={{ background: '#F9FAFB' }}>
-                  <th style={{ padding: '8px 12px', textAlign: 'left', color: '#6B7280', fontSize: 10, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Kingdom</th>
-                  <th style={{ padding: '8px 12px', textAlign: 'right', color: '#6B7280', fontSize: 10, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Occurrences</th>
-                  <th style={{ padding: '8px 12px', textAlign: 'right', color: '#6B7280', fontSize: 10, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>% of total</th>
+                <tr style={{ background: 'var(--card)' }}>
+                  <th style={{ padding: '8px 12px', textAlign: 'left', color: 'var(--text2)', fontSize: 10, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Kingdom</th>
+                  <th style={{ padding: '8px 12px', textAlign: 'right', color: 'var(--text2)', fontSize: 10, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Occurrences</th>
+                  <th style={{ padding: '8px 12px', textAlign: 'right', color: 'var(--text2)', fontSize: 10, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>% of total</th>
                 </tr>
               </thead>
               <tbody>
                 {(stats ?? []).map((r, i) => (
                   <tr key={i} style={{ borderTop: '1px solid #E5E7EB' }}>
-                    <td style={{ padding: '8px 12px', fontWeight: 500, color: '#1F2937' }}>{r.kingdom}</td>
-                    <td style={{ padding: '8px 12px', textAlign: 'right', fontFamily: 'monospace', color: '#1F2937' }}>
+                    <td style={{ padding: '8px 12px', fontWeight: 500, color: 'var(--text)' }}>{r.kingdom}</td>
+                    <td style={{ padding: '8px 12px', textAlign: 'right', fontFamily: 'monospace', color: 'var(--text)' }}>
                       {r.count.toLocaleString('en-US')}
                     </td>
-                    <td style={{ padding: '8px 12px', textAlign: 'right', color: '#6B7280' }}>
+                    <td style={{ padding: '8px 12px', textAlign: 'right', color: 'var(--text2)' }}>
                       {total > 0 ? ((r.count / total) * 100).toFixed(1) : '—'}%
                     </td>
                   </tr>
                 ))}
-                <tr style={{ borderTop: '2px solid #E5E7EB', background: '#F9FAFB' }}>
-                  <td style={{ padding: '8px 12px', fontWeight: 700, color: '#1F2937' }}>Total</td>
+                <tr style={{ borderTop: '2px solid #E5E7EB', background: 'var(--card)' }}>
+                  <td style={{ padding: '8px 12px', fontWeight: 700, color: 'var(--text)' }}>Total</td>
                   <td style={{ padding: '8px 12px', textAlign: 'right', fontFamily: 'monospace', fontWeight: 700, color: '#18A957' }}>
                     {total.toLocaleString('en-US')}
                   </td>
-                  <td style={{ padding: '8px 12px', textAlign: 'right', color: '#6B7280' }}>100%</td>
+                  <td style={{ padding: '8px 12px', textAlign: 'right', color: 'var(--text2)' }}>100%</td>
                 </tr>
               </tbody>
             </table>
@@ -4748,7 +4748,7 @@ function SpeciesExplorerPage() {
             placeholder="Search by scientific or common name... e.g. Eubalaena australis"
             style={{
               flex: 1, padding: '10px 14px', borderRadius: 8,
-              border: '1px solid #E5E7EB', fontSize: 13,
+              border: '1px solid var(--bd)', fontSize: 13,
               outline: 'none', fontFamily: 'Inter, sans-serif',
             }}
           />
@@ -4769,7 +4769,7 @@ function SpeciesExplorerPage() {
           {results && (
             <div>
               {results.length === 0 ? (
-                <div style={{ padding: 24, textAlign: 'center', color: '#9CA3AF', fontSize: 13 }}>
+                <div style={{ padding: 24, textAlign: 'center', color: 'var(--text3)', fontSize: 13 }}>
                   No species found for "{query}"
                 </div>
               ) : (
@@ -4779,20 +4779,20 @@ function SpeciesExplorerPage() {
                     onClick={() => loadProfile(s)}
                     style={{
                       background: selected?.key === s.key ? '#F0FDF4' : 'white',
-                      border: `1px solid ${selected?.key === s.key ? '#BBF7D0' : '#E5E7EB'}`,
+                      border: `1px solid ${selected?.key === s.key ? '#BBF7D0' : 'var(--bd)'}`,
                       borderRadius: 10, padding: '12px 16px', marginBottom: 8,
                       cursor: 'pointer', transition: 'all .15s',
                     }}
                     onMouseEnter={e => e.currentTarget.style.borderColor = '#18A957'}
-                    onMouseLeave={e => e.currentTarget.style.borderColor = selected?.key === s.key ? '#BBF7D0' : '#E5E7EB'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = selected?.key === s.key ? '#BBF7D0' : 'var(--bd)'}
                   >
-                    <div style={{ fontSize: 13, fontWeight: 600, fontStyle: 'italic', color: '#1F2937', marginBottom: 3 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, fontStyle: 'italic', color: 'var(--text)', marginBottom: 3 }}>
                       {s.scientificName}
                     </div>
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                      <span style={{ fontSize: 10, color: '#6B7280' }}>{s.rank}</span>
-                      {s.kingdom && <span style={{ fontSize: 10, color: '#9CA3AF' }}>· {s.kingdom}</span>}
-                      {s.family && <span style={{ fontSize: 10, color: '#9CA3AF' }}>· {s.family}</span>}
+                      <span style={{ fontSize: 10, color: 'var(--text2)' }}>{s.rank}</span>
+                      {s.kingdom && <span style={{ fontSize: 10, color: 'var(--text3)' }}>· {s.kingdom}</span>}
+                      {s.family && <span style={{ fontSize: 10, color: 'var(--text3)' }}>· {s.family}</span>}
                       {s.status && (
                         <span style={{
                           fontSize: 9, fontWeight: 700, padding: '1px 6px',
@@ -4810,13 +4810,13 @@ function SpeciesExplorerPage() {
           {/* Species profile */}
           {selected && (
             <div style={{
-              background: 'white', border: '1px solid #E5E7EB',
+              background: 'var(--card)', border: '1px solid var(--bd)',
               borderRadius: 10, padding: '20px',
             }}>
-              <div style={{ fontSize: 16, fontWeight: 700, fontStyle: 'italic', color: '#1F2937', marginBottom: 4 }}>
+              <div style={{ fontSize: 16, fontWeight: 700, fontStyle: 'italic', color: 'var(--text)', marginBottom: 4 }}>
                 {selected.scientificName}
               </div>
-              <div style={{ fontSize: 10, color: '#9CA3AF', marginBottom: 16 }}>
+              <div style={{ fontSize: 10, color: 'var(--text3)', marginBottom: 16 }}>
                 GBIF Key: {selected.key} ·{' '}
 
                 <a href={`https://www.gbif.org/species/${selected.key}`}
@@ -4828,20 +4828,20 @@ function SpeciesExplorerPage() {
               </div>
 
               {/* Taxonomy */}
-              <div style={{ fontSize: 10, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
                 Taxonomy
               </div>
               {['kingdom', 'phylum', 'class', 'order', 'family', 'genus'].map(rank => (
                 selected[rank] && (
                   <div key={rank} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, padding: '3px 0', borderBottom: '1px solid #F3F4F6' }}>
-                    <span style={{ color: '#9CA3AF', textTransform: 'capitalize' }}>{rank}</span>
-                    <span style={{ color: '#1F2937', fontWeight: 500 }}>{selected[rank]}</span>
+                    <span style={{ color: 'var(--text3)', textTransform: 'capitalize' }}>{rank}</span>
+                    <span style={{ color: 'var(--text)', fontWeight: 500 }}>{selected[rank]}</span>
                   </div>
                 )
               ))}
 
               {loadingProfile && (
-                <div style={{ textAlign: 'center', padding: 16, color: '#9CA3AF', fontSize: 12 }}>
+                <div style={{ textAlign: 'center', padding: 16, color: 'var(--text3)', fontSize: 12 }}>
                   Loading occurrence data...
                 </div>
               )}
@@ -4850,7 +4850,7 @@ function SpeciesExplorerPage() {
                 <>
                   {/* Occurrences */}
                   <div style={{ marginTop: 16 }}>
-                    <div style={{ fontSize: 10, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
                       GBIF Occurrences
                     </div>
                     <div style={{
@@ -4858,7 +4858,7 @@ function SpeciesExplorerPage() {
                       fontSize: 20, fontWeight: 700, color: '#18A957',
                     }}>
                       {profile.occurrences?.toLocaleString('en-US') ?? '—'}
-                      <span style={{ fontSize: 10, fontWeight: 400, color: '#6B7280', marginLeft: 8 }}>
+                      <span style={{ fontSize: 10, fontWeight: 400, color: 'var(--text2)', marginLeft: 8 }}>
                         georeferenced records worldwide
                       </span>
                     </div>
@@ -4867,13 +4867,13 @@ function SpeciesExplorerPage() {
                   {/* Vernacular names */}
                   {profile.vernacularNames.length > 0 && (
                     <div style={{ marginTop: 16 }}>
-                      <div style={{ fontSize: 10, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+                      <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
                         Common Names
                       </div>
                       {profile.vernacularNames.slice(0, 6).map((v, i) => (
                         <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, padding: '3px 0', borderBottom: '1px solid #F3F4F6' }}>
-                          <span style={{ color: '#1F2937' }}>{v.vernacularName}</span>
-                          <span style={{ color: '#9CA3AF', fontSize: 10 }}>{v.language}</span>
+                          <span style={{ color: 'var(--text)' }}>{v.vernacularName}</span>
+                          <span style={{ color: 'var(--text3)', fontSize: 10 }}>{v.language}</span>
                         </div>
                       ))}
                     </div>
@@ -4892,10 +4892,10 @@ function MonitoringPage() {
   return (
     <main className="main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ textAlign: 'center', maxWidth: 480, padding: '0 24px' }}>
-        <h1 style={{ fontSize: 22, fontWeight: 700, color: '#1F2937', marginBottom: 8 }}>
+        <h1 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text)', marginBottom: 8 }}>
           Monitoring Insights
         </h1>
-        <p style={{ fontSize: 13, color: '#6B7280', lineHeight: 1.75, marginBottom: 24 }}>
+        <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.75, marginBottom: 24 }}>
           Re-run analyses over time to track biodiversity trends in your project areas.
           Compare risk scores across different dates and detect early warning signals.
         </p>
@@ -4966,14 +4966,14 @@ function DataSourcesPage() {
           },
         ].map((s, i) => (
           <div key={i} style={{
-            background: 'white', border: '1px solid #E5E7EB',
+            background: 'var(--card)', border: '1px solid var(--bd)',
             borderRadius: 12, padding: '20px',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+            boxShadow: 'var(--sh1)',
           }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 10 }}>
               <span style={{ fontSize: 28 }}>{s.icon}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: '#1F2937', marginBottom: 4 }}>{s.name}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text)', marginBottom: 4 }}>{s.name}</div>
                 <span style={{
                   fontSize: 9, fontWeight: 700, padding: '2px 7px',
                   borderRadius: 999, background: s.badgeColor + '18',
@@ -4981,8 +4981,8 @@ function DataSourcesPage() {
                 }}>{s.badge}</span>
               </div>
             </div>
-            <p style={{ fontSize: 11, color: '#6B7280', lineHeight: 1.6, marginBottom: 8 }}>{s.desc}</p>
-            <div style={{ fontSize: 10, color: '#9CA3AF', marginBottom: 8 }}>{s.stats}</div>
+            <p style={{ fontSize: 11, color: 'var(--text2)', lineHeight: 1.6, marginBottom: 8 }}>{s.desc}</p>
+            <div style={{ fontSize: 10, color: 'var(--text3)', marginBottom: 8 }}>{s.stats}</div>
             <a href={s.link} target="_blank" rel="noreferrer"
               style={{ fontSize: 11, color: '#18A957', textDecoration: 'none', fontWeight: 600 }}>
               Visit source →
@@ -4990,7 +4990,7 @@ function DataSourcesPage() {
           </div>
         ))}
       </div>
-      <div style={{ padding: '16px 24px', fontSize: 10, color: '#9CA3AF' }}>
+      <div style={{ padding: '16px 24px', fontSize: 10, color: 'var(--text3)' }}>
         Occurrence data from GBIF.org under CC BY 4.0 · BioRisk AI © 2026
       </div>
     </main>
@@ -5006,32 +5006,32 @@ function WelcomePage({ onStart }) {
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
 
           <h1 style={{
-            fontSize: 26, fontWeight: 700, color: '#1F2937',
+            fontSize: 26, fontWeight: 700, color: 'var(--text)',
             letterSpacing: '-0.02em', marginBottom: 8,
           }}>
             Welcome to BioRisk AI
           </h1>
-          <p style={{ fontSize: 13, color: '#6B7280', lineHeight: 1.7 }}>
+          <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.7 }}>
             Latin America hosts 40% of the world's known species —<br />
             yet biodiversity is rarely factored into investment decisions.<br />
-            <strong style={{ color: '#1F2937' }}>BioRisk AI changes that.</strong>
+            <strong style={{ color: 'var(--text)' }}>BioRisk AI changes that.</strong>
           </p>
         </div>
 
         {/* What it is */}
         <div style={{
-          background: '#F9FAFB', border: '1px solid #E5E7EB',
+          background: 'var(--card)', border: '1px solid var(--bd)',
           borderRadius: 10, padding: '16px 20px', marginBottom: 16,
         }}>
-          <p style={{ fontSize: 13, color: '#6B7280', lineHeight: 1.75, marginBottom: 8 }}>
+          <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.75, marginBottom: 8 }}>
             BioRisk AI turns open GBIF occurrence data into actionable biodiversity
             intelligence — in minutes, not months. Draw your project area, run a scan,
             and get a screening-grade risk profile backed by real species records,
             satellite vegetation data, and protected area analysis.
           </p>
-          <p style={{ fontSize: 11, color: '#9CA3AF', lineHeight: 1.6 }}>
-            Supports <strong style={{ color: '#1F2937' }}>TNFD LEAP</strong> and{' '}
-            <strong style={{ color: '#1F2937' }}>CSRD ESRS E4</strong> — one analysis, two frameworks.
+          <p style={{ fontSize: 11, color: 'var(--text3)', lineHeight: 1.6 }}>
+            Supports <strong style={{ color: 'var(--text)' }}>TNFD LEAP</strong> and{' '}
+            <strong style={{ color: 'var(--text)' }}>CSRD ESRS E4</strong> — one analysis, two frameworks.
             500+ companies · 129 financial institutions · $17.7T AUM globally.
           </p>
         </div>
@@ -5095,14 +5095,14 @@ function WelcomePage({ onStart }) {
             { icon: '📊', title: 'Risk report', desc: 'TNFD · CSRD · IFC PS6 aligned' },
           ].map((step, i) => (
             <div key={i} style={{
-              background: 'white', border: '1px solid #E5E7EB',
+              background: 'var(--card)', border: '1px solid var(--bd)',
               borderRadius: 8, padding: '14px 10px', textAlign: 'center',
             }}>
               <div style={{ fontSize: 22, marginBottom: 6 }}>{step.icon}</div>
-              <div style={{ fontSize: 11, fontWeight: 600, color: '#1F2937', marginBottom: 3 }}>
+              <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--text)', marginBottom: 3 }}>
                 {step.title}
               </div>
-              <div style={{ fontSize: 10, color: '#9CA3AF', lineHeight: 1.5 }}>
+              <div style={{ fontSize: 10, color: 'var(--text3)', lineHeight: 1.5 }}>
                 {step.desc}
               </div>
             </div>
@@ -5110,7 +5110,7 @@ function WelcomePage({ onStart }) {
         </div>
 
         {/* Footer */}
-        <div style={{ textAlign: 'center', fontSize: 10, color: '#9CA3AF', lineHeight: 1.8 }}>
+        <div style={{ textAlign: 'center', fontSize: 10, color: 'var(--text3)', lineHeight: 1.8 }}>
           Covering 16 countries across Latin America and the Caribbean<br />
           Powered by GBIF · Sentinel-2 · WDPA · Global Forest Watch
         </div>
@@ -5122,7 +5122,7 @@ function WelcomePage({ onStart }) {
 
 function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
   const getRiskColor = (category) => {
-    if (!category) return '#9CA3AF'
+    if (!category) return 'var(--text3)'
     if (category.includes('Critical')) return '#E84C3D'
     if (category.includes('High')) return '#F5A623'
     if (category.includes('Moderate')) return '#FBBF24'
@@ -5146,15 +5146,15 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
       <div style={{ padding: '0 24px' }}>
         {projects.length === 0 ? (
           <div style={{
-            background: 'white', border: '1px solid #E5E7EB',
+            background: 'var(--card)', border: '1px solid var(--bd)',
             borderRadius: 12, padding: '60px 32px',
             textAlign: 'center', marginTop: 24,
           }}>
             <div style={{ fontSize: 44, marginBottom: 14 }}>📁</div>
-            <div style={{ fontSize: 18, fontWeight: 700, color: '#1F2937', marginBottom: 6 }}>
+            <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text)', marginBottom: 6 }}>
               No projects yet
             </div>
-            <div style={{ fontSize: 13, color: '#9CA3AF', marginBottom: 24 }}>
+            <div style={{ fontSize: 13, color: 'var(--text3)', marginBottom: 24 }}>
               Run a New Analysis to see your projects here.
             </div>
             <button className="btn" onClick={onNewAnalysis}>
@@ -5168,14 +5168,14 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
                 key={project.id}
                 onClick={() => onSelectProject(project)}
                 style={{
-                  background: 'white', border: '1px solid #E5E7EB',
+                  background: 'var(--card)', border: '1px solid var(--bd)',
                   borderRadius: 12, padding: '16px 20px',
                   cursor: 'pointer', transition: 'all .15s',
                   display: 'flex', alignItems: 'center', gap: 16,
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+                  boxShadow: 'var(--sh1)',
                 }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = '#18A957'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = '#E5E7EB'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--bd)'}
               >
                 {/* Risk score badge */}
                 <div style={{
@@ -5192,25 +5192,25 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
                   }}>
                     {project.riskScore?.score ?? '—'}
                   </div>
-                  <div style={{ fontSize: 8, color: '#9CA3AF' }}>/100</div>
+                  <div style={{ fontSize: 8, color: 'var(--text3)' }}>/100</div>
                 </div>
 
                 {/* Project info */}
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: '#1F2937', marginBottom: 4 }}>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text)', marginBottom: 4 }}>
                     {project.name}
                   </div>
                   <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                    <span style={{ fontSize: 11, color: '#6B7280' }}>
+                    <span style={{ fontSize: 11, color: 'var(--text2)' }}>
                       🌍 {COUNTRY_NAMES[project.country] ?? project.country}
                     </span>
-                    <span style={{ fontSize: 11, color: '#6B7280' }}>
+                    <span style={{ fontSize: 11, color: 'var(--text2)' }}>
                       ⚙️ {project.sector}
                     </span>
-                    <span style={{ fontSize: 11, color: '#6B7280' }}>
+                    <span style={{ fontSize: 11, color: 'var(--text2)' }}>
                       📍 {project.totalInPolygon?.toLocaleString('en-US')} occurrences
                     </span>
-                    <span style={{ fontSize: 11, color: '#6B7280' }}>
+                    <span style={{ fontSize: 11, color: 'var(--text2)' }}>
                       📅 {project.date}
                     </span>
                   </div>
@@ -5227,7 +5227,7 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
                   {project.riskScore?.category ?? 'Unknown'}
                 </div>
 
-                <div style={{ fontSize: 16, color: '#9CA3AF', flexShrink: 0 }}>→</div>
+                <div style={{ fontSize: 16, color: 'var(--text3)', flexShrink: 0 }}>→</div>
               </div>
             ))}
           </div>
@@ -6161,18 +6161,18 @@ export default function App() {
           zIndex: 99999,
         }}>
           <div style={{
-            background: 'white', borderRadius: 16, padding: '48px 40px',
+            background: 'var(--card)', borderRadius: 16, padding: '48px 40px',
             width: 400, maxWidth: '90vw', textAlign: 'center',
             boxShadow: '0 24px 80px rgba(0,0,0,0.4)',
           }}>
             <h1 style={{
-              fontSize: 24, fontWeight: 700, color: '#1F2937',
+              fontSize: 24, fontWeight: 700, color: 'var(--text)',
               marginBottom: 8, letterSpacing: '-0.02em',
             }}>BioRisk AI</h1>
-            <p style={{ fontSize: 13, color: '#6B7280', marginBottom: 8, lineHeight: 1.6 }}>
+            <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 8, lineHeight: 1.6 }}>
               Biodiversity risk intelligence for ESG & TNFD
             </p>
-            <p style={{ fontSize: 11, color: '#9CA3AF', marginBottom: 32, lineHeight: 1.6 }}>
+            <p style={{ fontSize: 11, color: 'var(--text3)', marginBottom: 32, lineHeight: 1.6 }}>
               Powered by GBIF · Sentinel-2 · WDPA
             </p>
 
@@ -6190,9 +6190,9 @@ export default function App() {
               Sign in
             </button>
 
-            <div style={{ fontSize: 10, color: '#9CA3AF', lineHeight: 1.6 }}>
+            <div style={{ fontSize: 10, color: 'var(--text3)', lineHeight: 1.6 }}>
               For demo access contact:<br />
-              <strong style={{ color: '#6B7280' }}>demo@biorisk.ai</strong>
+              <strong style={{ color: 'var(--text2)' }}>demo@biorisk.ai</strong>
             </div>
           </div>
         </div>
@@ -6350,11 +6350,11 @@ export default function App() {
                     onClick={() => setDashboardTab(tab.id)}
                     style={{
                       padding: '8px 16px', borderRadius: 8, fontSize: 12,
-                      fontWeight: 600, border: '1px solid #E5E7EB',
+                      fontWeight: 600, border: '1px solid var(--bd)',
                       cursor: 'pointer', transition: 'all .15s',
-                      background: dashboardTab === tab.id ? '#18A957' : '#F9FAFB',
-                      color: dashboardTab === tab.id ? 'white' : '#6B7280',
-                      borderColor: dashboardTab === tab.id ? '#18A957' : '#E5E7EB',
+                      background: dashboardTab === tab.id ? '#18A957' : 'var(--card)',
+                      color: dashboardTab === tab.id ? 'white' : 'var(--text2)',
+                      borderColor: dashboardTab === tab.id ? '#18A957' : 'var(--bd)',
                     }}
                   >
                     {tab.label}
@@ -6378,12 +6378,12 @@ export default function App() {
                     />
                     <div style={{
                       position: 'absolute', bottom: 12, right: 12, zIndex: 1000,
-                      background: 'white', borderRadius: 12,
+                      background: 'var(--card)', borderRadius: 12,
                       boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-                      border: '1px solid #E5E7EB',
+                      border: '1px solid var(--bd)',
                       padding: '16px 20px', minWidth: 160, textAlign: 'center',
                     }}>
-                      <div style={{ fontSize: 10, color: '#9CA3AF', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                      <div style={{ fontSize: 10, color: 'var(--text3)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         Risk Score
                       </div>
                       <div style={{
@@ -6402,7 +6402,7 @@ export default function App() {
                         {gbifData?.riskScore?.category ?? 'No analysis'}
                       </div>
                       {gbifData?.riskScore && (
-                        <div style={{ fontSize: 9, color: '#9CA3AF', marginTop: 6, lineHeight: 1.4 }}>
+                        <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 6, lineHeight: 1.4 }}>
                           {gbifData.polygonCount?.toLocaleString('en-US')} records<br />
                           {gbifData.riskScore.taxaFound} taxa detected
                         </div>
@@ -6428,7 +6428,7 @@ export default function App() {
                         <div style={{ fontSize: 12, fontWeight: 700, color: '#92400E', marginBottom: 2 }}>
                           Indirect Influence Area (5km buffer)
                         </div>
-                        <div style={{ fontSize: 11, color: '#6B7280' }}>
+                        <div style={{ fontSize: 11, color: 'var(--text2)' }}>
                           {gbifData.bufferData.totalInBuffer.toLocaleString('en-US')} additional occurrence records
                           detected within 5km of the project boundary.
                         </div>
@@ -6437,7 +6437,7 @@ export default function App() {
                         <div style={{ fontSize: 20, fontWeight: 700, color: '#F5A623' }}>
                           {gbifData.bufferData.totalInBuffer.toLocaleString('en-US')}
                         </div>
-                        <div style={{ fontSize: 9, color: '#9CA3AF' }}>records in buffer</div>
+                        <div style={{ fontSize: 9, color: 'var(--text3)' }}>records in buffer</div>
                       </div>
                     </div>
                   )}
@@ -6506,7 +6506,7 @@ export default function App() {
               <div style={{
                 padding: '12px 24px',
                 borderTop: '1px solid #E5E7EB',
-                fontSize: 10, color: '#9CA3AF',
+                fontSize: 10, color: 'var(--text3)',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               }}>
                 <span>
