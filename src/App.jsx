@@ -2017,9 +2017,10 @@ function EcosystemSensitivityCard({ data }) {
 const MITIGATION_ACTIONS = {
   'Wind Energy': [
     { id: 'avoid_siting', label: 'Avoid sensitive habitat zones', desc: 'Relocate turbines 1km+ from WDPA boundaries and identified bird corridors', scoreReduction: 12, hierarchy: 'Avoid' },
-    { id: 'seasonal', label: 'Seasonal construction restriction', desc: 'Avoid construction during bird migration season (Sep–Nov)', scoreReduction: 8, hierarchy: 'Minimize' },
+    { id: 'seasonal', label: 'Seasonal construction restriction', desc: 'Avoid construction during bird migration season (Sep–Nov)', scoreReduction: 8, hierarchy: 'Minimize', requires: ['Aves'] },
     { id: 'buffer', label: 'Add 500m buffer zone', desc: 'Restrict activity within 500m of protected areas', scoreReduction: 6, hierarchy: 'Minimize' },
-    { id: 'monitoring', label: 'Implement bird monitoring', desc: 'Real-time radar monitoring and automatic turbine shutdown', scoreReduction: 4, hierarchy: 'Minimize' },
+    { id: 'monitoring', label: 'Implement bird monitoring', desc: 'Real-time radar monitoring and automatic turbine shutdown', scoreReduction: 4, hierarchy: 'Minimize', requires: ['Aves'] },
+    { id: 'bat_monitoring', label: 'Implement bat monitoring', desc: 'Ultrasonic monitoring and shutdown during bat activity peaks', scoreReduction: 4, hierarchy: 'Minimize', requires: ['Chiroptera', 'Mammalia'] },
     { id: 'restore', label: 'Habitat restoration plan', desc: 'Restore equivalent native habitat within project footprint', scoreReduction: 5, hierarchy: 'Restore' },
     { id: 'offset', label: 'Biodiversity net gain offset', desc: 'Fund conservation of equivalent habitat area within same ecoregion', scoreReduction: 4, hierarchy: 'Offset' },
   ],
@@ -2063,7 +2064,11 @@ const MITIGATION_ACTIONS = {
 
 function HumanPressureCard({ data, analysisProject }) {
   const sector = analysisProject?.sector || 'Wind Energy'
-  const actions = MITIGATION_ACTIONS[sector] || MITIGATION_ACTIONS['Wind Energy']
+  const detectedTaxa = data?.taxaInPolygon?.filter(t => t.inPolygon > 0).map(t => t.name) ?? []
+  const actions = (MITIGATION_ACTIONS[sector] || MITIGATION_ACTIONS['Wind Energy']).filter(action => {
+    if (!action.requires) return true
+    return action.requires.some(r => detectedTaxa.includes(r))
+  })
   const baseScore = data?.riskScore?.score ?? 72
   const [selected, setSelected] = useState([])
 
