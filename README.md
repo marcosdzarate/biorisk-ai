@@ -98,6 +98,14 @@ International financial institutions operating in LAC — including the IDB, Wor
 
 ---
 
+## Live Demo
+
+**https://biorisk-ai.vercel.app**
+
+Demo credentials: demo@biorisk.ai / Bior!sk_GBIF_2026#
+
+---
+
 ## Tech Stack
 
 - **Frontend:** React + Vite + Leaflet + Recharts
