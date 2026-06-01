@@ -2794,6 +2794,101 @@ function calcPolygonAreaKm2(polygon) {
   return Math.round(area * 100) / 100
 }
 
+function EcosystemServicesCard({ data, polygon }) {
+  const ndvi = data?.ndvi
+  const area = polygon ? calcPolygonAreaKm2(polygon) : null
+  if (!area || !ndvi) return null
+
+  const areaHa = area * 100
+
+  // Determine ecosystem type from NDVI
+  const ndviMean = ndvi.mean ?? 0
+  const ecosystemType = ndviMean > 0.6 ? 'Tropical/Temperate Forest' :
+    ndviMean > 0.3 ? 'Grassland/Savanna' :
+      ndviMean > 0.1 ? 'Shrubland/Sparse vegetation' : 'Arid/Semi-arid'
+
+  // Values USD/ha/yr from de Groot et al. (2012)
+  const VALUES = {
+    'Tropical/Temperate Forest': { carbon: 1965, water: 1692, habitat: 1523, pollination: 195 },
+    'Grassland/Savanna': { carbon: 133, water: 167, habitat: 131, pollination: 302 },
+    'Shrubland/Sparse vegetation': { carbon: 50, water: 44, habitat: 85, pollination: 56 },
+    'Arid/Semi-arid': { carbon: 20, water: 15, habitat: 30, pollination: 10 },
+  }
+
+  const unitValues = VALUES[ecosystemType]
+
+  // NDVI quality factor (0.3 - 1.0)
+  const ndviFactor = Math.min(Math.max(ndviMean * 2, 0.3), 1.0)
+
+  const services = [
+    { label: 'Carbon sequestration', value: Math.round(unitValues.carbon * areaHa * ndviFactor), color: '#18A957' },
+    { label: 'Water regulation', value: Math.round(unitValues.water * areaHa * ndviFactor), color: '#3B82F6' },
+    { label: 'Biodiversity habitat', value: Math.round(unitValues.habitat * areaHa * ndviFactor), color: '#8B5CF6' },
+    { label: 'Pollination services', value: Math.round(unitValues.pollination * areaHa * ndviFactor), color: '#F59E0B' },
+  ]
+
+  const total = services.reduce((s, sv) => s + sv.value, 0)
+  const maxVal = Math.max(...services.map(s => s.value))
+
+  const fmt = (n) => n >= 1000000
+    ? `USD ${(n / 1000000).toFixed(1)}M`
+    : n >= 1000
+      ? `USD ${(n / 1000).toFixed(0)}K`
+      : `USD ${n}`
+
+  return (
+    <div className="card">
+      <div className="card-head">
+        <div className="card-title">Ecosystem Services Value</div>
+        <span style={{
+          fontSize: 9, fontWeight: 700, padding: '2px 7px',
+          borderRadius: 999, background: '#F0F9FF',
+          color: '#0369A1', border: '1px solid #BAE6FD'
+        }}>de Groot et al. 2012</span>
+      </div>
+      <div style={{ padding: '8px 12px' }}>
+        <div style={{ fontSize: 10, color: '#6B7280', marginBottom: 10 }}>
+          Area: <strong>{area.toLocaleString('en-US')} km²</strong> ·
+          Ecosystem: <strong>{ecosystemType}</strong> ·
+          NDVI: <strong>{ndviMean.toFixed(3)}</strong>
+        </div>
+        {services.map((s, i) => (
+          <div key={i} style={{ marginBottom: 8 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 3 }}>
+              <span style={{ color: '#6B7280' }}>{s.label}</span>
+              <span style={{ fontFamily: 'monospace', fontWeight: 600, color: '#1F2937' }}>{fmt(s.value)}/yr</span>
+            </div>
+            <div style={{ height: 4, background: '#E5E7EB', borderRadius: 2, overflow: 'hidden' }}>
+              <div style={{
+                height: '100%', borderRadius: 2,
+                background: s.color,
+                width: `${(s.value / maxVal) * 100}%`,
+                transition: 'width 0.6s ease',
+              }} />
+            </div>
+          </div>
+        ))}
+        <div style={{
+          display: 'flex', justifyContent: 'space-between',
+          borderTop: '1px solid #E5E7EB', paddingTop: 8, marginTop: 4,
+          fontSize: 12, fontWeight: 700,
+        }}>
+          <span style={{ color: '#1F2937' }}>Total estimated value</span>
+          <span style={{ color: '#18A957', fontFamily: 'monospace' }}>{fmt(total)}/yr</span>
+        </div>
+      </div>
+      <div style={{
+        margin: '4px 12px 12px', padding: '6px 10px',
+        background: '#F0F9FF', border: '1px solid #BAE6FD',
+        borderRadius: 6, fontSize: 9, color: '#0369A1', lineHeight: 1.5,
+      }}>
+        Indicative estimates based on de Groot et al. (2012) global ecosystem service values, adjusted by NDVI quality factor.
+        Not a formal ecosystem valuation. For regulatory purposes, consult a certified environmental economist.
+      </div>
+    </div>
+  )
+}
+
 function FinancialMaterialityCard({ data, analysisProject }) {
   const score = data?.riskScore?.score
   const sector = analysisProject?.sector || 'Wind Energy'
@@ -6377,6 +6472,7 @@ export default function App() {
                   <div className="grid row-5">
                     <DependenciesCard data={gbifData} analysisProject={analysisProject} />
                     <ImpactsCard data={gbifData} analysisProject={analysisProject} />
+                    <EcosystemServicesCard data={gbifData} polygon={activePolygon} />
                   </div>
                 </>
               )}
