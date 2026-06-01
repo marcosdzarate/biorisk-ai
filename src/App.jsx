@@ -5854,6 +5854,71 @@ export default function App() {
     doc.text(lines, margin + 4, y + 7)
     y += 26
 
+    // ─── TNFD Content Index ───
+    if (y > 220) { doc.addPage(); y = 20 }
+
+    section('TNFD Content Index')
+
+    const tnfdIndex = [
+      { disclosure: 'Strategy A', pillar: 'Strategy', description: 'Nature-related risks and opportunities', available: data.riskScore != null, source: 'Risk Score' },
+      { disclosure: 'Strategy B', pillar: 'Strategy', description: 'Effects on business model', available: data.riskScore != null, source: 'Financial Materiality' },
+      { disclosure: 'Strategy D', pillar: 'Strategy', description: 'Sites in/near biodiversity-sensitive areas', available: data.wdpa != null, source: 'WDPA · KBA (planned)' },
+      { disclosure: 'Metrics A', pillar: 'Metrics', description: 'Nature-related risk metrics', available: data.riskScore != null, source: 'Risk Score · NDVI' },
+      { disclosure: 'Metrics B', pillar: 'Metrics', description: 'Nature-related opportunity metrics', available: data.taxaInPolygon != null, source: 'GBIF occurrence data' },
+      { disclosure: 'B8', pillar: 'Metrics', description: 'Area of sites in protected/conservation areas', available: data.wdpa != null, source: 'WDPA' },
+      { disclosure: 'B15', pillar: 'Metrics', description: 'Species affected by infrastructure', available: data.taxaInPolygon != null, source: 'GBIF · dynamicTaxa' },
+      { disclosure: 'B16', pillar: 'Metrics', description: 'Migratory species in area', available: data.taxaInPolygon != null, source: 'GBIF occurrence data' },
+      { disclosure: 'E3', pillar: 'Metrics', description: 'Land/freshwater/ocean use change', available: data.forestLoss != null, source: 'Global Forest Watch' },
+      { disclosure: 'E4', pillar: 'Metrics', description: 'Ecosystem health (NDVI)', available: data.ndvi != null, source: 'Sentinel-2' },
+    ]
+
+    // Table header
+    doc.setFillColor(...navy)
+    doc.rect(margin, y, W - margin * 2, 6, 'F')
+    doc.setFontSize(7)
+    doc.setFont('helvetica', 'bold')
+    doc.setTextColor(255, 255, 255)
+    doc.text('Disclosure', margin + 2, y + 4)
+    doc.text('Pillar', margin + 28, y + 4)
+    doc.text('Description', margin + 52, y + 4)
+    doc.text('Status', margin + 130, y + 4)
+    doc.text('Data Source', margin + 148, y + 4)
+    y += 8
+
+    tnfdIndex.forEach((item, i) => {
+      if (y > 270) { doc.addPage(); y = 20 }
+      if (i % 2 === 0) {
+        doc.setFillColor(...light)
+        doc.rect(margin, y - 3, W - margin * 2, 6, 'F')
+      }
+      doc.setFontSize(7)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(...navy)
+      doc.text(item.disclosure, margin + 2, y + 1)
+      doc.setFont('helvetica', 'normal')
+      doc.setTextColor(...gray)
+      doc.text(item.pillar, margin + 28, y + 1)
+      const descLines = doc.splitTextToSize(item.description, 75)
+      doc.text(descLines[0], margin + 52, y + 1)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(...(item.available ? green : orange))
+      doc.text(item.available ? 'Available' : 'Partial', margin + 130, y + 1)
+      doc.setFont('helvetica', 'normal')
+      doc.setTextColor(...gray)
+      const srcLines = doc.splitTextToSize(item.source, 45)
+      doc.text(srcLines[0], margin + 148, y + 1)
+      y += 6
+    })
+
+    y += 6
+
+    // CSRD note
+    doc.setFontSize(7)
+    doc.setFont('helvetica', 'italic')
+    doc.setTextColor(...gray)
+    doc.text('All 14 TNFD recommended disclosures are reflected in CSRD ESRS E4 (Directive 2022/2464).', margin + 4, y)
+    y += 10
+
     // ─── Footer ───
     doc.setFontSize(7)
     doc.setTextColor(...gray)
