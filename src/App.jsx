@@ -2207,6 +2207,106 @@ function HumanPressureCard({ data, analysisProject }) {
     </div>
   )
 }
+
+function KeyIndicatorSpeciesCard({ data }) {
+  const allRecords = data?.taxaInPolygon
+    ?.filter(t => t.inPolygon > 0)
+    ?.flatMap(t => (t.records ?? []).map(r => ({ ...r, taxonGroup: t.name })))
+    ?? []
+
+  // Count by species and get IUCN status
+  const speciesMap = {}
+  for (const r of allRecords) {
+    const key = r.scientificName
+    if (!key) continue
+    if (!speciesMap[key]) {
+      speciesMap[key] = {
+        scientificName: r.scientificName,
+        taxonGroup: r.taxonGroup,
+        iucn: r.iucnRedListCategory,
+        count: 0,
+      }
+    }
+    speciesMap[key].count++
+    if (r.iucnRedListCategory) speciesMap[key].iucn = r.iucnRedListCategory
+  }
+
+  // Filter threatened species (CR, EN, VU) sorted by count
+  const threatened = Object.values(speciesMap)
+    .filter(s => ['CR', 'EN', 'VU'].includes(s.iucn))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5)
+
+  // If no threatened species, show top 3 by count as indicator species
+  const indicators = threatened.length > 0
+    ? threatened
+    : Object.values(speciesMap)
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 3)
+
+  if (indicators.length === 0) return null
+
+  const IUCN_COLORS = {
+    CR: { bg: '#FEF2F2', color: '#E84C3D', label: 'Critically Endangered' },
+    EN: { bg: '#FFF7ED', color: '#F5A623', label: 'Endangered' },
+    VU: { bg: '#FFFBEB', color: '#FBBF24', label: 'Vulnerable' },
+    NT: { bg: '#F0F9FF', color: '#0369A1', label: 'Near Threatened' },
+    LC: { bg: '#F0FDF4', color: '#18A957', label: 'Least Concern' },
+  }
+
+  return (
+    <div className="card">
+      <div className="card-head">
+        <div className="card-title">Key Indicator Species</div>
+        <span style={{
+          fontSize: 9, fontWeight: 700, padding: '2px 7px',
+          borderRadius: 999, background: '#F0FDF4',
+          color: '#18A957', border: '1px solid #BBF7D0'
+        }}>GBIF verified</span>
+      </div>
+      <div style={{ padding: '8px 12px' }}>
+        <div style={{ fontSize: 11, color: '#6B7280', marginBottom: 10, lineHeight: 1.5 }}>
+          {threatened.length > 0
+            ? 'Threatened species detected within project boundary — requires priority attention under IFC PS6 and TNFD.'
+            : 'Most recorded species within project boundary — key ecological indicators for this area.'}
+        </div>
+        {indicators.map((s, i) => {
+          const iucn = IUCN_COLORS[s.iucn] ?? { bg: '#F9FAFB', color: '#6B7280', label: s.iucn ?? 'Not assessed' }
+          return (
+            <div key={i} style={{
+              display: 'flex', alignItems: 'flex-start', gap: 10,
+              padding: '8px 0', borderBottom: i < indicators.length - 1 ? '1px solid #E5E7EB' : 'none',
+            }}>
+              <div style={{
+                fontSize: 9, fontWeight: 700, padding: '2px 6px',
+                borderRadius: 4, background: iucn.bg, color: iucn.color,
+                flexShrink: 0, marginTop: 2,
+              }}>
+                {s.iucn ?? 'NE'}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 11, fontWeight: 600, fontStyle: 'italic', color: '#1F2937' }}>
+                  {s.scientificName}
+                </div>
+                <div style={{ fontSize: 10, color: '#9CA3AF' }}>
+                  {s.taxonGroup} · {s.count} records · {iucn.label}
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div style={{
+        margin: '4px 12px 12px', padding: '6px 10px',
+        background: '#F9FAFB', border: '1px solid #E5E7EB',
+        borderRadius: 6, fontSize: 9, color: '#9CA3AF',
+      }}>
+        IUCN Red List status from GBIF occurrence records · Species with CR/EN/VU status require enhanced due diligence under IFC PS6 Critical Habitat policy.
+      </div>
+    </div>
+  )
+}
+
 function ThreatenedSpeciesCard({ data, loading }) {
   const queriedAt = data?.queriedAt
   new Date(data.queriedAt).toLocaleDateString()
@@ -6254,6 +6354,7 @@ export default function App() {
                 <>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18, marginBottom: 18 }}>
                     <SpeciesRichnessCard data={gbifData} loading={loading} />
+                    <KeyIndicatorSpeciesCard data={gbifData} />
                     <ThreatenedSpeciesCard data={gbifData} loading={loading} />
                   </div>
 
