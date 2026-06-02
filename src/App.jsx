@@ -2318,7 +2318,7 @@ function KeyIndicatorSpeciesCard({ data }) {
 
 function ThreatenedSpeciesCard({ data, loading }) {
   const queriedAt = data?.queriedAt
-  new Date(data.queriedAt).toLocaleDateString()
+  const queriedDate = queriedAt ? new Date(queriedAt).toLocaleDateString() : null
 
   // Build species list from real taxaInPolygon records
   const allRecords = data?.taxaInPolygon
@@ -2421,7 +2421,7 @@ function ThreatenedSpeciesCard({ data, loading }) {
         </table>
       </div>
       <div className="table-note">
-        Real GBIF occurrence records within polygon boundary · Last queried: {queriedAt} ·
+        Real GBIF occurrence records within polygon boundary · Last queried: {queriedDate} ·
         Sample of up to 300 records per taxon
       </div>
       <div style={{
@@ -3855,7 +3855,7 @@ function DataSourcesCard({ data, loading, onShowStats }) {
         ))}
       </div>
       <div className="source-meta">
-        Last queried: {queriedAt} · Occurrence data CC BY 4.0
+        Last queried: {queriedDate} · Occurrence data CC BY 4.0
       </div>
       <button
         type="button"
@@ -4051,6 +4051,46 @@ function CopilotPanel({ gbifData, analysisProject }) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, loading])
+
+  const devilAdvocateRef = useRef(false)
+
+  useEffect(() => {
+    if (!gbifData?.riskScore || devilAdvocateRef.current) return
+    if (!import.meta.env.VITE_DEMO_KEY) return
+
+    devilAdvocateRef.current = true
+    setLoading(true)
+
+    const apiKey = import.meta.env.VITE_DEMO_KEY
+
+    fetch('/api/anthropic/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        system: buildCopilotSystem(gbifData, analysisProject),
+        messages: [{
+          role: 'user',
+          content: `You are a critical TNFD/IFC reviewer. Based on this biodiversity screening analysis, identify exactly 3 specific technical concerns or data gaps that a due diligence reviewer would flag. Be specific, cite the actual data from the analysis. Format as a numbered list. Start with "Reviewer's notes:" on the first line. Be concise — max 150 words total.`
+        }]
+      }),
+    })
+      .then(r => r.json())
+      .then(data => {
+        const text = data.content?.find(b => b.type === 'text')?.text ?? ''
+        if (text) {
+          setMessages(prev => [...prev, { role: 'assistant', content: text, isDevilAdvocate: true }])
+        }
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+
+  }, [gbifData?.analysisId])
 
   const suggestedQuestions = buildSuggestedQuestions(gbifData)
 
