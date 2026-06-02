@@ -260,7 +260,16 @@ body {
 .map-wrap.full-width {
   height: 420px;
 }
-.leaflet-container { background: #aedee8; font-family: var(--font); }
+.leaflet-container { 
+  background: #1a1a2e; 
+  font-family: var(--font); 
+}
+.leaflet-tile-pane {
+  will-change: transform;
+}
+.leaflet-tile {
+  filter: brightness(0.95);
+}
 
 /* ── Gauge ── */
 .gauge-wrap { display: flex; flex-direction: column; align-items: center; padding: 8px 0; }
@@ -704,9 +713,9 @@ body {
   margin: 4px 0 18px;
 }
 .wiz-info {
-  background: #EFF6FF; border: 1px solid #BFDBFE;
+  background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2);
   border-radius: var(--r-md); padding: 12px;
-  font-size: 12px; line-height: 1.5; color: #1E40AF;
+  font-size: 12px; line-height: 1.5; color: #60A5FA;
   margin-bottom: 14px;
 }
 .wiz-status {
@@ -1478,8 +1487,8 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
           style={{ height: '100%', width: '100%' }}
         >
           <TileLayer
-            attribution='&copy; OpenStreetMap'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://carto.com">CartoDB</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
           />
           {hasPolygon && (
             <Polygon
@@ -1754,7 +1763,7 @@ function KeyFindingsCard({ data, loading }) {
         <div style={{
           margin: '0 12px 12px',
           padding: '6px 10px',
-          background: '#EFF6FF',
+          background: 'rgba(59,130,246,0.1)',
           border: '1px solid #BFDBFE',
           borderRadius: 6,
           fontSize: 9,
@@ -1935,7 +1944,7 @@ function EcosystemSensitivityCard({ data }) {
         <div className="card-title">Vegetation Health</div>
         <span style={{
           fontSize: 9, fontWeight: 700, padding: '2px 7px',
-          borderRadius: 999, background: '#EFF6FF',
+          borderRadius: 999, background: 'rgba(59,130,246,0.1)',
           color: '#1D4ED8', border: '1px solid #BFDBFE'
         }}>🛰 Sentinel-2</span>
       </div>
@@ -3169,7 +3178,7 @@ function ScenarioAnalysisCard({ data }) {
           <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
             <span style={{
               fontSize: 9, fontWeight: 700, padding: '2px 7px',
-              borderRadius: 999, background: '#EFF6FF',
+              borderRadius: 999, background: 'rgba(59,130,246,0.1)',
               color: '#1D4ED8', border: '1px solid #BFDBFE'
             }}>NDVI-based · 10yr projection</span>
             <button
@@ -3605,7 +3614,7 @@ function TnfdMetricsCard({ data, analysisProject }) {
         <div className="card-title">Core Metrics & Standards</div>
         <span style={{
           fontSize: 9, fontWeight: 700, padding: '2px 7px',
-          borderRadius: 999, background: '#EFF6FF',
+          borderRadius: 999, background: 'rgba(59,130,246,0.1)',
           color: '#1D4ED8', border: '1px solid #BFDBFE'
         }}>screening-grade</span>
       </div>
@@ -3724,7 +3733,7 @@ function TnfdCard({ data, analysisProject }) {
           }}>TNFD ✓</span>
           <span style={{
             fontSize: 9, fontWeight: 700, padding: '2px 7px',
-            borderRadius: 999, background: '#EFF6FF',
+            borderRadius: 999, background: 'rgba(59,130,246,0.1)',
             color: '#1D4ED8', border: '1px solid #BFDBFE'
           }}>CSRD ESRS E4 ✓</span>
           <span style={{
@@ -4355,7 +4364,7 @@ function NewAnalysisPage({
 
                 return (
                   <div style={{
-                    background: '#EFF6FF', border: '1px solid #BFDBFE',
+                    background: 'rgba(59,130,246,0.1)', border: '1px solid #BFDBFE',
                     borderRadius: 8, padding: '10px 12px', marginTop: 10,
                     fontSize: 11, color: '#1D4ED8', lineHeight: 1.6,
                   }}>
@@ -4417,8 +4426,8 @@ function NewAnalysisPage({
                 style={{ height: '100%', width: '100%' }}
               >
                 <TileLayer
-                  attribution='&copy; OpenStreetMap'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution='&copy; <a href="https://carto.com">CartoDB</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                  url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                 />
                 <MapRecenter center={center} />
                 <DrawingLayer
@@ -4750,6 +4759,8 @@ function SpeciesExplorerPage() {
               flex: 1, padding: '10px 14px', borderRadius: 8,
               border: '1px solid var(--bd)', fontSize: 13,
               outline: 'none', fontFamily: 'Inter, sans-serif',
+              background: 'var(--card)',
+              color: 'var(--text)',
             }}
           />
           <button
@@ -5038,10 +5049,10 @@ function WelcomePage({ onStart }) {
 
         {/* Designed for */}
         <div style={{
-          background: '#F0FDF4', border: '1px solid #BBF7D0',
+          background: 'var(--card)', border: '1px solid var(--bd)',
           borderRadius: 10, padding: '14px 20px', marginBottom: 16,
         }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#166534', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text3)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             Designed for
           </div>
           {[
@@ -5051,20 +5062,19 @@ function WelcomePage({ onStart }) {
             'Companies exporting to the EU under CSRD scope (Directive 2022/2464)',
             'Researchers studying anthropogenic impacts on biodiversity',
           ].map((item, i) => (
-            <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 4, fontSize: 12, color: '#166534' }}>
-              <span style={{ color: '#18A957', flexShrink: 0 }}>✓</span>
+            <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 4, fontSize: 12, color: 'var(--text2)' }}>
+              <span style={{ color: 'var(--green)', flexShrink: 0 }}>✓</span>
               <span>{item}</span>
             </div>
           ))}
         </div>
-
         {/* Not a replacement */}
         <div style={{
-          background: '#FFFBEB', border: '1px solid #FDE68A',
+          background: 'var(--card)', border: '1px solid var(--bd)',
           borderRadius: 10, padding: '10px 16px', marginBottom: 28,
-          fontSize: 11, color: '#92400E',
+          fontSize: 11, color: 'var(--text3)',
         }}>
-          ⚠ <strong>Not a replacement for:</strong> formal field surveys or ESIA assessments.
+          ⚠ <strong style={{ color: 'var(--text2)' }}>Not a replacement for:</strong> formal field surveys or ESIA assessments.
           Screening-grade results only.
         </div>
 
@@ -5084,30 +5094,112 @@ function WelcomePage({ onStart }) {
           </button>
         </div>
 
-        {/* Steps */}
-        <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 10, marginBottom: 24,
-        }}>
-          {[
-            { icon: '🗺', title: 'Draw polygon', desc: 'Define your project area on the map' },
-            { icon: '🔬', title: 'GBIF scan', desc: '14 taxa · 16 LAC countries' },
-            { icon: '📊', title: 'Risk report', desc: 'TNFD · CSRD · IFC PS6 aligned' },
-          ].map((step, i) => (
-            <div key={i} style={{
-              background: 'var(--card)', border: '1px solid var(--bd)',
-              borderRadius: 8, padding: '14px 10px', textAlign: 'center',
-            }}>
-              <div style={{ fontSize: 22, marginBottom: 6 }}>{step.icon}</div>
-              <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--text)', marginBottom: 3 }}>
-                {step.title}
+        {/* Animated Steps */}
+        {(() => {
+          const steps = [
+            {
+              num: '01',
+              title: 'Draw polygon',
+              desc: 'Define your project area on the map',
+              color: 'var(--green)',
+              icon: (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M3 6l4-3 7 4 4-3v13l-4 3-7-4-4 3z" />
+                  <path d="M7 3v13M14 7v13" />
+                </svg>
+              )
+            },
+            {
+              num: '02',
+              title: 'GBIF scan',
+              desc: 'Taxa most represented in your country · 16 LAC countries',
+              color: '#3B82F6',
+              icon: (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="M21 21l-4-4" />
+                  <path d="M8 11h6M11 8v6" />
+                </svg>
+              )
+            },
+            {
+              num: '03',
+              title: 'Risk report',
+              desc: 'TNFD · CSRD · IFC PS6 aligned',
+              color: '#8B5CF6',
+              icon: (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              )
+            },
+          ]
+          const [activeStep, setActiveStep] = useState(0)
+
+          useEffect(() => {
+            const interval = setInterval(() => {
+              setActiveStep(prev => (prev + 1) % steps.length)
+            }, 2000)
+            return () => clearInterval(interval)
+          }, [])
+
+          return (
+            <div style={{ marginBottom: 24 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+                {steps.map((step, i) => (
+                  <div
+                    key={i}
+                    onClick={() => setActiveStep(i)}
+                    style={{
+                      background: activeStep === i ? 'rgba(34,197,94,0.05)' : 'var(--card)',
+                      border: `1px solid ${activeStep === i ? step.color : 'var(--bd)'}`,
+                      borderRadius: 8, padding: '14px 10px', textAlign: 'center',
+                      cursor: 'pointer',
+                      transition: 'all 0.4s ease',
+                      transform: activeStep === i ? 'translateY(-2px)' : 'none',
+                      boxShadow: activeStep === i ? `0 4px 12px ${step.color}20` : 'none',
+                    }}
+                  >
+                    <div style={{
+                      color: activeStep === i ? step.color : 'var(--text3)',
+                      transition: 'color 0.4s ease',
+                      marginBottom: 8,
+                      display: 'flex', justifyContent: 'center',
+                    }}>
+                      {step.icon}
+                    </div>
+                    <div style={{
+                      fontSize: 11, fontWeight: 600, marginBottom: 3,
+                      color: activeStep === i ? 'var(--text)' : 'var(--text2)',
+                      transition: 'color 0.4s ease',
+                    }}>
+                      {step.title}
+                    </div>
+                    <div style={{ fontSize: 10, color: 'var(--text3)', lineHeight: 1.5 }}>
+                      {step.desc}
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div style={{ fontSize: 10, color: 'var(--text3)', lineHeight: 1.5 }}>
-                {step.desc}
+              {/* Progress bar */}
+              <div style={{ display: 'flex', gap: 6, marginTop: 10, justifyContent: 'center' }}>
+                {steps.map((_, i) => (
+                  <div
+                    key={i}
+                    onClick={() => setActiveStep(i)}
+                    style={{
+                      width: activeStep === i ? 24 : 6,
+                      height: 4, borderRadius: 2,
+                      background: activeStep === i ? 'var(--green)' : 'var(--bd2)',
+                      transition: 'all 0.4s ease',
+                      cursor: 'pointer',
+                    }}
+                  />
+                ))}
               </div>
             </div>
-          ))}
-        </div>
+          )
+        })()}
 
         {/* Footer */}
         <div style={{ textAlign: 'center', fontSize: 10, color: 'var(--text3)', lineHeight: 1.8 }}>
