@@ -424,7 +424,7 @@ body {
   max-width: 85%;
 }
 .msg.assistant .msg-bubble {
-  background: #F9FAFB; color: var(--text);
+  background: #1c1c1c; color: var(--text);
   align-self: flex-start;
   border: 1px solid var(--bd);
   border-radius: 12px 12px 12px 2px;
@@ -1763,13 +1763,13 @@ function KeyFindingsCard({ data, loading }) {
         <div style={{
           margin: '0 12px 12px',
           padding: '6px 10px',
-          background: 'rgba(59,130,246,0.1)',
-          border: '1px solid #BFDBFE',
+          background: 'rgba(59,130,246,0.08)',
+          border: '1px solid rgba(59,130,246,0.2)',
+          color: '#c6c9cc',
           borderRadius: 6,
-          fontSize: 9,
-          color: '#1D4ED8'
+          fontSize: 9
         }}>
-          🛡 Protected areas data from WDPA API · Real data
+          Protected areas data from WDPA API · Real data
         </div>
       )}
     </div>
@@ -2427,8 +2427,9 @@ function ThreatenedSpeciesCard({ data, loading }) {
       <div style={{
         margin: '0 12px 12px',
         padding: '6px 10px',
-        background: '#FFFBEB', border: '1px solid #FDE68A',
-        borderRadius: 6, fontSize: 9, color: '#92400E',
+        background: 'rgba(249,115,22,0.08)',
+        border: '1px solid rgba(249,115,22,0.2)',
+        color: '#fb923c',
       }}>
         ⚠ IUCN conservation status not available in this version.
         Species shown are from georeferenced GBIF occurrence records only.
@@ -2570,10 +2571,10 @@ function BiodiversityMatrixCard({ data }) {
   const quadrant = getQuadrant()
 
   const QUADRANTS = {
-    'I': { label: 'Priority Conservation Area', color: '#E84C3D', bg: '#FEF2F2', desc: 'High biodiversity importance and intactness. Priority area to be protected. Maximum risk for new projects.' },
-    'II': { label: 'Degraded High-Value Area', color: '#F5A623', bg: '#FFFBEB', desc: 'High biodiversity importance but already degraded. High effectiveness of nature-positive restoration activities expected.' },
-    'III': { label: 'Suitable for Development', color: '#18A957', bg: '#F0FDF4', desc: 'Low biodiversity importance and high intactness. Low conflict with other activities — suitable for renewable energy or infrastructure projects.' },
-    'IV': { label: 'Restoration Opportunity', color: 'var(--text2)', bg: 'var(--card)', desc: 'Low biodiversity importance and intactness. Large potential for improvement through restoration activities.' },
+    'I': { label: 'Priority Conservation Area', color: '#ef4444', bg: 'rgba(239,68,68,0.12)', desc: 'High biodiversity importance and intactness. Priority area to be protected. Maximum risk for new projects.' },
+    'II': { label: 'Degraded High-Value Area', color: '#f97316', bg: 'rgba(249,115,22,0.12)', desc: 'High biodiversity importance but already degraded. High effectiveness of nature-positive restoration activities expected.' },
+    'III': { label: 'Suitable for Development', color: '#22c55e', bg: 'rgba(34,197,94,0.12)', desc: 'Low biodiversity importance and high intactness. Low conflict with other activities — suitable for renewable energy or infrastructure projects.' },
+    'IV': { label: 'Restoration Opportunity', color: 'var(--text2)', bg: 'rgba(255,255,255,0.04)', desc: 'Low biodiversity importance and intactness. Large potential for improvement through restoration activities.' },
   }
 
   const q = quadrant ? QUADRANTS[quadrant] : null
@@ -2694,18 +2695,18 @@ function BiodiversityMatrixCard({ data }) {
               border: '1px solid var(--bd)',
             }}>
               {/* Quadrant I — top right */}
-              <div style={{ background: '#FEF2F2', borderRight: '1px solid #E5E7EB', borderBottom: '1px solid #E5E7EB', order: 2 }} />
+              <div style={{ background: 'rgba(239,68,68,0.12)', borderRight: '1px solid var(--bd)', borderBottom: '1px solid var(--bd)', order: 2 }} />
               {/* Quadrant II — top left */}
-              <div style={{ background: '#FFFBEB', borderBottom: '1px solid #E5E7EB', order: 1 }} />
+              <div style={{ background: 'rgba(249,115,22,0.12)', borderBottom: '1px solid var(--bd)', order: 1 }} />
               {/* Quadrant III — bottom right */}
-              <div style={{ background: '#F0FDF4', borderRight: '1px solid #E5E7EB', order: 4 }} />
+              <div style={{ background: 'rgba(34,197,94,0.12)', borderRight: '1px solid var(--bd)', order: 4 }} />
               {/* Quadrant IV — bottom left */}
-              <div style={{ background: 'var(--card)', order: 3 }} />
+              <div style={{ background: 'rgba(255,255,255,0.04)', order: 3 }} />
             </div>
 
             {/* Quadrant labels */}
-            <div style={{ position: 'absolute', top: 4, right: 4, fontSize: 8, fontWeight: 700, color: '#E84C3D' }}>I</div>
-            <div style={{ position: 'absolute', top: 4, left: 4, fontSize: 8, fontWeight: 700, color: '#F5A623' }}>II</div>
+            <div style={{ position: 'absolute', top: 4, right: 4, fontSize: 8, fontWeight: 700, color: '#ef4444' }}>I</div>
+            <div style={{ position: 'absolute', top: 4, left: 4, fontSize: 8, fontWeight: 700, color: '#f97316' }}>II</div>
             <div style={{ position: 'absolute', bottom: 4, right: 4, fontSize: 8, fontWeight: 700, color: '#18A957' }}>III</div>
             <div style={{ position: 'absolute', bottom: 4, left: 4, fontSize: 8, fontWeight: 700, color: 'var(--text2)' }}>IV</div>
 
@@ -2922,8 +2923,8 @@ function FinancialMaterialityCard({ data, analysisProject }) {
         <div className="card-title">Financial Materiality</div>
         <span style={{
           fontSize: 9, fontWeight: 700, padding: '2px 7px',
-          borderRadius: 999, background: '#F5F3FF',
-          color: '#7C3AED', border: '1px solid #DDD6FE'
+          borderRadius: 999, background: 'rgba(139,92,246,0.08)',
+          color: '#a78bfa', border: '1px solid rgba(139,92,246,0.2)'
         }}>indicative</span>
       </div>
       <div style={{ padding: '8px 12px' }}>
@@ -2953,8 +2954,8 @@ function FinancialMaterialityCard({ data, analysisProject }) {
       </div>
       <div style={{
         margin: '4px 12px 12px', padding: '6px 10px',
-        background: '#F5F3FF', border: '1px solid #DDD6FE',
-        borderRadius: 6, fontSize: 9, color: '#7C3AED', lineHeight: 1.5,
+        background: 'rgba(235, 233, 240, 0)', border: '1px solid rgba(139,92,246,0.2)',
+        borderRadius: 6, fontSize: 9, color: '#e9e7ee', lineHeight: 1.5,
       }}>
         ⚠ Indicative estimates based on industry benchmarks. Not financial advice. Consult environmental legal counsel for project-specific assessment.
       </div>
@@ -3602,7 +3603,7 @@ function TnfdMetricsCard({ data, analysisProject }) {
     'TNFD': { bg: '#F0FDF4', color: '#18A957', border: '#BBF7D0' },
     'ESRS E4': { bg: '#EFF6FF', color: '#1D4ED8', border: '#BFDBFE' },
     'IFC PS6': { bg: '#FEF3C7', color: '#92400E', border: '#FDE68A' },
-    'EQ-P': { bg: '#F5F3FF', color: '#7C3AED', border: '#DDD6FE' },
+    'EQ-P': { bg: '#F5F3FF', color: '#a78bfa', border: '#DDD6FE' },
     'GRI 304': { bg: '#FFF1F2', color: '#BE123C', border: '#FECDD3' },
     'EUDR': { bg: '#FFF7ED', color: '#C2410C', border: '#FED7AA' },
     'ISSB BEES': { bg: '#F0F9FF', color: '#0369A1', border: '#BAE6FD' },
@@ -5358,7 +5359,7 @@ export default function App() {
   const [scanning, setScanning] = useState(false)
   const [scanProgress, setScanProgress] = useState(0)
   const [scanStepLabel, setScanStepLabel] = useState('')
-  const [showDemoBanner, setShowDemoBanner] = useState(true)
+  const [showDemoBanner, setShowDemoBanner] = useState(false)
   const [activePolygon, setActivePolygon] = useState(null)
   const [mapCenter, setMapCenter] = useState([-20, -60])
   const [mapZoom, setMapZoom] = useState(3)
@@ -6296,7 +6297,11 @@ export default function App() {
       <div
         className="app"
         style={{
-          gridTemplateColumns: isWizard ? '220px 1fr' : '220px 1fr 340px',
+          gridTemplateColumns: isWizard
+            ? (sidebarCollapsed ? '56px 1fr' : '220px 1fr')
+            : copilotCollapsed
+              ? (sidebarCollapsed ? '56px 1fr' : '220px 1fr')
+              : (sidebarCollapsed ? '56px 1fr 340px' : '220px 1fr 340px'),
         }}
       >
         <Sidebar
@@ -6334,6 +6339,7 @@ export default function App() {
             projects={projects}
             onSelectProject={(project) => {
               setGbifData(project.gbifData)
+              setShowDemoBanner(false)
               setProjectName(project.name)
               setActivePolygon(project.polygon)
               setAnalysisProject({ name: project.name, country: project.country, sector: project.sector })
