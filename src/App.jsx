@@ -5407,6 +5407,10 @@ export default function App() {
   const [projects, setProjects] = useState([])
   const [selectedProject, setSelectedProject] = useState(null)
 
+  const [showExecSummary, setShowExecSummary] = useState(false)
+  const [execSummaryText, setExecSummaryText] = useState('')
+  const [execSummaryLoading, setExecSummaryLoading] = useState(false)
+
   function handleNav(id) {
     setActivePage(id)
     if (id === 'new') {
@@ -6001,6 +6005,47 @@ export default function App() {
     URL.revokeObjectURL(url)
   }
 
+  async function generateExecSummary() {
+    if (!gbifData?.riskScore) return
+    setShowExecSummary(true)
+    setExecSummaryLoading(true)
+    setExecSummaryText('')
+
+    const apiKey = import.meta.env.VITE_DEMO_KEY
+    if (!apiKey) {
+      setExecSummaryText('API key not configured.')
+      setExecSummaryLoading(false)
+      return
+    }
+
+    try {
+      const response = await fetch('/api/anthropic/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 300,
+          system: buildCopilotSystem(gbifData, analysisProject),
+          messages: [{
+            role: 'user',
+            content: `Write a professional executive summary paragraph (max 120 words) for a TNFD/CSRD biodiversity disclosure report. Include: project name, location, sector, risk score and category, key taxa detected, NDVI status, protected area findings, and recommended next steps. Write in third person, formal tone. Start directly with the summary, no preamble.`
+          }]
+        }),
+      })
+      const data = await response.json()
+      const text = data.content?.find(b => b.type === 'text')?.text ?? ''
+      setExecSummaryText(text)
+    } catch (e) {
+      setExecSummaryText('Failed to generate summary. Please try again.')
+    } finally {
+      setExecSummaryLoading(false)
+    }
+  }
+
   function exportReport(data, project, name) {
     if (!data?.riskScore) {
       alert('Please run an analysis first before exporting a report.')
@@ -6413,6 +6458,9 @@ export default function App() {
                 <div className="h-right">
                   <span className="badge">{gbifData?.analysisId ?? 'No analysis'}</span>
                   <span className="badge">May 13, 2026</span>
+                  <button className="btn" onClick={generateExecSummary}>
+                    Executive Summary
+                  </button>
                   <button className="btn" onClick={() => exportReport(gbifData, analysisProject, projectName)}>
                     Export Report
                   </button>
@@ -6656,34 +6704,79 @@ export default function App() {
                 </span>
                 <span>BioRisk AI © 2026</span>
               </div>
-            </main>
 
-            <>
-              {!copilotCollapsed && (
-                <CopilotPanel
-                  key={copilotKey}
-                  gbifData={gbifData}
-                  analysisProject={analysisProject}
-                />
+              {/* Executive Summary Modal */}
+              {showExecSummary && (
+                <div style={{
+                  position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)',
+                  zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  padding: 24,
+                }} onClick={() => setShowExecSummary(false)}>
+                  <div style={{
+                    background: 'var(--card)', border: '1px solid var(--bd)',
+                    borderRadius: 12, padding: 24, maxWidth: 600, width: '100%',
+                    boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
+                  }} onClick={e => e.stopPropagation()}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)' }}>Executive Summary</div>
+                      <button onClick={() => setShowExecSummary(false)} style={{
+                        background: 'none', border: 'none', cursor: 'pointer',
+                        fontSize: 18, color: 'var(--text3)',
+                      }}>×</button>
+                    </div>
+                    {execSummaryLoading ? (
+                      <div style={{ textAlign: 'center', padding: '24px 0', color: 'var(--text3)' }}>
+                        Generating summary...
+                      </div>
+                    ) : (
+                      <>
+                        <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.8, marginBottom: 16 }}>
+                          {execSummaryText}
+                        </p>
+                        <button
+                          onClick={() => navigator.clipboard.writeText(execSummaryText)}
+                          style={{
+                            padding: '8px 16px', background: 'var(--green)', color: 'white',
+                            border: 'none', borderRadius: 6, fontSize: 12, fontWeight: 600,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          Copy to clipboard
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
               )}
-              <button
-                onClick={() => setCopilotCollapsed(p => !p)}
-                style={{
-                  position: 'fixed', bottom: 24, right: copilotCollapsed ? 16 : 316,
-                  zIndex: 1000,
-                  background: '#18A957', color: 'white',
-                  border: 'none', borderRadius: 20,
-                  padding: '8px 14px', fontSize: 12, fontWeight: 600,
-                  cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                  transition: 'right 0.2s ease',
-                }}
-              >
-                {copilotCollapsed ? '🤖 Copilot →' : '← Hide'}
-              </button>
-            </>
-          </>
+            </main>
+        
+
+        <>
+          {!copilotCollapsed && (
+            <CopilotPanel
+              key={copilotKey}
+              gbifData={gbifData}
+              analysisProject={analysisProject}
+            />
+          )}
+          <button
+            onClick={() => setCopilotCollapsed(p => !p)}
+            style={{
+              position: 'fixed', bottom: 24, right: copilotCollapsed ? 16 : 316,
+              zIndex: 1000,
+              background: '#18A957', color: 'white',
+              border: 'none', borderRadius: 20,
+              padding: '8px 14px', fontSize: 12, fontWeight: 600,
+              cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+              transition: 'right 0.2s ease',
+            }}
+          >
+            {copilotCollapsed ? '🤖 Copilot →' : '← Hide'}
+          </button>
+        </>
+      </>
         )}
-      </div>
+    </div >
     </>
   )
 }
