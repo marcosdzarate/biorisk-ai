@@ -5,17 +5,27 @@ export async function callGbif(name, inp) {
   const B = "https://api.gbif.org/v1";
   const H = { "User-Agent": "biorisk-ai/1.0" };
 
-  async function get(path, p = {}) {
-    const u = new URL(B + path);
-    for (const [k, v] of Object.entries(p)) {
-      if (v != null) {
-        Array.isArray(v) ? v.forEach(x => u.searchParams.append(k, x)) : u.searchParams.set(k, String(v));
-      }
+  async function get(path, p = {}, retries = 3) {
+  const u = new URL(B + path);
+  for (const [k, v] of Object.entries(p)) {
+    if (v != null) {
+      Array.isArray(v) ? v.forEach(x => u.searchParams.append(k, x)) : u.searchParams.set(k, String(v));
     }
-    const r = await fetch(u, { headers: H });
-    if (!r.ok) throw new Error(`GBIF ${r.status}`);
-    return r.json();
   }
+  
+  for (let attempt = 0; attempt < retries; attempt++) {
+    const r = await fetch(u, { headers: H });
+    if (r.ok) return r.json();
+    if (r.status === 429) {
+      const wait = (attempt + 1) * 2000 // 2s, 4s, 6s
+      console.warn(`GBIF 429 - waiting ${wait}ms before retry ${attempt + 1}/${retries}`)
+      await new Promise(resolve => setTimeout(resolve, wait))
+      continue
+    }
+    throw new Error(`GBIF ${r.status}`)
+  }
+  throw new Error('GBIF 429 - max retries exceeded')
+}
 
   async function res(n, rank) {
     let m = await get("/species/match", { name: n, verbose: true });

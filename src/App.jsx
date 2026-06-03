@@ -1233,6 +1233,66 @@ function GbifDensityLayer({ polygon }) {
   )
 }
 
+function HexNdviLayer({ features }) {
+  const map = useMap()
+
+  useEffect(() => {
+    if (!features || features.length === 0) return
+
+    const layers = []
+
+    const getColor = (v) => {
+      if (v === null || v === undefined) return '#6B7280'
+      if (v < 0) return '#6B7280'
+      if (v < 0.1) return '#EF4444'
+      if (v < 0.2) return '#F97316'
+      if (v < 0.3) return '#EAB308'
+      if (v < 0.4) return '#84CC16'
+      if (v < 0.5) return '#22C55E'
+      return '#16A34A'
+    }
+
+    // Calculate hex vertices from center point
+    const hexVertices = (lat, lng, radiusDeg) => {
+      const vertices = []
+      for (let i = 0; i < 6; i++) {
+        const angle = (Math.PI / 180) * (60 * i - 30)
+        vertices.push([
+          lat + radiusDeg * Math.cos(angle),
+          lng + radiusDeg * Math.sin(angle) / Math.cos(lat * Math.PI / 180),
+        ])
+      }
+      return vertices
+    }
+
+    const radiusDeg = 0.01 // ~5km at equator
+
+    features.forEach(f => {
+      const ndvi = f.properties?.ndvi
+      const [lng, lat] = f.geometry.coordinates
+
+      const vertices = hexVertices(lat, lng, radiusDeg)
+
+      const hex = L.polygon(vertices, {
+        fillColor: getColor(ndvi),
+        fillOpacity: 0.65,
+        color: 'rgba(0,0,0,0.15)',
+        weight: 0.5,
+      }).bindTooltip(
+        `NDVI: ${ndvi?.toFixed(3) ?? 'N/A'}<br>MSAVI: ${f.properties?.msavi?.toFixed(3) ?? 'N/A'}`,
+        { permanent: false }
+      )
+
+      hex.addTo(map)
+      layers.push(hex)
+    })
+
+    return () => layers.forEach(l => map.removeLayer(l))
+  }, [map, features])
+
+  return null
+}
+
 function NdviLayer({ polygon, ndviData }) {
   const map = useMap()
 
@@ -1441,12 +1501,16 @@ function OccurrenceMarker({ occ, color, taxonName }) {
 }
 
 // ─── Cards ───────────────────────────────────────────────────────────────────
-function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndviData, wdpaData, bufferData }) {
+function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, wdpaData, bufferData, geeFeatures }) {
   const mapCenter = center || [-20, -60]
   const mapZoom = zoom ?? 7
   const hasPolygon = polygon && polygon.length >= 3
   const presentTaxa = (allTaxaRecords ?? []).filter(t => t.inPolygon > 0)
   const [viewMode, setViewMode] = useState('points')
+
+  useEffect(() => {
+    console.log('🗺 MapCard geeFeatures updated:', geeFeatures?.length)
+  }, [geeFeatures])
 
   return (
     <div className="card">
@@ -1457,6 +1521,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
             <>
               {[
                 { id: 'points', label: 'Points' },
+                { id: 'hex', label: 'Hex NDVI' },
                 { id: 'heatmap', label: 'Heatmap' },
                 { id: 'ndvi', label: 'NDVI' },
                 { id: 'protected', label: 'Areas' },
@@ -1542,6 +1607,9 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth = false, ndv
 
           {viewMode === 'gbif' && (
             <GbifDensityLayer polygon={polygon} />
+          )}
+          {viewMode === 'hex' && geeFeatures?.length > 0 && (
+            <HexNdviLayer features={geeFeatures} />
           )}
         </MapContainer>
 
@@ -4331,7 +4399,7 @@ function NewAnalysisPage({
   analysisProject, setAnalysisProject,
   scanResults, scanProgress, scanStepLabel,
   onBack, onRunScan, onViewDashboard, onResetWizard, loadCountryTaxa,
-  loadingTaxa,
+  loadingTaxa, scanLogs,
 }) {
   const center = COUNTRY_CENTERS[analysisProject.country] || [-15, -60]
   const canRun = analysisProject.name.trim() && drawnPolygon
@@ -4489,22 +4557,44 @@ function NewAnalysisPage({
               <div className="scan-title">Running Biodiversity Scan</div>
               <div className="scan-sub">{analysisProject.name}</div>
 
-              <div className="scan-steps">
-                {SCAN_STEPS.map((label, i) => {
-                  const stepNum = i + 1
-                  const state = scanProgress > stepNum ? 'done'
-                    : scanProgress === stepNum ? 'active'
-                      : 'pending'
-                  const displayLabel = state === 'active' && scanStepLabel ? scanStepLabel : label
-                  return (
-                    <div key={i} className={`scan-step ${state}`}>
-                      <div className="scan-step-icon">
-                        {state === 'done' ? '✓' : state === 'active' ? '' : stepNum}
-                      </div>
-                      <span>{displayLabel}</span>
+              {/* Real-time log */}
+              <div style={{
+                margin: '16px 0',
+                background: '#0a0a0a',
+                border: '1px solid var(--bd)',
+                borderRadius: 8,
+                padding: '12px 14px',
+                maxHeight: 220,
+                overflowY: 'auto',
+                fontFamily: 'monospace',
+                fontSize: 11,
+                textAlign: 'left',
+              }}>
+                {scanLogs.length === 0 ? (
+                  <div style={{ color: 'var(--text3)' }}>Initializing...</div>
+                ) : (
+                  scanLogs.map((log, i) => (
+                    <div key={i} style={{
+                      color: log.status === 'done' ? '#22c55e' : '#a1a1a1',
+                      marginBottom: 4,
+                      display: 'flex', gap: 8, alignItems: 'flex-start',
+                    }}>
+                      <span style={{ flexShrink: 0 }}>
+                        {log.status === 'done' ? '✓' : '⟳'}
+                      </span>
+                      <span>{log.msg}</span>
                     </div>
-                  )
-                })}
+                  ))
+                )}
+              </div>
+
+              {/* Note about timing */}
+              <div style={{
+                fontSize: 10, color: 'var(--text3)', marginBottom: 12,
+                lineHeight: 1.5, textAlign: 'center',
+              }}>
+                Analysis time depends on polygon size and data availability.<br />
+                Large areas may take 2–4 minutes.
               </div>
 
               <div className="scan-progress-bar">
@@ -5398,6 +5488,10 @@ export default function App() {
   const [scanResults, setScanResults] = useState(null)
   const [scanning, setScanning] = useState(false)
   const [scanProgress, setScanProgress] = useState(0)
+  const [scanLogs, setScanLogs] = useState([])
+  const addLog = (msg, status = 'done') => {
+    setScanLogs(prev => [...prev, { msg, status }])
+  }
   const [scanStepLabel, setScanStepLabel] = useState('')
   const [showDemoBanner, setShowDemoBanner] = useState(false)
   const [activePolygon, setActivePolygon] = useState(null)
@@ -5512,11 +5606,14 @@ export default function App() {
 
     try {
       setScanProgress(1)
-      setScanStepLabel(`Loading taxonomic groups for ${COUNTRY_NAMES[country] ?? country}...`)
+      setScanLogs([]) // limpiar logs anteriores
+      addLog(`Polygon validated · ${Math.round(calcPolygonAreaKm2(polygon) ?? 0).toLocaleString('en-US')} km² · ${country}`, 'done')
+      addLog(`Loading taxonomic groups for ${COUNTRY_NAMES[country] ?? country}...`, 'loading')
       await delay(500)
 
       setScanProgress(2)
-      setScanStepLabel(`Querying GBIF occurrence data via AWS Athena for ${country}...`)
+      addLog(`Loading taxonomic groups for ${COUNTRY_NAMES[country] ?? country}... done`, 'done')
+      addLog(`Querying GBIF occurrence data for ${COUNTRY_NAMES[country] ?? country}...`, 'loading')
 
       let spatialData = null
       if (MODE === 'full') {
@@ -5544,6 +5641,7 @@ export default function App() {
       let basisCount = {}
       if (athenaRecords && athenaRecords.length > 0) {
         console.log(`✅ Using Athena: ${athenaRecords.length} records`)
+        addLog(`${athenaRecords.length.toLocaleString('en-US')} records retrieved via GBIF`, 'done')
         const byClass = {}
         athenaRecords.forEach(r => {
           const cls = r.class
@@ -5565,21 +5663,22 @@ export default function App() {
         }))
       } else {
         console.log('⚠ Athena unavailable, falling back to GBIF REST API')
-        taxaOccurrences = await Promise.all(
-          dynamicTaxa.slice(0, 15).map((taxon, idx) =>
-            new Promise(resolve => setTimeout(resolve, idx * 150))
-              .then(() => callGbif('search_occurrences', {
-                taxon_name: taxon.name,
-                taxon_rank: taxon.taxon_rank,
-                has_coordinate: true,
-                lat_min: bbox.minLat,
-                lat_max: bbox.maxLat,
-                lng_min: bbox.minLng,
-                lng_max: bbox.maxLng,
-                limit: 300,
-              }).catch(() => null))
-          )
-        )
+        addLog(`Querying GBIF REST API for ${dynamicTaxa.slice(0, 15).length} taxonomic groups...`, 'loading')
+        taxaOccurrences = []
+        for (const taxon of dynamicTaxa.slice(0, 15)) {
+          const result = await callGbif('search_occurrences', {
+            taxon_name: taxon.name,
+            taxon_rank: taxon.taxon_rank,
+            has_coordinate: true,
+            lat_min: bbox.minLat,
+            lat_max: bbox.maxLat,
+            lng_min: bbox.minLng,
+            lng_max: bbox.maxLng,
+            limit: 300,
+          }).catch(() => null)
+          taxaOccurrences.push(result)
+          await new Promise(resolve => setTimeout(resolve, 500))
+        }
       }
 
       const [aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss, gee] = await Promise.all([
@@ -5663,13 +5762,15 @@ export default function App() {
       } catch (e) {
         console.warn('Buffer calculation failed:', e.message)
       }
-
       setScanProgress(3)
-      setScanStepLabel(`Filtering ${totalInPolygon.toLocaleString('en-US')} records within project boundary...`)
+      addLog(`${totalInPolygon.toLocaleString('en-US')} occurrence records retrieved`, 'done')
+      addLog(`Filtering records within project boundary...`, 'loading')
       await delay(600)
 
       setScanProgress(4)
-      setScanStepLabel('Calculating biodiversity risk score...')
+      addLog(`Records filtered within polygon boundary`, 'done')
+      addLog(`Querying GEE datasets (NDVI, Hansen, Dynamic World, JRC, MODIS)...`, 'loading')
+      addLog(`Calculating biodiversity risk score...`, 'loading')
       await delay(500)
 
       const riskScore = calculateRiskScore({
@@ -5679,7 +5780,9 @@ export default function App() {
       })
 
       setScanProgress(5)
-      setScanStepLabel('')
+      addLog(`Risk Score: ${riskScore?.score ?? '—'}/100 · ${riskScore?.category ?? ''}`, 'done')
+      addLog(`Protected areas checked · WDPA`, 'done')
+      addLog(`Analysis complete`, 'done')
       await delay(400)
 
       // Calculate WDPA areas that intersect with the polygon
@@ -5703,6 +5806,8 @@ export default function App() {
         intersectingCount: wdpaIntersecting.length,
       } : null
 
+      console.log('🌍 GEE result before setScanResults:', gee)
+      addLog(`GEE datasets computed · ${gee?.features?.length ?? 0} hex cells`, 'done')
       setScanResults({
         aves,
         mammalia,
@@ -5719,6 +5824,7 @@ export default function App() {
         polygon,
         country,
         forestLoss: forestLoss,
+        gee: gee,
         basisCount: basisCount,
         chao1: { estimated: chao1, observed: sObs, completeness: samplingCompleteness, singletons: n1, doubletons: n2 },
       })
@@ -5739,7 +5845,9 @@ export default function App() {
   }
 
   function viewDashboardFromScan() {
+
     if (!scanResults) return
+    console.log('📊 scanResults.gee:', scanResults?.gee?.features?.length)
 
     // Save project to list
     const newProject = {
@@ -5823,6 +5931,8 @@ export default function App() {
       chao1: scanResults.chao1,
       basisCount: scanResults.basisCount,
     })
+    console.log('📊 gbifData.gee after setGbifData:', scanResults.gee?.features?.length)
+
 
     // Update project name in header
     setProjectName(analysisProject.name)
@@ -6403,6 +6513,7 @@ export default function App() {
         {isWizard ? (
           <NewAnalysisPage
             loadCountryTaxa={loadCountryTaxa}
+            scanLogs={scanLogs}
             loadingTaxa={loadingTaxa}
             analysisStep={analysisStep}
             setAnalysisStep={setAnalysisStep}
@@ -6564,6 +6675,7 @@ export default function App() {
                       ndviData={gbifData?.ndvi}
                       wdpaData={gbifData?.wdpa}
                       bufferData={gbifData?.bufferData}
+                      geeFeatures={gbifData?.gee?.features}
                     />
                     <div style={{
                       position: 'absolute', bottom: 12, right: 12, zIndex: 1000,
@@ -6752,34 +6864,34 @@ export default function App() {
                 </div>
               )}
             </main>
-        
 
-        <>
-          {!copilotCollapsed && (
-            <CopilotPanel
-              key={copilotKey}
-              gbifData={gbifData}
-              analysisProject={analysisProject}
-            />
-          )}
-          <button
-            onClick={() => setCopilotCollapsed(p => !p)}
-            style={{
-              position: 'fixed', bottom: 24, right: copilotCollapsed ? 16 : 316,
-              zIndex: 1000,
-              background: '#18A957', color: 'white',
-              border: 'none', borderRadius: 20,
-              padding: '8px 14px', fontSize: 12, fontWeight: 600,
-              cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-              transition: 'right 0.2s ease',
-            }}
-          >
-            {copilotCollapsed ? '🤖 Copilot →' : '← Hide'}
-          </button>
-        </>
-      </>
+
+            <>
+              {!copilotCollapsed && (
+                <CopilotPanel
+                  key={copilotKey}
+                  gbifData={gbifData}
+                  analysisProject={analysisProject}
+                />
+              )}
+              <button
+                onClick={() => setCopilotCollapsed(p => !p)}
+                style={{
+                  position: 'fixed', bottom: 24, right: copilotCollapsed ? 16 : 316,
+                  zIndex: 1000,
+                  background: '#18A957', color: 'white',
+                  border: 'none', borderRadius: 20,
+                  padding: '8px 14px', fontSize: 12, fontWeight: 600,
+                  cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                  transition: 'right 0.2s ease',
+                }}
+              >
+                {copilotCollapsed ? '🤖 Copilot →' : '← Hide'}
+              </button>
+            </>
+          </>
         )}
-    </div >
+      </div >
     </>
   )
 }
