@@ -4553,7 +4553,6 @@ function NewAnalysisPage({
         {analysisStep === 2 && (
           <div className="wiz-center">
             <div className="scan-card">
-              <div className="scan-spinner" />
               <div className="scan-title">Running Biodiversity Scan</div>
               <div className="scan-sub">{analysisProject.name}</div>
 
@@ -4580,7 +4579,20 @@ function NewAnalysisPage({
                       display: 'flex', gap: 8, alignItems: 'flex-start',
                     }}>
                       <span style={{ flexShrink: 0 }}>
-                        {log.status === 'done' ? '✓' : '⟳'}
+                        {log.status === 'done' ? (
+                          <span style={{ color: '#22c55e' }}>✓</span>
+                        ) : (
+                          <span style={{
+                            display: 'inline-block',
+                            width: 10, height: 10,
+                            border: '2px solid var(--bd)',
+                            borderTopColor: '#22c55e',
+                            borderRadius: '50%',
+                            animation: 'spin 0.8s linear infinite',
+                            flexShrink: 0,
+                            marginTop: 1,
+                          }} />
+                        )}
                       </span>
                       <span>{log.msg}</span>
                     </div>
@@ -5608,11 +5620,11 @@ export default function App() {
       setScanProgress(1)
       setScanLogs([]) // limpiar logs anteriores
       addLog(`Polygon validated · ${Math.round(calcPolygonAreaKm2(polygon) ?? 0).toLocaleString('en-US')} km² · ${country}`, 'done')
-      addLog(`Loading taxonomic groups for ${COUNTRY_NAMES[country] ?? country}...`, 'loading')
+      addLog(`Identifying taxa for ${COUNTRY_NAMES[country] ?? country}...`, 'loading')
       await delay(500)
 
       setScanProgress(2)
-      addLog(`Loading taxonomic groups for ${COUNTRY_NAMES[country] ?? country}... done`, 'done')
+      //addLog(`${dynamicTaxa.length} taxonomic groups identified for ${COUNTRY_NAMES[country] ?? country}`, 'done')
       addLog(`Querying GBIF occurrence data for ${COUNTRY_NAMES[country] ?? country}...`, 'loading')
 
       let spatialData = null
@@ -5641,7 +5653,7 @@ export default function App() {
       let basisCount = {}
       if (athenaRecords && athenaRecords.length > 0) {
         console.log(`✅ Using Athena: ${athenaRecords.length} records`)
-        addLog(`${athenaRecords.length.toLocaleString('en-US')} records retrieved via GBIF`, 'done')
+        addLog(`${athenaRecords.length.toLocaleString('en-US')} occurrence records retrieved`, 'done')
         const byClass = {}
         athenaRecords.forEach(r => {
           const cls = r.class
@@ -5663,7 +5675,7 @@ export default function App() {
         }))
       } else {
         console.log('⚠ Athena unavailable, falling back to GBIF REST API')
-        addLog(`Querying GBIF REST API for ${dynamicTaxa.slice(0, 15).length} taxonomic groups...`, 'loading')
+        addLog(`Querying GBIF for occurrence data...`, 'loading')
         taxaOccurrences = []
         for (const taxon of dynamicTaxa.slice(0, 15)) {
           const result = await callGbif('search_occurrences', {
@@ -5768,9 +5780,9 @@ export default function App() {
       await delay(600)
 
       setScanProgress(4)
-      addLog(`Records filtered within polygon boundary`, 'done')
-      addLog(`Querying GEE datasets (NDVI, Hansen, Dynamic World, JRC, MODIS)...`, 'loading')
-      addLog(`Calculating biodiversity risk score...`, 'loading')
+      addLog(`Records filtered within project boundary`, 'done')
+      addLog(`Querying satellite data (GEE)`, 'loading')
+      addLog(`Calculating risk score...`, 'loading')
       await delay(500)
 
       const riskScore = calculateRiskScore({
@@ -5781,8 +5793,8 @@ export default function App() {
 
       setScanProgress(5)
       addLog(`Risk Score: ${riskScore?.score ?? '—'}/100 · ${riskScore?.category ?? ''}`, 'done')
-      addLog(`Protected areas checked · WDPA`, 'done')
-      addLog(`Analysis complete`, 'done')
+      addLog(`Protected areas checked`, 'done')
+      addLog(`Analysis complete ✅`, 'done')
       await delay(400)
 
       // Calculate WDPA areas that intersect with the polygon
