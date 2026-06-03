@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Polygon, Polyline, CircleMarker, Tooltip, Popu
 import 'leaflet.heat'
 import L from 'leaflet'
 import { LineChart, Line, BarChart, Bar, Cell, ResponsiveContainer, Tooltip as RTooltip, YAxis } from 'recharts'
-import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss, queryGbifAthena } from './gbif.js'
+import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss, queryGbifAthena, queryGEE } from './gbif.js'
 import { jsPDF } from 'jspdf'
 import { supabase, getSupabaseWithAuth } from './supabase.js'
 import * as turf from '@turf/turf'
@@ -5582,7 +5582,7 @@ export default function App() {
         )
       }
 
-      const [aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss] = await Promise.all([
+      const [aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss, gee] = await Promise.all([
         callGbif('count_occurrences', { taxon_name: 'Aves', country }).catch(() => null),
         callGbif('count_occurrences', { taxon_name: 'Mammalia', country }).catch(() => null),
         callGbif('analyze_sampling_gaps', { taxon_name: 'Aves', countries: [country] }).catch(() => null),
@@ -5594,6 +5594,7 @@ export default function App() {
         queryProtectedAreas(bbox, country).catch(() => null),
         queryNDVI(drawnPolygon).catch(() => null),
         queryForestLoss(drawnPolygon).catch(() => null),
+        queryGEE(drawnPolygon).catch(() => null),
       ])
 
       // Per-taxon point-in-polygon refinement.
@@ -5807,6 +5808,7 @@ export default function App() {
       },
       analysisId: analysisId,
       papers: scanResults.papers,
+      gee: scanResults.gee,
       bufferData: scanResults.bufferData,
       riskScore: scanResults.riskScore,
       taxaInPolygon: scanResults.taxaInPolygon,
@@ -5817,6 +5819,7 @@ export default function App() {
       queriedAt: new Date(),
       ndvi: scanResults.ndvi,
       forestLoss: scanResults.forestLoss,
+      gee: scanResults.gee,
       chao1: scanResults.chao1,
       basisCount: scanResults.basisCount,
     })

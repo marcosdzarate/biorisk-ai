@@ -659,3 +659,42 @@ export async function queryGbifAthena({ minLat, maxLat, minLng, maxLng, countryC
     return null
   }
 }
+
+// ─── GEE Consolidated Analysis ────────────────────────────────────────────────
+
+export async function queryGEE(polygon, cellSizeKm = 10) {
+  const url = import.meta.env.VITE_GEE_HEX_URL
+  if (!url) {
+    console.warn('GEE URL not configured')
+    return null
+  }
+
+  try {
+    console.log('🌍 Querying GEE...')
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ polygon, cellSizeKm }),
+    })
+
+    if (!response.ok) throw new Error(`GEE ${response.status}`)
+
+    const data = await response.json()
+    console.log(`🌍 GEE: ${data.features?.length} hex cells · summary:`, data.summary)
+
+    return {
+      features: data.features ?? [],
+      summary: data.summary ?? {},
+      ndvi: data.summary?.ndvi ?? null,
+      msavi: data.summary?.msavi ?? null,
+      lossYear: data.summary?.loss_year ?? null,
+      treecover: data.summary?.treecover ?? null,
+      landcover: data.summary?.landcover ?? null,
+      water: data.summary?.water ?? null,
+      fire: data.summary?.fire ?? null,
+    }
+  } catch (e) {
+    console.warn('GEE query failed:', e.message)
+    return null
+  }
+}
