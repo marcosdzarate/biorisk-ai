@@ -1980,6 +1980,111 @@ function SpeciesRichnessCard({ data, loading }) {
   )
 }
 
+function LandcoverCard({ data }) {
+  const gee = data?.gee
+  if (!gee || gee.landcover == null) return null
+
+  const LANDCOVER = {
+    0: { label: 'Water', color: '#3B82F6', icon: '~' },
+    1: { label: 'Trees / Forest', color: '#16A34A', icon: 'T' },
+    2: { label: 'Grass / Savanna', color: '#84CC16', icon: 'G' },
+    3: { label: 'Flooded vegetation', color: '#0891B2', icon: 'F' },
+    4: { label: 'Crops / Agriculture', color: '#F59E0B', icon: 'C' },
+    5: { label: 'Shrub & scrub', color: '#92400E', icon: 'S' },
+    6: { label: 'Built area', color: '#6B7280', icon: 'B' },
+    7: { label: 'Bare ground', color: '#D97706', icon: 'X' },
+    8: { label: 'Snow & ice', color: '#E0F2FE', icon: '*' },
+  }
+
+  const lcClass = Math.round(gee.landcover)
+  const lc = LANDCOVER[lcClass] ?? { label: 'Unknown', color: '#9CA3AF', icon: '?' }
+
+  const fire = gee.fire
+  const fireRisk = fire > 7 ? 'High' : fire > 4 ? 'Moderate' : 'Low'
+  const fireColor = fire > 7 ? '#EF4444' : fire > 4 ? '#F97316' : '#22C55E'
+
+  const water = gee.water
+  const waterPresence = water > 50 ? 'Permanent' : water > 10 ? 'Seasonal' : 'Absent'
+
+  return (
+    <div className="card">
+      <div className="card-head">
+        <div className="card-title">Land Cover & Environmental Pressures</div>
+        <span style={{
+          fontSize: 9, fontWeight: 700, padding: '2px 7px',
+          borderRadius: 999, background: 'rgba(34,197,94,0.1)',
+          color: 'var(--green)', border: '1px solid rgba(34,197,94,0.2)'
+        }}>Dynamic World · GEE</span>
+      </div>
+
+      <div style={{ padding: '8px 12px' }}>
+        {/* Dominant land cover */}
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+            Dominant Land Cover (2023)
+          </div>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            padding: '10px 12px', borderRadius: 8,
+            background: `${lc.color}18`,
+            border: `1px solid ${lc.color}40`,
+          }}>
+            <div style={{
+              width: 32, height: 32, borderRadius: 6,
+              background: lc.color, display: 'flex',
+              alignItems: 'center', justifyContent: 'center',
+              fontSize: 14, fontWeight: 700, color: 'white',
+              flexShrink: 0,
+            }}>
+              {lc.icon}
+            </div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)' }}>{lc.label}</div>
+              <div style={{ fontSize: 10, color: 'var(--text3)' }}>Dynamic World class {lcClass}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Environmental pressures */}
+        <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+          Environmental Pressures
+        </div>
+        {[
+          { label: 'Wildfire risk', value: fireRisk, color: fireColor, source: 'MODIS Fire' },
+          { label: 'Surface water', value: waterPresence, color: '#3B82F6', source: 'JRC GSW' },
+          { label: 'Tree cover loss', value: gee.lossYear ? `~${Math.round(gee.lossYear) + 2000}` : 'No loss', color: gee.lossYear > 5 ? '#EF4444' : '#22C55E', source: 'Hansen' },
+        ].map((item, i) => (
+          <div key={i} style={{
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            padding: '6px 0', borderBottom: i < 2 ? '1px solid var(--bd)' : 'none',
+          }}>
+            <div>
+              <div style={{ fontSize: 11, color: 'var(--text2)' }}>{item.label}</div>
+              <div style={{ fontSize: 9, color: 'var(--text3)' }}>{item.source}</div>
+            </div>
+            <span style={{
+              fontSize: 11, fontWeight: 700, color: item.color,
+              padding: '2px 8px', borderRadius: 4,
+              background: `${item.color}18`,
+            }}>
+              {item.value}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <div style={{
+        margin: '4px 12px 12px', padding: '6px 10px',
+        background: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.15)',
+        borderRadius: 6, fontSize: 9, color: 'var(--text3)', lineHeight: 1.5,
+      }}>
+        Land cover from Google Dynamic World V1 (2023) · Fire from MODIS MOD14A1 · 
+        Water from JRC Global Surface Water · Deforestation from Hansen v1.11
+      </div>
+    </div>
+  )
+}
+
 function EcosystemSensitivityCard({ data }) {
   const ndvi = data?.ndvi
 
@@ -6795,6 +6900,7 @@ export default function App() {
                 <>
                   <div className="grid row-2">
                     <EcosystemSensitivityCard data={gbifData} />
+                    <LandcoverCard data={gbifData} />
                     <ScenarioAnalysisCard data={gbifData} />
                   </div>
                   <ForestLossCard data={gbifData} />
