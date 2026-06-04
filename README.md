@@ -1,188 +1,264 @@
-# BioRisk AI
+# 🌿 BioRisk AI
 
-**Biodiversity risk intelligence for ESG & TNFD screening across Latin America and the Caribbean.**
+### AI-Powered Biodiversity Risk Intelligence for ESG & TNFD
 
-BioRisk AI turns open GBIF occurrence data into actionable biodiversity intelligence — in minutes, not months. Draw your project area, run a scan, and get a screening-grade risk profile backed by real species records, satellite vegetation data, and protected area analysis.
+![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat&logo=vite)
+![GBIF](https://img.shields.io/badge/GBIF-Open%20Data-4CAF50?style=flat)
+![AWS Athena](https://img.shields.io/badge/AWS-Athena-FF9900?style=flat&logo=amazonaws)
+![GEE](https://img.shields.io/badge/Google-Earth%20Engine-4285F4?style=flat&logo=google)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
----
+> **Empowering ESG analysts and environmental consultants with AI-driven biodiversity intelligence for TNFD, CSRD and IFC PS6 compliance — in minutes, not months.**
 
-## Why Latin America & the Caribbean?
-
-Latin America and the Caribbean (LAC) is the world's most biodiverse region — home to **40% of the world's known species** and more than 50% of the world's tropical forests (Mongabay, 2026). Yet biodiversity is rarely factored into investment and development decisions.
-
-### The problem
-
-Despite growing foreign direct investment in extractive industries, energy infrastructure and agribusiness, **biodiversity screening during project development remains largely absent** across the region due to:
-
-- Weak or inconsistently enforced environmental regulatory frameworks
-- Limited access to spatially-explicit, open biodiversity data
-- Absence of standardized screening tools adapted to LAC contexts
-- Growing pressure from illegal mining, logging and agricultural expansion (CEPAL, 2025)
-
-The region faces an **annual biodiversity financing gap of USD 99 billion until 2030** (OECD, 2025), while the tropics lost a record 6.7 million hectares of primary rainforest in 2024 alone (Mongabay, 2026).
-
-### The opportunity
-
-International financial institutions operating in LAC — including the IDB, World Bank, CAF and commercial banks under the Equator Principles — are increasingly required to apply IFC Performance Standard 6 safeguards during project categorization. TNFD and CSRD disclosure requirements are also expanding globally, with 500+ companies and 129 financial institutions representing **$17.7 trillion in assets** already adopting TNFD (TNFD, 2025).
-
-**BioRisk AI fills this gap** by translating GBIF occurrence data into actionable biodiversity risk intelligence — available for all 16 LAC countries, in minutes, at no cost.
+[Features](#-features) • [Demo](#-live-demo) • [Installation](#-installation) • [Tech Stack](#️-tech-stack) • [Architecture](#-architecture)
 
 ---
 
-## Target Users
+## 📖 About
 
-1. **ESG analysts and sustainability officers** preparing TNFD or CSRD (ESRS E4) disclosures who need rapid baseline biodiversity assessments for project sites
+BioRisk AI is a site-level biodiversity risk screening platform built specifically for Latin America and the Caribbean — a region hosting 40% of the world's known species yet facing a USD 99 billion annual biodiversity finance gap. Inspired by GBIF's October 2025 post on species occurrence data and corporate sustainability frameworks, BioRisk AI bridges open biodiversity data with corporate nature disclosure obligations under TNFD, CSRD ESRS E4, IFC Performance Standard 6, and the Kunming-Montreal Global Biodiversity Framework Target 15.
 
-2. **Environmental consultants** conducting due diligence and pre-feasibility studies who need to screen multiple sites before commissioning formal ESIA studies
-
-3. **Multilateral Development Banks** (IDB, World Bank, IFC, CAF) and commercial banks under Equator Principles applying IFC Performance Standard 6 safeguard frameworks during project categorization
-
-4. **Companies exporting to the EU** under CSRD scope (Directive 2022/2464) — non-EU companies with more than 150M EUR EU revenue in high-impact sectors (agriculture, extractives, energy)
-
-5. **Researchers and academics** studying anthropogenic impacts on biodiversity who need a quick way to characterize ecological context for study sites
+**Live Demo:** https://biorisk-ai.vercel.app  
+**Demo credentials:** demo@biorisk.ai / Bior!sk_GBIF_2026#
 
 ---
 
-## Key Features
+## 🎯 Problem Statement
 
-- **TNFD LEAP site-level evidence** — provides the biodiversity baseline data that feeds into Strategy (Disclosure D: priority sites) and Metrics (Disclosures A and B) pillars of TNFD reporting, reducing initial site assessment from months to minutes
-- **14-taxa GBIF scan** — real-time query of occurrence records for vertebrates, invertebrates and plants within any project polygon
-- **TNFD LEAP alignment** — Locate, Evaluate, Assess and Prepare phases with real data evidence
-- **CSRD ESRS E4 support** — all 14 TNFD recommended disclosures are reflected in ESRS; one analysis covers both frameworks
-- **Sentinel-2 NDVI** — vegetation health, trend and 10-year scenario projections via Copernicus Data Space
-- **WDPA protected areas** — real geometry with polygon intersection detection
-- **Buffer zone analysis** — 5km indirect influence area with separate occurrence count
-- **Biodiversity Context Matrix** — 2x2 importance/intactness positioning (adapted from GBNAT methodology)
-- **Deforestation risk** — FAO Whisp API for commodity-linked deforestation risk (Agriculture & Forestry sector)
-- **Forest cover loss** — Global Forest Watch API for annual deforestation trends
-- **AI Copilot** — conversational biodiversity intelligence powered by Claude
-- **Multi-standard alignment** — IFC PS6, Equator Principles, CSRD (ESRS E4), GRI 304, EUDR, ISSB BEES
-- **Project persistence** — analyses saved per user via Auth0 + Supabase
+Companies operating in Latin America face:
+
+- **USD 17.7T** in assets under management adopting TNFD frameworks
+- **CSRD ESRS E4** extending mandatory biodiversity disclosure to non-EU companies with >€150M EU revenue
+- **IFC PS6** requirements for any project financed by multilateral development banks
+- **No accessible tool** for rapid site-level biodiversity baseline assessment in LAC
+- **Months of consultant time** to produce what BioRisk AI delivers in minutes
 
 ---
 
-## Data Sources
+## 💡 Our Solution
 
-| Source | Description | License |
-|--------|-------------|---------|
-| GBIF | 2B+ occurrence records across all kingdoms | CC BY 4.0 |
-| Sentinel-2 L2A | 10m satellite imagery, NDVI analysis | Free |
-| WDPA | World Database of Protected Areas | Free |
-| GBIF Literature Index | Scientific papers citing GBIF data | CC BY 4.0 |
-| FAO Whisp | Deforestation and commodity risk | Open |
-| Global Forest Watch | Annual forest cover loss | Open |
-| IUCN Red List | Species conservation status | Pending |
+BioRisk AI provides:
 
----
-
-## Coverage
-
-| Country | ISO | GBIF records (approx) |
-|---------|-----|----------------------|
-| Brazil | BR | ~80M |
-| Mexico | MX | ~25M |
-| Colombia | CO | ~15M |
-| Argentina | AR | ~15M |
-| Chile | CL | ~8M |
-| Peru | PE | ~6M |
-| Ecuador | EC | ~5M |
-| Costa Rica | CR | ~4M |
-| Bolivia | BO | ~2M |
-| Paraguay | PY | ~1M |
-| Uruguay | UY | ~800K |
-| Panama | PA | ~600K |
-| Guatemala | GT | ~500K |
-| Venezuela | VE | ~500K |
-| Honduras | HN | ~300K |
-| Nicaragua | NI | ~200K |
+- Dynamic taxa identification per country using GBIF occurrence facets
+- Site-level occurrence analysis via partitioned AWS Athena table on GBIF S3 snapshot (2B+ records, no rate limits)
+- Satellite vegetation health (NDVI + MSAVI) via Google Earth Engine
+- Interactive hexagonal NDVI grid overlay
+- Land cover classification (Dynamic World), deforestation (Hansen), fire risk (MODIS), surface water (JRC)
+- Protected area intersection with real WDPA geometries
+- AI Copilot with Devil's Advocate reviewer and Executive Summary generator
+- TNFD Content Index in PDF export aligned with CSRD ESRS E4
 
 ---
 
-## Live Demo
+## ✨ Features
 
-**https://biorisk-ai.vercel.app**
+### 🔬 Biodiversity Intelligence
+| Feature | Description |
+|---------|-------------|
+| 🌍 Dynamic Taxa | Country-specific taxonomic groups from GBIF occurrence facets |
+| 📊 Chao1 Estimator | Species richness estimation with sampling completeness % |
+| 🔴 IUCN Status | Key indicator species with Red List categories from GBIF |
+| 🛡 WDPA Intersection | Real protected area geometry analysis with spatial operations |
+| 📍 Occurrence Mapping | Points, Heatmap, NDVI, Protected Areas, GBIF Density, Hex NDVI |
 
-Demo credentials: demo@biorisk.ai / Bior!sk_GBIF_2026#
+### 🛰 Satellite & Earth Observation
+| Feature | Description |
+|---------|-------------|
+| 🌱 NDVI + MSAVI | Vegetation health via Sentinel-2 (Google Earth Engine) |
+| 🔶 Hexagonal Grid | Interactive NDVI hex overlay from MODIS/GEE |
+| 🌳 Deforestation | Hansen Global Forest Change v1.11 (2001–2025) |
+| 💧 Surface Water | JRC Global Surface Water dynamics |
+| 🔥 Fire Risk | MODIS MOD14A1 thermal anomaly detection |
+| 🗺 Land Cover | Google Dynamic World V1 2023 classification |
 
----
+### 📋 ESG & TNFD Compliance
+| Feature | Description |
+|---------|-------------|
+| 📑 TNFD Content Index | PDF table mapping findings to 14 TNFD disclosures |
+| 🇪🇺 CSRD ESRS E4 | Dual alignment — one analysis, two frameworks |
+| 💰 Financial Materiality | Permitting delay, remediation cost and license risk estimates |
+| 🌿 Ecosystem Services | Valuation based on de Groot et al. (2012) |
+| ⚖️ Mitigation Hierarchy | Avoid → Minimize → Restore → Offset conditioned on detected taxa |
 
-## Tech Stack
+### 🤖 AI Copilot
+| Feature | Description |
+|---------|-------------|
+| 🎯 Devil's Advocate | TNFD/IFC critical reviewer notes on demand |
+| 📄 Executive Summary | TNFD-ready disclosure paragraph generator |
+| 💬 Contextual Chat | Responses grounded in real GBIF data from the analysis |
 
-- **Frontend:** React + Vite + Leaflet + Recharts
-- **AI:** Claude (Anthropic) via API
-- **Auth:** Auth0 SPA
-- **Database:** Supabase (PostgreSQL)
-- **Satellite:** Sentinel Hub Statistical API (Copernicus Data Space)
-- **Spatial:** Turf.js
-- **Hosting:** Vercel
-
----
-
-## Local Development
-
-Clone the repository and install dependencies:
-
-    git clone https://github.com/marcosdzarate/biorisk-ai.git
-    cd biorisk-ai
-    npm install
-    cp .env.example .env
-    npm run dev
-
-### Required environment variables
-
-    VITE_DEMO_KEY=              # Anthropic API key
-    VITE_WDPA_TOKEN=            # Protected Planet API token
-    VITE_SENTINEL_CLIENT_ID=    # Copernicus Data Space OAuth
-    VITE_SENTINEL_CLIENT_SECRET=
-    VITE_AUTH0_DOMAIN=          # Auth0 domain
-    VITE_AUTH0_CLIENT_ID=       # Auth0 client ID
-    VITE_SUPABASE_URL=          # Supabase project URL
-    VITE_SUPABASE_ANON_KEY=     # Supabase anon key
-
----
-
-## Methodology
-
-BioRisk AI is a **screening-grade tool** based on observational GBIF occurrence data. It does not replace formal Environmental & Social Impact Assessments (ESIA) or field surveys.
-
-### Risk Score
-
-The biodiversity risk score (0-100) combines four components:
-
-- **Baseline (30pts):** Conservative precautionary baseline
-- **Species Richness (20pts):** Number of taxa detected (5pts each, max 20)
-- **Occurrence Density (30pts):** Record concentration within polygon
-- **Literature Gap (20pts):** Fewer papers = higher uncertainty = higher score
-
-### Biodiversity Context Matrix
-
-Adapted from GBNAT (Think Nature) methodology. Importance axis = GBIF occurrence density + taxa richness. Intactness axis = Sentinel-2 NDVI proxy. Thresholds at 0.5 on both axes.
-
-### Data Quality
-
-Follows Species Occurrence Cubes methodology for coordinate quality filtering. Occurrence records filtered for occurrenceStatus = PRESENT and coordinate issue flags (ZERO_COORDINATE, COORDINATE_OUT_OF_RANGE, COORDINATE_INVALID, COUNTRY_COORDINATE_MISMATCH).
+### 📁 Data Management
+| Feature | Description |
+|---------|-------------|
+| 🔑 Analysis ID | Persistent reference ID per analysis (DOI pathway) |
+| 💾 Project Storage | Supabase persistence for portfolio management |
+| 📤 Export | JSON, CSV, and PDF with TNFD Content Index |
 
 ---
 
-## Disclaimer
+## 🚀 Installation
 
-Occurrence data from GBIF.org under CC BY 4.0. Results are screening-grade and should be interpreted as supporting ecological evidence, not a substitute for formal environmental assessments.
+### Prerequisites
+- Node.js 20.x or later
+- npm or yarn
+- API keys (see below)
+
+### Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/marcosdzarate/biorisk-ai.git
+cd biorisk-ai
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your API keys
+
+# Run the development server
+npm run dev
+```
+
+Open http://localhost:5173
+
+### Environment Variables
+
+```env
+VITE_DEMO_KEY=               # Anthropic API key
+VITE_AUTH0_DOMAIN=           # Auth0 domain
+VITE_AUTH0_CLIENT_ID=        # Auth0 client ID
+VITE_SUPABASE_URL=           # Supabase project URL
+VITE_SUPABASE_ANON_KEY=      # Supabase anon key
+VITE_WDPA_TOKEN=             # Protected Planet API token
+VITE_SENTINEL_CLIENT_ID=     # Copernicus Sentinel-2
+VITE_SENTINEL_CLIENT_SECRET= # Copernicus Sentinel-2
+VITE_GFW_API_KEY=            # Global Forest Watch API
+VITE_LAMBDA_GBIF_URL=        # AWS Lambda endpoint
+VITE_GEE_HEX_URL=            # Google Earth Engine Cloud Function
+```
 
 ---
 
-## References
+## 🛠️ Tech Stack
 
-- CEPAL (2025). Biodiversity and development: thoughts from Latin America and the Caribbean. LC/TS.2024/95.
-- OECD (2025). Latin American Economic Outlook 2025.
-- Mongabay (2026). Latin America in 2025: Conservation promises collide with crime and extraction.
-- IDB (2021). Impact Investment for Biodiversity Conservation: Cases from Latin America and the Caribbean.
-- TNFD (2025). Status Report 2025.
-- Green Finance Institute (2025). TNFD and CSRD alignment.
+### Frontend
+- **React 18 + Vite** — SPA with fast HMR
+- **Leaflet** — Interactive maps with custom layers
+- **Recharts** — Data visualization
+- **Turf.js** — Spatial operations (point-in-polygon, buffers)
+- **jsPDF** — PDF report generation
+- **Auth0** — Authentication
+
+### Data Infrastructure
+- **AWS Athena** — Partitioned queries on GBIF S3 snapshot (2B+ records)
+- **AWS Lambda** — Serverless GBIF occurrence API
+- **Google Earth Engine** — Satellite data processing (Cloud Function)
+- **Supabase** — Project persistence and user data
+
+### AI
+- **Claude (Anthropic)** — Contextual biodiversity copilot
+- **Dynamic system prompts** — Grounded in real GBIF analysis data
+
+### Open Data Sources
+- **GBIF** — Species occurrence data (CC BY 4.0)
+- **Sentinel-2 / Copernicus** — Vegetation indices
+- **WDPA / Protected Planet** — Protected area geometries
+- **Global Forest Watch** — Deforestation data
+- **Google Dynamic World** — Land cover classification
+- **Hansen GFC** — Tree cover loss
+- **JRC Global Surface Water** — Water dynamics
+- **MODIS** — Fire detection
 
 ---
 
-## License
+## 🏗 Architecture
 
-MIT License — see LICENSE for details.
+```
+Browser (React + Vite)
+    │
+    ├── GBIF REST API ──────────────── Taxa facets per country
+    │
+    ├── AWS Lambda ─────────────────── Partitioned Athena queries
+    │   └── Athena (GBIF S3 snapshot) ─ 2B+ occurrence records
+    │
+    ├── GEE Cloud Function ─────────── NDVI, Hansen, Dynamic World,
+    │                                   JRC, MODIS (single call)
+    │
+    ├── WDPA API ───────────────────── Protected area geometries
+    │
+    ├── Sentinel-2 (Copernicus) ────── NDVI statistics
+    │
+    ├── Global Forest Watch API ─────── Forest cover loss 2001–2025
+    │
+    └── Anthropic API ──────────────── AI Copilot
+```
 
-Developed for the GBIF Ebbe Nielsen Challenge 2026.
+---
+
+## 🌎 Why Latin America and the Caribbean?
+
+- **40%** of the world's known species
+- **USD 99B** annual biodiversity finance gap (OECD, 2025)
+- **500+** companies and **129** financial institutions adopting TNFD
+- **USD 17.7T** AUM under TNFD frameworks
+- Brazil already **mandates** nature-related disclosure
+- CSRD ESRS E4 extends to non-EU companies with >€150M EU revenue
+- **RIGI** (Argentina's Large Investment Incentive Regime) — USD 95B+ in projects requiring IFC PS6 compliance
+
+---
+
+## 📊 GBIF Data Usage
+
+BioRisk AI directly implements GBIF's recommendations for improving biodiversity disclosure reporting:
+
+1. **Traceability** — Analysis Reference IDs with DOI pathway via GBIF Derived Dataset API
+2. **Data gap acknowledgment** — Chao1 estimator + sampling completeness + AI reviewer notes
+3. **Sector-specific context** — Mitigation conditioned on detected taxa
+4. **Regulatory alignment** — TNFD Content Index in every PDF export
+
+Data pipeline: GBIF S3 occurrence snapshot → AWS Athena (partitioned by country) → Lambda → BioRisk AI
+
+---
+
+## 📁 Project Structure
+
+```
+biorisk-ai/
+├── src/
+│   ├── App.jsx          # Main application (~6000 lines)
+│   ├── gbif.js          # GBIF API + GEE + GFW + Athena
+│   ├── supabase.js      # Supabase client
+│   └── main.jsx         # Auth0 provider wrapper
+├── public/              # Static assets
+├── .env                 # Environment variables
+├── vite.config.js       # Vite + API proxies
+└── package.json
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome. Please open an issue or submit a pull request.
+
+---
+
+## 📄 License
+
+MIT License — see LICENSE file for details.
+
+---
+
+## 🔗 References
+
+- Rodrigues, A. (2025). *Species Occurrence Data and Corporate Sustainability Frameworks*. GBIF Data Blog. https://data-blog.gbif.org/post/2025-10-28-species-occurrence-data-and-corporate-sustainability-frameworks/
+- de Groot et al. (2012). Global estimates of the value of ecosystems and their services. *Ecosystem Services*, 1(1), 50–61.
+- TNFD (2023). Recommendations of the Taskforce on Nature-related Financial Disclosures.
+- GBIF.org (2026). GBIF Occurrence Snapshot 2026-05-01.
+
+---
+
+*Built for the 2026 GBIF Ebbe Nielsen Challenge · Powered by GBIF open data*
