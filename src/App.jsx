@@ -4524,7 +4524,7 @@ function NewAnalysisPage({
   analysisProject, setAnalysisProject,
   scanResults, scanProgress, scanStepLabel,
   onBack, onRunScan, onViewDashboard, onResetWizard, loadCountryTaxa,
-  loadingTaxa, scanLogs,
+  loadingTaxa, scanLogs, scanError,
 }) {
   const center = COUNTRY_CENTERS[analysisProject.country] || [-15, -60]
   const canRun = analysisProject.name.trim() && drawnPolygon
@@ -4646,7 +4646,27 @@ function NewAnalysisPage({
               <button
                 className="wiz-run"
                 disabled={!canRun}
-                onClick={onRunScan}
+                onClick={() => {
+                  const polygon = drawnPolygon
+                  if (!polygon || polygon.length < 3) return
+
+                  const lats = polygon.map(p => p[0])
+                  const lngs = polygon.map(p => p[1])
+                  const centroidLat = (Math.min(...lats) + Math.max(...lats)) / 2
+                  const centroidLng = (Math.min(...lngs) + Math.max(...lngs)) / 2
+
+                  const countryCenter = COUNTRY_CENTERS[analysisProject.country]
+                  if (countryCenter) {
+                    const latDiff = Math.abs(centroidLat - countryCenter[0])
+                    const lngDiff = Math.abs(centroidLng - countryCenter[1])
+                    if (latDiff > 15 || lngDiff > 20) {
+                      alert(`Your polygon appears to be outside ${COUNTRY_NAMES[analysisProject.country] ?? analysisProject.country}. Please redraw your polygon or select the correct country.`)
+                      return
+                    }
+                  }
+
+                  onRunScan()
+                }}
               >
                 Run Biodiversity Scan →
               </button>
@@ -4679,6 +4699,28 @@ function NewAnalysisPage({
           <div className="wiz-center">
             <div className="scan-card">
               <div className="scan-title">Running Biodiversity Scan</div>
+
+              {scanError && (
+                <div style={{
+                  background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
+                  borderRadius: 8, padding: '12px 16px', margin: '12px 0',
+                  fontSize: 12, color: '#ef4444', lineHeight: 1.6,
+                }}>
+                  ⚠ {scanError}
+                  <div style={{ marginTop: 8 }}>
+                    <button
+                      onClick={() => { setScanError(''); setAnalysisStep(1) }}
+                      style={{
+                        padding: '4px 12px', background: 'var(--card)',
+                        border: '1px solid var(--bd)', borderRadius: 6,
+                        fontSize: 11, cursor: 'pointer', color: 'var(--text)',
+                      }}
+                    >
+                      Go back and fix
+                    </button>
+                  </div>
+                </div>
+              )}
               <div className="scan-sub">{analysisProject.name}</div>
 
               {/* Real-time log */}
@@ -5600,6 +5642,7 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
 // ─── Main app ────────────────────────────────────────────────────────────────
 export default function App() {
   const { isAuthenticated, isLoading, loginWithRedirect, logout, user, getAccessTokenSilently, getIdTokenClaims } = useAuth0()
+  const [scanError, setScanError] = useState('')
   const [activePage, setActivePage] = useState('dashboard')
   const [gbifData, setGbifData] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -5740,6 +5783,19 @@ export default function App() {
     const country = analysisProject.country
     const polygon = drawnPolygon
     const bbox = getBoundingBox(polygon)
+    // Detect if polygon centroid matches selected country
+    const centroidLat = (bbox.minLat + bbox.maxLat) / 2
+    const centroidLng = (bbox.minLng + bbox.maxLng) / 2
+
+    const countryCenter = COUNTRY_CENTERS[country]
+    if (countryCenter) {
+      const latDiff = Math.abs(centroidLat - countryCenter[0])
+      const lngDiff = Math.abs(centroidLng - countryCenter[1])
+      if (latDiff > 15 || lngDiff > 20) {
+        setScanError(`Your polygon appears to be outside ${COUNTRY_NAMES[country] ?? country}. Please redraw your polygon or select the correct country.`)
+        return
+      }
+    }
 
     try {
       setScanProgress(1)
