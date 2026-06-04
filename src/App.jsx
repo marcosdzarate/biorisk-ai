@@ -6637,7 +6637,7 @@ export default function App() {
       {/* Login screen */}
       {!isLoading && !isAuthenticated && (
         <div style={{
-          position: 'fixed', inset: 0, background: '#06152B',
+          position: 'fixed', inset: 0, background: 'var(--bg)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           zIndex: 99999,
         }}>
