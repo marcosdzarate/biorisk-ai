@@ -2078,7 +2078,7 @@ function LandcoverCard({ data }) {
         background: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.15)',
         borderRadius: 6, fontSize: 9, color: 'var(--text3)', lineHeight: 1.5,
       }}>
-        Land cover from Google Dynamic World V1 (2023) · Fire from MODIS MOD14A1 · 
+        Land cover from Google Dynamic World V1 (2023) · Fire from MODIS MOD14A1 ·
         Water from JRC Global Surface Water · Deforestation from Hansen v1.11
       </div>
     </div>
@@ -4227,7 +4227,7 @@ function CopilotPanel({ gbifData, analysisProject }) {
 
   const devilAdvocateRef = useRef(false)
 
-  useEffect(() => {
+  const runDevilAdvocate = () => {
     if (!gbifData?.riskScore || devilAdvocateRef.current) return
     if (!import.meta.env.VITE_DEMO_KEY) return
 
@@ -4262,8 +4262,7 @@ function CopilotPanel({ gbifData, analysisProject }) {
         setLoading(false)
       })
       .catch(() => setLoading(false))
-
-  }, [gbifData?.analysisId])
+  }
 
   const suggestedQuestions = buildSuggestedQuestions(gbifData)
 
@@ -4346,6 +4345,27 @@ function CopilotPanel({ gbifData, analysisProject }) {
 
       <div className="cp-body">
         <div className="cp-section-label">Suggested questions</div>
+
+
+        {/* Reviewer's notes button */}
+        {gbifData?.riskScore && !devilAdvocateRef.current && (
+          <button
+            onClick={runDevilAdvocate}
+            disabled={loading}
+            style={{
+              width: '100%', marginBottom: 8,
+              fontSize: 10, padding: '6px 10px',
+              background: 'rgba(249,115,22,0.1)',
+              border: '1px solid rgba(249,115,22,0.3)',
+              borderRadius: 6, color: '#f97316',
+              cursor: 'pointer', textAlign: 'left',
+              fontWeight: 600,
+            }}
+          >
+            Generate reviewer's notes (TNFD/IFC critical review)
+          </button>
+        )}
+
         <div className="cp-suggestions">
           {suggestedQuestions.map((q, i) => (
             <button
@@ -5743,17 +5763,14 @@ export default function App() {
 
       // Query GBIF via Athena (no rate limits) with fallback to REST API
       let taxaOccurrences
-      //const athenaRecords = await queryGbifAthena({
-      // Athena disabled — cost optimization pending partitioned table
-      // const athenaRecords = await queryGbifAthena({
-      //   minLat: bbox.minLat,
-      //   maxLat: bbox.maxLat,
-      //   minLng: bbox.minLng,
-      //   maxLng: bbox.maxLng,
-      //   countryCode: country,
-      //   taxa: dynamicTaxa.slice(0, 15).map(t => t.name),
-      // }).catch(() => null)
-      const athenaRecords = null
+      const athenaRecords = await queryGbifAthena({
+        minLat: bbox.minLat,
+        maxLat: bbox.maxLat,
+        minLng: bbox.minLng,
+        maxLng: bbox.maxLng,
+        countryCode: country,
+        taxa: dynamicTaxa.map(t => t.name),
+      }).catch(() => null)
 
       let basisCount = {}
       if (athenaRecords && athenaRecords.length > 0) {

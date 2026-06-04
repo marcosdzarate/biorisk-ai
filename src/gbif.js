@@ -6,26 +6,26 @@ export async function callGbif(name, inp) {
   const H = { "User-Agent": "biorisk-ai/1.0" };
 
   async function get(path, p = {}, retries = 3) {
-  const u = new URL(B + path);
-  for (const [k, v] of Object.entries(p)) {
-    if (v != null) {
-      Array.isArray(v) ? v.forEach(x => u.searchParams.append(k, x)) : u.searchParams.set(k, String(v));
+    const u = new URL(B + path);
+    for (const [k, v] of Object.entries(p)) {
+      if (v != null) {
+        Array.isArray(v) ? v.forEach(x => u.searchParams.append(k, x)) : u.searchParams.set(k, String(v));
+      }
     }
-  }
-  
-  for (let attempt = 0; attempt < retries; attempt++) {
-    const r = await fetch(u, { headers: H });
-    if (r.ok) return r.json();
-    if (r.status === 429) {
-      const wait = (attempt + 1) * 2000 // 2s, 4s, 6s
-      console.warn(`GBIF 429 - waiting ${wait}ms before retry ${attempt + 1}/${retries}`)
-      await new Promise(resolve => setTimeout(resolve, wait))
-      continue
+
+    for (let attempt = 0; attempt < retries; attempt++) {
+      const r = await fetch(u, { headers: H });
+      if (r.ok) return r.json();
+      if (r.status === 429) {
+        const wait = (attempt + 1) * 2000 // 2s, 4s, 6s
+        console.warn(`GBIF 429 - waiting ${wait}ms before retry ${attempt + 1}/${retries}`)
+        await new Promise(resolve => setTimeout(resolve, wait))
+        continue
+      }
+      throw new Error(`GBIF ${r.status}`)
     }
-    throw new Error(`GBIF ${r.status}`)
+    throw new Error('GBIF 429 - max retries exceeded')
   }
-  throw new Error('GBIF 429 - max retries exceeded')
-}
 
   async function res(n, rank) {
     let m = await get("/species/match", { name: n, verbose: true });
@@ -679,6 +679,23 @@ export async function queryGEE(polygon, cellSizeKm = 10) {
     return null
   }
 
+  // Simplify polygon for very large areas
+  let geePolygon = polygon
+  const area = calcPolygonAreaKm2(polygon)
+  if (area && area > 50000) {
+    console.warn(`🌍 GEE: polygon too large (${Math.round(area)} km²), using bbox`)
+    const lats = polygon.map(p => p[0])
+    const lngs = polygon.map(p => p[1])
+    const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2
+    const centerLng = (Math.min(...lngs) + Math.max(...lngs)) / 2
+    const delta = 0.5
+    geePolygon = [
+      [centerLat - delta, centerLng - delta],
+      [centerLat - delta, centerLng + delta],
+      [centerLat + delta, centerLng + delta],
+      [centerLat + delta, centerLng - delta],
+    ]
+  }
   try {
     console.log('🌍 Querying GEE...')
     const response = await fetch(url, {
