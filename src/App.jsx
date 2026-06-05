@@ -1515,7 +1515,17 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
   return (
     <div className="card">
       <div className="card-head">
-        <div className="card-title">Project Area</div>
+        <div className="card-title">
+          Project Area
+          {polygon && polygon.length >= 3 && (
+            <span style={{
+              fontSize: 10, fontWeight: 400, color: 'var(--text3)',
+              marginLeft: 8,
+            }}>
+              {Math.round(calcPolygonAreaKm2(polygon) ?? 0).toLocaleString('en-US')} km²
+            </span>
+          )}
+        </div>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
           {hasPolygon && (
             <>
@@ -1559,10 +1569,10 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
             <Polygon
               positions={polygon}
               pathOptions={{
-                color: viewMode === 'gbif' ? 'var(--card)' : 'var(--card)',
-                weight: viewMode === 'gbif' ? 3 : 2,
-                fillColor: 'var(--card)',
-                fillOpacity: viewMode === 'gbif' ? 0 : 0.04,
+                color: '#22c55e',
+                weight: 2,
+                fillColor: '#22c55e',
+                fillOpacity: viewMode === 'gbif' ? 0 : 0.06,
                 dashArray: viewMode === 'gbif' ? '6 4' : undefined,
               }}
             />
@@ -4148,7 +4158,8 @@ BEHAVIORAL RULES (from CLAUDE.md):
 - Frame all data as "observational evidence" not confirmed presence
 - Always mention sample size limitations (up to 300 records per taxon from REST API)
 - Be concise first, offer detail on request
-- Never provide legal advice or regulatory conclusions
+- You can provide factual information about environmental regulations and cite sources, but always clarify this is informational, not legal advice
+- For regulatory questions, use web search to find current, accurate information and always cite your sources with links
 - Never claim TNFD compliance — say "may support TNFD activities"
 - Conservative interpretation: uncertainty increases caution, not reduces it
 - Always frame sector-specific risks in context of observed GBIF data
@@ -4170,56 +4181,139 @@ than a substitute for formal environmental assessments."`
 // Renders one assistant message with minimal markdown support:
 // **bold** → <strong>, leading "-" or "•" → bullet, newlines preserved.
 function renderAssistantContent(text) {
-  return text.split('\n').map((line, i) => {
+  // Remove excessive blank lines
+  const cleaned = text.replace(/\n{3,}/g, '\n\n').trim()
+  
+  return cleaned.split('\n').map((line, i) => {
+    if (!line.trim()) return <div key={i} style={{ height: 6 }} />
+    
     const isBullet = /^\s*[-•*]\s+/.test(line)
-    const stripped = isBullet ? line.replace(/^\s*[-•*]\s+/, '') : line
-    const inline = stripped.split(/(\*\*[^*]+\*\*)/g).map((part, j) => {
+    const isHeader = /^#{1,3}\s+/.test(line)
+    const stripped = isBullet 
+      ? line.replace(/^\s*[-•*]\s+/, '') 
+      : isHeader 
+        ? line.replace(/^#{1,3}\s+/, '')
+        : line
+
+    // Parse inline: bold, links
+    const parts = stripped.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\(https?:\/\/[^\)]+\))/g)
+    const inline = parts.map((part, j) => {
       if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
         return <strong key={j}>{part.slice(2, -2)}</strong>
       }
+      const linkMatch = part.match(/^\[([^\]]+)\]\((https?:\/\/[^\)]+)\)$/)
+      if (linkMatch) {
+        return (
+          <a key={j} href={linkMatch[2]} target="_blank" rel="noreferrer"
+            style={{ color: 'var(--green)', textDecoration: 'underline', cursor: 'pointer' }}>
+            {linkMatch[1]}
+          </a>
+        )
+      }
       return <span key={j}>{part}</span>
     })
+
+    if (isHeader) {
+      return (
+        <div key={i} style={{ fontWeight: 700, color: 'var(--text)', fontSize: 12, marginTop: 8, marginBottom: 2 }}>
+          {inline}
+        </div>
+      )
+    }
+
     if (isBullet) {
       return (
         <div key={i} className="msg-bullet">
-          <span className="msg-bullet-marker">•</span>
+          <span className="msg-bullet-marker">·</span>
           <span>{inline}</span>
         </div>
       )
     }
+
     return <div key={i} className="msg-line">{inline}</div>
   })
 }
+const CATEGORY_ICONS = {
+  'Risk & Score': (
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <circle cx="8" cy="8" r="6" />
+      <path d="M8 5v3l2 2" />
+    </svg>
+  ),
+  'Biodiversity': (
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M8 2c0 0-4 3-4 7a4 4 0 008 0c0-4-4-7-4-7z" />
+      <path d="M8 9V6M6 8h4" />
+    </svg>
+  ),
+  'Vegetation & Habitat': (
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M8 14V8M8 8C8 8 4 6 3 3c2 0 4 1 5 3M8 8c0 0 4-2 5-5-2 0-4 1-5 5" />
+    </svg>
+  ),
+  'Regulatory & Compliance': (
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <rect x="3" y="2" width="10" height="12" rx="1.5" />
+      <path d="M6 6h4M6 9h4M6 12h2" />
+    </svg>
+  ),
+  'Data Gaps': (
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <circle cx="8" cy="8" r="6" />
+      <path d="M8 5v3M8 11v.5" />
+    </svg>
+  ),
+}
 
-function buildSuggestedQuestions(gbifData) {
-  if (gbifData?.taxaInPolygon) {
-    const firstPresent = gbifData.taxaInPolygon.find(t => t.inPolygon > 0)?.name ?? 'Aves'
-    return [
-      `What do the ${firstPresent} records tell us about ecological risk?`,
-      'How reliable is this biodiversity data?',
-      'What are the main ecological concerns for this project?',
-      'Which TNFD metrics are relevant here?',
-      `Why is the risk score ${gbifData.riskScore?.score ?? 72}?`,
-    ]
+function buildSuggestedQuestions(gbifData, analysisProject) {
+  const topTaxon = gbifData?.taxaInPolygon?.find(t => t.inPolygon > 0)?.name ?? 'the most represented taxon'
+  const score = gbifData?.riskScore?.score ?? '—'
+  const ndvi = gbifData?.ndvi?.mean?.toFixed(3) ?? '—'
+  const country = COUNTRY_NAMES[analysisProject?.country] ?? analysisProject?.country ?? 'the project country'
+  const sector = analysisProject?.sector ?? 'this sector'
+
+  return {
+    'Risk & Score': [
+      `Why is the risk score ${score}/100?`,
+      `What are the main ecological risk drivers for ${sector} in ${country}?`,
+    ],
+    'Biodiversity': [
+      `What do the ${topTaxon} records tell us about ecological risk?`,
+      'Are there threatened species requiring IFC PS6 critical habitat assessment?',
+      'What does the sampling completeness tell us about data reliability?',
+    ],
+    'Vegetation & Habitat': [
+      `What does NDVI ${ndvi} mean for this project?`,
+      'Is there evidence of habitat degradation in the project area?',
+    ],
+    'Regulatory & Compliance': [
+      `Which TNFD metrics are relevant for ${sector}?`,
+      `What environmental regulations apply to ${sector} projects in ${country}?`,
+      'What IFC PS6 requirements are triggered by this analysis?',
+    ],
+    'Data Gaps': [
+      'What data gaps should be flagged in a due diligence review?',
+      'What field surveys are recommended before project approval?',
+    ],
   }
-  return [
-    'What threatened species are in or near the area?',
-    'How reliable is the data?',
-    'What are the main ecological risks?',
-    'Which TNFD metrics apply here?',
+}
+function needsDeepReasoning(text) {
+  const deepKeywords = [
+    'regulation', 'regulacion', 'ley', 'law', 'compliance', 'tnfd', 'csrd',
+    'ifc', 'ps6', 'legal', 'policy', 'politica', 'glaciar', 'glacier',
+    'executive summary', 'resumen', 'report', 'reporte', 'recommend',
+    'strategy', 'estrategia', 'financial', 'financiero', 'material',
   ]
+  const lower = text.toLowerCase()
+  return deepKeywords.some(k => lower.includes(k))
 }
 
 function CopilotPanel({ gbifData, analysisProject }) {
-  const [messages, setMessages] = useState([
-    {
-      role: 'assistant',
-      content: "Hello! I'm your biodiversity intelligence copilot. I can help you understand the ecological risks, species data, and ESG implications for this project. What would you like to know?",
-    },
-  ])
+  const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const messagesEndRef = useRef(null)
+  const [openCategory, setOpenCategory] = useState('Risk & Score')
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -4264,11 +4358,16 @@ function CopilotPanel({ gbifData, analysisProject }) {
       .catch(() => setLoading(false))
   }
 
-  const suggestedQuestions = buildSuggestedQuestions(gbifData)
+  const suggestedQuestions = buildSuggestedQuestions(gbifData, analysisProject)
 
   async function sendMessage(text) {
     const userText = (text ?? input).trim()
     if (!userText || loading) return
+
+    const isRegulatory = needsDeepReasoning(userText)
+    const enhancedText = isRegulatory
+      ? `${userText}\n\nSearch the web for current, accurate information and cite your sources with links.`
+      : userText
 
     const userMessage = { role: 'user', content: userText }
     const newMessages = [...messages, userMessage]
@@ -4286,11 +4385,28 @@ function CopilotPanel({ gbifData, analysisProject }) {
         return
       }
 
-      // Drop the leading greeting so the API receives a user-first history.
       const firstUserIdx = newMessages.findIndex(m => m.role === 'user')
       const history = newMessages
         .slice(firstUserIdx >= 0 ? firstUserIdx : 0)
-        .map(m => ({ role: m.role, content: m.content }))
+        .map((m, idx) => ({
+          role: m.role,
+          content: idx === newMessages.length - 1 - firstUserIdx ? enhancedText : m.content,
+        }))
+
+      const body = {
+        model: isRegulatory ? 'claude-sonnet-4-20250514' : 'claude-haiku-4-5-20251001',
+        max_tokens: 600,
+        system: buildCopilotSystem(gbifData, analysisProject),
+        messages: history,
+      }
+
+      if (isRegulatory) {
+        body.tools = [{
+          type: 'web_search_20250305',
+          name: 'web_search',
+          max_uses: 3,
+        }]
+      }
 
       const response = await fetch('/api/anthropic/v1/messages', {
         method: 'POST',
@@ -4298,13 +4414,9 @@ function CopilotPanel({ gbifData, analysisProject }) {
           'Content-Type': 'application/json',
           'x-api-key': apiKey,
           'anthropic-version': '2023-06-01',
+          'anthropic-beta': 'web-search-2025-03-05',
         },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1024,
-          system: buildCopilotSystem(gbifData, analysisProject),
-          messages: history,
-        }),
+        body: JSON.stringify(body),
       })
 
       if (!response.ok) {
@@ -4317,7 +4429,10 @@ function CopilotPanel({ gbifData, analysisProject }) {
       }
 
       const data = await response.json()
-      const textOut = data.content?.find(b => b.type === 'text')?.text ?? '(no response)'
+      const textOut = data.content
+        ?.filter(b => b.type === 'text')
+        ?.map(b => b.text)
+        ?.join('\n') ?? '(no response)'
 
       setMessages(prev => [...prev, { role: 'assistant', content: textOut }])
     } catch (e) {
@@ -4329,7 +4444,6 @@ function CopilotPanel({ gbifData, analysisProject }) {
       setLoading(false)
     }
   }
-
   return (
     <aside className="copilot">
       <div className="cp-head">
@@ -4344,8 +4458,6 @@ function CopilotPanel({ gbifData, analysisProject }) {
       </div>
 
       <div className="cp-body">
-        <div className="cp-section-label">Suggested questions</div>
-
 
         {/* Reviewer's notes button */}
         {gbifData?.riskScore && !devilAdvocateRef.current && (
@@ -4353,32 +4465,81 @@ function CopilotPanel({ gbifData, analysisProject }) {
             onClick={runDevilAdvocate}
             disabled={loading}
             style={{
-              width: '100%', marginBottom: 8,
-              fontSize: 10, padding: '6px 10px',
-              background: 'rgba(249,115,22,0.1)',
-              border: '1px solid rgba(249,115,22,0.3)',
-              borderRadius: 6, color: '#f97316',
+              width: '100%', marginBottom: 10,
+              fontSize: 10, padding: '7px 12px',
+              background: 'rgba(249,115,22,0.08)',
+              border: '1px solid rgba(249,115,22,0.25)',
+              borderRadius: 7, color: '#f97316',
               cursor: 'pointer', textAlign: 'left',
-              fontWeight: 600,
+              fontWeight: 600, letterSpacing: '0.02em',
             }}
           >
-            Generate reviewer's notes (TNFD/IFC critical review)
+            Generate reviewer's notes — TNFD/IFC critical review
           </button>
         )}
 
-        <div className="cp-suggestions">
-          {suggestedQuestions.map((q, i) => (
-            <button
-              key={i}
-              className="cp-chip"
-              onClick={() => sendMessage(q)}
-              disabled={loading}
-            >
-              {q}
-            </button>
+        {/* Categorized questions */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginBottom: 10 }}>
+          {Object.entries(suggestedQuestions).map(([category, questions]) => (
+            <div key={category} style={{ border: '1px solid var(--bd)', borderRadius: 8, overflow: 'hidden' }}>
+              <button
+                onClick={() => setOpenCategory(openCategory === category ? null : category)}
+                style={{
+                  width: '100%', padding: '7px 11px',
+                  background: openCategory === category ? 'rgba(34,197,94,0.06)' : 'var(--card)',
+                  border: 'none', cursor: 'pointer',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  fontSize: 10, fontWeight: 700,
+                  color: openCategory === category ? 'var(--green)' : 'var(--text2)',
+                  textTransform: 'uppercase', letterSpacing: '0.08em',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  {CATEGORY_ICONS[category]}
+                  {category}
+                </span>
+                <span style={{ fontSize: 13, fontWeight: 300 }}>{openCategory === category ? '−' : '+'}</span>
+              </button>
+              {openCategory === category && (
+                <div style={{ padding: '6px 8px 8px', display: 'flex', flexDirection: 'column', gap: 4, borderTop: '1px solid var(--bd)' }}>
+                  {questions.map((q, i) => (
+                    <button
+                      key={i}
+                      onClick={() => sendMessage(q)}
+                      disabled={loading}
+                      style={{
+                        padding: '7px 11px',
+                        background: 'transparent',
+                        border: '1px solid var(--bd)',
+                        borderRadius: 6,
+                        fontSize: 11,
+                        color: 'var(--text2)',
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        lineHeight: 1.5,
+                        transition: 'all 0.15s',
+                        fontFamily: 'var(--font)',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.borderColor = 'var(--green)'
+                        e.currentTarget.style.color = 'var(--text)'
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.borderColor = 'var(--bd)'
+                        e.currentTarget.style.color = 'var(--text2)'
+                      }}
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
 
+        {/* Messages */}
         {messages.map((m, i) => (
           <div key={i} className={`msg ${m.role}`}>
             <div className="msg-bubble">
@@ -4470,8 +4631,10 @@ function DrawingLayer({ drawnPoints, setDrawnPoints, drawnPolygon, setDrawnPolyg
         <Polygon
           positions={drawnPolygon}
           pathOptions={{
-            color: 'var(--card)', weight: 2,
-            fillColor: 'var(--card)', fillOpacity: 0.04
+            color: '#22c55e',
+            weight: 2.5,
+            fillColor: '#22c55e',
+            fillOpacity: 0.08,
           }}
         />
       )}
@@ -5883,7 +6046,7 @@ export default function App() {
         queryProtectedAreas(bbox, country).catch(() => null),
         queryNDVI(drawnPolygon).catch(() => null),
         queryForestLoss(drawnPolygon).catch(() => null),
-        queryGEE(drawnPolygon).catch(() => null),
+        queryGEE(drawnPolygon, 10, calcPolygonAreaKm2(drawnPolygon)).catch(e => { console.error('🔴 GEE error:', e); return null }),
       ])
 
       // Per-taxon point-in-polygon refinement.
@@ -6330,7 +6493,7 @@ export default function App() {
           'anthropic-version': '2023-06-01',
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
+          model: needsDeepReasoning(userText) ? 'claude-sonnet-4-20250514' : 'claude-haiku-4-5-20251001',
           max_tokens: 300,
           system: buildCopilotSystem(gbifData, analysisProject),
           messages: [{

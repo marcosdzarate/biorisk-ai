@@ -672,16 +672,15 @@ export async function queryGbifAthena({ minLat, maxLat, minLng, maxLng, countryC
 
 // ─── GEE Consolidated Analysis ────────────────────────────────────────────────
 
-export async function queryGEE(polygon, cellSizeKm = 10) {
+export async function queryGEE(polygon, cellSizeKm = 10, polygonArea = null) {
   const url = import.meta.env.VITE_GEE_HEX_URL
   if (!url) {
     console.warn('GEE URL not configured')
     return null
   }
 
-  // Simplify polygon for very large areas
   let geePolygon = polygon
-  const area = calcPolygonAreaKm2(polygon)
+  const area = polygonArea  // usa el área pre-calculada
   if (area && area > 50000) {
     console.warn(`🌍 GEE: polygon too large (${Math.round(area)} km²), using bbox`)
     const lats = polygon.map(p => p[0])
@@ -696,12 +695,13 @@ export async function queryGEE(polygon, cellSizeKm = 10) {
       [centerLat + delta, centerLng - delta],
     ]
   }
+  console.log('🌍 GEE polygon:', geePolygon?.length, 'points, area:', Math.round(area), 'km²')
   try {
     console.log('🌍 Querying GEE...')
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ polygon, cellSizeKm }),
+      body: JSON.stringify({ polygon: geePolygon, cellSizeKm }),
     })
 
     if (!response.ok) throw new Error(`GEE ${response.status}`)
