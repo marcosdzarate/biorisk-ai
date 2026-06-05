@@ -4102,6 +4102,15 @@ function buildCopilotSystem(gbifData, analysisProject) {
   const country = analysisProject?.country || 'AR'
   const countryName = COUNTRY_NAMES[country] || country
   const sector = analysisProject?.sector || 'Wind Energy'
+  const phase = analysisProject?.phase || 'Not specified'
+  const frameworks = analysisProject?.frameworks?.length > 0
+    ? analysisProject.frameworks.join(', ')
+    : 'Not specified'
+  const investment = analysisProject?.investment
+    ? Number(analysisProject.investment) >= 1e9
+      ? `USD ${(Number(analysisProject.investment) / 1e9).toFixed(2)}B`
+      : `USD ${(Number(analysisProject.investment) / 1e6).toFixed(0)}M`
+    : 'Not specified'
   const sectorCtx = SECTOR_CONTEXT[sector] || SECTOR_CONTEXT['Wind Energy']
 
   const taxaLines = gbifData?.taxaInPolygon
@@ -4130,6 +4139,9 @@ CURRENT PROJECT:
   Name: ${projectName}
   Country: ${countryName}
   Sector: ${sector}
+  Phase: ${phase}
+  Reporting frameworks: ${frameworks}
+  Estimated investment: ${investment}
   Analysis mode: ${MODE === 'full' ? 'Full S3 snapshot' : 'REST API sample'}
 
 SECTOR-SPECIFIC CONTEXT (${sector}):
@@ -4183,15 +4195,15 @@ than a substitute for formal environmental assessments."`
 function renderAssistantContent(text) {
   // Remove excessive blank lines
   const cleaned = text.replace(/\n{3,}/g, '\n\n').trim()
-  
+
   return cleaned.split('\n').map((line, i) => {
     if (!line.trim()) return <div key={i} style={{ height: 6 }} />
-    
+
     const isBullet = /^\s*[-•*]\s+/.test(line)
     const isHeader = /^#{1,3}\s+/.test(line)
-    const stripped = isBullet 
-      ? line.replace(/^\s*[-•*]\s+/, '') 
-      : isHeader 
+    const stripped = isBullet
+      ? line.replace(/^\s*[-•*]\s+/, '')
+      : isHeader
         ? line.replace(/^#{1,3}\s+/, '')
         : line
 
@@ -4768,6 +4780,8 @@ function NewAnalysisPage({
                     <div style={{ fontWeight: 700, marginBottom: 4 }}>
                       ⚠ CSRD Scope Alert
                     </div>
+
+
                     {isHighRiskSector && (
                       <div style={{ marginBottom: 3 }}>
                         <strong>{analysisProject.sector}</strong> is a high-impact sector
@@ -4785,9 +4799,74 @@ function NewAnalysisPage({
                       BioRisk AI provides the biodiversity baseline data required for ESRS E4 disclosure.
                     </div>
                   </div>
+
+
                 )
               })()}
+              {/* Project Phase */}
+              <label className="wiz-label" style={{ marginTop: 14 }}>Project Phase</label>
+              <select
+                className="wiz-select"
+                value={analysisProject.phase ?? ''}
+                onChange={e => setAnalysisProject(p => ({ ...p, phase: e.target.value }))}
+              >
+                <option value="">Select phase...</option>
+                <option value="Site Selection / Screening">Site Selection / Screening</option>
+                <option value="Pre-Feasibility">Pre-Feasibility</option>
+                <option value="Feasibility / ESIA">Feasibility / ESIA</option>
+                <option value="Due Diligence / Financing">Due Diligence / Financing</option>
+                <option value="Permitting">Permitting</option>
+              </select>
 
+              {/* Reporting Framework */}
+              <label className="wiz-label" style={{ marginTop: 14 }}>Reporting Framework</label>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 4 }}>
+                {['TNFD LEAP', 'IFC PS6 / Equator Principles', 'CSRD ESRS E4', 'GBF Target 15'].map(fw => (
+                  <label key={fw} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--text2)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={(analysisProject.frameworks ?? []).includes(fw)}
+                      onChange={e => {
+                        const current = analysisProject.frameworks ?? []
+                        setAnalysisProject(p => ({
+                          ...p,
+                          frameworks: e.target.checked
+                            ? [...current, fw]
+                            : current.filter(f => f !== fw)
+                        }))
+                      }}
+                      style={{ accentColor: 'var(--green)', width: 14, height: 14 }}
+                    />
+                    {fw}
+                  </label>
+                ))}
+              </div>
+
+              {/* Investment */}
+              <label className="wiz-label" style={{ marginTop: 14 }}>Estimated Investment (USD)</label>
+              <div style={{ position: 'relative' }}>
+                <span style={{
+                  position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)',
+                  color: 'var(--text3)', fontSize: 13, pointerEvents: 'none',
+                }}>$</span>
+                <input
+                  type="number"
+                  className="wiz-input"
+                  placeholder="e.g. 1500000000"
+                  value={analysisProject.investment ?? ''}
+                  onChange={e => setAnalysisProject(p => ({ ...p, investment: e.target.value }))}
+                  style={{ paddingLeft: 22 }}
+                />
+              </div>
+              {analysisProject.investment > 0 && (
+                <div style={{ fontSize: 10, color: 'var(--text3)', marginTop: 4 }}>
+                  {Number(analysisProject.investment) >= 1e9
+                    ? `USD ${(Number(analysisProject.investment) / 1e9).toFixed(2)}B`
+                    : Number(analysisProject.investment) >= 1e6
+                      ? `USD ${(Number(analysisProject.investment) / 1e6).toFixed(0)}M`
+                      : `USD ${Number(analysisProject.investment).toLocaleString('en-US')}`}
+                </div>
+              )}
               <div className="wiz-divider" />
 
               <div className="wiz-info">
