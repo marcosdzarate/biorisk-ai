@@ -6287,6 +6287,9 @@ export default function App() {
       name: analysisProject.name,
       country: analysisProject.country,
       sector: analysisProject.sector,
+      phase: analysisProject.phase,
+      frameworks: analysisProject.frameworks,
+      investment: analysisProject.investment,
       riskScore: scanResults.riskScore,
       totalInPolygon: scanResults.totalInPolygon,
       date: new Date().toLocaleDateString('en-US'),
@@ -6321,6 +6324,9 @@ export default function App() {
           name: newProject.name,
           country: newProject.country,
           sector: newProject.sector,
+          phase: newProject.phase,
+          frameworks: newProject.frameworks,
+          investment: newProject.investment,
           risk_score: newProject.riskScore,
           total_in_polygon: newProject.totalInPolygon,
           polygon: newProject.polygon,
@@ -6763,6 +6769,96 @@ export default function App() {
       y += 5.5
     })
     y += 4
+
+
+    // ─── IFC PS6 Critical Habitat Assessment ───
+    if (project?.frameworks?.includes('IFC PS6 / Equator Principles')) {
+      if (y > 220) { doc.addPage(); y = 20 }
+
+      section('IFC PS6 Critical Habitat Assessment')
+
+      // Determine habitat classification
+      const threatenedSpecies = data.taxaInPolygon
+        ?.flatMap(t => t.records ?? [])
+        ?.filter(r => ['CR', 'EN'].includes(r.iucnRedListCategory)) ?? []
+
+      const hasWdpaOverlap = (data.wdpa?.intersectingCount ?? 0) > 0
+      const hasRamsar = data.wdpa?.intersecting?.some(a =>
+        a.name?.toLowerCase().includes('ramsar') ||
+        a.designation?.toLowerCase().includes('ramsar') ||
+        a.iucnCategory === 'Ramsar'
+      )
+      const hasCriticalSpecies = threatenedSpecies.length > 0
+      const ndviMean = data.ndvi?.mean ?? 0
+
+      const isCritical = hasCriticalSpecies || hasWdpaOverlap || hasRamsar
+      const isNatural = !isCritical && ndviMean > 0.1
+      const habitatClass = isCritical ? 'CRITICAL HABITAT' : isNatural ? 'NATURAL HABITAT' : 'MODIFIED HABITAT'
+      const habitatColor = isCritical ? red : isNatural ? green : orange
+
+      // Habitat classification box
+      doc.setFillColor(...(isCritical ? [254, 242, 242] : isNatural ? [240, 253, 244] : [255, 251, 235]))
+      doc.roundedRect(margin, y, W - margin * 2, 16, 3, 3, 'F')
+      doc.setFontSize(11)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(...habitatColor)
+      doc.text(habitatClass, margin + 8, y + 10)
+      doc.setFontSize(8)
+      doc.setFont('helvetica', 'normal')
+      doc.setTextColor(...gray)
+      doc.text(`IFC PS6 / GN6 Classification · ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}`, W - margin, y + 10, { align: 'right' })
+      y += 22
+
+      // Triggers
+      const triggers = [
+        { label: 'CR/EN species detected', triggered: hasCriticalSpecies, value: hasCriticalSpecies ? `${threatenedSpecies.length} records` : 'None detected' },
+        { label: 'Protected area overlap (WDPA)', triggered: hasWdpaOverlap, value: hasWdpaOverlap ? `${data.wdpa.intersectingCount} area(s)` : 'No overlap' },
+        { label: 'Ramsar / internationally recognized area', triggered: !!hasRamsar, value: hasRamsar ? 'Detected' : 'Not detected' },
+        { label: 'Declining vegetation trend', triggered: data.ndvi?.trend === 'Declining', value: data.ndvi?.trend ?? 'N/A' },
+        { label: 'Estimated species richness (Chao1)', triggered: false, value: data.chao1?.estimated ? `${data.chao1.estimated} species` : 'N/A' },
+      ]
+
+      triggers.forEach((t, i) => {
+        if (i % 2 === 0) {
+          doc.setFillColor(...light)
+          doc.rect(margin, y - 2, W - margin * 2, 6, 'F')
+        }
+        doc.setFontSize(8)
+        doc.setFont('helvetica', 'normal')
+        doc.setTextColor(...gray)
+        doc.text(t.label, margin + 4, y + 2)
+        doc.setFont('helvetica', 'bold')
+        doc.setTextColor(...(t.triggered ? red : green))
+        doc.text(t.triggered ? '! TRIGGERED' : 'Clear', margin + 110, y + 2)
+        doc.setFont('helvetica', 'normal')
+        doc.setTextColor(...navy)
+        doc.text(t.value, margin + 148, y + 2)
+        y += 6
+      })
+      y += 4
+
+      // Obligations
+      if (isCritical) {
+        doc.setFontSize(8)
+        doc.setFont('helvetica', 'bold')
+        doc.setTextColor(...red)
+        doc.text('IFC PS6 Critical Habitat Obligations Triggered:', margin + 4, y)
+        y += 6
+        const obligations = [
+          'Net Positive Impact (NPI) on biodiversity required over project lifetime',
+          'Biodiversity Action Plan (BAP) required prior to financing',
+          'No-go zones must be defined for CR/EN species habitats',
+          'Independent biodiversity specialist required for ESIA',
+        ]
+        obligations.forEach(ob => {
+          doc.setFont('helvetica', 'normal')
+          doc.setTextColor(...gray)
+          doc.text(`• ${ob}`, margin + 6, y)
+          y += 5
+        })
+      }
+      y += 6
+    }
 
     // ─── Disclaimer ───
     if (y > 240) { doc.addPage(); y = 20 }
