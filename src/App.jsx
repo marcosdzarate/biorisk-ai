@@ -7069,7 +7069,14 @@ export default function App() {
               setShowDemoBanner(false)
               setProjectName(project.name)
               setActivePolygon(project.polygon)
-              setAnalysisProject({ name: project.name, country: project.country, sector: project.sector })
+              setAnalysisProject({
+                name: project.name,
+                country: project.country,
+                sector: project.sector,
+                phase: project.phase ?? '',
+                frameworks: project.frameworks ?? [],
+                investment: project.investment ?? '',
+              })
               if (project.polygon?.length >= 3) {
                 const centroid = project.polygon
                   .reduce((acc, p) => [acc[0] + p[0], acc[1] + p[1]], [0, 0])
