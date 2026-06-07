@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useMemo, Fragment } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { MapContainer, TileLayer, Polygon, Polyline, CircleMarker, Tooltip, Popup, useMapEvents, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Polygon, Polyline, CircleMarker, Tooltip, Popup, useMapEvents, useMap, GeoJSON } from 'react-leaflet'
 import 'leaflet.heat'
 import L from 'leaflet'
 import { LineChart, Line, BarChart, Bar, Cell, ResponsiveContainer, Tooltip as RTooltip, YAxis } from 'recharts'
@@ -4603,6 +4603,41 @@ function CopilotPanel({ gbifData, analysisProject }) {
 
 // ─── New Analysis Wizard ─────────────────────────────────────────────────────
 
+function CountryBorderLayer({ country }) {
+  const map = useMap()
+  const [border, setBorder] = useState(null)
+
+  useEffect(() => {
+    if (!country) return
+    setBorder(null) // limpiar contorno anterior
+
+    fetch(`https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson`)
+      .then(r => r.json())
+      .then(data => {
+        const feature = data.features.find(f =>
+          f.properties['ISO3166-1-Alpha-2'] === country
+        )
+        if (feature) setBorder(feature)
+      })
+      .catch(() => null)
+  }, [country])
+
+  if (!border) return null
+
+  return (
+    <GeoJSON
+      data={border}
+      style={{
+        color: '#22c55e',
+        weight: 1.5,
+        fillColor: '#22c55e',
+        fillOpacity: 0.04,
+        dashArray: '6 4',
+      }}
+    />
+  )
+}
+
 // MUST be a separate component (outside App) so the Leaflet hooks are stable.
 function DrawingLayer({ drawnPoints, setDrawnPoints, drawnPolygon, setDrawnPolygon }) {
   const map = useMapEvents({
@@ -4926,6 +4961,7 @@ function NewAnalysisPage({
                   url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                 />
                 <MapRecenter center={center} />
+                <CountryBorderLayer country={analysisProject.country} />
                 <DrawingLayer
                   drawnPoints={drawnPoints}
                   setDrawnPoints={setDrawnPoints}
