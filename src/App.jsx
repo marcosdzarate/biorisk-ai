@@ -958,14 +958,65 @@ const OCCURRENCE_POINTS = [
 ]
 
 const NAV_ITEMS = [
-  { id: 'new', icon: '➕', label: 'New Analysis' },
-  { id: 'dashboard', icon: '🏠', label: 'Dashboard' },
-  { id: 'projects', icon: '📁', label: 'Projects' },
-  { id: 'reports', icon: '📄', label: 'Reports' },
-  { id: 'monitoring', icon: '🔭', label: 'Monitoring Insights' },
-  { id: 'species', icon: '🐾', label: 'Species Explorer' },
-  { id: 'sources', icon: '🗄', label: 'Data Sources' },
-  { id: 'settings', icon: '⚙️', label: 'Settings' },
+  {
+    id: 'new', label: 'New Analysis', icon: (
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="8" cy="8" r="6" /><path d="M8 5v6M5 8h6" />
+      </svg>
+    )
+  },
+  {
+    id: 'dashboard', label: 'Dashboard', icon: (
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="1" y="1" width="6" height="6" rx="1" /><rect x="9" y="1" width="6" height="6" rx="1" />
+        <rect x="1" y="9" width="6" height="6" rx="1" /><rect x="9" y="9" width="6" height="6" rx="1" />
+      </svg>
+    )
+  },
+  {
+    id: 'projects', label: 'Projects', icon: (
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M2 4h12M2 8h8M2 12h10" />
+      </svg>
+    )
+  },
+  {
+    id: 'reports', label: 'Reports', icon: (
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="3" y="1" width="10" height="14" rx="1.5" /><path d="M6 5h4M6 8h4M6 11h2" />
+      </svg>
+    )
+  },
+  {
+    id: 'monitoring', label: 'Monitoring Insights', icon: (
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M2 12L6 7l3 3 3-4 2 2" />
+      </svg>
+    )
+  },
+  {
+    id: 'species', label: 'Species Explorer', icon: (
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="7" cy="7" r="5" /><path d="M12 12l2.5 2.5" />
+      </svg>
+    )
+  },
+  {
+    id: 'sources', label: 'Data Sources', icon: (
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <ellipse cx="8" cy="5" rx="6" ry="2.5" /><path d="M2 5v6c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V5" />
+        <path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5" />
+      </svg>
+    )
+  },
+  {
+    id: 'settings', label: 'Settings', icon: (
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="8" cy="8" r="2.5" />
+        <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" />
+      </svg>
+    )
+  },
 ]
 
 
@@ -2057,7 +2108,7 @@ function SpeciesRichnessCard({ data, loading }) {
 
 function LandcoverCard({ data, polygon }) {
   const gee = data?.gee
-  
+
   if (!gee || gee.landcover == null) return null
 
   const IUCN_HABITAT_CLASSES = {
@@ -2069,7 +2120,7 @@ function LandcoverCard({ data, polygon }) {
 
   const iucnClass = gee.iucnHabitat ? Math.floor(gee.iucnHabitat / 100) : null
   const iucnLabel = iucnClass ? (IUCN_HABITAT_CLASSES[iucnClass] ?? `Class ${iucnClass}`) : 'N/A'
- 
+
   const LANDCOVER = {
     0: { label: 'Water', color: '#3B82F6', icon: '~' },
     1: { label: 'Trees / Forest', color: '#16A34A', icon: 'T' },
@@ -4071,19 +4122,65 @@ function DataSourcesCard({ data, loading, onShowStats }) {
     ? `NDVI ${ndvi.mean} · ${ndvi.quarterly?.length ?? 0} periods`
     : <span style={{ color: 'var(--text3)', fontStyle: 'italic' }}>Not available</span>
 
+  const gee = data?.gee
+
   const items = [
     {
-      icon: '🌐', name: 'GBIF Occurrence API', val: gbifVal, real: true,
-      note: 'Complementary data source — not a substitute for field surveys'
+      icon: <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="6" /><path d="M2 8h12M8 2a10 10 0 010 12M8 2a10 10 0 000 12" /></svg>,
+      name: 'GBIF Occurrence API', val: gbifVal, real: true,
+      note: 'Dynamic taxa per country via facet endpoint'
     },
-    { icon: '📚', name: 'GBIF Literature Index', val: litVal, real: true },
-    { icon: '🛡', name: 'WDPA Protected Areas', val: wdpaVal, real: wdpa != null },
-    { icon: '🛰', name: 'Sentinel-2 L2A (NDVI)', val: ndviVal, real: ndvi != null },
     {
-      icon: '📋', name: 'IUCN Red List',
-      val: <span style={{ color: 'var(--text3)', fontStyle: 'italic' }}>Pending integration ⓘ</span>,
+      icon: <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1.5" /><path d="M5 8h6M5 5h6M5 11h4" /></svg>,
+      name: 'AWS Athena · GBIF S3 Snapshot', val: '2B+ records · partitioned by country', real: true,
+      note: 'GBIF occurrence snapshot 2026-05-01'
+    },
+    {
+      icon: <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 12L6 7l3 3 3-4 2 2" /></svg>,
+      name: 'Sentinel-2 L2A · NDVI + MSAVI', val: ndviVal, real: ndvi != null,
+      note: 'Google Earth Engine · 10m resolution'
+    },
+    {
+      icon: <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="1" y="1" width="6" height="6" rx="1" /><rect x="9" y="1" width="6" height="6" rx="1" /><rect x="1" y="9" width="6" height="6" rx="1" /><rect x="9" y="9" width="6" height="6" rx="1" /></svg>,
+      name: 'Google Dynamic World V1', val: gee?.landcover != null ? 'Land cover 2023' : '—', real: gee?.landcover != null,
+      note: 'Near real-time land cover classification · 10m'
+    },
+    {
+      icon: <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 10c1-4 3-7 6-7s5 3 6 7" /><path d="M4 13c1-2 2-4 4-4s3 2 4 4" /></svg>,
+      name: 'Hansen Global Forest Change v1.11', val: gee?.lossYear != null ? 'Deforestation 2001–2023' : '—', real: gee?.lossYear != null,
+      note: 'University of Maryland · GEE'
+    },
+    {
+      icon: <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 2c0 0-5 4-5 8a5 5 0 0010 0c0-4-5-8-5-8z" /></svg>,
+      name: 'JRC Global Surface Water', val: gee?.water != null ? 'Water dynamics 1984–2021' : '—', real: gee?.water != null,
+      note: 'Joint Research Centre · GEE'
+    },
+    {
+      icon: <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 2l1.5 3h3.5l-2.8 2 1 3.5L8 9l-3.2 1.5 1-3.5L3 5h3.5z" /></svg>,
+      name: 'MODIS MOD14A1 Fire', val: gee?.fire != null ? 'Fire risk 2019–2024' : '—', real: gee?.fire != null,
+      note: 'Thermal anomalies · GEE'
+    },
+    {
+      icon: <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="5" /><path d="M8 4v4l2.5 2.5" /></svg>,
+      name: 'IUCN Habitat Classification', val: gee?.iucnHabitat != null ? `Class ${Math.floor(gee.iucnHabitat / 100)}` : '—', real: gee?.iucnHabitat != null,
+      note: 'IUCN Habitat v004 · GEE'
+    },
+    {
+      icon: <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 3h10v10H3zM3 8h10M8 3v10" /></svg>,
+      name: 'WDPA Protected Areas', val: wdpaVal, real: wdpa != null,
+      note: 'Protected Planet · real geometries'
+    },
+    {
+      icon: <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="5" /><path d="M8 5v3M8 11v.5" /></svg>,
+      name: 'IUCN Red List',
+      val: <span style={{ color: 'var(--text3)', fontStyle: 'italic' }}>Pending API approval</span>,
       real: false,
-      tooltip: 'IUCN Red List API access requested — pending approval'
+    },
+    {
+      icon: <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="5" /><path d="M8 5v3M8 11v.5" /></svg>,
+      name: 'Key Biodiversity Areas (KBA)',
+      val: <span style={{ color: 'var(--text3)', fontStyle: 'italic' }}>Pending data access</span>,
+      real: false,
     },
   ]
 
