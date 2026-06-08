@@ -57,6 +57,20 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(34,197,94,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 10%, rgba(59,130,246,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 85%, rgba(168,85,247,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 60%, rgba(34,197,94,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -84,7 +98,10 @@ body {
 
 /* ── Sidebar ── */
 .sidebar {
-  background: var(--sidebar);
+  background: rgba(8,12,16,0.90);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255,255,255,0.06);
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -377,9 +394,14 @@ body {
 
 /* ── Copilot ── */
 .copilot {
-  background: var(--card); border-left: 1px solid var(--bd);
-  display: flex; flex-direction: column;
-  height: 100vh; overflow: hidden;
+  background: rgba(8,12,16,0.90);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
 }
 .cp-head {
   padding: 16px 18px; border-bottom: 1px solid var(--bd);
