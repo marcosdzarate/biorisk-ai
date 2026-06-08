@@ -4736,8 +4736,14 @@ function NewAnalysisPage({
   onBack, onRunScan, onViewDashboard, onResetWizard, loadCountryTaxa,
   loadingTaxa, scanLogs, scanError,
 }) {
+
+
   const center = COUNTRY_CENTERS[analysisProject.country] || [-15, -60]
   const canRun = analysisProject.name.trim() && drawnPolygon
+  const [csrdOpen, setCsrdOpen] = useState(false)
+  const csrdSectors = ['Agriculture & Forestry', 'Mining & Extractives', 'Oil & Gas', 'Hydroelectric']
+  const euExportCountries = ['BR', 'AR', 'CO', 'PE', 'EC', 'BO', 'PY', 'GT', 'HN', 'NI']
+
 
   let polyStatus
   if (drawnPolygon) {
@@ -4749,6 +4755,8 @@ function NewAnalysisPage({
   } else {
     polyStatus = { cls: 'drawing', text: `Drawing… (${drawnPoints.length} points) — click the first point to close` }
   }
+
+  console.log('CSRD check:', analysisProject.sector, csrdSectors.includes(analysisProject.sector), analysisProject.country, euExportCountries.includes(analysisProject.country))
 
   return (
     <div className="wiz-shell">
@@ -4798,46 +4806,46 @@ function NewAnalysisPage({
               </select>
 
               {/* CSRD Scope Checker */}
-              {(() => {
-                const csrdSectors = ['Agriculture & Forestry', 'Mining & Extractives', 'Oil & Gas', 'Hydroelectric']
-                const euExportCountries = ['BR', 'AR', 'CO', 'PE', 'EC', 'BO', 'PY', 'GT', 'HN', 'NI']
-                const isHighRiskSector = csrdSectors.includes(analysisProject.sector)
-                const isEuExportCountry = euExportCountries.includes(analysisProject.country)
-
-                if (!isHighRiskSector && !isEuExportCountry) return null
-
-                return (
-                  <div style={{
-                    background: 'rgba(59,130,246,0.1)', border: '1px solid #BFDBFE',
-                    borderRadius: 8, padding: '10px 12px', marginTop: 10,
-                    fontSize: 11, color: '#1D4ED8', lineHeight: 1.6,
-                  }}>
-                    <div style={{ fontWeight: 700, marginBottom: 4 }}>
-                      ⚠ CSRD Scope Alert
-                    </div>
-
-
-                    {isHighRiskSector && (
-                      <div style={{ marginBottom: 3 }}>
-                        <strong>{analysisProject.sector}</strong> is a high-impact sector
-                        under CSRD ESRS E4 biodiversity disclosure requirements.
+              {(csrdSectors.includes(analysisProject.sector) || euExportCountries.includes(analysisProject.country)) && (
+                <div style={{
+                  background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.2)',
+                  borderRadius: 8, marginTop: 10,
+                }}>
+                  <button
+                    onClick={() => setCsrdOpen(o => !o)}
+                    style={{
+                      width: '100%', padding: '7px 12px',
+                      background: 'none', border: 'none', cursor: 'pointer',
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                      fontSize: 11, fontWeight: 700, color: 'var(--text)',
+                      textAlign: 'left',
+                    }}
+                  >
+                    CSRD Scope Alert
+                    <span style={{ fontSize: 13, fontWeight: 300 }}>{csrdOpen ? '−' : '+'}</span>
+                  </button>
+                  {csrdOpen && (
+                    <div style={{ padding: '0 12px 10px', fontSize: 11, color: '#60A5FA', lineHeight: 1.6 }}>
+                      {csrdSectors.includes(analysisProject.sector) && (
+                        <div style={{ marginBottom: 3 }}>
+                          <strong>{analysisProject.sector}</strong> is a high-impact sector
+                          under CSRD ESRS E4 biodiversity disclosure requirements.
+                        </div>
+                      )}
+                      {euExportCountries.includes(analysisProject.country) && (
+                        <div>
+                          Companies in <strong>{COUNTRY_NAMES[analysisProject.country]}</strong> exporting
+                          to the EU with &gt;€150M EU revenue may be subject to
+                          CSRD (Directive 2022/2464) reporting obligations.
+                        </div>
+                      )}
+                      <div style={{ marginTop: 6, fontSize: 10, color: '#93C5FD' }}>
+                        BioRisk AI provides the biodiversity baseline data required for ESRS E4 disclosure.
                       </div>
-                    )}
-                    {isEuExportCountry && (
-                      <div>
-                        Companies in <strong>{COUNTRY_NAMES[analysisProject.country]}</strong> exporting
-                        to the EU with &gt;€150M EU revenue may be subject to
-                        CSRD (Directive 2022/2464) reporting obligations.
-                      </div>
-                    )}
-                    <div style={{ marginTop: 6, fontSize: 10, color: '#3B82F6' }}>
-                      BioRisk AI provides the biodiversity baseline data required for ESRS E4 disclosure.
                     </div>
-                  </div>
-
-
-                )
-              })()}
+                  )}
+                </div>
+              )}
               {/* Project Phase */}
               <label className="wiz-label" style={{ marginTop: 14 }}>Project Phase</label>
               <select
