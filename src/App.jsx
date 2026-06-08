@@ -47,6 +47,28 @@ const CSS = `
   --sh2: 0 4px 12px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
 }
 
+[data-theme="light"] {
+  --sidebar: #f8f9fa;
+  --navy: #ffffff;
+  --green: #16a34a;
+  --green-lt: #15803d;
+  --green-pale: rgba(22,163,74,0.1);
+  --bg: #f5f7fa;
+  --card: #ffffff;
+  --warning: #f97316;
+  --warning-pale: rgba(249,115,22,0.1);
+  --danger: #ef4444;
+  --danger-pale: rgba(239,68,68,0.1);
+  --crit: #dc2626;
+  --text: #1f2937;
+  --text2: #6b7280;
+  --text3: #9ca3af;
+  --bd: #e5e7eb;
+  --bd2: #d1d5db;
+  --sh1: 0 1px 2px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.04);
+  --sh2: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+}
+
 html, body, #root { height: 100%; }
 
 body {
@@ -60,7 +82,8 @@ body {
   position: relative;
 }
 
-body::before {
+[data-theme="light"] body::before {
+  opacity: 0.3;
   content: '';
   position: fixed;
   inset: 0;
@@ -1138,7 +1161,7 @@ function Gauge({ value, max = 100 }) {
 }
 
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
-function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle }) {
+function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle, theme, setTheme }) {
   return (
     <aside className="sidebar" style={{
       width: collapsed ? 56 : undefined,
@@ -1183,6 +1206,26 @@ function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle 
       </nav>
 
       <div className="spacer" />
+      <button
+        onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
+        style={{
+          width: '100%', padding: '8px 10px',
+          background: 'none', border: '1px solid var(--bd)',
+          borderRadius: 7, cursor: 'pointer',
+          display: 'flex', alignItems: 'center', gap: 8,
+          fontSize: 11, color: 'var(--text2)',
+          marginBottom: 8,
+          transition: 'all 0.2s',
+        }}
+      >
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+          {theme === 'dark'
+            ? <circle cx="8" cy="8" r="4" />//sun
+            : <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.5 1.5M11 11l1.5 1.5M3.5 12.5L5 11M11 5l1.5-1.5" />
+          }
+        </svg>
+        {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+      </button>
       <div className="user-card">
         <div className="avatar">
           {user?.picture
@@ -2012,10 +2055,21 @@ function SpeciesRichnessCard({ data, loading }) {
   )
 }
 
-function LandcoverCard({ data }) {
+function LandcoverCard({ data, polygon }) {
   const gee = data?.gee
+  
   if (!gee || gee.landcover == null) return null
 
+  const IUCN_HABITAT_CLASSES = {
+    1: 'Forest', 2: 'Savanna', 3: 'Shrubland', 4: 'Grassland',
+    5: 'Wetlands', 6: 'Rocky areas', 7: 'Caves & subterranean',
+    8: 'Desert', 9: 'Marine', 10: 'Marine coastal', 11: 'Artificial',
+    14: 'Artificial - Terrestrial', 15: 'Introduced vegetation',
+  }
+
+  const iucnClass = gee.iucnHabitat ? Math.floor(gee.iucnHabitat / 100) : null
+  const iucnLabel = iucnClass ? (IUCN_HABITAT_CLASSES[iucnClass] ?? `Class ${iucnClass}`) : 'N/A'
+ 
   const LANDCOVER = {
     0: { label: 'Water', color: '#3B82F6', icon: '~' },
     1: { label: 'Trees / Forest', color: '#16A34A', icon: 'T' },
@@ -2083,6 +2137,7 @@ function LandcoverCard({ data }) {
         </div>
         {[
           { label: 'Wildfire risk', value: fireRisk, color: fireColor, source: 'MODIS Fire' },
+          { label: 'IUCN Habitat class', value: iucnLabel, color: '#8B5CF6', source: 'IUCN Habitat' },
           { label: 'Surface water', value: waterPresence, color: '#3B82F6', source: 'JRC GSW' },
           { label: 'Tree cover loss', value: gee.lossYear ? `~${Math.round(gee.lossYear) + 2000}` : 'No loss', color: gee.lossYear > 5 ? '#EF4444' : '#22C55E', source: 'Hansen' },
         ].map((item, i) => (
@@ -5950,6 +6005,11 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
 // ─── Main app ────────────────────────────────────────────────────────────────
 export default function App() {
   const { isAuthenticated, isLoading, loginWithRedirect, logout, user, getAccessTokenSilently, getIdTokenClaims } = useAuth0()
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') ?? 'dark')
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
   const [scanError, setScanError] = useState('')
   const [activePage, setActivePage] = useState('dashboard')
   const [gbifData, setGbifData] = useState(null)
@@ -7097,6 +7157,8 @@ export default function App() {
         }}
       >
         <Sidebar
+          theme={theme}
+          setTheme={setTheme}
           activePage={activePage}
           setActivePage={handleNav}
           user={user}
@@ -7384,7 +7446,7 @@ export default function App() {
                 <>
                   <div className="grid row-2">
                     <EcosystemSensitivityCard data={gbifData} />
-                    <LandcoverCard data={gbifData} />
+                    <LandcoverCard data={gbifData} polygon={activePolygon} />
                     <ScenarioAnalysisCard data={gbifData} />
                   </div>
                   <ForestLossCard data={gbifData} />

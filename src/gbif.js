@@ -719,6 +719,7 @@ export async function queryGEE(polygon, cellSizeKm = 10, polygonArea = null) {
       landcover: data.summary?.landcover ?? null,
       water: data.summary?.water ?? null,
       fire: data.summary?.fire ?? null,
+      iucnHabitat: data.summary?.iucn_habitat ?? null,
     }
   } catch (e) {
     console.warn('GEE query failed:', e.message)
