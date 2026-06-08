@@ -2902,7 +2902,7 @@ function BiodiversityMatrixCard({ data }) {
                 transform: 'translate(-50%, -50%)',
                 width: 12, height: 12,
                 borderRadius: '50%',
-                background: q?.color ?? '#06152B',
+                background: q?.color ?? 'var(--bg)',
                 border: '2px solid white',
                 boxShadow: '0 1px 4px rgba(0,0,0,0.3)',
                 zIndex: 1,
@@ -7005,7 +7005,7 @@ export default function App() {
       {/* Auth0 loading */}
       {isLoading && (
         <div style={{
-          position: 'fixed', inset: 0, background: '#06152B',
+          position: 'fixed', inset: 0, background: 'var(--bg)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           zIndex: 99999,
         }}>
