@@ -5100,7 +5100,6 @@ function NewAnalysisPage({
     polyStatus = { cls: 'drawing', text: `Drawing… (${drawnPoints.length} points) — click the first point to close` }
   }
 
-  console.log('CSRD check:', analysisProject.sector, csrdSectors.includes(analysisProject.sector), analysisProject.country, euExportCountries.includes(analysisProject.country))
 
   return (
     <div className="wiz-shell">
@@ -5453,9 +5452,7 @@ function NewAnalysisPage({
                         <span className="taxa-unit">georeferenced occurrences</span>
                       </div>
                     </div>
-                    <div className="taxa-sample-note">
-                      (sample of 300 per taxon from REST API)
-                    </div>
+
 
                     <div className="results-grid" style={{ marginTop: 16 }}>
                       <div className="results-stat">
@@ -5474,14 +5471,7 @@ function NewAnalysisPage({
                       </div>
                     </div>
 
-                    <div className="results-insight">
-                      Detected <strong>{taxaFound}</strong> taxonomic group{taxaFound === 1 ? '' : 's'} with
-                      {' '}<strong>{fmt(totalInPolygon)}</strong> occurrence records within the project
-                      boundary. <strong>{category}</strong> ecological sensitivity based on observational
-                      evidence (sample of up to 300 records per taxon).
-                      {' '}<strong>{fmt(papers)}</strong> scientific paper{papers === 1 ? '' : 's'} found
-                      for this region.
-                    </div>
+
                   </>
                 )
               })()}
@@ -6289,7 +6279,7 @@ export default function App() {
   const [loadingTaxa, setLoadingTaxa] = useState(false)
   const [copilotCollapsed, setCopilotCollapsed] = useState(false)
   const [showFullAnalysis, setShowFullAnalysis] = useState(false)
-
+  const [dataSource, setDataSource] = useState('unknown')
   // ─── New Analysis wizard state ───
   const [page, setPage] = useState('welcome')
   const [analysisStep, setAnalysisStep] = useState(1)
@@ -6466,7 +6456,8 @@ export default function App() {
       let basisCount = {}
       if (athenaRecords && athenaRecords.length > 0) {
         console.log(`✅ Using Athena: ${athenaRecords.length} records`)
-        addLog(`${athenaRecords.length.toLocaleString('en-US')} occurrence records retrieved`, 'done')
+        setDataSource('athena')
+        addLog(`${athenaRecords.length.toLocaleString('en-US')} records retrieved · GBIF S3 Snapshot via AWS Athena`, 'done')
         const byClass = {}
         athenaRecords.forEach(r => {
           const cls = r.class
@@ -6487,8 +6478,10 @@ export default function App() {
           total: byClass[taxon.name]?.length ?? 0,
         }))
       } else {
+        setDataSource('rest')
         console.log('⚠ Athena unavailable, falling back to GBIF REST API')
-        addLog(`Querying GBIF for occurrence data...`, 'loading')
+        addLog(`GBIF S3 Snapshot unavailable · falling back to GBIF REST API`, 'done')
+        addLog(`Querying GBIF REST API for ${dynamicTaxa.slice(0, 15).length} taxonomic groups...`, 'loading')
         taxaOccurrences = []
         for (const taxon of dynamicTaxa.slice(0, 15)) {
           const result = await callGbif('search_occurrences', {
@@ -7098,7 +7091,6 @@ export default function App() {
       doc.text(`${t.inPolygon} records`, margin + 60, y)
       doc.setFont('helvetica', 'normal')
       doc.setTextColor(...gray)
-      doc.text(`(sample of ${t.sampleSize ?? 300})`, margin + 90, y)
       y += 5.5
     })
     y += 4
@@ -7517,15 +7509,13 @@ export default function App() {
                   <span
                     className="badge"
                     style={
-                      MODE === 'full'
+                      dataSource === 'athena'
                         ? { background: 'var(--green-pale)', color: 'var(--green)', borderColor: '#BBF7D0', fontWeight: 600 }
                         : { background: 'var(--bg)', color: 'var(--text2)', fontWeight: 600 }
                     }
-                    title={MODE === 'full'
-                      ? 'Connected to local MCP server with S3-backed analyses'
-                      : 'Direct GBIF REST API mode'}
+                    title={dataSource === 'athena' ? 'GBIF S3 Snapshot via AWS Athena' : 'GBIF REST API fallback'}
                   >
-                    {MODE === 'full' ? '🔬 Full Analysis Mode — S3' : '⚡ Demo Mode — REST API'}
+                    {dataSource === 'athena' ? 'GBIF S3 · Athena' : dataSource === 'rest' ? 'GBIF REST API' : '—'}
                   </span>
                 </div>
               </div>
@@ -7595,7 +7585,7 @@ export default function App() {
               {/* OVERVIEW TAB */}
               {dashboardTab === 'overview' && (
                 <>
-                  
+
                   <div style={{ position: 'relative', marginBottom: 18 }}>
                     <MapCard
                       polygon={activePolygon}
@@ -7646,10 +7636,9 @@ export default function App() {
                   {/* GBIF Data Intelligence */}
                   <GbifDataIntelligenceCard data={gbifData} />
 
-                  {/* Key Findings + Species Richness + Financial Materiality */}
-                  <div className="grid row-3" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+                  {/* Key Findings +  Financial Materiality */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
                     <KeyFindingsCard data={gbifData} loading={loading} />
-                    <SpeciesRichnessCard data={gbifData} loading={loading} />
                     <FinancialMaterialityCard data={gbifData} analysisProject={analysisProject} />
                   </div>
 
