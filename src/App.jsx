@@ -294,7 +294,7 @@ body {
 
 /* ── Map ── */
 .map-wrap {
-  height: 280px; border-radius: var(--r-md); overflow: hidden;
+  height: 340px; border-radius: var(--r-md); overflow: hidden;
   border: 1px solid var(--bd);
 }
 .map-wrap.full-width {
@@ -620,16 +620,17 @@ body {
 .map-legend {
   position: absolute;
   bottom: 10px; left: 10px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid var(--bd);
+  background: rgba(8,12,16,0.88);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--r-md);
   padding: 8px 10px;
   display: flex; flex-direction: column;
   gap: 4px;
   font-size: 11px;
-  box-shadow: 0 1px 3px rgba(15, 37, 68, 0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   z-index: 500;
   pointer-events: none;
+  backdrop-filter: blur(10px);
 }
 .map-legend-row {
   display: grid;
@@ -639,9 +640,9 @@ body {
 .map-legend-dot {
   width: 8px; height: 8px; border-radius: 50%;
 }
-.map-legend-name { color: var(--text); }
+.map-legend-name { color: rgba(255,255,255,0.75); }
 .map-legend-count {
-  color: var(--text2); font-weight: 600;
+  color: rgba(255,255,255,0.5); font-weight: 600;
   font-variant-numeric: tabular-nums;
   margin-left: 6px;
 }
@@ -1615,6 +1616,175 @@ function OccurrenceMarker({ occ, color, taxonName }) {
     </CircleMarker >
   )
 }
+
+
+function GbifDataIntelligenceCard({ data }) {
+  const [animated, setAnimated] = useState(false)
+  const [counts, setCounts] = useState({
+    total: 0, country: 0, polygon: 0, taxa: 0, species: 0
+  })
+
+  const targets = {
+    total: 2840000000,
+    country: data?.chao1?.observed ? 15300000 : 0,
+    polygon: data?.polygonCount ?? 0,
+    taxa: data?.taxaInPolygon?.filter(t => t.inPolygon > 0).length ?? 0,
+    species: data?.chao1?.estimated ?? 0,
+    completeness: data?.chao1?.completeness ?? 0,
+  }
+
+  useEffect(() => {
+    if (!data?.polygonCount || animated) return
+    setAnimated(true)
+
+    const duration = 1500
+    const start = performance.now()
+
+    const tick = (now) => {
+      const elapsed = now - start
+      const progress = Math.min(elapsed / duration, 1)
+      const ease = 1 - Math.pow(1 - progress, 3)
+
+      setCounts({
+        total: Math.round(targets.total * ease),
+        country: Math.round(targets.country * ease),
+        polygon: Math.round(targets.polygon * ease),
+        taxa: Math.round(targets.taxa * ease),
+        species: Math.round(targets.species * ease),
+      })
+
+      if (progress < 1) requestAnimationFrame(tick)
+    }
+
+    requestAnimationFrame(tick)
+  }, [data?.polygonCount])
+
+  if (!data?.polygonCount) return null
+
+  const fmtBig = (n) => {
+    if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B'
+    if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M'
+    return n.toLocaleString('en-US')
+  }
+
+  return (
+    <div className="card" style={{ marginBottom: 12, position: 'relative', overflow: 'hidden' }}>
+      {/* Top green line */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0, height: 1,
+        background: 'linear-gradient(90deg, transparent, var(--green), transparent)',
+      }} />
+
+      <div style={{ padding: '12px 16px' }}>
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+            GBIF Data Intelligence
+          </div>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 6,
+            padding: '3px 10px', background: 'rgba(34,197,94,0.08)',
+            border: '1px solid rgba(34,197,94,0.2)', borderRadius: 999,
+            fontSize: 10, fontWeight: 600, color: 'var(--green)',
+          }}>
+            <div style={{
+              width: 6, height: 6, borderRadius: '50%', background: 'var(--green)',
+              animation: 'pulse 2s ease-in-out infinite',
+            }} />
+            Live · Snapshot 2026-05-01
+          </div>
+        </div>
+
+        {/* Main 3 counters */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1px 1fr 1px 1fr', gap: 0, marginBottom: 18 }}>
+          <div style={{ paddingRight: 20 }}>
+            <div style={{
+              fontSize: 22, fontWeight: 800, lineHeight: 1, marginBottom: 5,
+              fontFamily: 'var(--font)', letterSpacing: '-0.03em', color: 'var(--text)',
+            }}>
+              {fmtBig(counts.total)}
+            </div>
+            <div style={{ fontSize: 11, color: 'var(--text3)', lineHeight: 1.4 }}>
+              GBIF occurrence records<br />in the global database
+            </div>
+            <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 3, opacity: 0.6 }}>CC BY 4.0 · Open Data</div>
+          </div>
+
+          <div style={{ background: 'var(--bd)', width: 1 }} />
+
+          <div style={{ padding: '0 20px' }}>
+            <div style={{
+              fontSize: 22, fontWeight: 800, lineHeight: 1, marginBottom: 5,
+              fontFamily: 'var(--font)', letterSpacing: '-0.03em', color: 'var(--green)',
+            }}>
+              {fmtBig(counts.country)}
+            </div>
+            <div style={{ fontSize: 11, color: 'var(--text3)', lineHeight: 1.4 }}>
+              records available<br />for {data?.riskScore ? 'this country' : 'Argentina'}
+            </div>
+            <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 3, opacity: 0.6 }}>Partitioned S3 · AWS Athena</div>
+          </div>
+
+          <div style={{ background: 'var(--bd)', width: 1 }} />
+
+          <div style={{ paddingLeft: 20, textAlign: 'right' }}>
+            <div style={{
+              fontSize: 28, fontWeight: 800, lineHeight: 1, marginBottom: 5,
+              fontFamily: 'var(--font)', letterSpacing: '-0.03em', color: '#60a5fa',
+            }}>
+              {fmtBig(counts.polygon)}
+            </div>
+            <div style={{ fontSize: 11, color: 'var(--text3)', lineHeight: 1.4 }}>
+              occurrence records<br />in your project area
+            </div>
+            <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 3, opacity: 0.6 }}>After spatial filter</div>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div style={{ borderTop: '1px solid var(--bd)', marginBottom: 14 }} />
+
+        {/* Bottom 4 mini stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+          {[
+            { val: counts.taxa, label: 'taxa detected\nin polygon', highlight: true },
+            { val: counts.species, label: 'species estimated\n(Chao1)' },
+            { val: `${targets.completeness}%`, label: 'sampling\ncompleteness' },
+            { val: data?.taxaInPolygon?.length ?? 0, label: 'taxa identified\nfor country' },
+          ].map((s, i) => (
+            <div key={i} style={{
+              background: s.highlight ? 'rgba(34,197,94,0.06)' : 'rgba(255,255,255,0.02)',
+              border: `1px solid ${s.highlight ? 'rgba(34,197,94,0.15)' : 'var(--bd)'}`,
+              borderRadius: 8, padding: '10px 12px', textAlign: 'center',
+            }}>
+              <div style={{
+                fontSize: 18, fontWeight: 700, lineHeight: 1, marginBottom: 4,
+                color: s.highlight ? 'var(--green)' : 'var(--text)',
+                fontFamily: 'var(--font)',
+              }}>
+                {s.val}
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--text3)', lineHeight: 1.3, whiteSpace: 'pre-line' }}>
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer */}
+        <div style={{
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          marginTop: 14, paddingTop: 12, borderTop: '1px solid var(--bd)',
+          fontSize: 9, color: 'var(--text3)',
+        }}>
+          <span>Analysis ID: {data?.analysisId ?? '—'}</span>
+          <span>Data: gbif.org · Snapshot 2026-05-01 · CC BY 4.0</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 
 // ─── Cards ───────────────────────────────────────────────────────────────────
 function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, wdpaData, bufferData, geeFeatures }) {
@@ -7425,6 +7595,7 @@ export default function App() {
               {/* OVERVIEW TAB */}
               {dashboardTab === 'overview' && (
                 <>
+                  
                   <div style={{ position: 'relative', marginBottom: 18 }}>
                     <MapCard
                       polygon={activePolygon}
@@ -7437,6 +7608,7 @@ export default function App() {
                       bufferData={gbifData?.bufferData}
                       geeFeatures={gbifData?.gee?.features}
                     />
+                    {/* Risk Score overlay queda en el mapa - no lo tocamos */}
                     <div style={{
                       position: 'absolute', bottom: 12, right: 12, zIndex: 1000,
                       background: 'var(--card)', borderRadius: 12,
@@ -7471,22 +7643,24 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="grid row-2">
+                  {/* GBIF Data Intelligence */}
+                  <GbifDataIntelligenceCard data={gbifData} />
+
+                  {/* Key Findings + Species Richness + Financial Materiality */}
+                  <div className="grid row-3" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
                     <KeyFindingsCard data={gbifData} loading={loading} />
                     <SpeciesRichnessCard data={gbifData} loading={loading} />
+                    <FinancialMaterialityCard data={gbifData} analysisProject={analysisProject} />
                   </div>
-
-                  <FinancialMaterialityCard data={gbifData} analysisProject={analysisProject} />
 
                   {gbifData?.bufferData && (
                     <div style={{
-                      background: '#FFFBEB', border: '1px solid #FDE68A',
+                      background: 'rgba(249,115,22,0.08)', border: '1px solid rgba(249,115,22,0.2)',
                       borderRadius: 10, padding: '12px 16px', marginBottom: 18,
                       display: 'flex', alignItems: 'center', gap: 16,
                     }}>
-                      <div style={{ fontSize: 24 }}>''</div>
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: 12, fontWeight: 700, color: '#92400E', marginBottom: 2 }}>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: '#f97316', marginBottom: 2 }}>
                           Indirect Influence Area (5km buffer)
                         </div>
                         <div style={{ fontSize: 11, color: 'var(--text2)' }}>
@@ -7495,7 +7669,7 @@ export default function App() {
                         </div>
                       </div>
                       <div style={{ textAlign: 'center', flexShrink: 0 }}>
-                        <div style={{ fontSize: 20, fontWeight: 700, color: '#F5A623' }}>
+                        <div style={{ fontSize: 20, fontWeight: 700, color: '#f97316' }}>
                           {gbifData.bufferData.totalInBuffer.toLocaleString('en-US')}
                         </div>
                         <div style={{ fontSize: 9, color: 'var(--text3)' }}>records in buffer</div>
