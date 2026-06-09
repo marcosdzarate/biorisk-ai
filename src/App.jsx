@@ -5885,13 +5885,6 @@ function DataSourcesPage() {
             stats: '260K+ protected areas · Global coverage',
           },
           {
-            icon: '📚', name: 'GBIF Literature Index',
-            desc: 'Scientific papers that cite GBIF data, providing peer-reviewed evidence for biodiversity assessments.',
-            link: 'https://www.gbif.org/literature-search',
-            badge: 'CC BY 4.0', badgeColor: '#18A957',
-            stats: '10K+ papers indexed · Peer-reviewed',
-          },
-          {
             icon: '📋', name: 'IUCN Red List of Threatened Species',
             desc: 'The world\'s most comprehensive inventory of species conservation status. Integration pending approval.',
             link: 'https://www.iucnredlist.org',
@@ -5904,6 +5897,48 @@ function DataSourcesPage() {
             link: 'https://registry.opendata.aws/gbif/',
             badge: 'Free access', badgeColor: '#3B82F6',
             stats: 'Snapshot 2026-05-01 · sa-east-1 · ~180GB',
+          },
+          {
+            icon: '🌍', name: 'Google Dynamic World V1',
+            desc: 'Near real-time land cover classification at 10m resolution using Sentinel-2 imagery. Provides 9 land use classes updated continuously.',
+            link: 'https://dynamicworld.app',
+            badge: 'Free · GEE', badgeColor: '#3B82F6',
+            stats: '10m resolution · 9 classes · 2015–present',
+          },
+          {
+            icon: '🌲', name: 'Hansen Global Forest Change v1.11',
+            desc: 'Annual global forest cover loss and gain data from University of Maryland. Tracks deforestation from 2001 to 2023 at 30m resolution.',
+            link: 'https://glad.umd.edu/projects/global-forest-watch',
+            badge: 'Free · GEE', badgeColor: '#18A957',
+            stats: '30m resolution · 2001–2023 · Annual updates',
+          },
+          {
+            icon: '💧', name: 'JRC Global Surface Water',
+            desc: 'Monthly water presence/absence derived from Landsat imagery by the Joint Research Centre. Tracks permanent and seasonal water bodies.',
+            link: 'https://global-surface-water.appspot.com',
+            badge: 'Free · GEE', badgeColor: '#3B82F6',
+            stats: '30m resolution · 1984–2021 · Monthly',
+          },
+          {
+            icon: '🔥', name: 'MODIS MOD14A1 — Fire Detection',
+            desc: 'Daily global fire detection from NASA MODIS satellite. Used to assess wildfire risk in project areas over the last 5 years.',
+            link: 'https://modis.gsfc.nasa.gov',
+            badge: 'Free · GEE', badgeColor: '#F5A623',
+            stats: '1km resolution · Daily · 2000–present',
+          },
+          {
+            icon: '🦎', name: 'IUCN Habitat Classification v004',
+            desc: 'Global habitat classification map based on IUCN habitat categories. Identifies dominant ecosystem type within project boundaries.',
+            link: 'https://www.iucnredlist.org/resources/habitat-classification-scheme',
+            badge: 'Free · GEE', badgeColor: '#8B5CF6',
+            stats: '300m resolution · Level 2 classification',
+          },
+          {
+            icon: '🗺', name: 'Key Biodiversity Areas (KBA)',
+            desc: 'Sites contributing significantly to the global persistence of biodiversity. Data access requested — pending approval from KBA Partnership.',
+            link: 'https://www.keybiodiversityareas.org',
+            badge: 'Pending', badgeColor: '#F5A623',
+            stats: '16,500+ sites · Global · BirdLife International',
           },
         ].map((s, i) => (
           <div key={i} style={{
