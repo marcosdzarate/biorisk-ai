@@ -8,6 +8,7 @@ import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, qu
 import { jsPDF } from 'jspdf'
 import { supabase, getSupabaseWithAuth } from './supabase.js'
 import * as turf from '@turf/turf'
+import { WordRoll, Button, NodeGraphBackground } from 'performative-ui'
 
 const DEMO_KEY = import.meta.env.VITE_DEMO_KEY ?? ''
 const MODE = import.meta.env.VITE_MODE ?? 'demo'
@@ -1151,30 +1152,7 @@ function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle,
   )
 }
 
-// ─── Workflow bar ────────────────────────────────────────────────────────────
-function WorkflowBar() {
-  const steps = [
-    { n: 1, label: 'Define Area', state: 'done' },
-    { n: 2, label: 'Biodiversity Scan', state: 'done' },
-    { n: 3, label: 'Risk Assessment', state: 'active' },
-    { n: 4, label: 'Report', state: 'pending' },
-  ]
-  return (
-    <div className="workflow">
-      {steps.map((s, i) => (
-        <Fragment key={s.n}>
-          <div className={`step ${s.state}`}>
-            <div className="step-circle">
-              {s.state === 'done' ? '✓' : s.state === 'active' ? '' : s.n}
-            </div>
-            <div className="step-label">{s.label}</div>
-          </div>
-          {i < steps.length - 1 && <div className="step-divider" />}
-        </Fragment>
-      ))}
-    </div>
-  )
-}
+
 
 function GbifDensityLayer({ polygon }) {
   const map = useMap()
@@ -5859,26 +5837,29 @@ function WelcomePage({ onStart }) {
           </p>
         </div>
 
-        {/* Designed for */}
+        {/* Designed for - WordRoll */}
         <div style={{
           background: 'var(--card)', border: '1px solid var(--bd)',
           borderRadius: 10, padding: '14px 20px', marginBottom: 16,
         }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text3)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text3)', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             Designed for
           </div>
-          {[
-            'ESG analysts preparing TNFD / CSRD disclosures',
-            'Environmental consultants screening project sites',
-            'Multilateral Development Banks applying IFC PS6 / Equator Principles safeguards',
-            'Companies exporting to the EU under CSRD scope (Directive 2022/2464)',
-            'Researchers studying anthropogenic impacts on biodiversity',
-          ].map((item, i) => (
-            <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 4, fontSize: 12, color: 'var(--text2)' }}>
-              <span style={{ color: 'var(--green)', flexShrink: 0 }}>✓</span>
-              <span>{item}</span>
-            </div>
-          ))}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--text2)', minHeight: 28 }}>
+            <WordRoll
+              words={[
+                'ESG analysts preparing TNFD / CSRD disclosures',
+                'Environmental consultants screening project sites',
+                'Companies exporting to the EU under CSRD scope',
+                'Researchers studying anthropogenic impacts on biodiversity',
+              ]}
+              intervalMs={3000}
+              transitionMs={400}
+              direction="up"
+              gradient
+              style={{ fontWeight: 500 }}
+            />
+          </div>
         </div>
         {/* Not a replacement */}
         <div style={{
@@ -5892,20 +5873,10 @@ function WelcomePage({ onStart }) {
 
         {/* CTA */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <button
-            onClick={onStart}
-            style={{
-              background: '#18A957', color: 'white', border: 'none',
-              borderRadius: 10, padding: '14px 40px',
-              fontSize: 15, fontWeight: 600, cursor: 'pointer',
-              boxShadow: '0 4px 16px rgba(24,169,87,0.35)',
-              transition: 'all .15s', display: 'inline-block',
-            }}
-          >
+          <Button variant="shimmer" sparkle size="lg" onClick={onStart}>
             Start New Analysis →
-          </button>
+          </Button>
         </div>
-
         {/* Animated Steps */}
         {(() => {
           const steps = [
@@ -6041,11 +6012,14 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
           <div className="h-sub">Your biodiversity risk analyses</div>
         </div>
         <div className="h-right">
-          <button className="btn" onClick={onNewAnalysis}>
-            ➕ New Analysis
-          </button>
+          <Button variant="glow" sparkle size="sm" onClick={onNewAnalysis}>
+            New Analysis
+          </Button>
         </div>
       </div>
+
+
+
 
       <div style={{ padding: '0 24px' }}>
         {projects.length === 0 ? (
@@ -6824,46 +6798,7 @@ export default function App() {
     URL.revokeObjectURL(url)
   }
 
-  async function generateExecSummary() {
-    if (!gbifData?.riskScore) return
-    setShowExecSummary(true)
-    setExecSummaryLoading(true)
-    setExecSummaryText('')
 
-    const apiKey = import.meta.env.VITE_DEMO_KEY
-    if (!apiKey) {
-      setExecSummaryText('API key not configured.')
-      setExecSummaryLoading(false)
-      return
-    }
-
-    try {
-      const response = await fetch('/api/anthropic/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-        },
-        body: JSON.stringify({
-          model: needsDeepReasoning(userText) ? 'claude-sonnet-4-20250514' : 'claude-haiku-4-5-20251001',
-          max_tokens: 300,
-          system: buildCopilotSystem(gbifData, analysisProject),
-          messages: [{
-            role: 'user',
-            content: `Write a professional executive summary paragraph (max 120 words) for a TNFD/CSRD biodiversity disclosure report. Include: project name, location, sector, risk score and category, key taxa detected, NDVI status, protected area findings, and recommended next steps. Write in third person, formal tone. Start directly with the summary, no preamble.`
-          }]
-        }),
-      })
-      const data = await response.json()
-      const text = data.content?.find(b => b.type === 'text')?.text ?? ''
-      setExecSummaryText(text)
-    } catch (e) {
-      setExecSummaryText('Failed to generate summary. Please try again.')
-    } finally {
-      setExecSummaryLoading(false)
-    }
-  }
 
   function exportReport(data, project, name) {
     if (!data?.riskScore) {
@@ -7240,80 +7175,70 @@ export default function App() {
       )}
 
       {/* Login screen */}
-      {!isLoading && !isAuthenticated && (
+      {!isLoading && !isAuthenticated && (<div style={{
+        position: 'fixed', inset: 0, background: 'var(--bg)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        zIndex: 99999,
+      }}>
+        <NodeGraphBackground
+          style={{ position: 'absolute', inset: 0, zIndex: 0 }}
+          colors={['#7c3aed', '#ec4899', '#06b6d4']}
+          linkColor="rgba(124,58,237,0.3)"
+          baseOpacity={0.4}
+          density={60}
+        />
+
         <div style={{
-          position: 'fixed', inset: 0, background: 'var(--bg)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 99999,
+          position: 'relative', zIndex: 1,
+          background: 'rgba(14,14,19,0.85)',
+          backdropFilter: 'blur(20px)',
+          borderRadius: 22, padding: '48px 40px',
+          width: 400, maxWidth: '90vw', textAlign: 'center',
+          border: '1px solid rgba(255,255,255,0.08)',
+          boxShadow: '0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(124,58,237,0.15)',
         }}>
-          {/* Aurora background */}
+          {/* Logo mark */}
           <div style={{
-            position: 'absolute', inset: '-20%',
-            filter: 'blur(60px) saturate(140%)',
-            pointerEvents: 'none',
+            width: 48, height: 48, borderRadius: 14, margin: '0 auto 20px',
+            background: 'linear-gradient(120deg, #7c3aed, #ec4899, #06b6d4)',
+            backgroundSize: '200% 200%',
+            animation: 'pui-grad-shift 6s ease infinite',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
-            <div style={{ position: 'absolute', width: '60%', height: '60%', top: '10%', left: '5%', background: 'radial-gradient(circle, rgba(124,58,237,0.35) 0%, transparent 70%)', borderRadius: '50%' }} />
-            <div style={{ position: 'absolute', width: '50%', height: '50%', top: '5%', right: '5%', background: 'radial-gradient(circle, rgba(236,72,153,0.25) 0%, transparent 70%)', borderRadius: '50%' }} />
-            <div style={{ position: 'absolute', width: '40%', height: '40%', bottom: '10%', left: '30%', background: 'radial-gradient(circle, rgba(6,182,212,0.2) 0%, transparent 70%)', borderRadius: '50%' }} />
+            <svg width="24" height="24" viewBox="0 0 14 14" fill="none">
+              <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" fill="white" fillOpacity="0.9" />
+            </svg>
           </div>
 
-          <div style={{
-            position: 'relative',
-            background: 'rgba(14,14,19,0.85)',
-            backdropFilter: 'blur(20px)',
-            borderRadius: 22, padding: '48px 40px',
-            width: 400, maxWidth: '90vw', textAlign: 'center',
-            border: '1px solid rgba(255,255,255,0.08)',
-            boxShadow: '0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(124,58,237,0.15)',
-          }}>
-            {/* Logo mark */}
-            <div style={{
-              width: 48, height: 48, borderRadius: 14, margin: '0 auto 20px',
+          <h1 style={{
+            fontSize: 26, fontWeight: 700, color: 'var(--text)',
+            marginBottom: 8, letterSpacing: '-0.02em',
+          }}>BioRisk AI</h1>
+          <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 8, lineHeight: 1.6 }}>
+            Biodiversity risk intelligence for ESG & TNFD
+          </p>
+          <p style={{ fontSize: 11, color: 'var(--text3)', marginBottom: 32, lineHeight: 1.6 }}>
+            Powered by GBIF Data
+          </p>
+
+          <button
+            onClick={() => loginWithRedirect()}
+            style={{
+              width: '100%', padding: '14px',
               background: 'linear-gradient(120deg, #7c3aed, #ec4899, #06b6d4)',
               backgroundSize: '200% 200%',
               animation: 'pui-grad-shift 6s ease infinite',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <svg width="24" height="24" viewBox="0 0 14 14" fill="none">
-                <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" fill="white" fillOpacity="0.9" />
-              </svg>
-            </div>
-
-            <h1 style={{
-              fontSize: 26, fontWeight: 700, color: 'var(--text)',
-              marginBottom: 8, letterSpacing: '-0.02em',
-            }}>BioRisk AI</h1>
-            <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 8, lineHeight: 1.6 }}>
-              Biodiversity risk intelligence for ESG & TNFD
-            </p>
-            <p style={{ fontSize: 11, color: 'var(--text3)', marginBottom: 32, lineHeight: 1.6 }}>
-              Powered by GBIF · Sentinel-2 · WDPA
-            </p>
-
-            <button
-              onClick={() => loginWithRedirect()}
-              style={{
-                width: '100%', padding: '14px',
-                background: 'linear-gradient(120deg, #7c3aed, #ec4899, #06b6d4)',
-                backgroundSize: '200% 200%',
-                animation: 'pui-grad-shift 6s ease infinite',
-                color: 'white', border: 'none', borderRadius: 12,
-                fontSize: 15, fontWeight: 600, cursor: 'pointer',
-                boxShadow: '0 0 24px rgba(124,58,237,0.45)',
-                marginBottom: 12,
-                transition: 'box-shadow 0.2s',
-              }}
-            >
-              Sign in
-            </button>
-
-            <div style={{ fontSize: 10, color: 'var(--text3)', lineHeight: 1.6 }}>
-              For demo access contact:<br />
-              <strong style={{ color: 'var(--text2)' }}>demo@biorisk.ai</strong>
-            </div>
-          </div>
+              color: 'white', border: 'none', borderRadius: 12,
+              fontSize: 15, fontWeight: 600, cursor: 'pointer',
+              boxShadow: '0 0 24px rgba(124,58,237,0.45)',
+              marginBottom: 12,
+              transition: 'box-shadow 0.2s',
+            }}
+          >
+            Sign in
+          </button>
         </div>
-      )}
+      </div>)}
       {showStatsModal && (
         <GbifStatsModal onClose={() => setShowStatsModal(false)} />
       )}
@@ -7407,18 +7332,15 @@ export default function App() {
                 <div className="h-right">
                   <span className="badge">{gbifData?.analysisId ?? 'No analysis'}</span>
                   <span className="badge">May 13, 2026</span>
-                  <button className="btn" onClick={generateExecSummary}>
-                    Executive Summary
-                  </button>
-                  <button className="btn" onClick={() => exportReport(gbifData, analysisProject, projectName)}>
-                    Export Report
-                  </button>
-                  <button className="btn" onClick={() => exportJSON(gbifData, analysisProject, projectName)}>
+                  <Button variant="ghost" size="sm" onClick={() => exportReport(gbifData, analysisProject, projectName)}>
+                    Export PDF
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => exportJSON(gbifData, analysisProject, projectName)}>
                     Export JSON
-                  </button>
-                  <button className="btn" onClick={() => exportCSV(gbifData, analysisProject, projectName)}>
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => exportCSV(gbifData, analysisProject, projectName)}>
                     Export CSV
-                  </button>
+                  </Button>
                   <span
                     className="badge"
                     style={
@@ -7464,7 +7386,7 @@ export default function App() {
                 </div>
               )}
 
-              <WorkflowBar />
+             
 
               {/* Tab navigation */}
               <div style={{
@@ -7711,20 +7633,17 @@ export default function App() {
                   analysisProject={analysisProject}
                 />
               )}
-              <button
+              <Button
+                variant="solid"
+                size="sm"
                 onClick={() => setCopilotCollapsed(p => !p)}
                 style={{
                   position: 'fixed', bottom: 24, right: copilotCollapsed ? 16 : 316,
-                  zIndex: 1000,
-                  background: '#18A957', color: 'white',
-                  border: 'none', borderRadius: 20,
-                  padding: '8px 14px', fontSize: 12, fontWeight: 600,
-                  cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                  transition: 'right 0.2s ease',
+                  zIndex: 1000, transition: 'right 0.2s ease',
                 }}
               >
-                {copilotCollapsed ? '🤖 Copilot →' : '← Hide'}
-              </button>
+                {copilotCollapsed ? 'Copilot →' : '← Hide'}
+              </Button>
             </>
           </>
         )}
