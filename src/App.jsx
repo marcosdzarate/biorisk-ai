@@ -577,6 +577,10 @@ body::before {
   border-radius: var(--r-md); padding: 12px;
   font-size: 12px; line-height: 1.5; color: #60A5FA; margin-bottom: 14px;
 }
+.wiz-select option {
+  background: #0e0e13;
+  color: var(--text);
+}
 .wiz-status {
   font-size: 12px; padding: 10px 12px;
   border-radius: var(--r-md); margin-bottom: 12px; line-height: 1.4;
@@ -1042,17 +1046,17 @@ function Gauge({ value, max = 100 }) {
   const labelClass = value >= 70 ? 'gauge-label' : 'gauge-label'
 
   return (
-    <div className="gauge-wrap">
-      <svg viewBox="0 0 200 120" className="gauge-svg">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '4px 0' }}>
+      <svg viewBox="0 0 200 120" style={{ width: '100%', maxWidth: 140 }}>
         <path
           d={`M ${sx} ${sy} A ${r} ${r} 0 0 1 ${bgEx} ${bgEy}`}
-          fill="none" stroke="#E5E7EB" strokeWidth="14" strokeLinecap="round"
+          fill="none" stroke="var(--bd)" strokeWidth="14" strokeLinecap="round"
         />
         <path
           d={`M ${sx} ${sy} A ${r} ${r} 0 0 1 ${ex} ${ey}`}
           fill="none" stroke={color} strokeWidth="14" strokeLinecap="round"
         />
-        <text x="100" y="92" textAnchor="middle" fontSize="32" fontWeight="700" fill="#1F2937" letterSpacing="-1">
+        <text x="100" y="92" textAnchor="middle" fontSize="32" fontWeight="700" fill={color} letterSpacing="-1">
           {value}
         </text>
         <text x="100" y="112" textAnchor="middle" fontSize="11" fill="#9CA3AF" fontWeight="500">
@@ -1060,7 +1064,7 @@ function Gauge({ value, max = 100 }) {
         </text>
       </svg>
       <div className={labelClass} style={{
-        background: value >= 70 ? '#FDE8E5' : value >= 40 ? '#FEF3E0' : '#E6F7EC',
+        background: value >= 70 ? 'rgba(239,68,68,0.1)' : value >= 40 ? 'rgba(249,115,22,0.1)' : 'rgba(34,197,94,0.1)',
         color
       }}>
         {label}
@@ -4938,7 +4942,6 @@ function NewAnalysisPage({
   return (
     <div className="wiz-shell">
       <header className="wiz-header">
-        <button className="wiz-back" onClick={onBack} aria-label="Back">←</button>
         <div className="wiz-title">New Analysis</div>
         <div className="wiz-step-pill">Step {analysisStep} of 3</div>
       </header>
@@ -7545,18 +7548,13 @@ export default function App() {
 
               {/* MITIGATION TAB */}
               {dashboardTab === 'mitigation' && (
-                <>
-                  <div className="grid row-1">
-                    <RiskScoreCard riskScore={gbifData?.riskScore} />
-                    <HumanPressureCard data={gbifData} analysisProject={analysisProject} />
-                  </div>
-                  <div className="grid row-2">
-                    <DependenciesCard data={gbifData} analysisProject={analysisProject} />
-                    <ImpactsCard data={gbifData} analysisProject={analysisProject} />
-                  </div>
-                </>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18, marginBottom: 18 }}>
+                  <RiskScoreCard riskScore={gbifData?.riskScore} />
+                  <HumanPressureCard data={gbifData} analysisProject={analysisProject} />
+                  <DependenciesCard data={gbifData} analysisProject={analysisProject} />
+                  <ImpactsCard data={gbifData} analysisProject={analysisProject} />
+                </div>
               )}
-
               {/* Footer */}
               <div style={{
                 padding: '12px 24px',
