@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Auth0Provider } from '@auth0/auth0-react'
+import '../node_modules/performative-ui/dist/performative-ui.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
