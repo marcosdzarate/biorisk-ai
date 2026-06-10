@@ -8,7 +8,7 @@ import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, qu
 import { jsPDF } from 'jspdf'
 import { supabase, getSupabaseWithAuth } from './supabase.js'
 import * as turf from '@turf/turf'
-import { WordRoll, Button, NodeGraphBackground } from 'performative-ui'
+import { WordRoll, Button, NodeGraphBackground, GlassCard } from 'performative-ui'
 
 const DEMO_KEY = import.meta.env.VITE_DEMO_KEY ?? ''
 const MODE = import.meta.env.VITE_MODE ?? 'demo'
@@ -792,6 +792,15 @@ body::before {
 .taxa-sample-note {
   font-size: 11px; color: var(--text3);
   margin-top: 6px; text-align: center; font-style: italic;
+}
+  .pui-glass-card {
+  font-size: 13px !important;
+}
+.pui-glass-card h3 {
+  font-size: 13px !important;
+}
+.pui-glass-card p {
+  font-size: 12px !important;
 }
 `
 
@@ -5679,7 +5688,7 @@ function MonitoringPage() {
 
 function DataSourcesPage() {
   return (
-    <main className="main">
+    <main className="main" style={{ fontSize: '13px' }}>
       <div className="header">
         <div className="h-left">
           <h1>Data Sources</h1>
@@ -5692,103 +5701,89 @@ function DataSourcesPage() {
             icon: '🌐', name: 'GBIF — Global Biodiversity Information Facility',
             desc: 'The world\'s largest open-access biodiversity database with over 2 billion occurrence records from 70,000+ datasets worldwide.',
             link: 'https://www.gbif.org',
-            badge: 'CC BY 4.0', badgeColor: '#18A957',
+            badge: 'CC BY 4.0',
             stats: '2B+ records · 70K+ datasets · Free API',
           },
           {
-            icon: '🛰', name: 'Sentinel-2 L2A — Copernicus Programme',
+            icon: '🛰', name: 'Sentinel-2 L2A — Copernicus',
             desc: 'ESA satellite imagery at 10m resolution updated every 5 days. Used for NDVI vegetation health and land cover analysis.',
             link: 'https://dataspace.copernicus.eu',
-            badge: 'Free tier', badgeColor: '#3B82F6',
+            badge: 'Free tier',
             stats: '10m resolution · 5-day revisit · 2017–present',
           },
           {
             icon: '🛡', name: 'WDPA — World Database of Protected Areas',
             desc: 'The most comprehensive global database of marine and terrestrial protected areas, managed by UNEP-WCMC and IUCN.',
             link: 'https://www.protectedplanet.net',
-            badge: 'Free API', badgeColor: '#18A957',
+            badge: 'Free API',
             stats: '260K+ protected areas · Global coverage',
           },
           {
             icon: '📋', name: 'IUCN Red List of Threatened Species',
             desc: 'The world\'s most comprehensive inventory of species conservation status. Integration pending approval.',
             link: 'https://www.iucnredlist.org',
-            badge: 'Pending', badgeColor: '#F5A623',
+            badge: 'Pending',
             stats: '150K+ species assessed · Updated annually',
           },
           {
             icon: '☁️', name: 'AWS Open Data — GBIF S3 Snapshot',
-            desc: 'Complete GBIF occurrence dataset in Parquet format hosted on AWS S3 in São Paulo. Powers Full Analysis Mode.',
+            desc: 'Complete GBIF occurrence dataset in Parquet format hosted on AWS S3. Powers Full Analysis Mode via Athena.',
             link: 'https://registry.opendata.aws/gbif/',
-            badge: 'Free access', badgeColor: '#3B82F6',
-            stats: 'Snapshot 2026-05-01 · sa-east-1 · ~180GB',
+            badge: 'Free access',
+            stats: 'Snapshot 2026-05-01 · ~180GB',
           },
           {
             icon: '🌍', name: 'Google Dynamic World V1',
-            desc: 'Near real-time land cover classification at 10m resolution using Sentinel-2 imagery. Provides 9 land use classes updated continuously.',
+            desc: 'Near real-time land cover classification at 10m resolution using Sentinel-2 imagery. 9 land use classes updated continuously.',
             link: 'https://dynamicworld.app',
-            badge: 'Free · GEE', badgeColor: '#3B82F6',
+            badge: 'Free · GEE',
             stats: '10m resolution · 9 classes · 2015–present',
           },
           {
             icon: '🌲', name: 'Hansen Global Forest Change v1.11',
-            desc: 'Annual global forest cover loss and gain data from University of Maryland. Tracks deforestation from 2001 to 2023 at 30m resolution.',
+            desc: 'Annual global forest cover loss and gain from University of Maryland. Tracks deforestation from 2001 to 2023.',
             link: 'https://glad.umd.edu/projects/global-forest-watch',
-            badge: 'Free · GEE', badgeColor: '#18A957',
+            badge: 'Free · GEE',
             stats: '30m resolution · 2001–2023 · Annual updates',
           },
           {
             icon: '💧', name: 'JRC Global Surface Water',
-            desc: 'Monthly water presence/absence derived from Landsat imagery by the Joint Research Centre. Tracks permanent and seasonal water bodies.',
+            desc: 'Monthly water presence derived from Landsat imagery by the Joint Research Centre. Tracks permanent and seasonal water bodies.',
             link: 'https://global-surface-water.appspot.com',
-            badge: 'Free · GEE', badgeColor: '#3B82F6',
+            badge: 'Free · GEE',
             stats: '30m resolution · 1984–2021 · Monthly',
           },
           {
             icon: '🔥', name: 'MODIS MOD14A1 — Fire Detection',
-            desc: 'Daily global fire detection from NASA MODIS satellite. Used to assess wildfire risk in project areas over the last 5 years.',
+            desc: 'Daily global fire detection from NASA MODIS satellite. Assesses wildfire risk over the last 5 years.',
             link: 'https://modis.gsfc.nasa.gov',
-            badge: 'Free · GEE', badgeColor: '#F5A623',
+            badge: 'Free · GEE',
             stats: '1km resolution · Daily · 2000–present',
           },
           {
             icon: '🦎', name: 'IUCN Habitat Classification v004',
-            desc: 'Global habitat classification map based on IUCN habitat categories. Identifies dominant ecosystem type within project boundaries.',
+            desc: 'Global habitat classification map based on IUCN categories. Identifies dominant ecosystem type within project boundaries.',
             link: 'https://www.iucnredlist.org/resources/habitat-classification-scheme',
-            badge: 'Free · GEE', badgeColor: '#8B5CF6',
+            badge: 'Free · GEE',
             stats: '300m resolution · Level 2 classification',
           },
           {
             icon: '🗺', name: 'Key Biodiversity Areas (KBA)',
-            desc: 'Sites contributing significantly to the global persistence of biodiversity. Data access requested — pending approval from KBA Partnership.',
+            desc: 'Sites contributing significantly to the global persistence of biodiversity. Data access pending approval from KBA Partnership.',
             link: 'https://www.keybiodiversityareas.org',
-            badge: 'Pending', badgeColor: '#F5A623',
+            badge: 'Pending',
             stats: '16,500+ sites · Global · BirdLife International',
           },
         ].map((s, i) => (
-          <div key={i} style={{
-            background: 'var(--card)', border: '1px solid var(--bd)',
-            borderRadius: 12, padding: '20px',
-            boxShadow: 'var(--sh1)',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 10 }}>
-              <span style={{ fontSize: 28 }}>{s.icon}</span>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text)', marginBottom: 4 }}>{s.name}</div>
-                <span style={{
-                  fontSize: 9, fontWeight: 700, padding: '2px 7px',
-                  borderRadius: 999, background: s.badgeColor + '18',
-                  color: s.badgeColor, border: `1px solid ${s.badgeColor}40`,
-                }}>{s.badge}</span>
-              </div>
-            </div>
-            <p style={{ fontSize: 11, color: 'var(--text2)', lineHeight: 1.6, marginBottom: 8 }}>{s.desc}</p>
-            <div style={{ fontSize: 10, color: 'var(--text3)', marginBottom: 8 }}>{s.stats}</div>
-            <a href={s.link} target="_blank" rel="noreferrer"
-              style={{ fontSize: 11, color: '#18A957', textDecoration: 'none', fontWeight: 600 }}>
-              Visit source →
-            </a>
-          </div>
+          <GlassCard key={i} breathing glowOnHover style={{ fontSize: '0.78em' }}>
+            <GlassCard.Icon>{s.icon}</GlassCard.Icon>
+            <GlassCard.Title>{s.name}</GlassCard.Title>
+            <GlassCard.Body>
+              {s.desc}
+              <span style={{ fontSize: 11, color: 'var(--text3)', marginTop: 6, display: 'block' }}>{s.stats}</span>
+            </GlassCard.Body>
+            <GlassCard.Link href={s.link} target="_blank" rel="noreferrer">{s.badge}</GlassCard.Link>
+          </GlassCard>
         ))}
       </div>
       <div style={{ padding: '16px 24px', fontSize: 10, color: 'var(--text3)' }}>
@@ -7386,7 +7381,7 @@ export default function App() {
                 </div>
               )}
 
-             
+
 
               {/* Tab navigation */}
               <div style={{
