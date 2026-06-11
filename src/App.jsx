@@ -4890,54 +4890,52 @@ function NewAnalysisPage({
   analysisProject, setAnalysisProject,
   scanResults, scanProgress, scanStepLabel,
   onBack, onRunScan, onViewDashboard, onResetWizard, loadCountryTaxa,
-  loadingTaxa, scanLogs, scanError,
+  loadingTaxa, scanLogs, scanError, t, lang
 }) {
-
-
   const center = COUNTRY_CENTERS[analysisProject.country] || [-15, -60]
   const canRun = analysisProject.name.trim() && drawnPolygon
   const [csrdOpen, setCsrdOpen] = useState(false)
   const csrdSectors = ['Agriculture & Forestry', 'Mining & Extractives', 'Oil & Gas', 'Hydroelectric']
   const euExportCountries = ['BR', 'AR', 'CO', 'PE', 'EC', 'BO', 'PY', 'GT', 'HN', 'NI']
 
-
   let polyStatus
   if (drawnPolygon) {
-    polyStatus = { cls: 'closed', text: `✓ Polygon closed — ${drawnPolygon.length} points` }
+    polyStatus = { cls: 'closed', text: lang === 'es' ? `✓ Polígono cerrado — ${drawnPolygon.length} puntos` : `✓ Polygon closed — ${drawnPolygon.length} points` }
   } else if (drawnPoints.length === 0) {
-    polyStatus = { cls: 'empty', text: 'No area defined yet' }
+    polyStatus = { cls: 'empty', text: lang === 'es' ? 'Área no definida aún' : 'No area defined yet' }
   } else if (drawnPoints.length < 3) {
-    polyStatus = { cls: 'drawing', text: `Drawing… (${drawnPoints.length} point${drawnPoints.length === 1 ? '' : 's'} placed)` }
+    polyStatus = { cls: 'drawing', text: lang === 'es' ? `Dibujando… (${drawnPoints.length} punto${drawnPoints.length === 1 ? '' : 's'} colocado${drawnPoints.length === 1 ? '' : 's'})` : `Drawing… (${drawnPoints.length} point${drawnPoints.length === 1 ? '' : 's'} placed)` }
   } else {
-    polyStatus = { cls: 'drawing', text: `Drawing… (${drawnPoints.length} points) — click the first point to close` }
+    polyStatus = { cls: 'drawing', text: lang === 'es' ? `Dibujando… (${drawnPoints.length} puntos) — hacé clic en el primer punto para cerrar` : `Drawing… (${drawnPoints.length} points) — click the first point to close` }
   }
-
 
   return (
     <div className="wiz-shell">
       <header className="wiz-header">
-        <div className="wiz-title">New Analysis</div>
-        <div className="wiz-step-pill">Step {analysisStep} of 3</div>
+        <div className="wiz-title">{t('new.title')}</div>
+        <div className="wiz-step-pill">{lang === 'es' ? `Paso ${analysisStep} de 3` : `Step ${analysisStep} of 3`}</div>
       </header>
 
       <div className="wiz-body">
         {analysisStep === 1 && (
           <>
             <aside className="wiz-panel">
-              <h2>Define Project Area</h2>
+              <h2>{t('new.define_area')}</h2>
               <div className="wiz-sub">
-                Set the project details and draw the analysis boundary on the map.
+                {lang === 'es'
+                  ? 'Configurá los detalles del proyecto y dibujá el área de análisis en el mapa.'
+                  : 'Set the project details and draw the analysis boundary on the map.'}
               </div>
 
-              <label className="wiz-label">Project name *</label>
+              <label className="wiz-label">{t('new.project_name')}</label>
               <input
                 className="wiz-input"
-                placeholder="e.g. Offshore Wind Farm – Patagonia"
+                placeholder={lang === 'es' ? 'ej. Parque Eólico Offshore – Patagonia' : 'e.g. Offshore Wind Farm – Patagonia'}
                 value={analysisProject.name}
                 onChange={e => setAnalysisProject(p => ({ ...p, name: e.target.value }))}
               />
 
-              <label className="wiz-label">Country</label>
+              <label className="wiz-label">{t('new.country')}</label>
               <select
                 className="wiz-select"
                 onChange={e => {
@@ -4950,7 +4948,7 @@ function NewAnalysisPage({
                 ))}
               </select>
 
-              <label className="wiz-label">Sector</label>
+              <label className="wiz-label">{t('new.sector')}</label>
               <select
                 className="wiz-select"
                 value={analysisProject.sector}
@@ -4975,48 +4973,54 @@ function NewAnalysisPage({
                       textAlign: 'left',
                     }}
                   >
-                    CSRD Scope Alert
+                    {lang === 'es' ? 'Alerta CSRD' : 'CSRD Scope Alert'}
                     <span style={{ fontSize: 13, fontWeight: 300 }}>{csrdOpen ? '−' : '+'}</span>
                   </button>
                   {csrdOpen && (
                     <div style={{ padding: '0 12px 10px', fontSize: 11, color: '#60A5FA', lineHeight: 1.6 }}>
                       {csrdSectors.includes(analysisProject.sector) && (
                         <div style={{ marginBottom: 3 }}>
-                          <strong>{analysisProject.sector}</strong> is a high-impact sector
-                          under CSRD ESRS E4 biodiversity disclosure requirements.
+                          <strong>{analysisProject.sector}</strong>
+                          {lang === 'es'
+                            ? ' es un sector de alto impacto bajo los requisitos de divulgación CSRD ESRS E4.'
+                            : ' is a high-impact sector under CSRD ESRS E4 biodiversity disclosure requirements.'}
                         </div>
                       )}
                       {euExportCountries.includes(analysisProject.country) && (
                         <div>
-                          Companies in <strong>{COUNTRY_NAMES[analysisProject.country]}</strong> exporting
-                          to the EU with &gt;€150M EU revenue may be subject to
-                          CSRD (Directive 2022/2464) reporting obligations.
+                          {lang === 'es'
+                            ? <>Empresas en <strong>{COUNTRY_NAMES[analysisProject.country]}</strong> que exportan a la UE con &gt;€150M de ingresos pueden estar sujetas a obligaciones CSRD (Directiva 2022/2464).</>
+                            : <>Companies in <strong>{COUNTRY_NAMES[analysisProject.country]}</strong> exporting to the EU with &gt;€150M EU revenue may be subject to CSRD (Directive 2022/2464) reporting obligations.</>
+                          }
                         </div>
                       )}
                       <div style={{ marginTop: 6, fontSize: 10, color: '#93C5FD' }}>
-                        BioRisk AI provides the biodiversity baseline data required for ESRS E4 disclosure.
+                        {lang === 'es'
+                          ? 'BioRisk AI provee los datos de línea base de biodiversidad requeridos para la divulgación ESRS E4.'
+                          : 'BioRisk AI provides the biodiversity baseline data required for ESRS E4 disclosure.'}
                       </div>
                     </div>
                   )}
                 </div>
               )}
+
               {/* Project Phase */}
-              <label className="wiz-label" style={{ marginTop: 14 }}>Project Phase</label>
+              <label className="wiz-label" style={{ marginTop: 14 }}>{t('new.phase')}</label>
               <select
                 className="wiz-select"
                 value={analysisProject.phase ?? ''}
                 onChange={e => setAnalysisProject(p => ({ ...p, phase: e.target.value }))}
               >
-                <option value="">Select phase...</option>
-                <option value="Site Selection / Screening">Site Selection / Screening</option>
-                <option value="Pre-Feasibility">Pre-Feasibility</option>
-                <option value="Feasibility / ESIA">Feasibility / ESIA</option>
-                <option value="Due Diligence / Financing">Due Diligence / Financing</option>
-                <option value="Permitting">Permitting</option>
+                <option value="">{lang === 'es' ? 'Seleccionar fase...' : 'Select phase...'}</option>
+                <option value="Site Selection / Screening">{lang === 'es' ? 'Selección de Sitio' : 'Site Selection / Screening'}</option>
+                <option value="Pre-Feasibility">{lang === 'es' ? 'Pre-Factibilidad' : 'Pre-Feasibility'}</option>
+                <option value="Feasibility / ESIA">{lang === 'es' ? 'Factibilidad / ESIA' : 'Feasibility / ESIA'}</option>
+                <option value="Due Diligence / Financing">{lang === 'es' ? 'Due Diligence / Financiamiento' : 'Due Diligence / Financing'}</option>
+                <option value="Permitting">{lang === 'es' ? 'Permisos' : 'Permitting'}</option>
               </select>
 
               {/* Reporting Framework */}
-              <label className="wiz-label" style={{ marginTop: 14 }}>Reporting Framework</label>
+              <label className="wiz-label" style={{ marginTop: 14 }}>{t('new.framework')}</label>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 4 }}>
                 {['TNFD LEAP', 'IFC PS6 / Equator Principles', 'CSRD ESRS E4', 'GBF Target 15'].map(fw => (
                   <label key={fw} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--text2)', cursor: 'pointer' }}>
@@ -5040,7 +5044,7 @@ function NewAnalysisPage({
               </div>
 
               {/* Investment */}
-              <label className="wiz-label" style={{ marginTop: 14 }}>Estimated Investment (USD)</label>
+              <label className="wiz-label" style={{ marginTop: 14 }}>{t('new.investment')}</label>
               <div style={{ position: 'relative' }}>
                 <span style={{
                   position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)',
@@ -5067,8 +5071,9 @@ function NewAnalysisPage({
               <div className="wiz-divider" />
 
               <div className="wiz-info">
-                📍 Click on the map to place polygon points.
-                Click the starting point (shown in orange) to close the polygon.
+                {lang === 'es'
+                  ? '📍 Hacé clic en el mapa para colocar puntos. Hacé clic en el primer punto para cerrar el polígono.'
+                  : '📍 Click on the map to place polygon points. Click the starting point to close the polygon.'}
               </div>
 
               <div className={`wiz-status ${polyStatus.cls}`}>{polyStatus.text}</div>
@@ -5078,7 +5083,7 @@ function NewAnalysisPage({
                   className="wiz-clear"
                   onClick={() => { setDrawnPoints([]); setDrawnPolygon(null) }}
                 >
-                  Clear
+                  {lang === 'es' ? 'Limpiar' : 'Clear'}
                 </button>
               )}
 
@@ -5088,26 +5093,25 @@ function NewAnalysisPage({
                 onClick={() => {
                   const polygon = drawnPolygon
                   if (!polygon || polygon.length < 3) return
-
                   const lats = polygon.map(p => p[0])
                   const lngs = polygon.map(p => p[1])
                   const centroidLat = (Math.min(...lats) + Math.max(...lats)) / 2
                   const centroidLng = (Math.min(...lngs) + Math.max(...lngs)) / 2
-
                   const countryCenter = COUNTRY_CENTERS[analysisProject.country]
                   if (countryCenter) {
                     const latDiff = Math.abs(centroidLat - countryCenter[0])
                     const lngDiff = Math.abs(centroidLng - countryCenter[1])
                     if (latDiff > 15 || lngDiff > 20) {
-                      alert(`Your polygon appears to be outside ${COUNTRY_NAMES[analysisProject.country] ?? analysisProject.country}. Please redraw your polygon or select the correct country.`)
+                      alert(lang === 'es'
+                        ? `Tu polígono parece estar fuera de ${COUNTRY_NAMES[analysisProject.country] ?? analysisProject.country}. Por favor redibujá el polígono o seleccioná el país correcto.`
+                        : `Your polygon appears to be outside ${COUNTRY_NAMES[analysisProject.country] ?? analysisProject.country}. Please redraw your polygon or select the correct country.`)
                       return
                     }
                   }
-
                   onRunScan()
                 }}
               >
-                Run Biodiversity Scan →
+                {t('btn.run_scan')}
               </button>
             </aside>
 
@@ -5138,8 +5142,9 @@ function NewAnalysisPage({
         {analysisStep === 2 && (
           <div className="wiz-center">
             <div className="scan-card">
-              <div className="scan-title">Running Biodiversity Scan</div>
-
+              <div className="scan-title">
+                {lang === 'es' ? 'Ejecutando Análisis de Biodiversidad' : 'Running Biodiversity Scan'}
+              </div>
               {scanError && (
                 <div style={{
                   background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
@@ -5156,48 +5161,38 @@ function NewAnalysisPage({
                         fontSize: 11, cursor: 'pointer', color: 'var(--text)',
                       }}
                     >
-                      Go back and fix
+                      {lang === 'es' ? 'Volver y corregir' : 'Go back and fix'}
                     </button>
                   </div>
                 </div>
               )}
               <div className="scan-sub">{analysisProject.name}</div>
 
-              {/* Real-time log */}
               <div style={{
-                margin: '16px 0',
-                background: '#0a0a0a',
-                border: '1px solid var(--bd)',
-                borderRadius: 8,
-                padding: '12px 14px',
-                maxHeight: 220,
-                overflowY: 'auto',
-                fontFamily: 'monospace',
-                fontSize: 11,
-                textAlign: 'left',
+                margin: '16px 0', background: '#0a0a0a',
+                border: '1px solid var(--bd)', borderRadius: 8,
+                padding: '12px 14px', maxHeight: 220, overflowY: 'auto',
+                fontFamily: 'monospace', fontSize: 11, textAlign: 'left',
               }}>
                 {scanLogs.length === 0 ? (
-                  <div style={{ color: 'var(--text3)' }}>Initializing...</div>
+                  <div style={{ color: 'var(--text3)' }}>
+                    {lang === 'es' ? 'Inicializando...' : 'Initializing...'}
+                  </div>
                 ) : (
                   scanLogs.map((log, i) => (
                     <div key={i} style={{
                       color: log.status === 'done' ? '#22c55e' : '#a1a1a1',
-                      marginBottom: 4,
-                      display: 'flex', gap: 8, alignItems: 'flex-start',
+                      marginBottom: 4, display: 'flex', gap: 8, alignItems: 'flex-start',
                     }}>
                       <span style={{ flexShrink: 0 }}>
                         {log.status === 'done' ? (
                           <span style={{ color: '#22c55e' }}>✓</span>
                         ) : (
                           <span style={{
-                            display: 'inline-block',
-                            width: 10, height: 10,
-                            border: '2px solid var(--bd)',
-                            borderTopColor: '#22c55e',
-                            borderRadius: '50%',
-                            animation: 'spin 0.8s linear infinite',
-                            flexShrink: 0,
-                            marginTop: 1,
+                            display: 'inline-block', width: 10, height: 10,
+                            border: '2px solid var(--bd)', borderTopColor: '#22c55e',
+                            borderRadius: '50%', animation: 'spin 0.8s linear infinite',
+                            flexShrink: 0, marginTop: 1,
                           }} />
                         )}
                       </span>
@@ -5207,20 +5202,15 @@ function NewAnalysisPage({
                 )}
               </div>
 
-              {/* Note about timing */}
-              <div style={{
-                fontSize: 10, color: 'var(--text3)', marginBottom: 12,
-                lineHeight: 1.5, textAlign: 'center',
-              }}>
-                Analysis time depends on polygon size and data availability.<br />
-                Large areas may take 2–4 minutes.
+              <div style={{ fontSize: 10, color: 'var(--text3)', marginBottom: 12, lineHeight: 1.5, textAlign: 'center' }}>
+                {lang === 'es'
+                  ? <>El tiempo de análisis depende del tamaño del polígono y la disponibilidad de datos.<br />Áreas grandes pueden tardar 2–4 minutos.</>
+                  : <>Analysis time depends on polygon size and data availability.<br />Large areas may take 2–4 minutes.</>
+                }
               </div>
 
               <div className="scan-progress-bar">
-                <div
-                  className="scan-progress-fill"
-                  style={{ width: `${(Math.min(scanProgress, 5) / 5) * 100}%` }}
-                />
+                <div className="scan-progress-fill" style={{ width: `${(Math.min(scanProgress, 5) / 5) * 100}%` }} />
               </div>
             </div>
           </div>
@@ -5230,7 +5220,7 @@ function NewAnalysisPage({
           <div className="wiz-center">
             <div className="results-card">
               <div className="results-check">✓</div>
-              <div className="results-title">Analysis Complete</div>
+              <div className="results-title">{lang === 'es' ? 'Análisis Completo' : 'Analysis Complete'}</div>
               <div className="results-sub">{analysisProject.name}</div>
 
               {(() => {
@@ -5242,57 +5232,53 @@ function NewAnalysisPage({
                 const papers = scanResults?.papers?.total ?? 0
                 return (
                   <>
-                    <div className="taxa-section-title">Biodiversity Records in Project Area</div>
+                    <div className="taxa-section-title">
+                      {lang === 'es' ? 'Registros de Biodiversidad en el Área del Proyecto' : 'Biodiversity Records in Project Area'}
+                    </div>
                     <div className="taxa-table">
                       {taxaInPolygon.filter(t => t.inPolygon > 0).map(t => (
                         <div key={t.name} className="taxa-row">
                           <span style={{ fontSize: 9, fontWeight: 700, color: 'var(--text2)', fontFamily: 'monospace', background: 'var(--bd)', padding: '1px 4px', borderRadius: 3 }}>{t.abbr}</span>
                           <span className="taxa-name">{t.name}</span>
-                          <span
-                            className="taxa-count"
-                            style={{ color: t.inPolygon > 0 ? TAXON_COLORS[t.name] : 'var(--text3)' }}
-                          >
+                          <span className="taxa-count" style={{ color: t.inPolygon > 0 ? TAXON_COLORS[t.name] : 'var(--text3)' }}>
                             {fmt(t.inPolygon)}
                           </span>
-                          <span className="taxa-unit">records in polygon</span>
+                          <span className="taxa-unit">{lang === 'es' ? 'registros en polígono' : 'records in polygon'}</span>
                         </div>
                       ))}
                       <div className="taxa-row taxa-row-total">
                         <span className="taxa-name">Total</span>
                         <span className="taxa-count">{fmt(totalInPolygon)}</span>
-                        <span className="taxa-unit">georeferenced occurrences</span>
+                        <span className="taxa-unit">{lang === 'es' ? 'ocurrencias georreferenciadas' : 'georeferenced occurrences'}</span>
                       </div>
                     </div>
-
 
                     <div className="results-grid" style={{ marginTop: 16 }}>
                       <div className="results-stat">
                         <div className="results-stat-val">
                           <span className="results-stat-icon">📍</span>
-                          {drawnPolygon ? `${drawnPolygon.length} points` : '—'}
+                          {drawnPolygon ? `${drawnPolygon.length} ${lang === 'es' ? 'puntos' : 'points'}` : '—'}
                         </div>
-                        <div className="results-stat-label">area boundary</div>
+                        <div className="results-stat-label">{lang === 'es' ? 'límite del área' : 'area boundary'}</div>
                       </div>
                       <div className="results-stat">
                         <div className="results-stat-val">
                           <span className="results-stat-icon">📅</span>
-                          {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                          {new Date().toLocaleDateString(lang === 'es' ? 'es-AR' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                         </div>
-                        <div className="results-stat-label">analysis date</div>
+                        <div className="results-stat-label">{lang === 'es' ? 'fecha del análisis' : 'analysis date'}</div>
                       </div>
                     </div>
-
-
                   </>
                 )
               })()}
 
               <div className="results-actions">
                 <button className="results-btn primary" onClick={onViewDashboard}>
-                  View Dashboard →
+                  {lang === 'es' ? 'Ver Dashboard →' : 'View Dashboard →'}
                 </button>
                 <button className="results-btn ghost" onClick={onResetWizard}>
-                  New Analysis
+                  {t('btn.new_analysis')}
                 </button>
               </div>
             </div>
@@ -5786,12 +5772,12 @@ function WelcomePage({ onStart, t, lang }) {
           <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.7 }}>
             {lang === 'es' ? (
               <>América Latina alberga el 40% de las especies conocidas del mundo —<br />
-              pero la biodiversidad rara vez se considera en las decisiones de inversión.<br />
-              <strong style={{ color: 'var(--text)' }}>BioRisk AI cambia eso.</strong></>
+                pero la biodiversidad rara vez se considera en las decisiones de inversión.<br />
+                <strong style={{ color: 'var(--text)' }}>BioRisk AI cambia eso.</strong></>
             ) : (
               <>Latin America hosts 40% of the world's known species —<br />
-              yet biodiversity is rarely factored into investment decisions.<br />
-              <strong style={{ color: 'var(--text)' }}>BioRisk AI changes that.</strong></>
+                yet biodiversity is rarely factored into investment decisions.<br />
+                <strong style={{ color: 'var(--text)' }}>BioRisk AI changes that.</strong></>
             )}
           </p>
         </div>
@@ -7392,6 +7378,8 @@ export default function App() {
             onRunScan={runScan}
             onViewDashboard={viewDashboardFromScan}
             onResetWizard={resetWizard}
+            t={t}
+            lang={lang}
           />
         ) : isWelcome ? (
           <WelcomePage
