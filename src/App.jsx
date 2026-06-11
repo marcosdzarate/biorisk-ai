@@ -5770,24 +5770,29 @@ function DataSourcesPage() {
   )
 }
 
-function WelcomePage({ onStart }) {
+function WelcomePage({ onStart, t, lang }) {
   return (
     <main className="main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ maxWidth: 560, padding: '0 24px', width: '100%' }}>
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-
           <h1 style={{
             fontSize: 26, fontWeight: 700, color: 'var(--text)',
             letterSpacing: '-0.02em', marginBottom: 8,
           }}>
-            Welcome to BioRisk AI
+            {t('welcome.title')}
           </h1>
           <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.7 }}>
-            Latin America hosts 40% of the world's known species —<br />
-            yet biodiversity is rarely factored into investment decisions.<br />
-            <strong style={{ color: 'var(--text)' }}>BioRisk AI changes that.</strong>
+            {lang === 'es' ? (
+              <>América Latina alberga el 40% de las especies conocidas del mundo —<br />
+              pero la biodiversidad rara vez se considera en las decisiones de inversión.<br />
+              <strong style={{ color: 'var(--text)' }}>BioRisk AI cambia eso.</strong></>
+            ) : (
+              <>Latin America hosts 40% of the world's known species —<br />
+              yet biodiversity is rarely factored into investment decisions.<br />
+              <strong style={{ color: 'var(--text)' }}>BioRisk AI changes that.</strong></>
+            )}
           </p>
         </div>
 
@@ -5797,15 +5802,20 @@ function WelcomePage({ onStart }) {
           borderRadius: 10, padding: '16px 20px', marginBottom: 16,
         }}>
           <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.75, marginBottom: 8 }}>
-            BioRisk AI turns open GBIF occurrence data into actionable biodiversity
-            intelligence — in minutes, not months. Draw your project area, run a scan,
-            and get a screening-grade risk profile backed by real species records,
-            satellite vegetation data, and protected area analysis.
+            {lang === 'es'
+              ? 'BioRisk AI convierte los datos de ocurrencia abiertos de GBIF en inteligencia de biodiversidad accionable — en minutos, no meses. Dibujá el área de tu proyecto, ejecutá un análisis y obtené un perfil de riesgo respaldado por registros reales de especies, datos satelitales de vegetación y análisis de áreas protegidas.'
+              : 'BioRisk AI turns open GBIF occurrence data into actionable biodiversity intelligence — in minutes, not months. Draw your project area, run a scan, and get a screening-grade risk profile backed by real species records, satellite vegetation data, and protected area analysis.'
+            }
           </p>
           <p style={{ fontSize: 11, color: 'var(--text3)', lineHeight: 1.6 }}>
-            Supports <strong style={{ color: 'var(--text)' }}>TNFD LEAP</strong> and{' '}
-            <strong style={{ color: 'var(--text)' }}>CSRD ESRS E4</strong> — one analysis, two frameworks.
-            500+ companies · 129 financial institutions · $17.7T AUM globally.
+            {lang === 'es' ? 'Compatible con ' : 'Supports '}
+            <strong style={{ color: 'var(--text)' }}>TNFD LEAP</strong>
+            {lang === 'es' ? ' y ' : ' and '}
+            <strong style={{ color: 'var(--text)' }}>CSRD ESRS E4</strong>
+            {lang === 'es'
+              ? ' — un análisis, dos marcos. 500+ empresas · 129 instituciones financieras · $17.7T AUM global.'
+              : ' — one analysis, two frameworks. 500+ companies · 129 financial institutions · $17.7T AUM globally.'
+            }
           </p>
         </div>
 
@@ -5815,11 +5825,16 @@ function WelcomePage({ onStart }) {
           borderRadius: 10, padding: '14px 20px', marginBottom: 16,
         }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text3)', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-            Designed for
+            {t('welcome.designed_for')}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--text2)', minHeight: 28 }}>
             <WordRoll
-              words={[
+              words={lang === 'es' ? [
+                'Analistas ESG preparando divulgaciones TNFD / CSRD',
+                'Consultores ambientales evaluando sitios de proyectos',
+                'Empresas exportando a la UE bajo el alcance CSRD',
+                'Investigadores estudiando impactos antrópicos en biodiversidad',
+              ] : [
                 'ESG analysts preparing TNFD / CSRD disclosures',
                 'Environmental consultants screening project sites',
                 'Companies exporting to the EU under CSRD scope',
@@ -5833,29 +5848,36 @@ function WelcomePage({ onStart }) {
             />
           </div>
         </div>
+
         {/* Not a replacement */}
         <div style={{
           background: 'var(--card)', border: '1px solid var(--bd)',
           borderRadius: 10, padding: '10px 16px', marginBottom: 28,
           fontSize: 11, color: 'var(--text3)',
         }}>
-          ⚠ <strong style={{ color: 'var(--text2)' }}>Not a replacement for:</strong> formal field surveys or ESIA assessments.
-          Screening-grade results only.
+          ⚠ <strong style={{ color: 'var(--text2)' }}>
+            {lang === 'es' ? 'No reemplaza:' : 'Not a replacement for:'}
+          </strong>
+          {lang === 'es'
+            ? ' relevamientos de campo formales ni evaluaciones ESIA. Solo resultados de nivel de screening.'
+            : ' formal field surveys or ESIA assessments. Screening-grade results only.'
+          }
         </div>
 
         {/* CTA */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <Button variant="shimmer" sparkle size="lg" onClick={onStart}>
-            Start New Analysis →
+            {t('btn.start_analysis')}
           </Button>
         </div>
+
         {/* Animated Steps */}
         {(() => {
           const steps = [
             {
               num: '01',
-              title: 'Draw polygon',
-              desc: 'Define your project area on the map',
+              title: lang === 'es' ? 'Dibujá el polígono' : 'Draw polygon',
+              desc: lang === 'es' ? 'Definí el área del proyecto en el mapa' : 'Define your project area on the map',
               color: 'var(--green)',
               icon: (
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -5866,8 +5888,8 @@ function WelcomePage({ onStart }) {
             },
             {
               num: '02',
-              title: 'GBIF scan',
-              desc: 'Taxa most represented in your country · 16 LAC countries',
+              title: lang === 'es' ? 'Análisis GBIF' : 'GBIF scan',
+              desc: lang === 'es' ? 'Taxa más representados en tu país · 16 países LAC' : 'Taxa most represented in your country · 16 LAC countries',
               color: '#3B82F6',
               icon: (
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -5879,8 +5901,8 @@ function WelcomePage({ onStart }) {
             },
             {
               num: '03',
-              title: 'Risk report',
-              desc: 'TNFD · CSRD · IFC PS6 aligned',
+              title: lang === 'es' ? 'Reporte de riesgo' : 'Risk report',
+              desc: lang === 'es' ? 'Alineado con TNFD · CSRD · IFC PS6' : 'TNFD · CSRD · IFC PS6 aligned',
               color: '#8B5CF6',
               icon: (
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -5936,7 +5958,6 @@ function WelcomePage({ onStart }) {
                   </div>
                 ))}
               </div>
-              {/* Progress bar */}
               <div style={{ display: 'flex', gap: 6, marginTop: 10, justifyContent: 'center' }}>
                 {steps.map((_, i) => (
                   <div
@@ -5958,7 +5979,10 @@ function WelcomePage({ onStart }) {
 
         {/* Footer */}
         <div style={{ textAlign: 'center', fontSize: 10, color: 'var(--text3)', lineHeight: 1.8 }}>
-          Covering 16 countries across Latin America and the Caribbean<br />
+          {lang === 'es'
+            ? 'Cubriendo 16 países de América Latina y el Caribe'
+            : 'Covering 16 countries across Latin America and the Caribbean'
+          }<br />
           Powered by GBIF · Sentinel-2 · WDPA · Global Forest Watch
         </div>
 
@@ -5967,7 +5991,7 @@ function WelcomePage({ onStart }) {
   )
 }
 
-function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
+function ProjectsPage({ projects, onSelectProject, onNewAnalysis, t, lang }) {
   const getRiskColor = (category) => {
     if (!category) return 'var(--text3)'
     if (category.includes('Critical')) return '#E84C3D'
@@ -5980,18 +6004,15 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
     <main className="main">
       <div className="header">
         <div className="h-left">
-          <h1>Projects</h1>
-          <div className="h-sub">Your biodiversity risk analyses</div>
+          <h1>{t('projects.title')}</h1>
+          <div className="h-sub">{t('projects.sub')}</div>
         </div>
         <div className="h-right">
           <Button variant="glow" sparkle size="sm" onClick={onNewAnalysis}>
-            New Analysis
+            {t('btn.new_analysis')}
           </Button>
         </div>
       </div>
-
-
-
 
       <div style={{ padding: '0 24px' }}>
         {projects.length === 0 ? (
@@ -6002,14 +6023,14 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
           }}>
             <div style={{ fontSize: 44, marginBottom: 14 }}>📁</div>
             <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text)', marginBottom: 6 }}>
-              No projects yet
+              {lang === 'es' ? 'Sin proyectos aún' : 'No projects yet'}
             </div>
             <div style={{ fontSize: 13, color: 'var(--text3)', marginBottom: 24 }}>
-              Run a New Analysis to see your projects here.
+              {lang === 'es' ? 'Ejecutá un Nuevo Análisis para ver tus proyectos aquí.' : 'Run a New Analysis to see your projects here.'}
             </div>
-            <button className="btn" onClick={onNewAnalysis}>
-              ➕ Start your first analysis
-            </button>
+            <Button variant="glow" size="sm" onClick={onNewAnalysis}>
+              {lang === 'es' ? 'Iniciar tu primer análisis' : 'Start your first analysis'}
+            </Button>
           </div>
         ) : (
           <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -6024,10 +6045,9 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
                   display: 'flex', alignItems: 'center', gap: 16,
                   boxShadow: 'var(--sh1)',
                 }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = '#18A957'}
+                onMouseEnter={e => e.currentTarget.style.borderColor = '#7c3aed'}
                 onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--bd)'}
               >
-                {/* Risk score badge */}
                 <div style={{
                   width: 56, height: 56, borderRadius: 12, flexShrink: 0,
                   background: getRiskColor(project.riskScore?.category) + '18',
@@ -6045,7 +6065,6 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
                   <div style={{ fontSize: 8, color: 'var(--text3)' }}>/100</div>
                 </div>
 
-                {/* Project info */}
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text)', marginBottom: 4 }}>
                     {project.name}
@@ -6058,7 +6077,7 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
                       ⚙️ {project.sector}
                     </span>
                     <span style={{ fontSize: 11, color: 'var(--text2)' }}>
-                      📍 {project.totalInPolygon?.toLocaleString('en-US')} occurrences
+                      📍 {project.totalInPolygon?.toLocaleString('en-US')} {lang === 'es' ? 'ocurrencias' : 'occurrences'}
                     </span>
                     <span style={{ fontSize: 11, color: 'var(--text2)' }}>
                       📅 {project.date}
@@ -6066,7 +6085,6 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
                   </div>
                 </div>
 
-                {/* Risk category */}
                 <div style={{
                   padding: '4px 12px', borderRadius: 999, fontSize: 11, fontWeight: 600,
                   flexShrink: 0,
@@ -6074,7 +6092,7 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
                   color: getRiskColor(project.riskScore?.category),
                   border: `1px solid ${getRiskColor(project.riskScore?.category)}40`,
                 }}>
-                  {project.riskScore?.category ?? 'Unknown'}
+                  {project.riskScore?.category ?? (lang === 'es' ? 'Desconocido' : 'Unknown')}
                 </div>
 
                 <div style={{ fontSize: 16, color: 'var(--text3)', flexShrink: 0 }}>→</div>
@@ -7376,7 +7394,11 @@ export default function App() {
             onResetWizard={resetWizard}
           />
         ) : isWelcome ? (
-          <WelcomePage onStart={() => { setPage('new-analysis'); setActivePage('new') }} />
+          <WelcomePage
+            onStart={() => { setPage('new-analysis'); setActivePage('new') }}
+            t={t}
+            lang={lang}
+          />
         ) : isProjects ? (
           <ProjectsPage
             projects={projects}
@@ -7405,13 +7427,15 @@ export default function App() {
               setCopilotKey(k => k + 1)
             }}
             onNewAnalysis={() => { setPage('new-analysis'); setActivePage('new') }}
+            t={t}
+            lang={lang}
           />
         ) : isSpecies ? (
           <SpeciesExplorerPage />
         ) : isMonitoring ? (
           <MonitoringPage />
         ) : isSources ? (
-          <DataSourcesPage />
+          <DataSourcesPage t={t} lang={lang} />
         ) : (
           <>
             <main className="main">
