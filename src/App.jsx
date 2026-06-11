@@ -819,68 +819,16 @@ const OCCURRENCE_POINTS = [
   [-42.9, -64.8], [-42.4, -65.1], [-42.1, -64.6], [-43.0, -64.2]
 ]
 
-const NAV_ITEMS = [
-  {
-    id: 'new', label: 'New Analysis', icon: (
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="8" cy="8" r="6" /><path d="M8 5v6M5 8h6" />
-      </svg>
-    )
-  },
-  {
-    id: 'dashboard', label: 'Dashboard', icon: (
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="1" y="1" width="6" height="6" rx="1" /><rect x="9" y="1" width="6" height="6" rx="1" />
-        <rect x="1" y="9" width="6" height="6" rx="1" /><rect x="9" y="9" width="6" height="6" rx="1" />
-      </svg>
-    )
-  },
-  {
-    id: 'projects', label: 'Projects', icon: (
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M2 4h12M2 8h8M2 12h10" />
-      </svg>
-    )
-  },
-  {
-    id: 'reports', label: 'Reports', icon: (
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="3" y="1" width="10" height="14" rx="1.5" /><path d="M6 5h4M6 8h4M6 11h2" />
-      </svg>
-    )
-  },
-  {
-    id: 'monitoring', label: 'Monitoring Insights', icon: (
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M2 12L6 7l3 3 3-4 2 2" />
-      </svg>
-    )
-  },
-  {
-    id: 'species', label: 'Species Explorer', icon: (
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="7" cy="7" r="5" /><path d="M12 12l2.5 2.5" />
-      </svg>
-    )
-  },
-  {
-    id: 'sources', label: 'Data Sources', icon: (
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <ellipse cx="8" cy="5" rx="6" ry="2.5" /><path d="M2 5v6c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V5" />
-        <path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5" />
-      </svg>
-    )
-  },
-  {
-    id: 'settings', label: 'Settings', icon: (
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="8" cy="8" r="2.5" />
-        <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" />
-      </svg>
-    )
-  },
+const getNavItems = (t) => [
+  { id: 'new', label: t('nav.new'), icon: (<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="6" /><path d="M8 5v6M5 8h6" /></svg>) },
+  { id: 'dashboard', label: t('nav.dashboard'), icon: (<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="1" y="1" width="6" height="6" rx="1" /><rect x="9" y="1" width="6" height="6" rx="1" /><rect x="1" y="9" width="6" height="6" rx="1" /><rect x="9" y="9" width="6" height="6" rx="1" /></svg>) },
+  { id: 'projects', label: t('nav.projects'), icon: (<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 4h12M2 8h8M2 12h10" /></svg>) },
+  { id: 'reports', label: t('nav.reports'), icon: (<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="1" width="10" height="14" rx="1.5" /><path d="M6 5h4M6 8h4M6 11h2" /></svg>) },
+  { id: 'monitoring', label: t('nav.monitoring'), icon: (<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 12L6 7l3 3 3-4 2 2" /></svg>) },
+  { id: 'species', label: t('nav.species'), icon: (<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="7" cy="7" r="5" /><path d="M12 12l2.5 2.5" /></svg>) },
+  { id: 'sources', label: t('nav.sources'), icon: (<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><ellipse cx="8" cy="5" rx="6" ry="2.5" /><path d="M2 5v6c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V5" /><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5" /></svg>) },
+  { id: 'settings', label: t('nav.settings'), icon: (<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="2.5" /><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" /></svg>) },
 ]
-
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const fmt = n => n == null ? '—' : Number(n).toLocaleString('en-US')
@@ -1074,14 +1022,15 @@ function Gauge({ value, max = 100 }) {
 }
 
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
-function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle, theme, setTheme }) {
+function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle, theme, setTheme, lang, setLang, t }) {
+  const NAV_ITEMS = getNavItems(t)
   return (
     <aside className="sidebar" style={{
       width: collapsed ? 56 : undefined,
       transition: 'width 0.2s ease',
       overflow: 'hidden',
     }}>
-      <div className="logo" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {!collapsed && (
           <div className="logo-mark">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1089,18 +1038,51 @@ function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle,
             </svg>
           </div>
         )}
-        {collapsed && <span className="logo-mark" style={{ margin: '0 auto' }}>''</span>}
-        <button
-          onClick={onToggle}
-          style={{
-            background: 'none', border: 'none', cursor: 'pointer',
-            fontSize: 14, color: 'var(--text3)', padding: '2px 4px',
-            flexShrink: 0,
-          }}
-          title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        >
-          {collapsed ? '→' : '←'}
-        </button>
+
+        {!collapsed && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            {/* Language toggle */}
+            <button
+              onClick={() => {
+                const next = lang === 'en' ? 'es' : 'en'
+                setLang(next)
+                localStorage.setItem('lang', next)
+              }}
+              title={lang === 'en' ? 'Cambiar a Español' : 'Switch to English'}
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                padding: '4px 6px', borderRadius: 5, color: 'var(--text3)',
+                fontSize: 10, fontWeight: 700, letterSpacing: '0.03em',
+                transition: 'color 0.15s',
+              }}
+            >
+              {lang === 'en' ? 'ES' : 'EN'}
+            </button>
+
+            {/* Theme toggle */}
+            <button
+              onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
+              title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                padding: '4px', borderRadius: 5, color: 'var(--text3)',
+                display: 'flex', alignItems: 'center',
+                transition: 'color 0.15s',
+              }}
+            >
+              {theme === 'dark' ? (
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="8" cy="8" r="3.5" />
+                  <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" />
+                </svg>
+              ) : (
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M13.5 10A6 6 0 016 2.5a6 6 0 100 11 6 6 0 007.5-3.5z" />
+                </svg>
+              )}
+            </button>
+          </div>
+        )}
       </div>
       {!collapsed && <div className="logo-sub">Biodiversity Intelligence for ESG &amp; TNFD</div>}
 
@@ -1119,26 +1101,6 @@ function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle,
       </nav>
 
       <div className="spacer" />
-      <button
-        onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-        style={{
-          width: '100%', padding: '8px 10px',
-          background: 'none', border: '1px solid var(--bd)',
-          borderRadius: 7, cursor: 'pointer',
-          display: 'flex', alignItems: 'center', gap: 8,
-          fontSize: 11, color: 'var(--text2)',
-          marginBottom: 8,
-          transition: 'all 0.2s',
-        }}
-      >
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-          {theme === 'dark'
-            ? <circle cx="8" cy="8" r="4" />//sun
-            : <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.5 1.5M11 11l1.5 1.5M3.5 12.5L5 11M11 5l1.5-1.5" />
-          }
-        </svg>
-        {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-      </button>
       <div className="user-card">
         <div className="avatar">
           {user?.picture
@@ -1146,19 +1108,31 @@ function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle,
             : (user?.name?.[0] ?? 'U').toUpperCase()
           }
         </div>
-        <div className="user-info">
-          <div className="user-name">{user?.name ?? user?.email ?? 'User'}</div>
-          <div className="user-role">{user?.email ?? ''}</div>
-        </div>
+        {!collapsed && (
+          <div className="user-info">
+            <div className="user-name">{user?.name ?? user?.email ?? 'User'}</div>
+            <div className="user-role">{user?.email ?? ''}</div>
+          </div>
+        )}
       </div>
 
       <a href="#"
         className="logout"
         onClick={e => { e.preventDefault(); logout({ logoutParams: { returnTo: window.location.origin } }) }}
       >
-        Log out
+        {!collapsed && 'Log out'}
       </a>
-
+      <Button
+        variant="solid"
+        size="sm"
+        onClick={onToggle}
+        style={{
+          width: '100%', marginTop: 8,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+        }}
+      >
+        {collapsed ? '→' : '← Hide'}
+      </Button>
 
 
     </aside>
@@ -1625,7 +1599,7 @@ function GbifDataIntelligenceCard({ data }) {
 
 
 // ─── Cards ───────────────────────────────────────────────────────────────────
-function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, wdpaData, bufferData, geeFeatures }) {
+function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, wdpaData, bufferData, geeFeatures, lang }) {
   const mapCenter = center || [-20, -60]
   const mapZoom = zoom ?? 7
   const hasPolygon = polygon && polygon.length >= 3
@@ -1640,7 +1614,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
     <div className="card">
       <div className="card-head">
         <div className="card-title">
-          Project Area
+          {lang === 'es' ? 'Área del Proyecto' : 'Project Area'}
           {polygon && polygon.length >= 3 && (
             <span style={{
               fontSize: 10, fontWeight: 400, color: 'var(--text3)',
@@ -1654,12 +1628,12 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
           {hasPolygon && (
             <>
               {[
-                { id: 'points', label: 'Points' },
+                { id: 'points', label: lang === 'es' ? 'Puntos' : 'Points' },
                 { id: 'hex', label: 'Hex NDVI' },
-                { id: 'heatmap', label: 'Heatmap' },
+                { id: 'heatmap', label: lang === 'es' ? 'Calor' : 'Heatmap' },
                 { id: 'ndvi', label: 'NDVI' },
-                { id: 'protected', label: 'Areas' },
-                { id: 'gbif', label: 'GBIF Density' },
+                { id: 'protected', label: lang === 'es' ? 'Áreas' : 'Areas' },
+                { id: 'gbif', label: lang === 'es' ? 'Densidad GBIF' : 'GBIF Density' },
               ].map(mode => (
                 <button
                   key={mode.id}
@@ -6113,6 +6087,119 @@ function ProjectsPage({ projects, onSelectProject, onNewAnalysis }) {
   )
 }
 
+const TRANSLATIONS = {
+  en: {
+    'nav.new': 'New Analysis',
+    'nav.dashboard': 'Dashboard',
+    'nav.projects': 'Projects',
+    'nav.species': 'Species Explorer',
+    'nav.sources': 'Data Sources',
+    'nav.settings': 'Settings',
+    'nav.reports': 'Reports',
+    'nav.monitoring': 'Monitoring Insights',
+    'dashboard.title': 'Project Analysis',
+    'dashboard.overview': 'Overview',
+    'dashboard.biodiversity': 'Biodiversity',
+    'dashboard.tnfd': 'TNFD & ESG',
+    'dashboard.vegetation': 'Vegetation & Forest',
+    'dashboard.mitigation': 'Mitigation',
+    'btn.executive_summary': 'Executive Summary',
+    'btn.export_report': 'Export Report',
+    'btn.export_json': 'Export JSON',
+    'btn.export_csv': 'Export CSV',
+    'btn.new_analysis': 'New Analysis',
+    'btn.start_analysis': 'Start New Analysis →',
+    'btn.run_scan': 'Run Biodiversity Scan →',
+    'btn.hide_copilot': '← Hide',
+    'btn.show_copilot': 'Copilot →',
+    'welcome.title': 'Welcome to BioRisk AI',
+    'welcome.designed_for': 'Designed for',
+    'welcome.subtitle': 'Biodiversity risk intelligence for ESG & TNFD reporting across Latin America and the Caribbean.',
+    'projects.title': 'Projects',
+    'projects.sub': 'Your biodiversity risk analyses',
+    'sources.title': 'Data Sources',
+    'sources.sub': 'Open data powering BioRisk AI',
+    'copilot.title': 'AI Copilot',
+    'new.title': 'New Analysis',
+    'new.define_area': 'Define Project Area',
+    'new.project_name': 'Project name *',
+    'new.country': 'Country',
+    'new.sector': 'Sector',
+    'new.phase': 'Project Phase',
+    'new.framework': 'Reporting Framework',
+    'new.investment': 'Estimated Investment (USD)',
+    'overview.risk_score': 'Risk Score',
+    'overview.no_analysis': 'No analysis',
+    'overview.records': 'records',
+    'overview.taxa_detected': 'taxa detected',
+    'overview.buffer_title': 'Indirect Influence Area (5km buffer)',
+    'overview.buffer_desc': 'additional occurrence records detected within 5km of the project boundary.',
+    'overview.records_in_buffer': 'records in buffer',
+    'map.project_area': 'Project Area',
+    'map.btn_points': 'Points',
+    'map.btn_hex': 'Hex NDVI',
+    'map.btn_heatmap': 'Heatmap',
+    'map.btn_ndvi': 'NDVI',
+    'map.btn_areas': 'Areas',
+    'map.btn_gbif': 'GBIF Density',
+  },
+  es: {
+    'nav.new': 'Nuevo Análisis',
+    'nav.dashboard': 'Panel',
+    'nav.projects': 'Proyectos',
+    'nav.species': 'Explorador de Especies',
+    'nav.sources': 'Fuentes de Datos',
+    'nav.settings': 'Configuración',
+    'nav.reports': 'Reportes',
+    'nav.monitoring': 'Monitoreo',
+    'dashboard.title': 'Análisis de Proyecto',
+    'dashboard.overview': 'Resumen',
+    'dashboard.biodiversity': 'Biodiversidad',
+    'dashboard.tnfd': 'TNFD & ESG',
+    'dashboard.vegetation': 'Vegetación & Bosque',
+    'dashboard.mitigation': 'Mitigación',
+    'btn.executive_summary': 'Resumen Ejecutivo',
+    'btn.export_report': 'Exportar Reporte',
+    'btn.export_json': 'Exportar JSON',
+    'btn.export_csv': 'Exportar CSV',
+    'btn.new_analysis': 'Nuevo Análisis',
+    'btn.start_analysis': 'Iniciar Nuevo Análisis →',
+    'btn.run_scan': 'Ejecutar Análisis →',
+    'btn.hide_copilot': '← Ocultar',
+    'btn.show_copilot': 'Copilot →',
+    'welcome.title': 'Bienvenido a BioRisk AI',
+    'welcome.designed_for': 'Diseñado para',
+    'welcome.subtitle': 'Inteligencia de riesgo de biodiversidad para reportes ESG y TNFD en América Latina y el Caribe.',
+    'projects.title': 'Proyectos',
+    'projects.sub': 'Tus análisis de riesgo de biodiversidad',
+    'sources.title': 'Fuentes de Datos',
+    'sources.sub': 'Datos abiertos que impulsan BioRisk AI',
+    'copilot.title': 'Copilot IA',
+    'new.title': 'Nuevo Análisis',
+    'new.define_area': 'Definir Área del Proyecto',
+    'new.project_name': 'Nombre del proyecto *',
+    'new.country': 'País',
+    'new.sector': 'Sector',
+    'new.phase': 'Fase del Proyecto',
+    'new.framework': 'Marco de Reporte',
+    'new.investment': 'Inversión Estimada (USD)',
+    'overview.risk_score': 'Puntuación de Riesgo',
+    'overview.no_analysis': 'Sin análisis',
+    'overview.records': 'registros',
+    'overview.taxa_detected': 'taxa detectados',
+    'overview.buffer_title': 'Área de Influencia Indirecta (buffer 5km)',
+    'overview.buffer_desc': 'registros de ocurrencia adicionales detectados dentro de 5km del límite del proyecto.',
+    'overview.records_in_buffer': 'registros en buffer',
+    'map.project_area': 'Área del Proyecto',
+    'map.btn_points': 'Puntos',
+    'map.btn_hex': 'Hex NDVI',
+    'map.btn_heatmap': 'Mapa de calor',
+    'map.btn_ndvi': 'NDVI',
+    'map.btn_areas': 'Áreas',
+    'map.btn_gbif': 'Densidad GBIF',
+  }
+}
+
 // ─── Main app ────────────────────────────────────────────────────────────────
 export default function App() {
   const { isAuthenticated, isLoading, loginWithRedirect, logout, user, getAccessTokenSilently, getIdTokenClaims } = useAuth0()
@@ -6163,6 +6250,9 @@ export default function App() {
   const [showExecSummary, setShowExecSummary] = useState(false)
   const [execSummaryText, setExecSummaryText] = useState('')
   const [execSummaryLoading, setExecSummaryLoading] = useState(false)
+
+  const [lang, setLang] = useState(() => localStorage.getItem('lang') ?? 'en')
+  const t = (key) => TRANSLATIONS[lang]?.[key] ?? TRANSLATIONS['en'][key] ?? key
 
   function handleNav(id) {
     setActivePage(id)
@@ -7260,6 +7350,9 @@ export default function App() {
           logout={logout}
           collapsed={sidebarCollapsed}
           onToggle={() => setSidebarCollapsed(p => !p)}
+          lang={lang}
+          setLang={setLang}
+          t={t}
         />
         {isWizard ? (
           <NewAnalysisPage
@@ -7324,20 +7417,20 @@ export default function App() {
             <main className="main">
               <div className="header">
                 <div className="h-left">
-                  <h1>Project Analysis</h1>
+                  <h1>{t('dashboard.title')}</h1>
                   <div className="h-sub">{projectName}</div>
                 </div>
                 <div className="h-right">
                   <span className="badge">{gbifData?.analysisId ?? 'No analysis'}</span>
                   <span className="badge">May 13, 2026</span>
-                  <Button variant="ghost" size="sm" onClick={() => exportReport(gbifData, analysisProject, projectName)}>
-                    Export PDF
+                  <Button variant="glow" size="sm" onClick={() => exportReport(gbifData, analysisProject, projectName)}>
+                    {t('btn.export_report')}
                   </Button>
                   <Button variant="ghost" size="sm" onClick={() => exportJSON(gbifData, analysisProject, projectName)}>
-                    Export JSON
+                    {t('btn.export_json')}
                   </Button>
                   <Button variant="ghost" size="sm" onClick={() => exportCSV(gbifData, analysisProject, projectName)}>
-                    Export CSV
+                    {t('btn.export_csv')}
                   </Button>
                   <span
                     className="badge"
@@ -7392,11 +7485,11 @@ export default function App() {
                 borderBottom: '1px solid #E5E7EB', marginBottom: 20,
               }}>
                 {[
-                  { id: 'overview', label: 'Overview' },
-                  { id: 'biodiversity', label: 'Biodiversity' },
-                  { id: 'tnfd', label: 'TNFD & ESG' },
-                  { id: 'vegetation', label: 'Vegetation & Forest' },
-                  { id: 'mitigation', label: 'Mitigation' },
+                  { id: 'overview', label: t('dashboard.overview') },
+                  { id: 'biodiversity', label: t('dashboard.biodiversity') },
+                  { id: 'tnfd', label: t('dashboard.tnfd') },
+                  { id: 'vegetation', label: t('dashboard.vegetation') },
+                  { id: 'mitigation', label: t('dashboard.mitigation') },
                 ].map(tab => (
                   <button
                     key={tab.id}
@@ -7430,6 +7523,7 @@ export default function App() {
                       wdpaData={gbifData?.wdpa}
                       bufferData={gbifData?.bufferData}
                       geeFeatures={gbifData?.gee?.features}
+                      lang={lang}
                     />
                     {/* Risk Score overlay queda en el mapa - no lo tocamos */}
                     <div style={{
@@ -7440,7 +7534,7 @@ export default function App() {
                       padding: '16px 20px', minWidth: 160, textAlign: 'center',
                     }}>
                       <div style={{ fontSize: 10, color: 'var(--text3)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                        Risk Score
+                        {t('overview.risk_score')}
                       </div>
                       <div style={{
                         fontSize: 36, fontWeight: 700, lineHeight: 1,
@@ -7455,12 +7549,12 @@ export default function App() {
                         color: gbifData?.riskScore?.score >= 76 ? '#E84C3D' :
                           gbifData?.riskScore?.score >= 51 ? '#F5A623' : '#18A957'
                       }}>
-                        {gbifData?.riskScore?.category ?? 'No analysis'}
+                        {gbifData?.riskScore?.category ?? t('overview.no_analysis')}
                       </div>
                       {gbifData?.riskScore && (
                         <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 6, lineHeight: 1.4 }}>
-                          {gbifData.polygonCount?.toLocaleString('en-US')} records<br />
-                          {gbifData.riskScore.taxaFound} taxa detected
+                          {gbifData.polygonCount?.toLocaleString('en-US')} {t('overview.records')}<br />
+                          {gbifData.riskScore.taxaFound} {t('overview.taxa_detected')}
                         </div>
                       )}
                     </div>
@@ -7483,18 +7577,18 @@ export default function App() {
                     }}>
                       <div style={{ flex: 1 }}>
                         <div style={{ fontSize: 12, fontWeight: 700, color: '#f97316', marginBottom: 2 }}>
-                          Indirect Influence Area (5km buffer)
+                          {t('overview.buffer_title')}
                         </div>
                         <div style={{ fontSize: 11, color: 'var(--text2)' }}>
-                          {gbifData.bufferData.totalInBuffer.toLocaleString('en-US')} additional occurrence records
-                          detected within 5km of the project boundary.
+                          {gbifData.bufferData.totalInBuffer.toLocaleString('en-US')} {t('overview.buffer_desc')}
+
                         </div>
                       </div>
                       <div style={{ textAlign: 'center', flexShrink: 0 }}>
                         <div style={{ fontSize: 20, fontWeight: 700, color: '#f97316' }}>
                           {gbifData.bufferData.totalInBuffer.toLocaleString('en-US')}
                         </div>
-                        <div style={{ fontSize: 9, color: 'var(--text3)' }}>records in buffer</div>
+                        <div style={{ fontSize: 9, color: 'var(--text3)' }}>{t('overview.records_in_buffer')}</div>
                       </div>
                     </div>
                   )}
@@ -7635,7 +7729,7 @@ export default function App() {
                   zIndex: 1000, transition: 'right 0.2s ease',
                 }}
               >
-                {copilotCollapsed ? 'Copilot →' : '← Hide'}
+                {copilotCollapsed ? t('btn.show_copilot') : t('btn.hide_copilot')}
               </Button>
             </>
           </>
