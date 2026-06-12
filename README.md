@@ -11,7 +11,7 @@
 
 > **Empowering ESG analysts and environmental consultants with AI-driven biodiversity intelligence for TNFD, CSRD and IFC PS6 compliance — in minutes, not months.**
 
-[Features](#-features) • [Demo](#-live-demo) • [Installation](#-installation) • [Tech Stack](#️-tech-stack) • [Architecture](#-architecture)
+[Features](#-features) • [Demo](#-live-demo) • [How It Works](#-how-it-works) • [Installation](#-installation) • [Tech Stack](#️-tech-stack) • [Architecture](#-architecture)
 
 ---
 
@@ -31,8 +31,37 @@ Companies operating in Latin America face:
 - **USD 17.7T** in assets under management adopting TNFD frameworks
 - **CSRD ESRS E4** extending mandatory biodiversity disclosure to non-EU companies with >€150M EU revenue
 - **IFC PS6** requirements for any project financed by multilateral development banks
+- **USD 95B+** in RIGI-approved projects in Argentina alone requiring biodiversity compliance
 - **No accessible tool** for rapid site-level biodiversity baseline assessment in LAC
 - **Months of consultant time** to produce what BioRisk AI delivers in minutes
+
+---
+
+## 🚀 How It Works
+
+### 3-Step Workflow
+
+```
+1. DRAW         →    2. SCAN              →    3. REPORT
+Draw a polygon       GBIF S3 Snapshot          Risk score + TNFD
+on the map           AWS Athena query           Content Index PDF
+                     GEE satellite data         AI Copilot insights
+                     WDPA protected areas       IFC PS6 assessment
+```
+
+### Case Study: Litio Galán, Catamarca (Argentina)
+
+A USD 1.5B lithium project under Argentina's RIGI regime:
+
+| Finding | Value |
+|---------|-------|
+| GBIF occurrence records | 912 |
+| Taxonomic groups detected | 13 (Aves, Mammalia, Amphibia, Squamata, Insecta...) |
+| Protected areas intersecting | 2 (Los Andes Cat IV + Laguna de los Pozuelos **Ramsar**) |
+| Threatened species | *Phoenicoparrus andinus* (EN) — Andean flamingo |
+| NDVI (vegetation health) | 0.093 (sparse Puna vegetation) |
+| IFC PS6 classification | **Critical Habitat triggered** |
+| Analysis time | < 2 minutes |
 
 ---
 
@@ -41,13 +70,15 @@ Companies operating in Latin America face:
 BioRisk AI provides:
 
 - Dynamic taxa identification per country using GBIF occurrence facets
-- Site-level occurrence analysis via partitioned AWS Athena table on GBIF S3 snapshot (2B+ records, no rate limits)
+- Site-level occurrence analysis via **partitioned AWS Athena table on GBIF S3 snapshot** (2B+ records, no rate limits, 99.6% cost reduction vs REST API)
 - Satellite vegetation health (NDVI + MSAVI) via Google Earth Engine
 - Interactive hexagonal NDVI grid overlay
-- Land cover classification (Dynamic World), deforestation (Hansen), fire risk (MODIS), surface water (JRC)
+- Land cover classification (Dynamic World), deforestation (Hansen), fire risk (MODIS), surface water (JRC), IUCN Habitat Classification v004
 - Protected area intersection with real WDPA geometries
-- AI Copilot with Devil's Advocate reviewer and Executive Summary generator
+- **IFC PS6 Critical Habitat Assessment** — automatic classification (Modified/Natural/Critical) based on detected CR/EN species
+- AI Copilot with Devil's Advocate reviewer, web search for real-time regulatory information, and Executive Summary generator
 - TNFD Content Index in PDF export aligned with CSRD ESRS E4
+- Bilingual interface (English / Spanish)
 
 ---
 
@@ -66,34 +97,60 @@ BioRisk AI provides:
 | Feature | Description |
 |---------|-------------|
 | 🌱 NDVI + MSAVI | Vegetation health via Sentinel-2 (Google Earth Engine) |
-| 🔶 Hexagonal Grid | Interactive NDVI hex overlay from MODIS/GEE |
-| 🌳 Deforestation | Hansen Global Forest Change v1.11 (2001–2025) |
+| 🔶 Hexagonal Grid | 200-cell NDVI hex overlay computed by GEE Cloud Function |
+| 🌳 Deforestation | Hansen Global Forest Change v1.11 (2001–2023) |
 | 💧 Surface Water | JRC Global Surface Water dynamics |
 | 🔥 Fire Risk | MODIS MOD14A1 thermal anomaly detection |
-| 🗺 Land Cover | Google Dynamic World V1 2023 classification |
+| 🗺 Land Cover | Google Dynamic World V1 + IUCN Habitat Classification v004 |
 
 ### 📋 ESG & TNFD Compliance
 | Feature | Description |
 |---------|-------------|
 | 📑 TNFD Content Index | PDF table mapping findings to 14 TNFD disclosures |
 | 🇪🇺 CSRD ESRS E4 | Dual alignment — one analysis, two frameworks |
+| 🏦 IFC PS6 Critical Habitat | Automatic Modified/Natural/Critical classification |
 | 💰 Financial Materiality | Permitting delay, remediation cost and license risk estimates |
 | 🌿 Ecosystem Services | Valuation based on de Groot et al. (2012) |
 | ⚖️ Mitigation Hierarchy | Avoid → Minimize → Restore → Offset conditioned on detected taxa |
+| 📋 Project Phase | Site Selection / Pre-Feasibility / Feasibility / Due Diligence / Permitting |
+| 🌐 Reporting Framework | TNFD LEAP / IFC PS6 / CSRD ESRS E4 / GBF Target 15 |
 
 ### 🤖 AI Copilot
 | Feature | Description |
 |---------|-------------|
 | 🎯 Devil's Advocate | TNFD/IFC critical reviewer notes on demand |
 | 📄 Executive Summary | TNFD-ready disclosure paragraph generator |
+| 🔍 Web Search | Real-time regulatory information with cited sources |
 | 💬 Contextual Chat | Responses grounded in real GBIF data from the analysis |
+| 🧠 Mixed Models | Haiku for simple queries, Sonnet for regulatory/complex analysis |
 
 ### 📁 Data Management
 | Feature | Description |
 |---------|-------------|
 | 🔑 Analysis ID | Persistent reference ID per analysis (DOI pathway) |
 | 💾 Project Storage | Supabase persistence for portfolio management |
-| 📤 Export | JSON, CSV, and PDF with TNFD Content Index |
+| 📤 Export | JSON, CSV, and PDF with TNFD Content Index + IFC PS6 Critical Habitat |
+| 🌐 Bilingual | English / Spanish interface toggle |
+
+---
+
+## 🗺 GBIF Data Pipeline
+
+```
+GBIF.org
+  └── S3 Occurrence Snapshot (2026-05-01)
+        └── AWS S3 (sa-east-1, São Paulo) — ~180 GB Parquet
+              └── AWS Athena (partitioned by countrycode)
+                    └── AWS Lambda (biorisk-gbif-query)
+                          └── BioRisk AI frontend
+```
+
+**Why this matters:**
+- **No rate limits** — standard GBIF REST API is limited to 300 records/taxon
+- **Full dataset** — all 2B+ records available, not sampled
+- **Cost-efficient** — ~$0.002 per analysis vs ~$2.47 on global table (99.6% reduction)
+- **16 LAC countries** pre-partitioned: AR, BR, CL, CO, PE, BO, EC, PY, UY, VE, CR, MX, GT, HN, NI, PA
+- **Fallback** — automatic fallback to GBIF REST API if Athena is unavailable
 
 ---
 
@@ -124,6 +181,28 @@ npm run dev
 
 Open http://localhost:5173
 
+### Operating Instructions
+
+1. Go to https://biorisk-ai.vercel.app
+2. Log in with: **demo@biorisk.ai / Bior!sk_GBIF_2026#**
+3. Click **New Analysis** in the sidebar
+4. Fill in project details (name, country, sector, phase, frameworks, investment)
+5. Draw a polygon on the map by clicking to place points — click the first point to close
+6. Click **Run Biodiversity Scan**
+7. Wait 1–3 minutes for the analysis to complete
+8. Explore the 5 dashboard tabs: Overview, Biodiversity, TNFD & ESG, Vegetation & Forest, Mitigation
+9. Use the **AI Copilot** panel to ask questions about the analysis
+10. Click **Export Report** to download a PDF with TNFD Content Index
+
+### Recommended Test Case: Litio Galán
+
+- **Country:** Argentina
+- **Sector:** Mining & Extractives
+- **Phase:** Due Diligence / Financing
+- **Frameworks:** TNFD LEAP + IFC PS6 / Equator Principles
+- **Investment:** 1500000000
+- **Polygon:** Draw around coordinates -25.5°, -67.5° in Catamarca province
+
 ### Environment Variables
 
 ```env
@@ -151,26 +230,28 @@ VITE_GEE_HEX_URL=            # Google Earth Engine Cloud Function
 - **Turf.js** — Spatial operations (point-in-polygon, buffers)
 - **jsPDF** — PDF report generation
 - **Auth0** — Authentication
+- **performative-ui** — AI-native React component library
 
 ### Data Infrastructure
 - **AWS Athena** — Partitioned queries on GBIF S3 snapshot (2B+ records)
 - **AWS Lambda** — Serverless GBIF occurrence API
-- **Google Earth Engine** — Satellite data processing (Cloud Function)
+- **Google Earth Engine** — Satellite data processing (Cloud Function, 6 datasets in single call)
 - **Supabase** — Project persistence and user data
 
 ### AI
-- **Claude (Anthropic)** — Contextual biodiversity copilot
+- **Claude Sonnet (Anthropic)** — Regulatory queries with web search + contextual analysis
+- **Claude Haiku (Anthropic)** — Fast responses for biodiversity data queries
 - **Dynamic system prompts** — Grounded in real GBIF analysis data
 
 ### Open Data Sources
-- **GBIF** — Species occurrence data (CC BY 4.0)
-- **Sentinel-2 / Copernicus** — Vegetation indices
+- **GBIF** — Species occurrence data, CC BY 4.0 (S3 Snapshot 2026-05-01)
+- **Sentinel-2 / Copernicus** — Vegetation indices (NDVI, MSAVI)
 - **WDPA / Protected Planet** — Protected area geometries
-- **Global Forest Watch** — Deforestation data
+- **Global Forest Watch** — Deforestation data (Hansen v1.11)
 - **Google Dynamic World** — Land cover classification
-- **Hansen GFC** — Tree cover loss
 - **JRC Global Surface Water** — Water dynamics
-- **MODIS** — Fire detection
+- **MODIS MOD14A1** — Fire detection
+- **IUCN Habitat Classification v004** — Ecosystem habitat types (GEE)
 
 ---
 
@@ -179,21 +260,28 @@ VITE_GEE_HEX_URL=            # Google Earth Engine Cloud Function
 ```
 Browser (React + Vite)
     │
-    ├── GBIF REST API ──────────────── Taxa facets per country
+    ├── GBIF REST API ──────────────── Taxa facets per country (dynamic)
     │
-    ├── AWS Lambda ─────────────────── Partitioned Athena queries
-    │   └── Athena (GBIF S3 snapshot) ─ 2B+ occurrence records
+    ├── AWS Lambda ─────────────────── Serverless query orchestration
+    │   └── Athena (GBIF S3 snapshot) ─ 2B+ occurrence records, 16 LAC countries
+    │                                    Partitioned by countrycode, Parquet format
     │
-    ├── GEE Cloud Function ─────────── NDVI, Hansen, Dynamic World,
-    │                                   JRC, MODIS (single call)
+    ├── GEE Cloud Function ─────────── 6 datasets in a single call:
+    │                                   NDVI + MSAVI (Sentinel-2)
+    │                                   Hansen deforestation
+    │                                   Dynamic World land cover
+    │                                   JRC surface water
+    │                                   MODIS fire risk
+    │                                   IUCN Habitat Classification v004
     │
-    ├── WDPA API ───────────────────── Protected area geometries
+    ├── WDPA API ───────────────────── Protected area geometries + Ramsar
     │
-    ├── Sentinel-2 (Copernicus) ────── NDVI statistics
-    │
-    ├── Global Forest Watch API ─────── Forest cover loss 2001–2025
+    ├── Global Forest Watch API ─────── Forest cover loss 2001–2023
     │
     └── Anthropic API ──────────────── AI Copilot
+            ├── Claude Sonnet ────────── Regulatory + complex analysis
+            │   └── web_search tool ──── Real-time regulatory information
+            └── Claude Haiku ─────────── Simple biodiversity queries
 ```
 
 ---
@@ -214,12 +302,15 @@ Browser (React + Vite)
 
 BioRisk AI directly implements GBIF's recommendations for improving biodiversity disclosure reporting:
 
-1. **Traceability** — Analysis Reference IDs with DOI pathway via GBIF Derived Dataset API
-2. **Data gap acknowledgment** — Chao1 estimator + sampling completeness + AI reviewer notes
-3. **Sector-specific context** — Mitigation conditioned on detected taxa
-4. **Regulatory alignment** — TNFD Content Index in every PDF export
+1. **Traceability** — Analysis Reference IDs (format: BioRisk-{country}-{date}-{random8}) with DOI pathway via GBIF Derived Dataset API
+2. **Data gap acknowledgment** — Chao1 estimator + sampling completeness % + AI reviewer notes
+3. **Sector-specific context** — Mitigation conditioned on detected taxa and project phase
+4. **Regulatory alignment** — TNFD Content Index + IFC PS6 Critical Habitat in every PDF export
+5. **Full dataset access** — GBIF S3 Snapshot via AWS Athena, not sampled REST API
 
 Data pipeline: GBIF S3 occurrence snapshot → AWS Athena (partitioned by country) → Lambda → BioRisk AI
+
+**GBIF Citation:** GBIF.org (2026). GBIF Occurrence Snapshot 2026-05-01. https://registry.opendata.aws/gbif/
 
 ---
 
@@ -228,12 +319,12 @@ Data pipeline: GBIF S3 occurrence snapshot → AWS Athena (partitioned by countr
 ```
 biorisk-ai/
 ├── src/
-│   ├── App.jsx          # Main application (~6000 lines)
-│   ├── gbif.js          # GBIF API + GEE + GFW + Athena
+│   ├── App.jsx          # Main application (~7000 lines)
+│   ├── gbif.js          # GBIF API + GEE + GFW + Athena queries
 │   ├── supabase.js      # Supabase client
 │   └── main.jsx         # Auth0 provider wrapper
 ├── public/              # Static assets
-├── .env                 # Environment variables
+├── .env                 # Environment variables (not committed)
 ├── vite.config.js       # Vite + API proxies
 └── package.json
 ```
@@ -257,8 +348,9 @@ MIT License — see LICENSE file for details.
 - Rodrigues, A. (2025). *Species Occurrence Data and Corporate Sustainability Frameworks*. GBIF Data Blog. https://data-blog.gbif.org/post/2025-10-28-species-occurrence-data-and-corporate-sustainability-frameworks/
 - de Groot et al. (2012). Global estimates of the value of ecosystems and their services. *Ecosystem Services*, 1(1), 50–61.
 - TNFD (2023). Recommendations of the Taskforce on Nature-related Financial Disclosures.
-- GBIF.org (2026). GBIF Occurrence Snapshot 2026-05-01.
+- IFC (2012). Performance Standard 6: Biodiversity Conservation and Sustainable Management of Living Natural Resources.
+- GBIF.org (2026). GBIF Occurrence Snapshot 2026-05-01. https://registry.opendata.aws/gbif/
 
 ---
 
-*Built for the 2026 GBIF Ebbe Nielsen Challenge · Powered by GBIF open data*
+*Powered by GBIF open data · Submitted by Marcos Daniel Zárate, CESIMAR-CONICET / ArOBIS*
