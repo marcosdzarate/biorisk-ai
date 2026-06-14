@@ -343,6 +343,41 @@ MIT License — see LICENSE file for details.
 
 ---
 
+## ⚠️ Current Limitations
+
+BioRisk AI is a screening-grade tool. The following limitations should be considered when interpreting results:
+
+**Data coverage:**
+- GBIF occurrence data reflects sampling effort, not true species distribution — areas with fewer naturalists or expeditions will appear data-poor even if ecologically rich
+- GBIF S3 Snapshot is dated 2026-05-01 and is not updated in real time
+- Coverage limited to 16 LAC countries — expansion planned
+- KBA (Key Biodiversity Areas) layer not yet integrated — data access pending approval from the KBA Partnership (requested June 2026)
+- IUCN Red List status is derived from GBIF occurrence records, not directly from the IUCN Red List API (integration pending)
+- Marine and freshwater species underrepresented — OBIS integration not yet implemented
+
+**Methodological:**
+- Risk score is a composite index designed for rapid screening — it has not been statistically validated against formal field assessments
+- Chao1 species richness estimator assumes random sampling; GBIF data contains known observer bias toward accessible areas and charismatic taxa
+- No habitat connectivity or landscape-level fragmentation analysis
+- No temporal trend analysis beyond deforestation (Hansen) and NDVI
+
+**Technical:**
+- GEE Cloud Function may take 2–4 minutes for large polygons (>10,000 km²)
+- AWS Athena queries may timeout under high load — automatic fallback to GBIF REST API activates in this case (limited to 300 records/taxon)
+- Not optimized for mobile devices
+
+---
+
+## 👨‍🔬 About the Developer
+
+BioRisk AI was designed and built by **Marcos Zárate**, researcher at CESIMAR-CONICET and administrator of ArOBIS (Argentine node of the Ocean Biodiversity Information System), based in Puerto Madryn, Patagonia, Argentina.
+
+This platform was developed with no dedicated funding — relying entirely on open data, free-tier cloud infrastructure, and the conviction that rigorous biodiversity science should be accessible to those who need it most.
+
+Argentine science operates under severe budget constraints. BioRisk AI is proof that scientific creativity and technical excellence are not determined by the size of a budget — and that researchers at the frontier of biodiversity informatics exist far beyond the traditional centers of global science.
+
+---
+
 ## 🔗 References
 
 - Rodrigues, A. (2025). *Species Occurrence Data and Corporate Sustainability Frameworks*. GBIF Data Blog. https://data-blog.gbif.org/post/2025-10-28-species-occurrence-data-and-corporate-sustainability-frameworks/
