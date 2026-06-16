@@ -9,6 +9,8 @@ import { jsPDF } from 'jspdf'
 import { supabase, getSupabaseWithAuth } from './supabase.js'
 import * as turf from '@turf/turf'
 import { WordRoll, Button, NodeGraphBackground, GlassCard } from 'performative-ui'
+import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 const DEMO_KEY = import.meta.env.VITE_DEMO_KEY ?? ''
 const MODE = import.meta.env.VITE_MODE ?? 'demo'
@@ -5899,7 +5901,7 @@ function WelcomePage({ onStart, t, lang }) {
         {/* Not a replacement */}
         <div style={{
           background: 'var(--card)', border: '1px solid var(--bd)',
-          borderRadius: 10, padding: '10px 16px', marginBottom: 28,
+          borderRadius: 10, padding: '10px 16px', marginBottom: 16,
           fontSize: 11, color: 'var(--text3)',
         }}>
           ⚠ <strong style={{ color: 'var(--text2)' }}>
@@ -5912,7 +5914,7 @@ function WelcomePage({ onStart, t, lang }) {
         </div>
 
         {/* CTA */}
-        <div style={{ textAlign: 'center', marginBottom: 32 }}>
+        <div style={{ textAlign: 'center', marginBottom: 20 }}>
           <Button variant="shimmer" sparkle size="lg" onClick={onStart}>
             {t('btn.start_analysis')}
           </Button>
@@ -6263,6 +6265,188 @@ const TRANSLATIONS = {
     'map.btn_areas': 'Áreas',
     'map.btn_gbif': 'Densidad GBIF',
   }
+}
+function GlobeBackground() {
+  const mountRef = useRef(null)
+
+  useEffect(() => {
+    const el = mountRef.current
+    if (!el) return
+
+    const W = window.innerWidth, H = window.innerHeight
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100)
+    camera.position.set(0, 0.3, 2.8)
+    camera.lookAt(0, 0, 0)
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setSize(W, H)
+    renderer.setClearColor(0x020408, 1)
+    el.appendChild(renderer.domElement)
+
+    const controls = new OrbitControls(camera, renderer.domElement)
+    controls.enableDamping = true
+    controls.dampingFactor = 0.05
+    controls.enableZoom = false
+    controls.autoRotate = true
+    controls.autoRotateSpeed = 0.15
+    controls.target.set(0, 0, 0)
+    controls.update()
+
+    const globe = new THREE.Group()
+    globe.rotation.x = 0.01
+    globe.rotation.y = -0.6
+    scene.add(globe)
+    // Solid sphere with Earth texture
+    const textureLoader = new THREE.TextureLoader()
+    const earthTexture = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg')
+    const solidMat = new THREE.MeshPhongMaterial({ map: earthTexture, shininess: 15, transparent: true, opacity: 0.95 })
+    globe.add(new THREE.Mesh(new THREE.SphereGeometry(1, 64, 48), solidMat))
+
+    // Wireframe
+    globe.add(new THREE.Mesh(
+      new THREE.SphereGeometry(1.001, 40, 30),
+      new THREE.MeshBasicMaterial({ color: 0x0d2010, wireframe: true, transparent: true, opacity: 0.2 })
+    ))
+
+    // Atmosphere
+    globe.add(new THREE.Mesh(
+      new THREE.SphereGeometry(1.06, 32, 32),
+      new THREE.MeshBasicMaterial({ color: 0x14532d, transparent: true, opacity: 0.07, side: THREE.BackSide })
+    ))
+
+    // Lights
+    scene.add(new THREE.AmbientLight(0x071a0a, 1))
+    const sun = new THREE.DirectionalLight(0x22ff66, 0.5)
+    sun.position.set(5, 3, 4)
+    scene.add(sun)
+    const purpleLight = new THREE.PointLight(0x7c3aed, 0.8, 8)
+    purpleLight.position.set(-3, 1, 3)
+    scene.add(purpleLight)
+
+    // Lat/Lng to 3D
+    const ll = (lat, lng, r = 1.01) => {
+      const phi = (90 - lat) * Math.PI / 180
+      const theta = (lng + 180) * Math.PI / 180
+      return new THREE.Vector3(
+        -r * Math.sin(phi) * Math.cos(theta),
+        r * Math.cos(phi),
+        r * Math.sin(phi) * Math.sin(theta)
+      )
+    }
+
+    // Hotspots
+    const hotspots = [
+      [-3, -60, 1.0], [-5, -65, 0.9], [-8, -55, 0.85], [-2, -52, 0.95],
+      [-10, -68, 0.8], [0, -70, 0.9], [2, -66, 0.85],
+      [-15, -72, 0.8], [-20, -68, 0.75], [-12, -75, 0.85],
+      [5, -74, 0.85], [8, -72, 0.8], [-20, -44, 0.85],
+      [-40, -68, 0.55], [10, -84, 0.8], [19, -99, 0.7],
+      [-25.5, -67.5, 0.9],
+    ]
+
+    const dotMeshes = []
+    hotspots.forEach(([lat, lng, intensity]) => {
+      const pos = ll(lat, lng)
+      const size = 0.007 + intensity * 0.010
+      const col = new THREE.Color(0x22c55e).lerp(new THREE.Color(0x06b6d4), 1 - intensity)
+      const dot = new THREE.Mesh(
+        new THREE.SphereGeometry(size, 8, 8),
+        new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.8 })
+      )
+      dot.position.copy(pos)
+      dot.userData = { phase: Math.random() * Math.PI * 2 }
+      globe.add(dot)
+      dotMeshes.push(dot)
+
+      const ring = new THREE.Mesh(
+        new THREE.RingGeometry(size * 2.5, size * 3.5, 16),
+        new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.2 * intensity, side: THREE.DoubleSide })
+      )
+      ring.position.copy(pos)
+      ring.lookAt(0, 0, 0)
+      globe.add(ring)
+    })
+
+    // Litio Galán
+    const litioPos = ll(-25.5, -67.5, 1.015)
+    const litioDot = new THREE.Mesh(
+      new THREE.SphereGeometry(0.018, 12, 12),
+      new THREE.MeshBasicMaterial({ color: 0xec4899 })
+    )
+    litioDot.position.copy(litioPos)
+    globe.add(litioDot)
+
+    const litioRings = []
+    for (let i = 0; i < 2; i++) {
+      const rm = new THREE.MeshBasicMaterial({ color: 0xec4899, transparent: true, opacity: 0.5 - i * 0.15, side: THREE.DoubleSide })
+      const r = new THREE.Mesh(new THREE.RingGeometry(0.025 + i * 0.018, 0.032 + i * 0.018, 24), rm)
+      r.position.copy(litioPos)
+      r.lookAt(0, 0, 0)
+      globe.add(r)
+      litioRings.push(r)
+    }
+
+    // Arcs
+    const addArc = (lat1, lng1, lat2, lng2, color) => {
+      const a = ll(lat1, lng1), b = ll(lat2, lng2)
+      const mid = a.clone().add(b).normalize().multiplyScalar(1.35)
+      const curve = new THREE.QuadraticBezierCurve3(a, mid, b)
+      globe.add(new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints(curve.getPoints(50)),
+        new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.25 })
+      ))
+    }
+    addArc(-3, -60, -20, -44, 0x7c3aed)
+    addArc(-5, -65, -25.5, -67.5, 0xec4899)
+    addArc(5, -74, -15, -72, 0x06b6d4)
+
+    // Stars
+    const starVerts = []
+    for (let i = 0; i < 3000; i++) {
+      const r = 40 + Math.random() * 40
+      const theta = Math.random() * Math.PI * 2
+      const phi = Math.acos(2 * Math.random() - 1)
+      starVerts.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi))
+    }
+    const starGeo = new THREE.BufferGeometry()
+    starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starVerts, 3))
+    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.06, transparent: true, opacity: 0.35 })))
+
+    // Animate
+    let t = 0
+    let animId
+    const animate = () => {
+      animId = requestAnimationFrame(animate)
+      t += 0.01
+      controls.update()
+      dotMeshes.forEach(d => { d.scale.setScalar(0.7 + 0.3 * Math.sin(t * 1.5 + d.userData.phase)) })
+      litioRings.forEach((r, i) => {
+        const p = 0.5 + 0.5 * Math.sin(t * 2 + i * 1.2)
+        r.material.opacity = (0.5 - i * 0.15) * p
+        r.scale.setScalar(1 + 0.2 * p)
+      })
+      renderer.render(scene, camera)
+    }
+    animate()
+
+    const onResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight
+      camera.updateProjectionMatrix()
+      renderer.setSize(window.innerWidth, window.innerHeight)
+    }
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener('resize', onResize)
+      renderer.dispose()
+      el.removeChild(renderer.domElement)
+    }
+  }, [])
+
+  return <div ref={mountRef} style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
 }
 
 // ─── Main app ────────────────────────────────────────────────────────────────
@@ -7330,72 +7514,128 @@ export default function App() {
       )}
 
       {/* Login screen */}
-      {!isLoading && !isAuthenticated && (<div style={{
-        position: 'fixed', inset: 0, background: 'var(--bg)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        zIndex: 99999,
-      }}>
-        <NodeGraphBackground
-          style={{ position: 'absolute', inset: 0, zIndex: 0 }}
-          colors={['#7c3aed', '#ec4899', '#06b6d4']}
-          linkColor="rgba(124,58,237,0.3)"
-          baseOpacity={0.4}
-          density={60}
-        />
+      {!isLoading && !isAuthenticated && (
+        <div style={{ position: 'fixed', inset: 0, background: '#020408', zIndex: 99999, overflow: 'hidden' }}>
 
-        <div style={{
-          position: 'relative', zIndex: 1,
-          background: 'rgba(14,14,19,0.85)',
-          backdropFilter: 'blur(20px)',
-          borderRadius: 22, padding: '48px 40px',
-          width: 400, maxWidth: '90vw', textAlign: 'center',
-          border: '1px solid rgba(255,255,255,0.08)',
-          boxShadow: '0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(124,58,237,0.15)',
-        }}>
-          {/* Logo mark */}
+          <GlobeBackground />
+
+          {/* Vignette */}
           <div style={{
-            width: 48, height: 48, borderRadius: 14, margin: '0 auto 20px',
-            background: 'linear-gradient(120deg, #7c3aed, #ec4899, #06b6d4)',
-            backgroundSize: '200% 200%',
-            animation: 'pui-grad-shift 6s ease infinite',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+            background: 'radial-gradient(ellipse at center, transparent 30%, rgba(2,4,8,0.5) 70%, rgba(2,4,8,0.85) 100%)',
+          }} />
+
+
+          {/* Hero text left */}
+          <div style={{
+            position: 'absolute',
+            top: 0, bottom: 0, left: '3%',
+            display: 'flex', flexDirection: 'column', justifyContent: 'center',
+            zIndex: 10,
+            maxWidth: 480,
+            animation: 'fadeUp 1.2s ease 0.6s both',
           }}>
-            <svg width="24" height="24" viewBox="0 0 14 14" fill="none">
-              <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" fill="white" fillOpacity="0.9" />
-            </svg>
+
+
+            <h1 style={{
+              fontSize: 'clamp(32px, 4.5vw, 54px)',
+              fontWeight: 900, lineHeight: 1.05,
+              letterSpacing: '-0.03em', marginBottom: 12,
+              background: 'linear-gradient(135deg, #f4f4f6 0%, rgba(244,244,246,0.6) 100%)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            }}>
+              Biodiversity<br />Risk Intelligence<br />for LAC
+            </h1>
+
+            <p style={{ fontSize: 14, color: '#6b6b7a', lineHeight: 1.7, marginBottom: 16, fontWeight: 300, maxWidth: 380 }}>
+              Turn <strong style={{ color: '#a1a1b2', fontWeight: 400 }}>2.84 billion GBIF occurrence records</strong> into actionable ESG insights —
+              TNFD, CSRD and IFC PS6 aligned. In minutes, not months.
+            </p>
+
+            {/* Stats */}
+            <div style={{ display: 'flex', gap: 24, marginBottom: 20 }}>
+              {[
+                { val: '40%', lbl: 'World species in LAC' },
+                { val: '16', lbl: 'Countries covered' },
+                { val: '$17.7T', lbl: 'AUM under TNFD' },
+              ].map((s, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'stretch', gap: 24 }}>
+                  {i > 0 && <div style={{ width: 1, background: 'rgba(255,255,255,0.08)' }} />}
+                  <div>
+                    <div style={{ fontSize: 20, fontWeight: 700, color: '#f4f4f6', letterSpacing: '-0.02em' }}>{s.val}</div>
+                    <div style={{ fontSize: 9, color: '#4a4a5a', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: 2 }}>{s.lbl}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Sign in button */}
+            <button
+              onClick={() => loginWithRedirect()}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 10,
+                padding: '13px 24px',
+                width: 'fit-content',
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: 10, fontSize: 13, fontWeight: 600, color: '#f4f4f6',
+                cursor: 'pointer', letterSpacing: '0.01em',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'rgba(124,58,237,0.15)'
+                e.currentTarget.style.borderColor = 'rgba(124,58,237,0.4)'
+                e.currentTarget.style.boxShadow = '0 0 24px rgba(124,58,237,0.2)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+            >
+              Sign in to BioRisk AI
+              <div style={{
+                width: 28, height: 28, borderRadius: 7,
+                background: 'linear-gradient(135deg, #7c3aed, #ec4899)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 14, flexShrink: 0,
+              }}>→</div>
+            </button>
           </div>
 
-          <h1 style={{
-            fontSize: 26, fontWeight: 700, color: 'var(--text)',
-            marginBottom: 8, letterSpacing: '-0.02em',
-          }}>BioRisk AI</h1>
-          <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 8, lineHeight: 1.6 }}>
-            Biodiversity risk intelligence for ESG & TNFD
-          </p>
-          <p style={{ fontSize: 11, color: 'var(--text3)', marginBottom: 32, lineHeight: 1.6 }}>
-            Powered by GBIF Data
-          </p>
+          {/* Case study badge bottom right */}
+          <div style={{
+            position: 'absolute', bottom: 36, right: 40, zIndex: 10,
+            background: 'rgba(8,10,16,0.75)', backdropFilter: 'blur(16px)',
+            border: '1px solid rgba(255,255,255,0.07)',
+            borderRadius: 12, padding: '14px 18px',
+            animation: 'fadeUp 1s ease 1.4s both', maxWidth: 220,
+          }}>
+            <div style={{
+              fontSize: 9, color: '#ec4899', textTransform: 'uppercase',
+              letterSpacing: '0.1em', marginBottom: 6, fontWeight: 600,
+              display: 'flex', alignItems: 'center', gap: 6,
+            }}>
+              <div style={{
+                width: 5, height: 5, borderRadius: '50%', background: '#ec4899',
+                animation: 'pulseDot 1.5s ease-in-out infinite',
+              }} />
+              Live case study
+            </div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#f4f4f6', marginBottom: 4 }}>Litio Galán, Catamarca</div>
+            <div style={{ fontSize: 10, color: '#6b6b7a', lineHeight: 1.5 }}>USD 1.5B · Mining · Phoenicoparrus andinus (EN) detected</div>
+          </div>
 
-          <button
-            onClick={() => loginWithRedirect()}
-            style={{
-              width: '100%', padding: '14px',
-              background: 'linear-gradient(120deg, #7c3aed, #ec4899, #06b6d4)',
-              backgroundSize: '200% 200%',
-              animation: 'pui-grad-shift 6s ease infinite',
-              color: 'white', border: 'none', borderRadius: 12,
-              fontSize: 15, fontWeight: 600, cursor: 'pointer',
-              boxShadow: '0 0 24px rgba(124,58,237,0.45)',
-              marginBottom: 12,
-              transition: 'box-shadow 0.2s',
-            }}
-          >
-            Sign in
-          </button>
+          {/* Powered by bottom left */}
+          <div style={{
+            position: 'absolute', bottom: 36, left: 40, zIndex: 10,
+            fontSize: 10, color: '#3a3a4a', letterSpacing: '0.04em',
+            animation: 'fadeUp 1s ease 1.6s both',
+          }}>
+            Powered by <span style={{ color: '#22c55e' }}>GBIF</span> · Sentinel-2 · AWS Athena · GEE
+          </div>
+
         </div>
-      </div>)}
-      {showStatsModal && (
-        <GbifStatsModal onClose={() => setShowStatsModal(false)} />
       )}
 
       <div
@@ -7721,7 +7961,7 @@ export default function App() {
 
               {/* MITIGATION TAB */}
               {dashboardTab === 'mitigation' && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18, marginBottom: 18 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18, marginBottom: 12 }}>
                   <RiskScoreCard riskScore={gbifData?.riskScore} />
                   <HumanPressureCard data={gbifData} analysisProject={analysisProject} />
                   <DependenciesCard data={gbifData} analysisProject={analysisProject} />
