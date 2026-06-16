@@ -654,7 +654,10 @@ export async function queryGbifAthena({ minLat, maxLat, minLng, maxLng, countryC
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept-Encoding': 'gzip',
+      },
       body: JSON.stringify({ minLat, maxLat, minLng, maxLng, countryCode, taxa }),
     })
 
