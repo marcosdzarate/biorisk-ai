@@ -5712,93 +5712,82 @@ function MonitoringPage() {
   )
 }
 
-function DataSourcesPage() {
+function DataSourcesPage({ t, lang }) {
   return (
     <main className="main" style={{ fontSize: '13px' }}>
       <div className="header">
         <div className="h-left">
-          <h1>Data Sources</h1>
-          <div className="h-sub">Open data powering BioRisk AI</div>
+          <h1>{t('sources.title')}</h1>
+          <div className="h-sub">{t('sources.sub')}</div>
         </div>
       </div>
-      <div style={{ padding: '0 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, maxWidth: 900 }}>
+      <div className="sources-grid" style={{ padding: '0 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, maxWidth: 900 }}>
         {[
           {
-            icon: '🌐', name: 'GBIF — Global Biodiversity Information Facility',
-            desc: 'The world\'s largest open-access biodiversity database with over 2 billion occurrence records from 70,000+ datasets worldwide.',
-            link: 'https://www.gbif.org',
-            badge: 'CC BY 4.0',
-            stats: '2B+ records · 70K+ datasets · Free API',
+            icon: '🌐',
+            name: lang === 'es' ? 'GBIF — Infraestructura Global de Información sobre Biodiversidad' : 'GBIF — Global Biodiversity Information Facility',
+            desc: lang === 'es' ? 'La base de datos de biodiversidad de acceso abierto más grande del mundo con más de 2 mil millones de registros de ocurrencias.' : 'The world\'s largest open-access biodiversity database with over 2 billion occurrence records from 70,000+ datasets worldwide.',
+            link: 'https://www.gbif.org', badge: 'CC BY 4.0', stats: '2B+ records · 70K+ datasets · Free API',
           },
           {
-            icon: '🛰', name: 'Sentinel-2 L2A — Copernicus',
-            desc: 'ESA satellite imagery at 10m resolution updated every 5 days. Used for NDVI vegetation health and land cover analysis.',
-            link: 'https://dataspace.copernicus.eu',
-            badge: 'Free tier',
-            stats: '10m resolution · 5-day revisit · 2017–present',
+            icon: '🛰',
+            name: 'Sentinel-2 L2A — Copernicus',
+            desc: lang === 'es' ? 'Imágenes satelitales de la ESA a 10m de resolución. Usadas para NDVI y análisis de cobertura del suelo.' : 'ESA satellite imagery at 10m resolution updated every 5 days. Used for NDVI vegetation health and land cover analysis.',
+            link: 'https://dataspace.copernicus.eu', badge: 'Free tier', stats: '10m resolution · 5-day revisit · 2017–present',
           },
           {
-            icon: '🛡', name: 'WDPA — World Database of Protected Areas',
-            desc: 'The most comprehensive global database of marine and terrestrial protected areas, managed by UNEP-WCMC and IUCN.',
-            link: 'https://www.protectedplanet.net',
-            badge: 'Free API',
-            stats: '260K+ protected areas · Global coverage',
+            icon: '🛡',
+            name: lang === 'es' ? 'WDPA — Base de Datos Mundial de Áreas Protegidas' : 'WDPA — World Database of Protected Areas',
+            desc: lang === 'es' ? 'La base de datos global más completa de áreas protegidas marinas y terrestres, gestionada por UNEP-WCMC e IUCN.' : 'The most comprehensive global database of marine and terrestrial protected areas, managed by UNEP-WCMC and IUCN.',
+            link: 'https://www.protectedplanet.net', badge: 'Free API', stats: '260K+ protected areas · Global coverage',
           },
           {
-            icon: '📋', name: 'IUCN Red List of Threatened Species',
-            desc: 'The world\'s most comprehensive inventory of species conservation status. Integration pending approval.',
-            link: 'https://www.iucnredlist.org',
-            badge: 'Pending',
-            stats: '150K+ species assessed · Updated annually',
+            icon: '📋',
+            name: lang === 'es' ? 'Lista Roja UICN de Especies Amenazadas' : 'IUCN Red List of Threatened Species',
+            desc: lang === 'es' ? 'El inventario más completo del estado de conservación de especies. Integración pendiente de aprobación.' : 'The world\'s most comprehensive inventory of species conservation status. Integration pending approval.',
+            link: 'https://www.iucnredlist.org', badge: 'Pending', stats: '150K+ species assessed · Updated annually',
           },
           {
-            icon: '☁️', name: 'AWS Open Data — GBIF S3 Snapshot',
-            desc: 'Complete GBIF occurrence dataset in Parquet format hosted on AWS S3. Powers Full Analysis Mode via Athena.',
-            link: 'https://registry.opendata.aws/gbif/',
-            badge: 'Free access',
-            stats: 'Snapshot 2026-05-01 · ~180GB',
+            icon: '☁️',
+            name: lang === 'es' ? 'AWS Open Data — Snapshot GBIF S3' : 'AWS Open Data — GBIF S3 Snapshot',
+            desc: lang === 'es' ? 'Dataset completo de ocurrencias GBIF en formato Parquet en AWS S3. Potencia el Modo de Análisis Completo vía Athena.' : 'Complete GBIF occurrence dataset in Parquet format hosted on AWS S3. Powers Full Analysis Mode via Athena.',
+            link: 'https://registry.opendata.aws/gbif/', badge: 'Free access', stats: 'Snapshot 2026-05-01 · ~180GB',
           },
           {
-            icon: '🌍', name: 'Google Dynamic World V1',
-            desc: 'Near real-time land cover classification at 10m resolution using Sentinel-2 imagery. 9 land use classes updated continuously.',
-            link: 'https://dynamicworld.app',
-            badge: 'Free · GEE',
-            stats: '10m resolution · 9 classes · 2015–present',
+            icon: '🌍',
+            name: 'Google Dynamic World V1',
+            desc: lang === 'es' ? 'Clasificación de cobertura del suelo en tiempo casi real a 10m usando imágenes Sentinel-2. 9 clases de uso del suelo.' : 'Near real-time land cover classification at 10m resolution using Sentinel-2 imagery. 9 land use classes updated continuously.',
+            link: 'https://dynamicworld.app', badge: 'Free · GEE', stats: '10m resolution · 9 classes · 2015–present',
           },
           {
-            icon: '🌲', name: 'Hansen Global Forest Change v1.11',
-            desc: 'Annual global forest cover loss and gain from University of Maryland. Tracks deforestation from 2001 to 2023.',
-            link: 'https://glad.umd.edu/projects/global-forest-watch',
-            badge: 'Free · GEE',
-            stats: '30m resolution · 2001–2023 · Annual updates',
+            icon: '🌲',
+            name: lang === 'es' ? 'Hansen Cambio Forestal Global v1.11' : 'Hansen Global Forest Change v1.11',
+            desc: lang === 'es' ? 'Datos anuales de pérdida y ganancia de cobertura forestal global. Monitorea la deforestación 2001–2023.' : 'Annual global forest cover loss and gain from University of Maryland. Tracks deforestation from 2001 to 2023.',
+            link: 'https://glad.umd.edu/projects/global-forest-watch', badge: 'Free · GEE', stats: '30m resolution · 2001–2023 · Annual updates',
           },
           {
-            icon: '💧', name: 'JRC Global Surface Water',
-            desc: 'Monthly water presence derived from Landsat imagery by the Joint Research Centre. Tracks permanent and seasonal water bodies.',
-            link: 'https://global-surface-water.appspot.com',
-            badge: 'Free · GEE',
-            stats: '30m resolution · 1984–2021 · Monthly',
+            icon: '💧',
+            name: lang === 'es' ? 'JRC Agua Superficial Global' : 'JRC Global Surface Water',
+            desc: lang === 'es' ? 'Presencia mensual de agua derivada de imágenes Landsat por el Centro de Investigación Conjunto.' : 'Monthly water presence derived from Landsat imagery by the Joint Research Centre. Tracks permanent and seasonal water bodies.',
+            link: 'https://global-surface-water.appspot.com', badge: 'Free · GEE', stats: '30m resolution · 1984–2021 · Monthly',
           },
           {
-            icon: '🔥', name: 'MODIS MOD14A1 — Fire Detection',
-            desc: 'Daily global fire detection from NASA MODIS satellite. Assesses wildfire risk over the last 5 years.',
-            link: 'https://modis.gsfc.nasa.gov',
-            badge: 'Free · GEE',
-            stats: '1km resolution · Daily · 2000–present',
+            icon: '🔥',
+            name: lang === 'es' ? 'MODIS MOD14A1 — Detección de Incendios' : 'MODIS MOD14A1 — Fire Detection',
+            desc: lang === 'es' ? 'Detección global diaria de incendios del satélite NASA MODIS. Evalúa el riesgo de incendios forestales.' : 'Daily global fire detection from NASA MODIS satellite. Assesses wildfire risk over the last 5 years.',
+            link: 'https://modis.gsfc.nasa.gov', badge: 'Free · GEE', stats: '1km resolution · Daily · 2000–present',
           },
           {
-            icon: '🦎', name: 'IUCN Habitat Classification v004',
-            desc: 'Global habitat classification map based on IUCN categories. Identifies dominant ecosystem type within project boundaries.',
-            link: 'https://www.iucnredlist.org/resources/habitat-classification-scheme',
-            badge: 'Free · GEE',
-            stats: '300m resolution · Level 2 classification',
+            icon: '🦎',
+            name: lang === 'es' ? 'Clasificación de Hábitat UICN v004' : 'IUCN Habitat Classification v004',
+            desc: lang === 'es' ? 'Mapa global de clasificación de hábitat basado en categorías UICN. Identifica el tipo de ecosistema dominante.' : 'Global habitat classification map based on IUCN categories. Identifies dominant ecosystem type within project boundaries.',
+            link: 'https://www.iucnredlist.org/resources/habitat-classification-scheme', badge: 'Free · GEE', stats: '300m resolution · Level 2 classification',
           },
           {
-            icon: '🗺', name: 'Key Biodiversity Areas (KBA)',
-            desc: 'Sites contributing significantly to the global persistence of biodiversity. Data access pending approval from KBA Partnership.',
-            link: 'https://www.keybiodiversityareas.org',
-            badge: 'Pending',
-            stats: '16,500+ sites · Global · BirdLife International',
+            icon: '🗺',
+            name: lang === 'es' ? 'Áreas Clave para la Biodiversidad (KBA)' : 'Key Biodiversity Areas (KBA)',
+            desc: lang === 'es' ? 'Sitios que contribuyen significativamente a la persistencia global de la biodiversidad. Acceso pendiente de aprobación.' : 'Sites contributing significantly to the global persistence of biodiversity. Data access pending approval from KBA Partnership.',
+            link: 'https://www.keybiodiversityareas.org', badge: 'Pending', stats: '16,500+ sites · Global · BirdLife International',
           },
         ].map((s, i) => (
           <GlassCard key={i} breathing glowOnHover style={{ fontSize: '0.78em' }}>
@@ -5813,7 +5802,7 @@ function DataSourcesPage() {
         ))}
       </div>
       <div style={{ padding: '16px 24px', fontSize: 10, color: 'var(--text3)' }}>
-        Occurrence data from GBIF.org under CC BY 4.0 · BioRisk AI © 2026
+        {lang === 'es' ? 'Datos de ocurrencias de GBIF.org bajo CC BY 4.0 · BioRisk AI © 2026' : 'Occurrence data from GBIF.org under CC BY 4.0 · BioRisk AI © 2026'}
       </div>
     </main>
   )
