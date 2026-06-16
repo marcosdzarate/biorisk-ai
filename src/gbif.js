@@ -726,3 +726,37 @@ export async function queryGEE(polygon, cellSizeKm = 10, polygonArea = null) {
     return null
   }
 }
+
+export async function queryWorldBankBiodiversity(countryCode) {
+  console.log('🌍 World Bank query for:', countryCode)
+  const indicators = [
+    { id: 'EN.BIR.THRD.NO', label: 'Threatened bird species' },
+    { id: 'EN.MAM.THRD.NO', label: 'Threatened mammal species' },
+    { id: 'EN.FSH.THRD.NO', label: 'Threatened fish species' },
+    { id: 'EN.HPT.THRD.NO', label: 'Threatened plant species' },
+    { id: 'AG.LND.FRST.ZS', label: 'Forest area (% of land)' },
+    { id: 'ER.PTD.TOTL.ZS', label: 'Terrestrial protected areas (% of land)' },
+    { id: 'EN.CLC.MDAT.ZS', label: 'Climate risk exposure (% pop affected)' },
+    { id: 'NY.GDP.PCAP.CD', label: 'GDP per capita (USD)' },
+  ]
+
+  try {
+    const results = await Promise.all(
+      indicators.map(async ({ id, label }) => {
+        const url = `https://api.worldbank.org/v2/country/${countryCode}/indicator/${id}?format=json&mrv=1`
+        const res = await fetch(url)
+        if (!res.ok) return null
+        const data = await res.json()
+        const value = data?.[1]?.[0]?.value
+        const year = data?.[1]?.[0]?.date
+        return { id, label, value: value != null ? value : null, year }
+      })
+    )
+    console.log('🌍 World Bank results:', results.filter(r => r && r.value != null).length, 'indicators')
+
+    return results.filter(r => r && r.value != null)
+  } catch (e) {
+    console.warn('World Bank query failed:', e.message)
+    return null
+  }
+}

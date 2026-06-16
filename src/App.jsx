@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Polygon, Polyline, CircleMarker, Tooltip, Popu
 import 'leaflet.heat'
 import L from 'leaflet'
 import { LineChart, Line, BarChart, Bar, Cell, ResponsiveContainer, Tooltip as RTooltip, YAxis } from 'recharts'
-import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss, queryGbifAthena, queryGEE } from './gbif.js'
+import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss, queryGbifAthena, queryGEE, queryWorldBankBiodiversity } from './gbif.js'
 import { jsPDF } from 'jspdf'
 import { supabase, getSupabaseWithAuth } from './supabase.js'
 import * as turf from '@turf/turf'
@@ -1752,11 +1752,11 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
         {viewMode === 'gbif' && (
           <div style={{
             position: 'absolute', bottom: 8, left: 8, right: 8, zIndex: 1000,
-            background: 'rgba(255,251,235,0.95)',
-            border: '1px solid #FDE68A',
+            background: 'rgba(8,8,11,0.85)',
+            border: '1px solid rgba(255,255,255,0.08)',
             borderRadius: 6, padding: '5px 10px',
-            fontSize: 9, color: '#92400E',
-            lineHeight: 1.4,
+            fontSize: 9, color: 'var(--text3)',
+            lineHeight: 1.4, backdropFilter: 'blur(8px)',
           }}>
             🌍 Global GBIF occurrence density — 2B+ records from 70,000+ datasets worldwide.
             Darker areas indicate higher sampling effort. Data via GBIF Maps API.
@@ -1839,8 +1839,8 @@ function RiskScoreCard({ riskScore }) {
 
       <div style={{
         margin: '4px 12px 12px', padding: '6px 10px',
-        background: '#FFFBEB', border: '1px solid #FDE68A',
-        borderRadius: 6, fontSize: 9, color: '#92400E', lineHeight: 1.5,
+        background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.15)',
+        borderRadius: 6, fontSize: 9, color: 'var(--text3)', lineHeight: 1.5,
       }}>
         ⚠ Screening-grade assessment only. Does not replace formal Environmental &amp; Social Impact Assessments (ESIA) or field surveys.
       </div>
@@ -2305,10 +2305,9 @@ function EcosystemSensitivityCard({ data }) {
       </div>
 
       <div style={{
-        margin: '0 16px 12px',
-        padding: '5px 8px',
-        background: '#F0FDF4', border: '1px solid #BBF7D0',
-        borderRadius: 5, fontSize: 9, color: '#166534'
+        margin: '0 16px 12px', padding: '5px 8px',
+        background: 'rgba(34,197,94,0.06)', border: '1px solid rgba(34,197,94,0.15)',
+        borderRadius: 5, fontSize: 9, color: 'var(--text3)',
       }}>
         📅 2023–2024 · Sentinel-2 L2A · quarterly composites
       </div>
@@ -3182,8 +3181,8 @@ function EcosystemServicesCard({ data, polygon }) {
       </div>
       <div style={{
         margin: '4px 12px 12px', padding: '6px 10px',
-        background: '#F0F9FF', border: '1px solid #BAE6FD',
-        borderRadius: 6, fontSize: 9, color: '#0369A1', lineHeight: 1.5,
+        background: 'rgba(6,182,212,0.06)', border: '1px solid rgba(6,182,212,0.15)',
+        borderRadius: 6, fontSize: 9, color: 'var(--text3)', lineHeight: 1.5,
       }}>
         Indicative estimates based on de Groot et al. (2012) global ecosystem service values, adjusted by NDVI quality factor.
         Not a formal ecosystem valuation. For regulatory purposes, consult a certified environmental economist.
@@ -3326,8 +3325,8 @@ function ForestLossCard({ data }) {
 
       <div style={{
         margin: '4px 12px 12px', padding: '6px 10px',
-        background: '#FFF7ED', border: '1px solid #FED7AA',
-        borderRadius: 6, fontSize: 9, color: '#92400E',
+        background: 'rgba(249,115,22,0.06)', border: '1px solid rgba(249,115,22,0.15)',
+        borderRadius: 6, fontSize: 9, color: 'var(--text3)',
       }}>
         Tree cover loss data from Global Forest Watch (UMD v1.13, 2001–2025).
         Relevant for EUDR due diligence on deforestation-linked commodities.
@@ -3554,8 +3553,8 @@ function ScenarioAnalysisCard({ data }) {
 
         <div style={{
           margin: '0 12px 12px', padding: '6px 10px',
-          background: '#FFFBEB', border: '1px solid #FDE68A',
-          borderRadius: 6, fontSize: 9, color: '#92400E',
+          background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.15)',
+          borderRadius: 6, fontSize: 9, color: 'var(--text3)',
         }}>
           ⚠ Projections are heuristic estimates based on NDVI trend extrapolation. Not a predictive ecological model.
         </div>
@@ -3689,14 +3688,14 @@ function ImpactsCard({ data, analysisProject }) {
           </tbody>
         </table>
       </div>
-
       <div style={{
         margin: '8px 12px 12px', padding: '6px 10px',
-        background: '#FFFBEB', border: '1px solid #FDE68A',
-        borderRadius: 6, fontSize: 9, color: '#92400E',
+        background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.15)',
+        borderRadius: 6, fontSize: 9, color: 'var(--text3)',
       }}>
         ⚠ Impact levels are screening-grade proxies based on observational data. Formal ESIA required for regulatory purposes.
       </div>
+
     </div>
   )
 }
@@ -3963,8 +3962,8 @@ function TnfdMetricsCard({ data, analysisProject }) {
 
       <div style={{
         margin: '8px 12px 12px', padding: '6px 10px',
-        background: '#FFFBEB', border: '1px solid #FDE68A',
-        borderRadius: 6, fontSize: 9, color: '#92400E',
+        background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.15)',
+        borderRadius: 6, fontSize: 9, color: 'var(--text3)',
       }}>
         ⚠ Screening-grade metrics. Framework references are indicative — formal disclosure requires qualified assessment.
       </div>
@@ -4076,6 +4075,68 @@ function TnfdCard({ data, analysisProject }) {
 
   )
 }
+
+function WorldBankCard({ data }) {
+  const wb = data?.worldBank
+  if (!wb || wb.length === 0) return null
+
+  const fmt = (val, id) => {
+    if (val == null) return '—'
+    if (id === 'AG.LND.FRST.ZS' || id === 'ER.PTD.TOTL.ZS' || id === 'EN.CLC.MDAT.ZS')
+      return `${val.toFixed(1)}%`
+    if (id === 'NY.GDP.PCAP.CD')
+      return `$${Math.round(val).toLocaleString('en-US')}`
+    return Math.round(val).toLocaleString('en-US')
+  }
+
+  const icons = {
+    'EN.BIR.THRD.NO': <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 10c2-4 5-6 8-4s4 5 2 8M6 8c1-2 3-3 5-2" /><circle cx="11" cy="5" r="1" /></svg>,
+    'EN.MAM.THRD.NO': <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 11c0-3 2-5 5-5s5 2 5 5M6 6c0-1 1-2 2-2s2 1 2 2" /><circle cx="6" cy="9" r="1" /><circle cx="10" cy="9" r="1" /></svg>,
+    'EN.FSH.THRD.NO': <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 8c2-3 5-4 8-2l2-2v4l-2-2c-1 2-3 3-5 3S3 10 2 8z" /><circle cx="11" cy="7" r="0.8" fill="currentColor" /></svg>,
+    'EN.HPT.THRD.NO': <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 14V8M8 8C8 8 4 6 3 3c2 0 4 1 5 3M8 8c0 0 4-2 5-5-2 0-4 1-5 5" /></svg>,
+    'AG.LND.FRST.ZS': <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 14V9M8 14V6M12 14V9M2 9l4-5 4 5M6 6l4-5 4 5" /></svg>,
+    'ER.PTD.TOTL.ZS': <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 2L13 5v5c0 3-2.5 4.5-5 5-2.5-.5-5-2-5-5V5z" /></svg>,
+    'EN.CLC.MDAT.ZS': <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 2v2M8 12v2M2 8h2M12 8h2M4.2 4.2l1.4 1.4M10.4 10.4l1.4 1.4M4.2 11.8l1.4-1.4M10.4 5.6l1.4-1.4" /><circle cx="8" cy="8" r="3" /></svg>,
+    'NY.GDP.PCAP.CD': <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="6" width="12" height="8" rx="1" /><path d="M5 6V4a3 3 0 016 0v2" /><path d="M8 10v2M7 10h2" /></svg>,
+  }
+
+  return (
+    <div className="card">
+      <div className="card-head">
+        <div className="card-title">National Biodiversity Context</div>
+        <span style={{ fontSize: 10, color: 'var(--text3)' }}>World Bank WDI</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {wb.map((item, i) => (
+          <div key={i} style={{
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            padding: '7px 10px', borderRadius: 7,
+            background: 'rgba(255,255,255,0.02)',
+            border: '1px solid var(--bd)',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ color: 'var(--text3)', display: 'flex', alignItems: 'center' }}>
+                {icons[item.id] ?? <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="6" /><path d="M8 5v3M8 11v.5" /></svg>}
+              </span>
+              <span style={{ fontSize: 11, color: 'var(--text2)' }}>{item.label}</span>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)' }}>
+                {fmt(item.value, item.id)}
+              </div>
+              <div style={{ fontSize: 9, color: 'var(--text3)' }}>{item.year}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: 9, color: 'var(--text3)', marginTop: 10, borderTop: '1px solid var(--bd)', paddingTop: 8 }}>
+        Source: World Bank World Development Indicators · CC BY 4.0
+      </div>
+    </div>
+  )
+}
+
+
 function DataSourcesCard({ data, loading, onShowStats }) {
   const avesCount = data?.avesCount?.count
   const papersTotal = data?.papers?.total ?? 0
@@ -6447,7 +6508,7 @@ export default function App() {
         }
       }
 
-      const [aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss, gee] = await Promise.all([
+      const [aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss, gee, worldBank] = await Promise.all([
         callGbif('count_occurrences', { taxon_name: 'Aves', country }).catch(() => null),
         callGbif('count_occurrences', { taxon_name: 'Mammalia', country }).catch(() => null),
         callGbif('analyze_sampling_gaps', { taxon_name: 'Aves', countries: [country] }).catch(() => null),
@@ -6460,6 +6521,7 @@ export default function App() {
         queryNDVI(drawnPolygon).catch(() => null),
         queryForestLoss(drawnPolygon).catch(() => null),
         queryGEE(drawnPolygon, 10, calcPolygonAreaKm2(drawnPolygon)).catch(e => { console.error('🔴 GEE error:', e); return null }),
+        queryWorldBankBiodiversity(country).catch(() => null),
       ])
 
       // Per-taxon point-in-polygon refinement.
@@ -6593,6 +6655,7 @@ export default function App() {
         gee: gee,
         basisCount: basisCount,
         chao1: { estimated: chao1, observed: sObs, completeness: samplingCompleteness, singletons: n1, doubletons: n2 },
+        worldBank: worldBank,
       })
 
       setAnalysisStep(3)
@@ -6699,9 +6762,9 @@ export default function App() {
       queriedAt: new Date(),
       ndvi: scanResults.ndvi,
       forestLoss: scanResults.forestLoss,
-      gee: scanResults.gee,
       chao1: scanResults.chao1,
       basisCount: scanResults.basisCount,
+      worldBank: scanResults.worldBank,
     })
     console.log('📊 gbifData.gee after setGbifData:', scanResults.gee?.features?.length)
 
@@ -7627,19 +7690,23 @@ export default function App() {
               {/* TNFD & ESG TAB */}
               {dashboardTab === 'tnfd' && (
                 <>
-                  <div className="grid row-4">
+                  {/* Fila 1: TNFD + Metrics */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18, marginBottom: 18 }}>
                     <TnfdCard data={gbifData} analysisProject={analysisProject} />
                     <TnfdMetricsCard data={gbifData} analysisProject={analysisProject} />
-                    <DataSourcesCard data={gbifData} loading={loading} onShowStats={() => setShowStatsModal(true)} />
                   </div>
-                  <div className="grid row-5">
+
+                  {/* Fila 2: Dependencies + Impacts + Ecosystem Services */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 18, marginBottom: 18 }}>
                     <DependenciesCard data={gbifData} analysisProject={analysisProject} />
                     <ImpactsCard data={gbifData} analysisProject={analysisProject} />
                     <EcosystemServicesCard data={gbifData} polygon={activePolygon} />
                   </div>
+
+                  {/* Fila 3: World Bank */}
+                  <WorldBankCard data={gbifData} />
                 </>
               )}
-
               {/* VEGETATION & FOREST TAB */}
               {dashboardTab === 'vegetation' && (
                 <>
