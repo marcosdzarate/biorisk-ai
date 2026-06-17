@@ -3,6 +3,9 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { MapContainer, TileLayer, Polygon, Polyline, CircleMarker, Tooltip, Popup, useMapEvents, useMap, GeoJSON } from 'react-leaflet'
 import 'leaflet.heat'
 import L from 'leaflet'
+import MarkerClusterGroup from 'react-leaflet-markercluster'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import { LineChart, Line, BarChart, Bar, Cell, ResponsiveContainer, Tooltip as RTooltip, YAxis } from 'recharts'
 import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss, queryGbifAthena, queryGEE, queryWorldBankBiodiversity } from './gbif.js'
 import { jsPDF } from 'jspdf'
@@ -1688,19 +1691,27 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
               }}
             />
           )}
-          {hasPolygon && (viewMode === 'points' || viewMode === 'protected') && allTaxaRecords?.flatMap((taxon, ti) => {
-            const color = TAXON_COLORS[taxon.name] || '#18A957'
-            return (taxon.records ?? []).map((occ, i) => (
-              (occ.lat != null && occ.lng != null) ? (
-                <OccurrenceMarker
-                  key={`occ-${ti}-${i}`}
-                  occ={occ}
-                  color={color}
-                  taxonName={taxon.name}
-                />
-              ) : null
-            ))
-          })}
+          {hasPolygon && (viewMode === 'points' || viewMode === 'protected') && (
+            <MarkerClusterGroup
+              chunkedLoading
+              maxClusterRadius={40}
+              spiderfyOnMaxZoom={true}
+            >
+              {allTaxaRecords?.flatMap((taxon, ti) => {
+                const color = TAXON_COLORS[taxon.name] || '#18A957'
+                return (taxon.records ?? []).map((occ, i) => (
+                  (occ.lat != null && occ.lng != null) ? (
+                    <OccurrenceMarker
+                      key={`occ-${ti}-${i}`}
+                      occ={occ}
+                      color={color}
+                      taxonName={taxon.name}
+                    />
+                  ) : null
+                ))
+              })}
+            </MarkerClusterGroup>
+          )}
           {hasPolygon && viewMode === 'heatmap' && (
             <HeatmapLayer allTaxaRecords={allTaxaRecords} />
           )}

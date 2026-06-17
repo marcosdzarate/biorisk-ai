@@ -16,10 +16,12 @@
     "jspdf": "^4.2.1",
     "leaflet": "^1.9.4",
     "leaflet.heat": "^0.2.0",
+    "leaflet.markercluster": "^1.5.3",
     "performative-ui": "^0.3.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-leaflet": "^5.0.0",
+    "react-leaflet-markercluster": "^5.0.0-rc.0",
     "recharts": "^3.8.1",
     "three": "^0.184.0"
   },
