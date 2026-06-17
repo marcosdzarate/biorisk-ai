@@ -5746,6 +5746,156 @@ function MonitoringPage() {
   )
 }
 
+function ReportsPage({ projects, t, lang, exportReport }) {
+  if (projects.length === 0) {
+    return (
+      <main className="main">
+        <div className="header">
+          <div className="h-left">
+            <h1>{lang === 'es' ? 'Reportes' : 'Reports'}</h1>
+            <div className="h-sub">{lang === 'es' ? 'Comparador de proyectos' : 'Project comparator'}</div>
+          </div>
+        </div>
+        <div style={{ padding: '60px 24px', textAlign: 'center' }}>
+          <div style={{ fontSize: 44, marginBottom: 14 }}>📊</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text)', marginBottom: 6 }}>
+            {lang === 'es' ? 'Sin proyectos para comparar' : 'No projects to compare'}
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--text3)' }}>
+            {lang === 'es' ? 'Ejecutá al menos un análisis para ver el comparador.' : 'Run at least one analysis to see the comparator.'}
+          </div>
+        </div>
+      </main>
+    )
+  }
+
+  const getRiskColor = (score) => {
+    if (!score) return 'var(--text3)'
+    if (score >= 76) return '#E84C3D'
+    if (score >= 51) return '#F5A623'
+    if (score >= 26) return '#FBBF24'
+    return '#22c55e'
+  }
+
+  const getRiskLabel = (category) => {
+    if (!category) return '—'
+    if (lang === 'es') {
+      if (category.includes('Critical')) return 'Crítico'
+      if (category.includes('High')) return 'Alto'
+      if (category.includes('Moderate')) return 'Moderado'
+      return 'Bajo'
+    }
+    return category
+  }
+
+  return (
+    <main className="main">
+      <div className="header">
+        <div className="h-left">
+          <h1>{lang === 'es' ? 'Reportes' : 'Reports'}</h1>
+          <div className="h-sub">{lang === 'es' ? 'Comparador de proyectos' : 'Project comparator'}</div>
+        </div>
+      </div>
+
+      <div style={{ padding: '0 24px', overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+          <thead>
+            <tr>
+              {[
+                lang === 'es' ? 'Proyecto' : 'Project',
+                lang === 'es' ? 'País' : 'Country',
+                lang === 'es' ? 'Sector' : 'Sector',
+                lang === 'es' ? 'Fase' : 'Phase',
+                lang === 'es' ? 'Puntuación' : 'Risk Score',
+                lang === 'es' ? 'Categoría' : 'Category',
+                lang === 'es' ? 'Taxa' : 'Taxa',
+                lang === 'es' ? 'Registros' : 'Records',
+                'WDPA',
+                'NDVI',
+                'IFC PS6',
+                lang === 'es' ? 'Inversión' : 'Investment',
+                lang === 'es' ? 'Fecha' : 'Date', 'PDF',
+              ].map((h, i) => (
+                <th key={i} style={{
+                  padding: '10px 12px', textAlign: 'left',
+                  fontSize: 10, fontWeight: 700, color: 'var(--text3)',
+                  textTransform: 'uppercase', letterSpacing: '0.06em',
+                  borderBottom: '1px solid var(--bd)',
+                  whiteSpace: 'nowrap',
+                }}>
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {projects.map((p, i) => {
+              const score = p.riskScore?.score
+              const ndvi = p.gbifData?.ndvi?.mean
+              const wdpa = p.gbifData?.wdpa?.intersectingCount ?? 0
+              const taxa = p.gbifData?.taxaInPolygon?.filter(t => t.inPolygon > 0).length ?? 0
+              const ifc = p.frameworks?.includes('IFC PS6 / Equator Principles') ? '✓' : '—'
+              const investment = p.investment && Number(p.investment) > 0
+                ? Number(p.investment) >= 1e9
+                  ? `$${(Number(p.investment) / 1e9).toFixed(1)}B`
+                  : Number(p.investment) >= 1e6
+                    ? `$${(Number(p.investment) / 1e6).toFixed(0)}M`
+                    : `$${Number(p.investment).toLocaleString('en-US')}`
+                : '—'
+
+              return (<tr key={i} style={{ borderBottom: '1px solid var(--bd)' }}
+                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+              >
+                <td style={{ padding: '12px', fontWeight: 600, color: 'var(--text)' }}>{p.name}</td>
+                <td style={{ padding: '12px', color: 'var(--text2)' }}>{COUNTRY_NAMES[p.country] ?? p.country}</td>
+                <td style={{ padding: '12px', color: 'var(--text2)' }}>{p.sector}</td>
+                <td style={{ padding: '12px', color: 'var(--text2)', fontSize: 11 }}>{p.phase ?? '—'}</td>
+                <td style={{ padding: '12px' }}>
+                  <span style={{ fontSize: 16, fontWeight: 700, color: getRiskColor(score) }}>{score ?? '—'}</span>
+                  <span style={{ fontSize: 10, color: 'var(--text3)' }}>/100</span>
+                </td>
+                <td style={{ padding: '12px' }}>
+                  <span style={{
+                    fontSize: 10, fontWeight: 600, padding: '3px 8px', borderRadius: 999,
+                    background: getRiskColor(score) + '18',
+                    color: getRiskColor(score),
+                    border: `1px solid ${getRiskColor(score)}40`,
+                  }}>
+                    {getRiskLabel(p.riskScore?.category)}
+                  </span>
+                </td>
+                <td style={{ padding: '12px', color: 'var(--text)', fontWeight: 600 }}>{taxa}</td>
+                <td style={{ padding: '12px', color: 'var(--text2)' }}>{p.totalInPolygon?.toLocaleString('en-US') ?? '—'}</td>
+                <td style={{ padding: '12px', color: wdpa > 0 ? '#F5A623' : 'var(--text3)', fontWeight: wdpa > 0 ? 700 : 400 }}>{wdpa}</td>
+                <td style={{ padding: '12px', color: 'var(--text2)' }}>{ndvi ? ndvi.toFixed(3) : '—'}</td>
+                <td style={{ padding: '12px', color: ifc === '✓' ? '#22c55e' : 'var(--text3)' }}>{ifc}</td>
+                <td style={{ padding: '12px', color: 'var(--text2)', fontSize: 11 }}>{investment}</td>
+                <td style={{ padding: '12px', color: 'var(--text3)', fontSize: 11 }}>{p.date}</td>
+                <td style={{ padding: '12px', textAlign: 'center' }}>
+                  <button
+                    onClick={() => exportReport(p.gbifData, { name: p.name, country: p.country, sector: p.sector, phase: p.phase, frameworks: p.frameworks, investment: p.investment }, p.name)}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text3)', padding: 4, borderRadius: 4, transition: 'color 0.15s' }}
+                    onMouseEnter={e => e.currentTarget.style.color = '#ec4899'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'var(--text3)'}
+                    title="Export PDF"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M4 1h6l3 3v10a1 1 0 01-1 1H4a1 1 0 01-1-1V2a1 1 0 011-1z" />
+                      <path d="M9 1v4h3" />
+                      <path d="M5 9h6M5 11.5h4" />
+                    </svg>
+                  </button>
+                </td>
+              </tr>)
+            })}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  )
+}
+
 function DataSourcesPage({ t, lang }) {
   return (
     <main className="main" style={{ fontSize: '13px' }}>
@@ -6546,6 +6696,8 @@ export default function App() {
       setPage('sources')
     } else if (id === 'monitoring') {
       setPage('monitoring')
+    } else if (id === 'reports') {
+      setPage('reports')
     } else {
       setPage('welcome')
     }
@@ -6715,7 +6867,7 @@ export default function App() {
         }
       }
 
-      const [aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss, gee, worldBank, countryCount] = await Promise.all([
+      const [aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss, gee, worldBank] = await Promise.all([
         callGbif('count_occurrences', { taxon_name: 'Aves', country }).catch(() => null),
         callGbif('count_occurrences', { taxon_name: 'Mammalia', country }).catch(() => null),
         callGbif('analyze_sampling_gaps', { taxon_name: 'Aves', countries: [country] }).catch(() => null),
@@ -6729,7 +6881,6 @@ export default function App() {
         queryForestLoss(drawnPolygon).catch(() => null),
         queryGEE(drawnPolygon, 10, calcPolygonAreaKm2(drawnPolygon)).catch(e => { console.error('🔴 GEE error:', e); return null }),
         queryWorldBankBiodiversity(country).catch(() => null),
-        queryCountryRecordCount(country).catch(() => null),
       ])
 
       // Per-taxon point-in-polygon refinement.
@@ -6973,7 +7124,6 @@ export default function App() {
       chao1: scanResults.chao1,
       basisCount: scanResults.basisCount,
       worldBank: scanResults.worldBank,
-      countryCount: countryCount,
 
     })
     console.log('📊 gbifData.gee after setGbifData:', scanResults.gee?.features?.length)
@@ -7046,11 +7196,15 @@ export default function App() {
           return
         }
         if (data) {
+          console.log('📦 Project from Supabase:', data[0])
           setProjects(data.map(p => ({
             id: p.id,
             name: p.name,
             country: p.country,
             sector: p.sector,
+            phase: p.phase,
+            frameworks: p.frameworks,
+            investment: p.investment,
             riskScore: p.risk_score,
             totalInPolygon: p.total_in_polygon,
             polygon: p.polygon,
@@ -7521,6 +7675,7 @@ export default function App() {
   const isSpecies = page === 'species'
   const isSources = page === 'sources'
   const isMonitoring = page === 'monitoring'
+  const isReports = page === 'reports'
   return (
     <>
       <style>{CSS}</style>
@@ -7751,6 +7906,8 @@ export default function App() {
           <SpeciesExplorerPage />
         ) : isMonitoring ? (
           <MonitoringPage />
+        ) : isReports ? (
+          <ReportsPage projects={projects} t={t} lang={lang} exportReport={exportReport} />
         ) : isSources ? (
           <DataSourcesPage t={t} lang={lang} />
         ) : (

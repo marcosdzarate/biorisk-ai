@@ -764,22 +764,3 @@ export async function queryWorldBankBiodiversity(countryCode) {
   }
 }
 
-export async function queryCountryRecordCount(countryCode) {
-  const url = import.meta.env.VITE_LAMBDA_GBIF_URL
-  if (!url) return null
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ countOnly: true, countryCode }),
-    })
-    if (!response.ok) return null
-    const data = await response.json()
-    console.log(`🌍 Country record count for ${countryCode}:`, data.count)
-    return data.count ?? null
-  } catch (e) {
-    console.warn('Country count query failed:', e.message)
-    return null
-  }
-}
