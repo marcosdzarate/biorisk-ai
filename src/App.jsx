@@ -1387,6 +1387,7 @@ function OccurrenceMarker({ occ, color, taxonName }) {
       eventHandlers={{ click: handleClick }}
     >
       <Popup>
+        <Popup autoPan={false}></Popup>
         <div style={{ fontSize: 12, lineHeight: 1.6, minWidth: 200 }}>
           <div style={{ fontWeight: 600, fontStyle: 'italic', marginBottom: 4 }}>
             {occ.scientificName || taxonName}
@@ -1435,7 +1436,27 @@ function OccurrenceMarker({ occ, color, taxonName }) {
 }
 
 
+
+
 function GbifDataIntelligenceCard({ data }) {
+  const COUNTRY_RECORD_COUNTS = {
+    CO: 33540230,
+    CR: 25283188,
+    MX: 25135537,
+    BR: 23863903,
+    CL: 20198612,
+    AR: 15354102,
+    EC: 11700746,
+    PE: 8775278,
+    PA: 8397537,
+    GT: 4667097,
+    VE: 4171936,
+    HN: 3367240,
+    UY: 1874604,
+    NI: 1710881,
+    BO: 1528100,
+    PY: 1158107,
+  }
   const [animated, setAnimated] = useState(false)
   const [counts, setCounts] = useState({
     total: 0, country: 0, polygon: 0, taxa: 0, species: 0
@@ -1443,7 +1464,7 @@ function GbifDataIntelligenceCard({ data }) {
 
   const targets = {
     total: 2840000000,
-    country: data?.chao1?.observed ? 15300000 : 0,
+    country: COUNTRY_RECORD_COUNTS[data?.riskScore?.country ?? 'AR'] ?? 0,
     polygon: data?.polygonCount ?? 0,
     taxa: data?.taxaInPolygon?.filter(t => t.inPolygon > 0).length ?? 0,
     species: data?.chao1?.estimated ?? 0,
@@ -1694,8 +1715,10 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
           {hasPolygon && (viewMode === 'points' || viewMode === 'protected') && (
             <MarkerClusterGroup
               chunkedLoading
-              maxClusterRadius={40}
+              maxClusterRadius={50}
+              disableClusteringAtZoom={12}
               spiderfyOnMaxZoom={true}
+              showCoverageOnHover={false}
             >
               {allTaxaRecords?.flatMap((taxon, ti) => {
                 const color = TAXON_COLORS[taxon.name] || '#18A957'
@@ -6692,7 +6715,7 @@ export default function App() {
         }
       }
 
-      const [aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss, gee, worldBank] = await Promise.all([
+      const [aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss, gee, worldBank, countryCount] = await Promise.all([
         callGbif('count_occurrences', { taxon_name: 'Aves', country }).catch(() => null),
         callGbif('count_occurrences', { taxon_name: 'Mammalia', country }).catch(() => null),
         callGbif('analyze_sampling_gaps', { taxon_name: 'Aves', countries: [country] }).catch(() => null),
@@ -6706,6 +6729,7 @@ export default function App() {
         queryForestLoss(drawnPolygon).catch(() => null),
         queryGEE(drawnPolygon, 10, calcPolygonAreaKm2(drawnPolygon)).catch(e => { console.error('🔴 GEE error:', e); return null }),
         queryWorldBankBiodiversity(country).catch(() => null),
+        queryCountryRecordCount(country).catch(() => null),
       ])
 
       // Per-taxon point-in-polygon refinement.
@@ -6949,6 +6973,8 @@ export default function App() {
       chao1: scanResults.chao1,
       basisCount: scanResults.basisCount,
       worldBank: scanResults.worldBank,
+      countryCount: countryCount,
+
     })
     console.log('📊 gbifData.gee after setGbifData:', scanResults.gee?.features?.length)
 
@@ -7736,8 +7762,13 @@ export default function App() {
                   <div className="h-sub">{projectName}</div>
                 </div>
                 <div className="h-right">
-                  <span className="badge">{gbifData?.analysisId ?? 'No analysis'}</span>
-                  <span className="badge">May 13, 2026</span>
+                  <span className="badge">
+                    {gbifData?.queriedAt
+                      ? new Date(gbifData.queriedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                      : new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                    }
+                  </span>
+
                   <Button variant="glow" size="sm" onClick={() => exportReport(gbifData, analysisProject, projectName)}>
                     {t('btn.export_report')}
                   </Button>
