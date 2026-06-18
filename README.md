@@ -145,6 +145,20 @@ GBIF.org
                           └── BioRisk AI frontend
 ```
 
+### Spatial Filtering Architecture
+
+BioRisk AI uses a two-stage spatial filtering approach:
+
+1. **Athena bbox query** — retrieves all records within the bounding box of the drawn polygon. Fast and scalable, but includes records outside the polygon boundary.
+2. **Turf.js point-in-polygon filter** — precise spatial filter applied in the browser, retaining only records that fall within the exact polygon geometry.
+
+This means the number of records shown in the Analysis Complete screen reflects the true count within the polygon, which will always be ≤ the total retrieved by Athena.
+
+### Large Polygon Handling
+
+For polygons exceeding **20,000 km²**, BioRisk AI automatically reduces the bounding box to a ~330km × 330km area centered on the polygon centroid. This prevents Athena query timeouts while maintaining analytical relevance for large concession areas. Users are warned before the scan proceeds and can cancel to redraw a more focused polygon.
+
+The taxa detected in the bbox are queried first via a lightweight `DISTINCT class` query, ensuring only taxonomic groups actually present in the area are analyzed — rather than all taxa in the country database.
 **Why this matters:**
 - **No rate limits** — standard GBIF REST API is limited to 300 records/taxon
 - **Full dataset** — all 2B+ records available, not sampled
