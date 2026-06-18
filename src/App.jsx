@@ -7,7 +7,7 @@ import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import { LineChart, Line, BarChart, Bar, Cell, ResponsiveContainer, Tooltip as RTooltip, YAxis } from 'recharts'
-import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss, queryGbifAthena, queryGEE, queryWorldBankBiodiversity } from './gbif.js'
+import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss, queryGbifAthena, queryGEE, queryWorldBankBiodiversity, queryTaxaInBbox } from './gbif.js'
 import { jsPDF } from 'jspdf'
 import { supabase, getSupabaseWithAuth } from './supabase.js'
 import * as turf from '@turf/turf'
@@ -4987,7 +4987,7 @@ function NewAnalysisPage({
   analysisProject, setAnalysisProject,
   scanResults, scanProgress, scanStepLabel,
   onBack, onRunScan, onViewDashboard, onResetWizard, loadCountryTaxa,
-  loadingTaxa, scanLogs, scanError, t, lang
+  loadingTaxa, scanLogs, scanError, t, lang, scanDuration
 }) {
   const center = COUNTRY_CENTERS[analysisProject.country] || [-15, -60]
   const canRun = analysisProject.name.trim() && drawnPolygon
@@ -5205,6 +5205,16 @@ function NewAnalysisPage({
                       return
                     }
                   }
+
+                  // Large polygon warning
+                  const area = calcPolygonAreaKm2(polygon)
+                  if (area > 50000) {
+                    const msg = lang === 'es'
+                      ? `⚠ Área grande detectada (${Math.round(area).toLocaleString('en-US')} km²)\n\nPara polígonos mayores a 50,000 km², el análisis se enfocará en el área central del polígono para garantizar que se complete en tiempo razonable.\n\n¿Deseas continuar con el análisis del área central?`
+                      : `⚠ Large polygon detected (${Math.round(area).toLocaleString('en-US')} km²)\n\nFor polygons larger than 50,000 km², the analysis will focus on the central area of the polygon to ensure it completes in a reasonable time.\n\nDo you want to continue with the central area analysis?`
+                    if (!window.confirm(msg)) return
+                  }
+
                   onRunScan()
                 }}
               >
@@ -5242,11 +5252,13 @@ function NewAnalysisPage({
               <div className="scan-title">
                 {lang === 'es' ? 'Ejecutando Análisis de Biodiversidad' : 'Running Biodiversity Scan'}
               </div>
+              <div className="scan-sub">{analysisProject.name}</div>
+
               {scanError && (
                 <div style={{
-                  background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
+                  background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)',
                   borderRadius: 8, padding: '12px 16px', margin: '12px 0',
-                  fontSize: 12, color: '#ef4444', lineHeight: 1.6,
+                  fontSize: 12, color: '#f87171', lineHeight: 1.6,
                 }}>
                   ⚠ {scanError}
                   <div style={{ marginTop: 8 }}>
@@ -5263,46 +5275,113 @@ function NewAnalysisPage({
                   </div>
                 </div>
               )}
-              <div className="scan-sub">{analysisProject.name}</div>
 
-              <div style={{
-                margin: '16px 0', background: '#0a0a0a',
-                border: '1px solid var(--bd)', borderRadius: 8,
-                padding: '12px 14px', maxHeight: 220, overflowY: 'auto',
-                fontFamily: 'monospace', fontSize: 11, textAlign: 'left',
-              }}>
-                {scanLogs.length === 0 ? (
-                  <div style={{ color: 'var(--text3)' }}>
-                    {lang === 'es' ? 'Inicializando...' : 'Initializing...'}
-                  </div>
-                ) : (
-                  scanLogs.map((log, i) => (
-                    <div key={i} style={{
-                      color: log.status === 'done' ? '#22c55e' : '#a1a1a1',
-                      marginBottom: 4, display: 'flex', gap: 8, alignItems: 'flex-start',
-                    }}>
-                      <span style={{ flexShrink: 0 }}>
-                        {log.status === 'done' ? (
-                          <span style={{ color: '#22c55e' }}>✓</span>
-                        ) : (
-                          <span style={{
-                            display: 'inline-block', width: 10, height: 10,
-                            border: '2px solid var(--bd)', borderTopColor: '#22c55e',
-                            borderRadius: '50%', animation: 'spin 0.8s linear infinite',
-                            flexShrink: 0, marginTop: 1,
+              {/* Pipeline timeline */}
+              <div style={{ margin: '20px 0', display: 'flex', flexDirection: 'column', gap: 0 }}>
+                {(() => {
+                  const steps = [
+                    { id: 'validate', label: lang === 'es' ? 'Validar área' : 'Validate area' },
+                    { id: 'taxa', label: lang === 'es' ? 'Cargar taxa' : 'Load taxonomic groups' },
+                    { id: 'gbif', label: lang === 'es' ? 'Datos de ocurrencia GBIF' : 'GBIF occurrence data' },
+                    { id: 'satellite', label: lang === 'es' ? 'Análisis satelital' : 'Satellite analysis' },
+                    { id: 'wdpa', label: lang === 'es' ? 'Áreas protegidas' : 'Protected areas' },
+                    { id: 'risk', label: lang === 'es' ? 'Evaluación de riesgo' : 'Risk assessment' },
+                  ]
+
+                  const logMap = {
+                    'validate': scanLogs.find(l => l.msg?.includes('km²') || l.msg?.includes('polygon')),
+                    'taxa': scanLogs.find(l => l.msg?.includes('taxa') || l.msg?.includes('Taxa')),
+                    'gbif': scanLogs.find(l => l.msg?.includes('records retrieved') || l.msg?.includes('GBIF') || l.msg?.includes('Athena') || l.msg?.includes('REST API')),
+                    'satellite': scanLogs.find(l => l.msg?.includes('GEE') || l.msg?.includes('NDVI') || l.msg?.includes('satellite') || l.msg?.includes('hex')),
+                    'wdpa': scanLogs.find(l => l.msg?.includes('protected') || l.msg?.includes('WDPA') || l.msg?.includes('areas')),
+                    'risk': scanLogs.find(l => l.msg?.includes('risk') || l.msg?.includes('Risk') || l.msg?.includes('score') || l.msg?.includes('complete')),
+                  }
+
+                  return steps.map((step, i) => {
+                    const log = logMap[step.id]
+                    const isDone = log?.status === 'done'
+                    const isError = log?.status === 'error'
+                    const isRunning = !isDone && !isError && scanLogs.length > 0 &&
+                      i === steps.findIndex(s => !logMap[s.id] || logMap[s.id]?.status !== 'done')
+                    const isPending = !isDone && !isError && !isRunning
+
+                    return (
+                      <div key={step.id} style={{ display: 'flex', gap: 14, position: 'relative' }}>
+                        {/* Vertical line */}
+                        {i < steps.length - 1 && (
+                          <div style={{
+                            position: 'absolute', left: 10, top: 26, width: 1,
+                            height: 'calc(100% + 2px)',
+                            background: isDone ? 'rgba(34,197,94,0.3)' : 'rgba(255,255,255,0.06)',
+                            transition: 'background 0.5s',
                           }} />
                         )}
-                      </span>
-                      <span>{log.msg}</span>
-                    </div>
-                  ))
-                )}
+
+                        {/* Dot */}
+                        <div style={{
+                          width: 22, height: 22, borderRadius: '50%', flexShrink: 0,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          marginTop: 2, zIndex: 1,
+                          background: isDone ? 'rgba(34,197,94,0.15)' :
+                            isError ? 'rgba(248,113,113,0.15)' :
+                              isRunning ? 'rgba(124,58,237,0.15)' :
+                                'rgba(255,255,255,0.04)',
+                          border: `1px solid ${isDone ? 'rgba(34,197,94,0.4)' :
+                            isError ? 'rgba(248,113,113,0.4)' :
+                              isRunning ? 'rgba(124,58,237,0.5)' :
+                                'rgba(255,255,255,0.1)'}`,
+                          transition: 'all 0.3s',
+                        }}>
+                          {isDone && <span style={{ color: '#22c55e', fontSize: 11 }}>✓</span>}
+                          {isError && <span style={{ color: '#f87171', fontSize: 11 }}>✗</span>}
+                          {isRunning && (
+                            <div style={{
+                              width: 10, height: 10, border: '1.5px solid rgba(124,58,237,0.3)',
+                              borderTopColor: '#a78bfa', borderRadius: '50%',
+                              animation: 'spin 0.8s linear infinite',
+                            }} />
+                          )}
+                          {isPending && (
+                            <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: 9 }}>{i + 1}</span>
+                          )}
+                        </div>
+
+                        {/* Content */}
+                        <div style={{ paddingBottom: 16, flex: 1 }}>
+                          <div style={{
+                            fontSize: 12, fontWeight: 600, marginBottom: 2,
+                            color: isDone ? '#f4f4f6' :
+                              isError ? '#f87171' :
+                                isRunning ? '#c4b5fd' :
+                                  '#4a4a5a',
+                            transition: 'color 0.3s',
+                          }}>
+                            {step.label}
+                          </div>
+                          {log && (
+                            <div style={{
+                              fontSize: 10, color: isDone ? '#22c55e' : isError ? '#f87171' : '#6b6b7a',
+                              fontFamily: 'monospace',
+                            }}>
+                              {log.msg}
+                            </div>
+                          )}
+                          {!log && isRunning && (
+                            <div style={{ fontSize: 10, color: '#6b6b7a', fontFamily: 'monospace' }}>
+                              {lang === 'es' ? 'procesando...' : 'processing...'}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })
+                })()}
               </div>
 
               <div style={{ fontSize: 10, color: 'var(--text3)', marginBottom: 12, lineHeight: 1.5, textAlign: 'center' }}>
                 {lang === 'es'
-                  ? <>El tiempo de análisis depende del tamaño del polígono y la disponibilidad de datos.<br />Áreas grandes pueden tardar 2–4 minutos.</>
-                  : <>Analysis time depends on polygon size and data availability.<br />Large areas may take 2–4 minutes.</>
+                  ? <>El tiempo depende del tamaño del polígono.<br />Áreas grandes pueden tardar 2–4 minutos.</>
+                  : <>Analysis time depends on polygon size.<br />Large areas may take 2–4 minutes.</>
                 }
               </div>
 
@@ -5365,6 +5444,15 @@ function NewAnalysisPage({
                         </div>
                         <div className="results-stat-label">{lang === 'es' ? 'fecha del análisis' : 'analysis date'}</div>
                       </div>
+                      {scanDuration && (
+                        <div className="results-stat">
+                          <div className="results-stat-val">
+                            <span className="results-stat-icon">⏱</span>
+                            {scanDuration}s
+                          </div>
+                          <div className="results-stat-label">{lang === 'es' ? 'tiempo de análisis' : 'analysis time'}</div>
+                        </div>
+                      )}
                     </div>
                   </>
                 )
@@ -6624,6 +6712,7 @@ function GlobeBackground() {
 
 // ─── Main app ────────────────────────────────────────────────────────────────
 export default function App() {
+  const [scanDuration, setScanDuration] = useState(null)
   const { isAuthenticated, isLoading, loginWithRedirect, logout, user, getAccessTokenSilently, getIdTokenClaims } = useAuth0()
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') ?? 'dark')
   useEffect(() => {
@@ -6768,14 +6857,32 @@ export default function App() {
   }
 
   async function runScan() {
+    const scanStartTime = Date.now()
     setAnalysisStep(2)
     setScanning(true)
     setScanProgress(0)
     setScanStepLabel('')
 
+
+    // Large polygon protection — reduce bbox for Athena
+    const polygonArea = calcPolygonAreaKm2(drawnPolygon)
+    if (polygonArea > 20000) {
+      const centerLat = (bbox.minLat + bbox.maxLat) / 2
+      const centerLng = (bbox.minLng + bbox.maxLng) / 2
+      const delta = 1.5
+      bbox.minLat = centerLat - delta
+      bbox.maxLat = centerLat + delta
+      bbox.minLng = centerLng - delta
+      bbox.maxLng = centerLng + delta
+      addLog(lang === 'es'
+        ? `⚠ Polígono grande — análisis enfocado en área central (~${Math.round(delta * 2 * 111)}km × ${Math.round(delta * 2 * 111)}km)`
+        : `⚠ Large polygon — analysis focused on central area (~${Math.round(delta * 2 * 111)}km × ${Math.round(delta * 2 * 111)}km)`,
+        'done')
+    }
+
     const country = analysisProject.country
     const polygon = drawnPolygon
-    const bbox = getBoundingBox(polygon)
+    let bbox = getBoundingBox(polygon)
     // Detect if polygon centroid matches selected country
     const centroidLat = (bbox.minLat + bbox.maxLat) / 2
     const centroidLng = (bbox.minLng + bbox.maxLng) / 2
@@ -6812,18 +6919,25 @@ export default function App() {
 
       // Query GBIF via Athena (no rate limits) with fallback to REST API
       let taxaOccurrences
+      // Query taxa present in bbox first
+      addLog('Identifying taxa in project area...', 'loading')
+      const bboxTaxa = await queryTaxaInBbox(country, bbox).catch(() => null)
+      const taxaToQuery = bboxTaxa ?? dynamicTaxa.map(t => t.name).slice(0, 20)
+      console.log(`🔬 Taxa to query: ${taxaToQuery.length}`)
+      addLog(`${taxaToQuery.length} taxonomic classes detected in project area`, 'done')
+
       const athenaRecords = await queryGbifAthena({
         minLat: bbox.minLat,
         maxLat: bbox.maxLat,
         minLng: bbox.minLng,
         maxLng: bbox.maxLng,
         countryCode: country,
-        taxa: dynamicTaxa.map(t => t.name),
+        taxa: taxaToQuery,
       }).catch(() => null)
 
       let basisCount = {}
       if (athenaRecords && athenaRecords.length > 0) {
-        console.log(`✅ Using Athena: ${athenaRecords.length} records`)
+        console.log(`✅ Using Athena: ${athenaRecords.length} records from ${taxaToQuery.length} taxa`)
         setDataSource('athena')
         addLog(`${athenaRecords.length.toLocaleString('en-US')} records retrieved · GBIF S3 Snapshot via AWS Athena`, 'done')
         const byClass = {}
@@ -6841,9 +6955,9 @@ export default function App() {
           const basis = r.basisofrecord ?? 'UNKNOWN'
           basisCount[basis] = (basisCount[basis] ?? 0) + 1
         })
-        taxaOccurrences = dynamicTaxa.slice(0, 15).map(taxon => ({
-          results: byClass[taxon.name] ?? [],
-          total: byClass[taxon.name]?.length ?? 0,
+        taxaOccurrences = taxaToQuery.map(taxonName => ({
+          results: byClass[taxonName] ?? [],
+          total: byClass[taxonName]?.length ?? 0,
         }))
       } else {
         setDataSource('rest')
@@ -7017,6 +7131,8 @@ export default function App() {
         worldBank: worldBank,
       })
 
+      const scanDuration = Math.round((Date.now() - scanStartTime) / 1000)
+      setScanDuration(scanDuration)
       setAnalysisStep(3)
     } catch (e) {
       console.error('Scan failed:', e)
@@ -7864,6 +7980,7 @@ export default function App() {
             onResetWizard={resetWizard}
             t={t}
             lang={lang}
+            scanDuration={scanDuration}
           />
         ) : isWelcome ? (
           <WelcomePage

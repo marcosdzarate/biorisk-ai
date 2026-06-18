@@ -764,3 +764,30 @@ export async function queryWorldBankBiodiversity(countryCode) {
   }
 }
 
+export async function queryTaxaInBbox(countryCode, bbox) {
+  const url = import.meta.env.VITE_LAMBDA_GBIF_URL
+  if (!url) return null
+
+  try {
+    console.log('🔬 Querying taxa in bbox for:', countryCode)
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        taxaOnly: true,
+        countryCode,
+        minLat: bbox.minLat,
+        maxLat: bbox.maxLat,
+        minLng: bbox.minLng,
+        maxLng: bbox.maxLng,
+      }),
+    })
+    if (!response.ok) return null
+    const data = await response.json()
+    console.log(`🔬 Taxa in bbox: ${data.taxa?.length} classes found`)
+    return data.taxa ?? null
+  } catch (e) {
+    console.warn('Taxa bbox query failed:', e.message)
+    return null
+  }
+}
