@@ -1327,11 +1327,11 @@ function WdpaLayer({ wdpaData, polygon }) {
   return null
 }
 
-function HeatmapLayer({ allTaxaRecords }) {
+function HeatmapLayer({ allTaxaRecords, active }) {
   const map = useMap()
 
   useEffect(() => {
-    if (!map || !allTaxaRecords) return
+    if (!map || !allTaxaRecords || !active) return
 
     // Collect all points with intensity
     const points = allTaxaRecords.flatMap(taxon =>
@@ -1362,7 +1362,8 @@ function HeatmapLayer({ allTaxaRecords }) {
     return () => {
       map.removeLayer(heat)
     }
-  }, [map, allTaxaRecords])
+  }, [map, allTaxaRecords, active])
+
 
   return null
 }
@@ -1634,9 +1635,39 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
   const [viewMode, setViewMode] = useState('points')
   const canvasRenderer = useMemo(() => L.canvas({ padding: 0.5 }), [])
 
+  const clusterMarkers = useMemo(() => {
+    if (!hasPolygon) return []
+    return allTaxaRecords?.flatMap((taxon, ti) => {
+      const color = TAXON_COLORS[taxon.name] || '#18A957'
+      const records = taxon.records ?? []
+      const limitedRecords = records.length > 500
+        ? records.filter((_, i) => i % Math.ceil(records.length / 500) === 0)
+        : records
+      return limitedRecords.map((occ, i) => (
+        (occ.lat != null && occ.lng != null) ? (
+          <OccurrenceMarker
+            key={`occ-${ti}-${i}`}
+            occ={occ}
+            color={color}
+            taxonName={taxon.name}
+            renderer={canvasRenderer}
+          />
+        ) : null
+      ))
+    }) ?? []
+  }, [allTaxaRecords, hasPolygon, canvasRenderer])
+
+  const mapRef = useRef(null)
+
   useEffect(() => {
-    console.log('🗺 MapCard geeFeatures updated:', geeFeatures?.length)
-  }, [geeFeatures])
+    if (!mapRef.current) return
+    const observer = new ResizeObserver(() => {
+      mapRef.current?.invalidateSize()
+    })
+    const container = mapRef.current.getContainer()
+    if (container) observer.observe(container)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="card">
@@ -1686,6 +1717,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
           zoom={mapZoom}
           scrollWheelZoom={true}
           style={{ height: '100%', width: '100%' }}
+          whenCreated={map => { mapRef.current = map }}
         >
           <TileLayer
             attribution='&copy; <a href="https://carto.com">CartoDB</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -1714,7 +1746,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
               }}
             />
           )}
-          {hasPolygon && (viewMode === 'points' || viewMode === 'protected') && (
+          {hasPolygon && (
             <MarkerClusterGroup
               chunkedLoading
               maxClusterRadius={50}
@@ -1722,42 +1754,23 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
               spiderfyOnMaxZoom={true}
               showCoverageOnHover={false}
             >
-              {allTaxaRecords?.flatMap((taxon, ti) => {
-                const color = TAXON_COLORS[taxon.name] || '#18A957'
-                return (taxon.records ?? []).map((occ, i) => (
-                  (occ.lat != null && occ.lng != null) ? (
-                    <OccurrenceMarker
-                      key={`occ-${ti}-${i}`}
-                      occ={occ}
-                      color={color}
-                      taxonName={taxon.name}
-                      renderer={canvasRenderer}
-                    />
-                  ) : null
-                ))
-              })}
+              {(viewMode === 'points' || viewMode === 'protected') && clusterMarkers}
             </MarkerClusterGroup>
           )}
-          {hasPolygon && viewMode === 'heatmap' && (
-            <HeatmapLayer allTaxaRecords={allTaxaRecords} />
+
+          {hasPolygon && <HeatmapLayer allTaxaRecords={allTaxaRecords} active={viewMode === 'heatmap'} />}
+          {hasPolygon && ndviData && (
+            <NdviLayer polygon={polygon} ndviData={viewMode === 'ndvi' ? ndviData : null} />
           )}
 
-          {/* NDVI Layer */}
-          {hasPolygon && viewMode === 'ndvi' && ndviData && (
-            <NdviLayer polygon={polygon} ndviData={ndviData} />
+          {hasPolygon && wdpaData && (
+            <WdpaLayer wdpaData={viewMode === 'protected' ? wdpaData : null} polygon={polygon} />
           )}
 
-          {/* Protected Areas Layer */}
-          {hasPolygon && viewMode === 'protected' && wdpaData && (
-            <WdpaLayer wdpaData={wdpaData} polygon={polygon} />
-          )}
+          {viewMode === 'gbif' && <GbifDensityLayer polygon={polygon} />}
 
-          {viewMode === 'gbif' && (
-            <GbifDensityLayer polygon={polygon} />
-          )}
-          {viewMode === 'hex' && (
-            console.log('🔶 HexNdvi:', geeFeatures?.length, 'features') ||
-            geeFeatures?.length > 0 && <HexNdviLayer features={geeFeatures} />
+          {geeFeatures?.length > 0 && (
+            <HexNdviLayer features={viewMode === 'hex' ? geeFeatures : []} />
           )}
         </MapContainer>
 
@@ -1765,15 +1778,23 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
           <div className="map-legend">
             {presentTaxa.map(t => (
               <div key={t.name} className="map-legend-row">
-                <span
-                  className="map-legend-dot"
-                  style={{ background: TAXON_COLORS[t.name] || '#18A957' }}
-                />
+                <span className="map-legend-dot" style={{ background: TAXON_COLORS[t.name] || '#18A957' }} />
                 <span style={{ fontSize: 10, fontFamily: 'monospace', color: 'var(--text2)' }}>{t.abbr}</span>
                 <span className="map-legend-name">{t.name}</span>
                 <span className="map-legend-count">{t.inPolygon}</span>
               </div>
             ))}
+            {presentTaxa.some(t => (t.records?.length ?? 0) < t.inPolygon) && (
+              <div style={{
+                fontSize: 9, color: 'var(--text3)',
+                borderTop: '1px solid var(--bd)',
+                marginTop: 6, paddingTop: 6, lineHeight: 1.5
+              }}>
+                {lang === 'es'
+                  ? '⚡ Muestra representativa · conteos reales en el dashboard'
+                  : '⚡ Representative sample · full counts in dashboard'}
+              </div>
+            )}
           </div>
         )}
 
@@ -5400,7 +5421,14 @@ function NewAnalysisPage({
           <div className="wiz-center">
             <div className="results-card">
               <div className="results-check">✓</div>
-              <div className="results-title">{lang === 'es' ? 'Análisis Completo' : 'Analysis Complete'}</div>
+              <div className="results-title">
+                {lang === 'es' ? 'Análisis Completo' : 'Analysis Complete'}
+                {scanDuration && (
+                  <span style={{ fontSize: 13, fontWeight: 400, color: 'var(--text3)', marginLeft: 8 }}>
+                    ({scanDuration}s)
+                  </span>
+                )}
+              </div>
               <div className="results-sub">{analysisProject.name}</div>
 
               {(() => {
@@ -5448,15 +5476,6 @@ function NewAnalysisPage({
                         </div>
                         <div className="results-stat-label">{lang === 'es' ? 'fecha del análisis' : 'analysis date'}</div>
                       </div>
-                      {scanDuration && (
-                        <div className="results-stat">
-                          <div className="results-stat-val">
-                            <span className="results-stat-icon">⏱</span>
-                            {scanDuration}s
-                          </div>
-                          <div className="results-stat-label">{lang === 'es' ? 'tiempo de análisis' : 'analysis time'}</div>
-                        </div>
-                      )}
                     </div>
                   </>
                 )
@@ -6868,6 +6887,9 @@ export default function App() {
     setScanStepLabel('')
 
 
+    const country = analysisProject.country
+    const polygon = drawnPolygon
+    let bbox = getBoundingBox(polygon)
     // Large polygon protection — reduce bbox for Athena
     const polygonArea = calcPolygonAreaKm2(drawnPolygon)
     if (polygonArea > 20000) {
@@ -6884,9 +6906,7 @@ export default function App() {
         'done')
     }
 
-    const country = analysisProject.country
-    const polygon = drawnPolygon
-    let bbox = getBoundingBox(polygon)
+
     // Detect if polygon centroid matches selected country
     const centroidLat = (bbox.minLat + bbox.maxLat) / 2
     const centroidLng = (bbox.minLng + bbox.maxLng) / 2
@@ -6985,6 +7005,12 @@ export default function App() {
         }
       }
 
+      const geeArea = calcPolygonAreaKm2(drawnPolygon)
+      const geeCellSize = geeArea < 1000 ? 2 :
+        geeArea < 3000 ? 3 :
+          geeArea < 8000 ? 4 :
+            geeArea < 20000 ? 5 : 7
+
       const [aves, mammalia, gaps, papers, wdpa, ndvi, forestLoss, gee, worldBank] = await Promise.all([
         callGbif('count_occurrences', { taxon_name: 'Aves', country }).catch(() => null),
         callGbif('count_occurrences', { taxon_name: 'Mammalia', country }).catch(() => null),
@@ -6997,7 +7023,7 @@ export default function App() {
         queryProtectedAreas(bbox, country).catch(() => null),
         queryNDVI(drawnPolygon).catch(() => null),
         queryForestLoss(drawnPolygon).catch(() => null),
-        queryGEE(drawnPolygon, 10, calcPolygonAreaKm2(drawnPolygon)).catch(e => { console.error('🔴 GEE error:', e); return null }),
+        queryGEE(drawnPolygon, geeCellSize, geeArea).catch(e => { console.error('🔴 GEE error:', e); return null }),
         queryWorldBankBiodiversity(country).catch(() => null),
       ])
 
@@ -7208,7 +7234,7 @@ export default function App() {
             water: newProject.gbifData.gee.water,
             fire: newProject.gbifData.gee.fire,
             iucnHabitat: newProject.gbifData.gee.iucnHabitat,
-            features: newProject.gbifData.gee.features, // hex grid para el mapa
+            features: newProject.gbifData.gee.features,
           } : null,
           wdpa: newProject.gbifData?.wdpa,
           riskScore: newProject.gbifData?.riskScore,
@@ -7220,7 +7246,13 @@ export default function App() {
             name: t.name,
             abbr: t.abbr,
             inPolygon: t.inPolygon,
-            // NO incluir t.records (los registros individuales)
+            records: (t.records ?? []).map(r => ({
+              lat: r.lat,
+              lng: r.lng,
+              scientificName: r.scientificName,
+              key: r.key,
+              eventDate: r.eventDate,
+            })),
           })),
           queriedAt: newProject.gbifData?.queriedAt,
           analysisId: newProject.gbifData?.analysisId,
@@ -7346,7 +7378,6 @@ export default function App() {
           return
         }
         if (data) {
-          console.log('📦 Project from Supabase:', data[0])
           setProjects(data.map(p => ({
             id: p.id,
             name: p.name,
@@ -8025,7 +8056,8 @@ export default function App() {
         ) : isProjects ? (
           <ProjectsPage
             projects={projects}
-            onSelectProject={(project) => {
+            onSelectProject={async (project) => {
+              // Mostrar dashboard inmediatamente con datos agregados
               setGbifData(project.gbifData)
               setShowDemoBanner(false)
               setProjectName(project.name)
@@ -8048,6 +8080,72 @@ export default function App() {
               setPage('dashboard')
               setActivePage('dashboard')
               setCopilotKey(k => k + 1)
+
+              // Re-query Athena en background para recuperar puntos del mapa
+              // Re-query Athena en background
+              setTimeout(async () => {
+                if (project.polygon?.length >= 3 && project.country) {
+                  try {
+                    const bbox = getBoundingBox(project.polygon)
+                    const bboxTaxa = await queryTaxaInBbox(project.country, bbox).catch(() => null)
+                    const taxaToQuery = bboxTaxa ?? (project.gbifData?.taxaInPolygon?.map(t => t.name) ?? [])
+
+                    if (taxaToQuery.length > 0) {
+                      const athenaRecords = await queryGbifAthena({
+                        minLat: bbox.minLat,
+                        maxLat: bbox.maxLat,
+                        minLng: bbox.minLng,
+                        maxLng: bbox.maxLng,
+                        countryCode: project.country,
+                        taxa: taxaToQuery,
+                      }).catch(() => null)
+
+                      if (athenaRecords?.length > 0) {
+                        const turfPolygon = turf.polygon([[
+                          ...project.polygon.map(p => [p[1], p[0]]),
+                          [project.polygon[0][1], project.polygon[0][0]]
+                        ]])
+
+                        const byClass = {}
+                        athenaRecords.forEach(r => {
+                          const lat = parseFloat(r.decimallatitude)
+                          const lng = parseFloat(r.decimallongitude)
+                          if (isNaN(lat) || isNaN(lng)) return
+
+                          // Filtro punto-en-polígono
+                          try {
+                            if (!turf.booleanPointInPolygon(turf.point([lng, lat]), turfPolygon)) return
+                          } catch (e) { return }
+
+                          const cls = r.class
+                          if (!byClass[cls]) byClass[cls] = []
+                          byClass[cls].push({
+                            scientificName: r.scientificname,
+                            lat,
+                            lng,
+                            eventDate: r.year ? `${r.year}-${String(r.month).padStart(2, '0')}-${String(r.day).padStart(2, '0')}` : null,
+                            key: r.gbifid,
+                            basisOfRecord: r.basisofrecord,
+                          })
+                        })
+
+                        setGbifData(prev => {
+                          console.log('🔄 Background update - taxaInPolygon:', prev?.taxaInPolygon?.length, 'byClass keys:', Object.keys(byClass))
+                          return {
+                            ...prev,
+                            allTaxaRecords: prev?.taxaInPolygon?.map(t => ({
+                              ...t,
+                              records: byClass[t.name] ?? [],
+                            })) ?? [],
+                          }
+                        })
+                      }
+                    }
+                  } catch (e) {
+                    console.warn('Background Athena re-query failed:', e.message)
+                  }
+                }
+              }, 100)
             }}
             onNewAnalysis={() => { setPage('new-analysis'); setActivePage('new') }}
             t={t}
