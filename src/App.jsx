@@ -1367,7 +1367,7 @@ function HeatmapLayer({ allTaxaRecords }) {
   return null
 }
 
-function OccurrenceMarker({ occ, color, taxonName }) {
+function OccurrenceMarker({ occ, color, taxonName, renderer }) {
   const [popupData, setPopupData] = useState(null)
   const [loadingDOI, setLoadingDOI] = useState(false)
 
@@ -1382,8 +1382,9 @@ function OccurrenceMarker({ occ, color, taxonName }) {
   return (
     <CircleMarker
       center={[occ.lat, occ.lng]}
-      radius={4}
-      pathOptions={{ color, fillColor: color, fillOpacity: 0.7, weight: 1 }}
+      radius={3}
+      renderer={renderer}
+      pathOptions={{ color, fillColor: color, fillOpacity: 0.7, weight: 0.5 }}
       eventHandlers={{ click: handleClick }}
     >
       <Popup>
@@ -1631,6 +1632,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
   const hasPolygon = polygon && polygon.length >= 3
   const presentTaxa = (allTaxaRecords ?? []).filter(t => t.inPolygon > 0)
   const [viewMode, setViewMode] = useState('points')
+  const canvasRenderer = useMemo(() => L.canvas({ padding: 0.5 }), [])
 
   useEffect(() => {
     console.log('🗺 MapCard geeFeatures updated:', geeFeatures?.length)
@@ -1716,7 +1718,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
             <MarkerClusterGroup
               chunkedLoading
               maxClusterRadius={50}
-              disableClusteringAtZoom={12}
+              disableClusteringAtZoom={14}
               spiderfyOnMaxZoom={true}
               showCoverageOnHover={false}
             >
@@ -1729,6 +1731,7 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
                       occ={occ}
                       color={color}
                       taxonName={taxon.name}
+                      renderer={canvasRenderer}
                     />
                   ) : null
                 ))
@@ -1752,8 +1755,9 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
           {viewMode === 'gbif' && (
             <GbifDensityLayer polygon={polygon} />
           )}
-          {viewMode === 'hex' && geeFeatures?.length > 0 && (
-            <HexNdviLayer features={geeFeatures} />
+          {viewMode === 'hex' && (
+            console.log('🔶 HexNdvi:', geeFeatures?.length, 'features') ||
+            geeFeatures?.length > 0 && <HexNdviLayer features={geeFeatures} />
           )}
         </MapContainer>
 
@@ -5289,12 +5293,12 @@ function NewAnalysisPage({
                   ]
 
                   const logMap = {
-                    'validate': scanLogs.find(l => l.msg?.includes('km²') || l.msg?.includes('polygon')),
-                    'taxa': scanLogs.find(l => l.msg?.includes('taxa') || l.msg?.includes('Taxa')),
-                    'gbif': scanLogs.find(l => l.msg?.includes('records retrieved') || l.msg?.includes('GBIF') || l.msg?.includes('Athena') || l.msg?.includes('REST API')),
-                    'satellite': scanLogs.find(l => l.msg?.includes('GEE') || l.msg?.includes('NDVI') || l.msg?.includes('satellite') || l.msg?.includes('hex')),
-                    'wdpa': scanLogs.find(l => l.msg?.includes('protected') || l.msg?.includes('WDPA') || l.msg?.includes('areas')),
-                    'risk': scanLogs.find(l => l.msg?.includes('risk') || l.msg?.includes('Risk') || l.msg?.includes('score') || l.msg?.includes('complete')),
+                    'validate': scanLogs.find(l => l.msg?.includes('km²') || l.msg?.includes('Polygon validated')),
+                    'taxa': scanLogs.find(l => l.msg?.includes('taxonomic classes detected')),
+                    'gbif': scanLogs.find(l => l.msg?.includes('occurrence records retrieved') || l.msg?.includes('records retrieved') || l.msg?.includes('GBIF REST API') || l.msg?.includes('Snapshot unavailable')),
+                    'satellite': scanLogs.find(l => l.msg?.includes('GEE datasets') || l.msg?.includes('satellite') || l.msg?.includes('hex cells')),
+                    'wdpa': scanLogs.find(l => l.msg?.includes('Protected areas') || l.msg?.includes('protected areas')),
+                    'risk': scanLogs.find(l => l.msg?.includes('Risk Score') || l.msg?.includes('Analysis complete')),
                   }
 
                   return steps.map((step, i) => {
@@ -7108,6 +7112,7 @@ export default function App() {
       } : null
 
       console.log('🌍 GEE result before setScanResults:', gee)
+      addLog(`Satellite analysis complete · NDVI ${gee?.ndvi?.toFixed(3) ?? '—'}`, 'done')
       addLog(`GEE datasets computed · ${gee?.features?.length ?? 0} hex cells`, 'done')
       setScanResults({
         aves,
@@ -7191,6 +7196,35 @@ export default function App() {
       getIdTokenClaims().then(claims => {
         const token = claims?.__raw
         const client = getSupabaseWithAuth(token)
+        // Crear gbifData reducido para Supabase (sin registros individuales)
+        const gbifDataForStorage = {
+          ndvi: newProject.gbifData?.ndvi,
+          gee: newProject.gbifData?.gee ? {
+            summary: newProject.gbifData.gee.summary,
+            ndvi: newProject.gbifData.gee.ndvi,
+            msavi: newProject.gbifData.gee.msavi,
+            lossYear: newProject.gbifData.gee.lossYear,
+            landcover: newProject.gbifData.gee.landcover,
+            water: newProject.gbifData.gee.water,
+            fire: newProject.gbifData.gee.fire,
+            iucnHabitat: newProject.gbifData.gee.iucnHabitat,
+            features: newProject.gbifData.gee.features, // hex grid para el mapa
+          } : null,
+          wdpa: newProject.gbifData?.wdpa,
+          riskScore: newProject.gbifData?.riskScore,
+          chao1: newProject.gbifData?.chao1,
+          forestLoss: newProject.gbifData?.forestLoss,
+          worldBank: newProject.gbifData?.worldBank,
+          polygonCount: newProject.gbifData?.polygonCount,
+          taxaInPolygon: newProject.gbifData?.taxaInPolygon?.map(t => ({
+            name: t.name,
+            abbr: t.abbr,
+            inPolygon: t.inPolygon,
+            // NO incluir t.records (los registros individuales)
+          })),
+          queriedAt: newProject.gbifData?.queriedAt,
+          analysisId: newProject.gbifData?.analysisId,
+        }
         client.from('projects').insert({
           user_id: user.sub,
           name: newProject.name,
@@ -7202,7 +7236,7 @@ export default function App() {
           risk_score: newProject.riskScore,
           total_in_polygon: newProject.totalInPolygon,
           polygon: newProject.polygon,
-          gbif_data: newProject.gbifData,
+          gbif_data: gbifDataForStorage,
           analysis_id: newProject.analysisId,
         }).then(({ error }) => {
           if (error) console.warn('Failed to save project to Supabase:', error.message)
@@ -8131,8 +8165,8 @@ export default function App() {
               {/* OVERVIEW TAB */}
               {dashboardTab === 'overview' && (
                 <>
-
                   <div style={{ position: 'relative', marginBottom: 18 }}>
+                    {void console.log('🗺 gbifData.gee:', gbifData?.gee?.features?.length)}
                     <MapCard
                       polygon={activePolygon}
                       center={mapCenter}
