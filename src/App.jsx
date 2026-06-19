@@ -15,6 +15,8 @@ import { WordRoll, Button, NodeGraphBackground, GlassCard } from 'performative-u
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
+
+
 const DEMO_KEY = import.meta.env.VITE_DEMO_KEY ?? ''
 const MODE = import.meta.env.VITE_MODE ?? 'demo'
 // 'demo' = REST API only (production/Vercel)
@@ -6733,8 +6735,118 @@ function GlobeBackground() {
   return <div ref={mountRef} style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
 }
 
-// ─── Main app ────────────────────────────────────────────────────────────────
+function ProductTour({ steps, currentStep, onNext, onPrev, onClose, lang }) {
+  if (currentStep < 0 || currentStep >= steps.length) return null
+  const step = steps[currentStep]
+
+  return (
+    <>
+      {/* Overlay */}
+      <div
+        onClick={onClose}
+        style={{
+          position: 'fixed', inset: 0, zIndex: 9998,
+          background: 'rgba(0,0,0,0.5)',
+          backdropFilter: 'blur(2px)',
+        }}
+      />
+      {/* Tooltip */}
+      <div style={{
+        position: 'fixed', zIndex: 9999,
+        background: 'var(--card)',
+        border: '1px solid rgba(124,58,237,0.4)',
+        borderRadius: 12, padding: '20px 24px',
+        maxWidth: 300, width: '90vw',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,58,237,0.2)',
+        top: '50%', left: '50%',
+        transform: 'translate(-50%, -50%)',
+      }}>
+        {/* Progress */}
+        <div style={{
+          fontSize: 10, color: 'var(--text3)',
+          marginBottom: 12,
+          display: 'flex', justifyContent: 'space-between'
+        }}>
+          <span>{lang === 'es' ? 'Tour de la app' : 'App tour'}</span>
+          <span>{currentStep + 1} / {steps.length}</span>
+        </div>
+
+        {/* Progress bar */}
+        <div style={{
+          height: 2, background: 'var(--bd)',
+          borderRadius: 1, marginBottom: 14
+        }}>
+          <div style={{
+            height: '100%', borderRadius: 1,
+            background: 'linear-gradient(90deg, #7c3aed, #ec4899)',
+            width: `${((currentStep + 1) / steps.length) * 100}%`,
+            transition: 'width 0.3s ease',
+          }} />
+        </div>
+
+        {/* Icon + Title */}
+        <div style={{ fontSize: 24, marginBottom: 8 }}>{step.icon}</div>
+        <div style={{
+          fontSize: 14, fontWeight: 700, color: 'var(--text)',
+          marginBottom: 8, letterSpacing: '-0.01em'
+        }}>
+          {step.title}
+        </div>
+        <div style={{
+          fontSize: 12, color: 'var(--text2)',
+          lineHeight: 1.7, marginBottom: 20
+        }}>
+          {step.content}
+        </div>
+
+        {/* Buttons */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'none', border: 'none', cursor: 'pointer',
+              fontSize: 11, color: 'var(--text3)',
+            }}
+          >
+            {lang === 'es' ? 'Saltar' : 'Skip'}
+          </button>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {currentStep > 0 && (
+              <button
+                onClick={onPrev}
+                style={{
+                  padding: '7px 14px', borderRadius: 7,
+                  background: 'var(--bd)', border: 'none',
+                  fontSize: 12, fontWeight: 600, color: 'var(--text)',
+                  cursor: 'pointer',
+                }}
+              >
+                {lang === 'es' ? 'Atrás' : 'Back'}
+              </button>
+            )}
+            <button
+              onClick={currentStep === steps.length - 1 ? onClose : onNext}
+              style={{
+                padding: '7px 14px', borderRadius: 7,
+                background: 'linear-gradient(135deg, #7c3aed, #ec4899)',
+                border: 'none', fontSize: 12, fontWeight: 600, color: 'white',
+                cursor: 'pointer',
+              }}
+            >
+              {currentStep === steps.length - 1
+                ? (lang === 'es' ? 'Finalizar' : 'Finish')
+                : (lang === 'es' ? 'Siguiente' : 'Next')}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
 export default function App() {
+  const [tourRun, setTourRun] = useState(false)
+  const [tourStep, setTourStep] = useState(0)
   const [scanDuration, setScanDuration] = useState(null)
   const { isAuthenticated, isLoading, loginWithRedirect, logout, user, getAccessTokenSilently, getIdTokenClaims } = useAuth0()
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') ?? 'dark')
@@ -6755,7 +6867,6 @@ export default function App() {
   const [copilotCollapsed, setCopilotCollapsed] = useState(false)
   const [showFullAnalysis, setShowFullAnalysis] = useState(false)
   const [dataSource, setDataSource] = useState('unknown')
-  // ─── New Analysis wizard state ───
   const [page, setPage] = useState('welcome')
   const [analysisStep, setAnalysisStep] = useState(1)
   const [drawnPoints, setDrawnPoints] = useState([])
@@ -6774,19 +6885,64 @@ export default function App() {
   }
   const [scanStepLabel, setScanStepLabel] = useState('')
   const [showDemoBanner, setShowDemoBanner] = useState(false)
+  const [lang, setLang] = useState(() => localStorage.getItem('lang') ?? 'en')
+  const t = (key) => TRANSLATIONS[lang]?.[key] ?? TRANSLATIONS['en'][key] ?? key
+
+  const tourSteps = [
+    {
+      icon: '🗺',
+      title: lang === 'es' ? 'Bienvenido a BioRisk AI' : 'Welcome to BioRisk AI',
+      content: lang === 'es'
+        ? 'Esta guía rápida te muestra las funciones principales de la plataforma.'
+        : 'This quick guide shows you the main features of the platform.',
+    },
+    {
+      icon: '✏️',
+      title: lang === 'es' ? 'Nuevo Análisis' : 'New Analysis',
+      content: lang === 'es'
+        ? 'Hacé clic en "Nuevo Análisis" para dibujar un polígono en el mapa y ejecutar un análisis de biodiversidad.'
+        : 'Click "New Analysis" to draw a polygon on the map and run a biodiversity scan.',
+    },
+    {
+      icon: '📊',
+      title: lang === 'es' ? 'Dashboard' : 'Dashboard',
+      content: lang === 'es'
+        ? 'El dashboard tiene 5 tabs: Resumen, Biodiversidad, TNFD & ESG, Vegetación y Mitigación.'
+        : 'The dashboard has 5 tabs: Overview, Biodiversity, TNFD & ESG, Vegetation & Forest, and Mitigation.',
+    },
+    {
+      icon: '🎯',
+      title: lang === 'es' ? 'Risk Score' : 'Risk Score',
+      content: lang === 'es'
+        ? 'El Risk Score resume el nivel de sensibilidad de biodiversidad del área analizada en una escala de 0 a 100.'
+        : 'The Risk Score summarizes biodiversity sensitivity on a scale of 0 to 100.',
+    },
+    {
+      icon: '🤖',
+      title: lang === 'es' ? 'Copilot IA' : 'AI Copilot',
+      content: lang === 'es'
+        ? 'El Copilot responde preguntas regulatorias sobre TNFD, IFC PS6 y CSRD basadas en tu análisis real.'
+        : 'The Copilot answers regulatory questions about TNFD, IFC PS6 and CSRD based on your actual analysis.',
+    },
+    {
+      icon: '📄',
+      title: lang === 'es' ? 'Exportar Reporte' : 'Export Report',
+      content: lang === 'es'
+        ? 'Exportá un PDF con el TNFD Content Index y la evaluación IFC PS6 Critical Habitat.'
+        : 'Export a PDF with the TNFD Content Index and IFC PS6 Critical Habitat assessment.',
+    },
+  ]
+
   const [activePolygon, setActivePolygon] = useState(null)
   const [mapCenter, setMapCenter] = useState([-20, -60])
   const [mapZoom, setMapZoom] = useState(3)
   const [copilotKey, setCopilotKey] = useState(0)
   const [projects, setProjects] = useState([])
   const [selectedProject, setSelectedProject] = useState(null)
-
   const [showExecSummary, setShowExecSummary] = useState(false)
   const [execSummaryText, setExecSummaryText] = useState('')
   const [execSummaryLoading, setExecSummaryLoading] = useState(false)
 
-  const [lang, setLang] = useState(() => localStorage.getItem('lang') ?? 'en')
-  const t = (key) => TRANSLATIONS[lang]?.[key] ?? TRANSLATIONS['en'][key] ?? key
 
   function handleNav(id) {
     setActivePage(id)
@@ -7859,6 +8015,14 @@ export default function App() {
   const isReports = page === 'reports'
   return (
     <>
+      <ProductTour
+        steps={tourSteps}
+        currentStep={tourRun ? tourStep : -1}
+        onNext={() => setTourStep(s => s + 1)}
+        onPrev={() => setTourStep(s => s - 1)}
+        onClose={() => { setTourRun(false); setTourStep(0) }}
+        lang={lang}
+      />
       <style>{CSS}</style>
 
       {/* Auth0 loading */}
@@ -8168,6 +8332,13 @@ export default function App() {
                   <div className="h-sub">{projectName}</div>
                 </div>
                 <div className="h-right">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => { setTourRun(true); setTourStep(0) }}
+                  >
+                    {lang === 'es' ? '🗺 Tour' : '🗺 Take a tour'}
+                  </Button>
                   <span className="badge">
                     {gbifData?.queriedAt
                       ? new Date(gbifData.queriedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
