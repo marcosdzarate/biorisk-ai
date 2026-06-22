@@ -7,7 +7,7 @@ import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import { LineChart, Line, BarChart, Bar, Cell, ResponsiveContainer, Tooltip as RTooltip, YAxis } from 'recharts'
-import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss, queryGbifAthena, queryGEE, queryWorldBankBiodiversity, queryTaxaInBbox } from './gbif.js'
+import { callGbif, MCP_TOOLS, pointInPolygon, getBoundingBox, queryMCPServer, queryProtectedAreas, queryNDVI, getDatasetDOI, queryForestLoss, queryGbifAthena, queryGEE, queryWorldBankBiodiversity, queryTaxaInBbox, queryIucnStatus } from './gbif.js'
 import { jsPDF } from 'jspdf'
 import { supabase, getSupabaseWithAuth } from './supabase.js'
 import * as turf from '@turf/turf'
@@ -1912,7 +1912,7 @@ function RiskScoreCard({ riskScore }) {
 }
 
 function KeyFindingsCard({ data, loading }) {
-  const recentRecords = data?.whales?.total
+  const recentRecords = data?.polygonCount
   const lastDate = recordDate(mostRecentOccurrence(data?.whales?.results))
   const wdpa = data?.wdpa
 
@@ -1946,7 +1946,16 @@ function KeyFindingsCard({ data, loading }) {
     {
       dot: '🔴',
       label: 'Threatened species',
-      val: naField('Requires IUCN Red List integration'),
+      val: (() => {
+        const threatenedRecords = (data?.allTaxaRecords ?? data?.taxaInPolygon)
+          ?.flatMap(t => t.records ?? [])
+          ?.filter(r => r.iucnRedListCategory && ['CR', 'EN', 'VU'].includes(r.iucnRedListCategory))
+        const uniqueThreatenedSpecies = new Set(threatenedRecords?.map(r => r.specieskey).filter(Boolean))
+        const count = uniqueThreatenedSpecies.size
+        return count > 0
+          ? <span style={{ color: '#E84C3D', fontWeight: 600 }}>{count}</span>
+          : naField('No CR/EN/VU species detected')
+      })(),
     },
     {
       dot: '🟠',
@@ -6943,6 +6952,35 @@ export default function App() {
   const [execSummaryText, setExecSummaryText] = useState('')
   const [execSummaryLoading, setExecSummaryLoading] = useState(false)
 
+  useEffect(() => {
+    if (!gbifData?.allTaxaRecords) return
+
+    // Extraer specieskeys de allTaxaRecords
+    const allRecords = gbifData.allTaxaRecords.flatMap(t => t.records ?? [])
+    const speciesKeys = [...new Set(allRecords.map(r => r.specieskey).filter(Boolean))]
+
+    if (speciesKeys.length === 0) return
+
+    queryIucnStatus(speciesKeys).then(iucnMap => {
+      if (Object.keys(iucnMap).length === 0) return
+      setGbifData(prev => {
+        if (!prev) return prev
+        return {
+          ...prev,
+          allTaxaRecords: prev.allTaxaRecords?.map(taxon => ({
+            ...taxon,
+            records: (taxon.records ?? []).map(r => ({
+              ...r,
+              iucnRedListCategory: r.specieskey && iucnMap[r.specieskey]
+                ? iucnMap[r.specieskey]
+                : r.iucnRedListCategory,
+            }))
+          }))
+        }
+      })
+    }).catch(() => { })
+  }, [gbifData?.polygonCount])
+
 
   function handleNav(id) {
     setActivePage(id)
@@ -7114,12 +7152,15 @@ export default function App() {
         countryCode: country,
         taxa: taxaToQuery,
       }).catch(() => null)
-
       let basisCount = {}
       if (athenaRecords && athenaRecords.length > 0) {
         console.log(`✅ Using Athena: ${athenaRecords.length} records from ${taxaToQuery.length} taxa`)
         setDataSource('athena')
         addLog(`${athenaRecords.length.toLocaleString('en-US')} records retrieved · GBIF S3 Snapshot via AWS Athena`, 'done')
+
+        // Query IUCN status for unique species keys
+        const uniqueSpeciesKeys = [...new Set(athenaRecords.map(r => r.specieskey).filter(Boolean))]
+
         const byClass = {}
         athenaRecords.forEach(r => {
           const cls = r.class
@@ -7131,10 +7172,13 @@ export default function App() {
             eventDate: r.year ? `${r.year}-${String(r.month).padStart(2, '0')}-${String(r.day).padStart(2, '0')}` : null,
             key: r.gbifid,
             basisOfRecord: r.basisofrecord,
+            iucnRedListCategory: null, // se enriquece en background            
+            specieskey: r.specieskey,
           })
           const basis = r.basisofrecord ?? 'UNKNOWN'
           basisCount[basis] = (basisCount[basis] ?? 0) + 1
         })
+
         taxaOccurrences = taxaToQuery.map(taxonName => ({
           results: byClass[taxonName] ?? [],
           total: byClass[taxonName]?.length ?? 0,

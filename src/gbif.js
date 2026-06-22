@@ -791,3 +791,32 @@ export async function queryTaxaInBbox(countryCode, bbox) {
     return null
   }
 }
+
+export async function queryIucnStatus(speciesKeys) {
+  if (!speciesKeys?.length) return {}
+
+  const uniqueKeys = [...new Set(speciesKeys.filter(Boolean))]
+  console.log(`🔴 Querying IUCN status for ${uniqueKeys.length} species...`)
+
+  const iucnMap = {}
+  // Process in batches of 5 with 300ms delay
+  // Process in batches of 10 without delay
+  for (let i = 0; i < uniqueKeys.length; i += 10) {
+    const batch = uniqueKeys.slice(i, i + 10)
+    const results = await Promise.all(
+      batch.map(key =>
+        fetch(`https://api.gbif.org/v1/occurrence/search?speciesKey=${key}&limit=1`)
+          .then(r => r.ok ? r.json() : null)
+          .then(d => ({ key, iucn: d?.results?.[0]?.iucnRedListCategory ?? null }))
+          .catch(() => ({ key, iucn: null }))
+      )
+    )
+    results.forEach(({ key, iucn }) => {
+      if (iucn) iucnMap[key] = iucn
+    })
+    await new Promise(r => setTimeout(r, 500))
+  }
+
+  console.log(`🔴 IUCN: ${Object.values(iucnMap).filter(v => ['CR', 'EN', 'VU'].includes(v)).length} threatened species found`)
+  return iucnMap
+}
