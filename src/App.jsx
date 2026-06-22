@@ -7526,7 +7526,7 @@ export default function App() {
         const client = getSupabaseWithAuth(token)
         const { data, error } = await client
           .from('projects')
-          .select('*')
+          .select('id, name, country, sector, phase, frameworks, investment, risk_score, total_in_polygon, polygon, date, analysis_id')
           .eq('user_id', user.sub)
           .order('date', { ascending: false })
         if (error) {
@@ -7545,7 +7545,6 @@ export default function App() {
             riskScore: p.risk_score,
             totalInPolygon: p.total_in_polygon,
             polygon: p.polygon,
-            gbifData: p.gbif_data,
             date: new Date(p.date).toLocaleDateString('en-US'),
           })))
         }
@@ -8221,8 +8220,26 @@ export default function App() {
           <ProjectsPage
             projects={projects}
             onSelectProject={async (project) => {
+              // Cargar gbif_data desde Supabase primero
+              let gbifData = project.gbifData
+              if (!gbifData) {
+                try {
+                  const claims = await getIdTokenClaims()
+                  const token = claims?.__raw
+                  const client = getSupabaseWithAuth(token)
+                  const { data } = await client
+                    .from('projects')
+                    .select('gbif_data')
+                    .eq('id', project.id)
+                    .single()
+                  gbifData = data?.gbif_data ?? null
+                } catch (e) {
+                  console.warn('Failed to load gbif_data:', e.message)
+                }
+              }
+
               // Mostrar dashboard inmediatamente con datos agregados
-              setGbifData(project.gbifData)
+              setGbifData(gbifData)
               setShowDemoBanner(false)
               setProjectName(project.name)
               setActivePolygon(project.polygon)
@@ -8244,6 +8261,8 @@ export default function App() {
               setPage('dashboard')
               setActivePage('dashboard')
               setCopilotKey(k => k + 1)
+
+              // Re-query Athena en background para recuperar puntos del mapa
 
               // Re-query Athena en background para recuperar puntos del mapa
               // Re-query Athena en background
