@@ -1950,78 +1950,103 @@ function KeyFindingsCard({ data, loading }) {
         const threatenedRecords = (data?.allTaxaRecords ?? data?.taxaInPolygon)
           ?.flatMap(t => t.records ?? [])
           ?.filter(r => r.iucnRedListCategory && ['CR', 'EN', 'VU'].includes(r.iucnRedListCategory))
-        const uniqueThreatenedSpecies = new Set(threatenedRecords?.map(r => r.specieskey).filter(Boolean))
-        const count = uniqueThreatenedSpecies.size
+        const uniqueMap = {}
+        threatenedRecords?.forEach(r => {
+          if (r.specieskey && r.scientificName) {
+            uniqueMap[r.specieskey] = { name: r.scientificName, iucn: r.iucnRedListCategory }
+          }
+        })
+        const species = Object.values(uniqueMap)
+        const count = species.length
         return count > 0
-          ? <span style={{ color: '#E84C3D', fontWeight: 600 }}>{count}</span>
-          : naField('No CR/EN/VU species detected')
-      })(),
+          ? <div style={{ textAlign: 'right' }}>
+            <span style={{ color: '#E84C3D', fontWeight: 600 }}>{count}</span>
+            <div style={{ marginTop: 4 }}>
+              {species.map((s, i) => (
+        <div key={i} style={{ fontSize: 9, fontStyle: 'italic', lineHeight: 1.5 }}>
+          
+            href={`https://www.gbif.org/species/${s.specieskey}`}
+            target="_blank"
+            rel="noreferrer"
+            style={{ color: '#E84C3D', textDecoration: 'none' }}
+            onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
+            onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}
+          >
+            {s.name}
+          </a>
+          <span style={{ fontStyle: 'normal', opacity: 0.7, color: '#E84C3D' }}> ({s.iucn})</span>
+        </div>
+      ))}
+          </div>
+  </div >
+  : naField('No CR/EN/VU species detected')
+}) (),
     },
-    {
-      dot: '🟠',
-      label: 'Endemic species',
+{
+  dot: '🟠',
+    label: 'Endemic species',
       val: naField('Requires regional endemic species database'),
     },
-    {
-      dot: '🟢',
-      label: 'KBAs intersected',
+{
+  dot: '🟢',
+    label: 'KBAs intersected',
       val: naField('Requires KBA polygon database'),
     },
-    {
-      dot: '🛡',
-      label: 'Protected areas',
+{
+  dot: '🛡',
+    label: 'Protected areas',
       val: protectedAreasVal,
-      sub: protectedAreasSub,
+        sub: protectedAreasSub,
     },
-    {
-      dot: '🟡',
-      label: 'Data uncertainty',
+{
+  dot: '🟡',
+    label: 'Data uncertainty',
       val: <span style={{ color: '#F5A623', fontWeight: 500 }}>Medium</span>,
     },
-    {
-      dot: '📍',
-      label: 'Recent records',
+{
+  dot: '📍',
+    label: 'Recent records',
       val: loading ? <Spinner /> : (recentRecords != null ? fmt(recentRecords) : '—'),
     },
-    {
-      dot: '🕒',
-      label: 'Last GBIF record',
+{
+  dot: '🕒',
+    label: 'Last GBIF record',
       val: loading ? <Spinner /> : (lastDate || '—'),
     },
   ]
 
-  return (
-    <div className="card">
-      <div className="card-head"><div className="card-title">Key Findings</div></div>
-      <div>
-        {items.map((f, i) => (
-          <div className="finding" key={i}>
-            <div className="finding-label">
-              <span className="finding-dot">{f.dot}</span>
-              <span>{f.label}</span>
-            </div>
-            <div style={{ textAlign: 'right' }}>
-              <div className="finding-val">{f.val}</div>
-              {f.sub}
-            </div>
+return (
+  <div className="card">
+    <div className="card-head"><div className="card-title">Key Findings</div></div>
+    <div>
+      {items.map((f, i) => (
+        <div className="finding" key={i}>
+          <div className="finding-label">
+            <span className="finding-dot">{f.dot}</span>
+            <span>{f.label}</span>
           </div>
-        ))}
-      </div>
-      {wdpa != null && (
-        <div style={{
-          margin: '0 12px 12px',
-          padding: '6px 10px',
-          background: 'rgba(59,130,246,0.08)',
-          border: '1px solid rgba(59,130,246,0.2)',
-          color: '#c6c9cc',
-          borderRadius: 6,
-          fontSize: 9
-        }}>
-          Protected areas data from WDPA API · Real data
+          <div style={{ textAlign: 'right' }}>
+            <div className="finding-val">{f.val}</div>
+            {f.sub}
+          </div>
         </div>
-      )}
+      ))}
     </div>
-  )
+    {wdpa != null && (
+      <div style={{
+        margin: '0 12px 12px',
+        padding: '6px 10px',
+        background: 'rgba(59,130,246,0.08)',
+        border: '1px solid rgba(59,130,246,0.2)',
+        color: '#c6c9cc',
+        borderRadius: 6,
+        fontSize: 9
+      }}>
+        Protected areas data from WDPA API · Real data
+      </div>
+    )}
+  </div>
+)
 }
 
 function SpeciesRichnessCard({ data, loading }) {
