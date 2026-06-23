@@ -698,7 +698,10 @@ export async function queryGEE(polygon, cellSizeKm = 10, polygonArea = null) {
       [centerLat + delta, centerLng - delta],
     ]
   }
+  
   console.log('🌍 GEE polygon:', geePolygon?.length, 'points, area:', Math.round(area), 'km²')
+  console.log(`🌍 GEE: ${data.features?.length} hex cells · summary:`, data.summary)
+console.log('🌍 GEE kbaCount:', data.kbaCount, 'kbaAreas:', data.kbaAreas?.length)
   try {
     console.log('🌍 Querying GEE...')
     const response = await fetch(url, {
@@ -723,6 +726,8 @@ export async function queryGEE(polygon, cellSizeKm = 10, polygonArea = null) {
       water: data.summary?.water ?? null,
       fire: data.summary?.fire ?? null,
       iucnHabitat: data.summary?.iucn_habitat ?? null,
+      kbaCount: data.kbaCount ?? 0,
+      kbaAreas: data.kbaAreas ?? [],
     }
   } catch (e) {
     console.warn('GEE query failed:', e.message)

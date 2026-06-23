@@ -1958,7 +1958,7 @@ function KeyFindingsCard({ data, loading }) {
               {threatened.map(([specieskey, { name, iucn }], i) => (
                 <div key={i} style={{ fontSize: 9, fontStyle: 'italic', lineHeight: 1.5 }}>
 
-                  <a href={`https://www.gbif.org/occurrence/search?speciesKey=${specieskey}`}
+                  <a href={`https://www.gbif.org/species/${specieskey}`}
                     target="_blank"
                     rel="noreferrer"
                     style={{ color: '#E84C3D', textDecoration: 'none' }}
@@ -1983,7 +1983,19 @@ function KeyFindingsCard({ data, loading }) {
     {
       dot: '🟢',
       label: 'KBAs intersected',
-      val: naField('Requires KBA polygon database'),
+      val: (() => {
+        const kbaCount = data?.gee?.kbaCount ?? 0
+        return kbaCount > 0
+          ? <span style={{ color: '#E84C3D', fontWeight: 600 }}>{kbaCount}</span>
+          : <span style={{ color: '#18A957', fontWeight: 600 }}>0</span>
+      })(),
+      sub: data?.gee?.kbaAreas?.length > 0
+        ? <div style={{ fontSize: 9, color: '#E84C3D', marginTop: 2 }}>
+          {data.gee.kbaAreas.slice(0, 2).map((k, i) => (
+            <div key={i}>{k.properties?.IntName}</div>
+          ))}
+        </div>
+        : null,
     },
     {
       dot: '🛡',
