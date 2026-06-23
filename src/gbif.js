@@ -698,10 +698,9 @@ export async function queryGEE(polygon, cellSizeKm = 10, polygonArea = null) {
       [centerLat + delta, centerLng - delta],
     ]
   }
-  
+
   console.log('🌍 GEE polygon:', geePolygon?.length, 'points, area:', Math.round(area), 'km²')
-  console.log(`🌍 GEE: ${data.features?.length} hex cells · summary:`, data.summary)
-console.log('🌍 GEE kbaCount:', data.kbaCount, 'kbaAreas:', data.kbaAreas?.length)
+
   try {
     console.log('🌍 Querying GEE...')
     const response = await fetch(url, {
@@ -714,6 +713,7 @@ console.log('🌍 GEE kbaCount:', data.kbaCount, 'kbaAreas:', data.kbaAreas?.len
 
     const data = await response.json()
     console.log(`🌍 GEE: ${data.features?.length} hex cells · summary:`, data.summary)
+    console.log('🌍 GEE kbaCount:', data.kbaCount, 'kbaAreas:', data.kbaAreas?.length)
 
     return {
       features: data.features ?? [],
