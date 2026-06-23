@@ -1947,106 +1947,99 @@ function KeyFindingsCard({ data, loading }) {
       dot: '🔴',
       label: 'Threatened species',
       val: (() => {
-        const threatenedRecords = (data?.allTaxaRecords ?? data?.taxaInPolygon)
-          ?.flatMap(t => t.records ?? [])
-          ?.filter(r => r.iucnRedListCategory && ['CR', 'EN', 'VU'].includes(r.iucnRedListCategory))
-        const uniqueMap = {}
-        threatenedRecords?.forEach(r => {
-          if (r.specieskey && r.scientificName) {
-            uniqueMap[r.specieskey] = { name: r.scientificName, iucn: r.iucnRedListCategory }
-          }
-        })
-        const species = Object.values(uniqueMap)
-        const count = species.length
+        const iucnMap = data?.iucnMap ?? {}
+        const threatened = Object.entries(iucnMap)
+          .filter(([, v]) => ['CR', 'EN', 'VU'].includes(v.iucn))
+        const count = threatened.length
         return count > 0
           ? <div style={{ textAlign: 'right' }}>
             <span style={{ color: '#E84C3D', fontWeight: 600 }}>{count}</span>
             <div style={{ marginTop: 4 }}>
-              {species.map((s, i) => (
-        <div key={i} style={{ fontSize: 9, fontStyle: 'italic', lineHeight: 1.5 }}>
-          
-            href={`https://www.gbif.org/species/${s.specieskey}`}
-            target="_blank"
-            rel="noreferrer"
-            style={{ color: '#E84C3D', textDecoration: 'none' }}
-            onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
-            onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}
-          >
-            {s.name}
-          </a>
-          <span style={{ fontStyle: 'normal', opacity: 0.7, color: '#E84C3D' }}> ({s.iucn})</span>
-        </div>
-      ))}
-          </div>
-  </div >
-  : naField('No CR/EN/VU species detected')
-}) (),
+              {threatened.map(([specieskey, { name, iucn }], i) => (
+                <div key={i} style={{ fontSize: 9, fontStyle: 'italic', lineHeight: 1.5 }}>
+
+                  <a href={`https://www.gbif.org/occurrence/search?speciesKey=${specieskey}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ color: '#E84C3D', textDecoration: 'none' }}
+                    onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
+                    onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}
+                  >
+                    {name}
+                  </a>
+                  <span style={{ fontStyle: 'normal', opacity: 0.7, color: '#E84C3D' }}> ({iucn})</span>
+                </div>
+              ))}
+            </div>
+          </div >
+          : naField('No CR/EN/VU species detected')
+      })(),
     },
-{
-  dot: '🟠',
-    label: 'Endemic species',
+    {
+      dot: '🟠',
+      label: 'Endemic species',
       val: naField('Requires regional endemic species database'),
     },
-{
-  dot: '🟢',
-    label: 'KBAs intersected',
+    {
+      dot: '🟢',
+      label: 'KBAs intersected',
       val: naField('Requires KBA polygon database'),
     },
-{
-  dot: '🛡',
-    label: 'Protected areas',
+    {
+      dot: '🛡',
+      label: 'Protected areas',
       val: protectedAreasVal,
-        sub: protectedAreasSub,
+      sub: protectedAreasSub,
     },
-{
-  dot: '🟡',
-    label: 'Data uncertainty',
+    {
+      dot: '🟡',
+      label: 'Data uncertainty',
       val: <span style={{ color: '#F5A623', fontWeight: 500 }}>Medium</span>,
     },
-{
-  dot: '📍',
-    label: 'Recent records',
+    {
+      dot: '📍',
+      label: 'Recent records',
       val: loading ? <Spinner /> : (recentRecords != null ? fmt(recentRecords) : '—'),
     },
-{
-  dot: '🕒',
-    label: 'Last GBIF record',
+    {
+      dot: '🕒',
+      label: 'Last GBIF record',
       val: loading ? <Spinner /> : (lastDate || '—'),
     },
   ]
 
-return (
-  <div className="card">
-    <div className="card-head"><div className="card-title">Key Findings</div></div>
-    <div>
-      {items.map((f, i) => (
-        <div className="finding" key={i}>
-          <div className="finding-label">
-            <span className="finding-dot">{f.dot}</span>
-            <span>{f.label}</span>
+  return (
+    <div className="card">
+      <div className="card-head"><div className="card-title">Key Findings</div></div>
+      <div>
+        {items.map((f, i) => (
+          <div className="finding" key={i}>
+            <div className="finding-label">
+              <span className="finding-dot">{f.dot}</span>
+              <span>{f.label}</span>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <div className="finding-val">{f.val}</div>
+              {f.sub}
+            </div>
           </div>
-          <div style={{ textAlign: 'right' }}>
-            <div className="finding-val">{f.val}</div>
-            {f.sub}
-          </div>
-        </div>
-      ))}
-    </div>
-    {wdpa != null && (
-      <div style={{
-        margin: '0 12px 12px',
-        padding: '6px 10px',
-        background: 'rgba(59,130,246,0.08)',
-        border: '1px solid rgba(59,130,246,0.2)',
-        color: '#c6c9cc',
-        borderRadius: 6,
-        fontSize: 9
-      }}>
-        Protected areas data from WDPA API · Real data
+        ))}
       </div>
-    )}
-  </div>
-)
+      {wdpa != null && (
+        <div style={{
+          margin: '0 12px 12px',
+          padding: '6px 10px',
+          background: 'rgba(59,130,246,0.08)',
+          border: '1px solid rgba(59,130,246,0.2)',
+          color: '#c6c9cc',
+          borderRadius: 6,
+          fontSize: 9
+        }}>
+          Protected areas data from WDPA API · Real data
+        </div>
+      )}
+    </div>
+  )
 }
 
 function SpeciesRichnessCard({ data, loading }) {
@@ -6978,11 +6971,19 @@ export default function App() {
   const [execSummaryLoading, setExecSummaryLoading] = useState(false)
 
   useEffect(() => {
+    console.log('🔍 useEffect IUCN triggered, analysisId:', gbifData?.analysisId, 'allTaxaRecords:', gbifData?.allTaxaRecords?.length)
+
     if (!gbifData?.allTaxaRecords) return
 
     // Extraer specieskeys de allTaxaRecords
     const allRecords = gbifData.allTaxaRecords.flatMap(t => t.records ?? [])
-    const speciesKeys = [...new Set(allRecords.map(r => r.specieskey).filter(Boolean))]
+    const speciesMap = {}
+    allRecords.forEach(r => {
+      if (r.specieskey && r.scientificName) {
+        speciesMap[r.specieskey] = r.scientificName
+      }
+    })
+    const speciesKeys = Object.keys(speciesMap)
 
     if (speciesKeys.length === 0) return
 
@@ -6992,19 +6993,13 @@ export default function App() {
         if (!prev) return prev
         return {
           ...prev,
-          allTaxaRecords: prev.allTaxaRecords?.map(taxon => ({
-            ...taxon,
-            records: (taxon.records ?? []).map(r => ({
-              ...r,
-              iucnRedListCategory: r.specieskey && iucnMap[r.specieskey]
-                ? iucnMap[r.specieskey]
-                : r.iucnRedListCategory,
-            }))
-          }))
+          iucnMap: Object.fromEntries(
+            Object.entries(iucnMap).map(([key, val]) => [key, { iucn: val, name: speciesMap[key] ?? key }])
+          ),
         }
       })
     }).catch(() => { })
-  }, [gbifData?.polygonCount])
+  }, [gbifData?.allTaxaRecords])
 
 
   function handleNav(id) {
@@ -7196,6 +7191,7 @@ export default function App() {
             lng: parseFloat(r.decimallongitude),
             eventDate: r.year ? `${r.year}-${String(r.month).padStart(2, '0')}-${String(r.day).padStart(2, '0')}` : null,
             key: r.gbifid,
+            specieskey: r.specieskey,
             basisOfRecord: r.basisofrecord,
             iucnRedListCategory: null, // se enriquece en background            
             specieskey: r.specieskey,
@@ -8307,7 +8303,6 @@ export default function App() {
                 }
               }
 
-              // Mostrar dashboard inmediatamente con datos agregados
               setGbifData(gbifData)
               setShowDemoBanner(false)
               setProjectName(project.name)
@@ -8332,9 +8327,6 @@ export default function App() {
               setCopilotKey(k => k + 1)
 
               // Re-query Athena en background para recuperar puntos del mapa
-
-              // Re-query Athena en background para recuperar puntos del mapa
-              // Re-query Athena en background
               setTimeout(async () => {
                 if (project.polygon?.length >= 3 && project.country) {
                   try {
@@ -8363,34 +8355,50 @@ export default function App() {
                           const lat = parseFloat(r.decimallatitude)
                           const lng = parseFloat(r.decimallongitude)
                           if (isNaN(lat) || isNaN(lng)) return
-
-                          // Filtro punto-en-polígono
                           try {
                             if (!turf.booleanPointInPolygon(turf.point([lng, lat]), turfPolygon)) return
                           } catch (e) { return }
-
                           const cls = r.class
                           if (!byClass[cls]) byClass[cls] = []
                           byClass[cls].push({
                             scientificName: r.scientificname,
-                            lat,
-                            lng,
+                            lat, lng,
                             eventDate: r.year ? `${r.year}-${String(r.month).padStart(2, '0')}-${String(r.day).padStart(2, '0')}` : null,
                             key: r.gbifid,
                             basisOfRecord: r.basisofrecord,
+                            specieskey: r.specieskey,
+                            iucnRedListCategory: null,
                           })
                         })
 
-                        setGbifData(prev => {
-                          console.log('🔄 Background update - taxaInPolygon:', prev?.taxaInPolygon?.length, 'byClass keys:', Object.keys(byClass))
-                          return {
-                            ...prev,
-                            allTaxaRecords: prev?.taxaInPolygon?.map(t => ({
-                              ...t,
-                              records: byClass[t.name] ?? [],
-                            })) ?? [],
-                          }
-                        })
+                        setGbifData(prev => ({
+                          ...prev,
+                          allTaxaRecords: prev?.taxaInPolygon?.map(t => ({
+                            ...t,
+                            records: byClass[t.name] ?? [],
+                          })) ?? [],
+                        }))
+
+                        // Enriquecer con IUCN en background
+                        const speciesKeysFromAthena = [...new Set(athenaRecords.map(r => r.specieskey).filter(Boolean))]
+                        queryIucnStatus(speciesKeysFromAthena).then(iucnMap => {
+                          if (Object.keys(iucnMap).length === 0) return
+                          setGbifData(prev => {
+                            if (!prev) return prev
+                            return {
+                              ...prev,
+                              allTaxaRecords: prev.allTaxaRecords?.map(taxon => ({
+                                ...taxon,
+                                records: (taxon.records ?? []).map(r => ({
+                                  ...r,
+                                  iucnRedListCategory: r.specieskey && iucnMap[r.specieskey]
+                                    ? iucnMap[r.specieskey]
+                                    : r.iucnRedListCategory,
+                                }))
+                              }))
+                            }
+                          })
+                        }).catch(() => { })
                       }
                     }
                   } catch (e) {
@@ -8576,7 +8584,11 @@ export default function App() {
 
                   {/* Key Findings +  Financial Materiality */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
-                    <KeyFindingsCard data={gbifData} loading={loading} />
+                    <KeyFindingsCard
+                      data={gbifData}
+                      loading={loading}
+                      key={gbifData?.allTaxaRecords?.flatMap(t => t.records ?? []).filter(r => r.iucnRedListCategory).length ?? 0}
+                    />
                     <FinancialMaterialityCard data={gbifData} analysisProject={analysisProject} />
                   </div>
 
