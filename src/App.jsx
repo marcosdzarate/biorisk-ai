@@ -1387,8 +1387,13 @@ function OccurrenceMarker({ occ, color, taxonName, renderer }) {
       center={[occ.lat, occ.lng]}
       radius={3}
       renderer={renderer}
-      pathOptions={{ color, fillColor: color, fillOpacity: 0.7, weight: 0.5 }}
-      eventHandlers={{ click: handleClick }}
+      pathOptions={{
+        color: mapStyle === 'satellite' ? '#ec4899' : '#22c55e',
+        weight: 2,
+        fillColor: mapStyle === 'satellite' ? '#ec4899' : '#22c55e',
+        fillOpacity: viewMode === 'gbif' ? 0 : 0.06,
+        dashArray: viewMode === 'gbif' ? '6 4' : undefined,
+      }} eventHandlers={{ click: handleClick }}
     >
       <Popup>
         <Popup autoPan={false}></Popup>
@@ -1630,11 +1635,13 @@ function GbifDataIntelligenceCard({ data }) {
 
 // ─── Cards ───────────────────────────────────────────────────────────────────
 function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, wdpaData, bufferData, geeFeatures, lang }) {
+
   const mapCenter = center || [-20, -60]
   const mapZoom = zoom ?? 7
   const hasPolygon = polygon && polygon.length >= 3
   const presentTaxa = (allTaxaRecords ?? []).filter(t => t.inPolygon > 0)
   const [viewMode, setViewMode] = useState('points')
+  const [mapStyle, setMapStyle] = useState('dark')
   const canvasRenderer = useMemo(() => L.canvas({ padding: 0.5 }), [])
 
   const clusterMarkers = useMemo(() => {
@@ -1708,6 +1715,17 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
                   {mode.label}
                 </button>
               ))}
+              <button
+                onClick={() => setMapStyle(s => s === 'dark' ? 'satellite' : 'dark')}
+                style={{
+                  padding: '4px 10px', borderRadius: 6, fontSize: 11,
+                  fontWeight: 600, border: '1px solid var(--bd)', cursor: 'pointer',
+                  background: mapStyle === 'satellite' ? '#F5A623' : 'var(--card)',
+                  color: mapStyle === 'satellite' ? 'white' : 'var(--text2)',
+                }}
+              >
+                {mapStyle === 'dark' ? '🛰 Satellite' : '🗺 Dark'}
+              </button>
             </>
           )}
         </div>
@@ -1721,17 +1739,31 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
           style={{ height: '100%', width: '100%' }}
           whenCreated={map => { mapRef.current = map }}
         >
-          <TileLayer
-            attribution='&copy; <a href="https://carto.com">CartoDB</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          />
+          {mapStyle === 'dark' ? (
+            <TileLayer
+              attribution='&copy; <a href="https://carto.com">CartoDB</a>'
+              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            />
+          ) : (
+            <>
+              <TileLayer
+                attribution='&copy; <a href="https://www.esri.com">Esri</a>'
+                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+              />
+              <TileLayer
+                url="https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}"
+                attribution=""
+                opacity={0.7}
+              />
+            </>
+          )}
           {hasPolygon && (
             <Polygon
               positions={polygon}
               pathOptions={{
-                color: '#22c55e',
+                color: mapStyle === 'satellite' ? '#ec4899' : '#22c55e',
                 weight: 2,
-                fillColor: '#22c55e',
+                fillColor: mapStyle === 'satellite' ? '#ec4899' : '#22c55e',
                 fillOpacity: viewMode === 'gbif' ? 0 : 0.06,
                 dashArray: viewMode === 'gbif' ? '6 4' : undefined,
               }}
@@ -4958,7 +4990,7 @@ function CountryBorderLayer({ country }) {
 }
 
 // MUST be a separate component (outside App) so the Leaflet hooks are stable.
-function DrawingLayer({ drawnPoints, setDrawnPoints, drawnPolygon, setDrawnPolygon }) {
+function DrawingLayer({ drawnPoints, setDrawnPoints, drawnPolygon, setDrawnPolygon, mapStyle }) {
   const map = useMapEvents({
     click(e) {
       if (drawnPolygon) return
@@ -4989,18 +5021,25 @@ function DrawingLayer({ drawnPoints, setDrawnPoints, drawnPolygon, setDrawnPolyg
       container.style.cursor = ''
     }
   }, [drawnPolygon, map])
+  console.log('🗺 DrawingLayer mapStyle:', mapStyle)
 
   return (
     <>
-      {/* Completed polygon */}
       {drawnPolygon && drawnPolygon.length >= 3 && (
         <Polygon
+          key={`polygon-${mapStyle}`}
           positions={drawnPolygon}
-          pathOptions={{
-            color: '#22c55e',
-            weight: 2.5,
-            fillColor: '#22c55e',
-            fillOpacity: 0.08,
+          pathOptions={mapStyle === 'satellite'
+            ? { color: '#ec4899', weight: 2.5, fillColor: '#ec4899', fillOpacity: 0.08 }
+            : { color: '#22c55e', weight: 2.5, fillColor: '#22c55e', fillOpacity: 0.08 }
+          }
+          ref={(layer) => {
+            if (layer) {
+              layer.setStyle({
+                color: mapStyle === 'satellite' ? '#ec4899' : '#22c55e',
+                fillColor: mapStyle === 'satellite' ? '#ec4899' : '#22c55e',
+              })
+            }
           }}
         />
       )}
@@ -5055,6 +5094,7 @@ function NewAnalysisPage({
   onBack, onRunScan, onViewDashboard, onResetWizard, loadCountryTaxa,
   loadingTaxa, scanLogs, scanError, t, lang, scanDuration
 }) {
+  const [mapStyle, setMapStyle] = useState('dark')
   const center = COUNTRY_CENTERS[analysisProject.country] || [-15, -60]
   const canRun = analysisProject.name.trim() && drawnPolygon
   const [csrdOpen, setCsrdOpen] = useState(false)
@@ -5287,18 +5327,60 @@ function NewAnalysisPage({
                 {t('btn.run_scan')}
               </button>
             </aside>
+            <div className="wiz-map" style={{ position: 'relative' }}>
+              {/* Botón flotante */}
+              <button
+                onClick={() => setMapStyle(s => s === 'dark' ? 'satellite' : 'dark')}
+                style={{
+                  position: 'absolute', bottom: 24, right: 10, zIndex: 1000,
+                  width: 52, height: 52, borderRadius: 8,
+                  border: '2px solid white',
+                  cursor: 'pointer', padding: 0,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.5)',
+                  backgroundImage: mapStyle === 'dark'
+                    ? 'url(https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/3/2/2)'
+                    : 'none',
+                  backgroundSize: 'cover',
+                  backgroundColor: mapStyle === 'satellite' ? '#1a1a2e' : 'transparent',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+                title={mapStyle === 'dark' ? 'Switch to Satellite' : 'Switch to Dark'}
+              >
+                {mapStyle === 'satellite'
+                  ? <span style={{ fontSize: 20 }}>🗺</span>
+                  : <span style={{
+                    fontSize: 9, color: 'white', fontWeight: 700,
+                    textShadow: '0 1px 2px rgba(0,0,0,0.8)', lineHeight: 1.2, textAlign: 'center'
+                  }}>
+                    SAT
+                  </span>
+                }
+              </button>
 
-            <div className="wiz-map">
               <MapContainer
                 key="drawing-map"
                 center={center}
                 zoom={5}
                 style={{ height: '100%', width: '100%' }}
               >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.esri.com">Esri</a>'
-                  url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-                />
+                {mapStyle === 'dark' ? (
+                  <TileLayer
+                    attribution='&copy; <a href="https://carto.com">CartoDB</a>'
+                    url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                  />
+                ) : (
+                  <>
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.esri.com">Esri</a>'
+                      url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                    />
+                    <TileLayer
+                      url="https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}"
+                      attribution=""
+                      opacity={0.7}
+                    />
+                  </>
+                )}
                 <MapRecenter center={center} />
                 <CountryBorderLayer country={analysisProject.country} />
                 <DrawingLayer
@@ -5306,6 +5388,7 @@ function NewAnalysisPage({
                   setDrawnPoints={setDrawnPoints}
                   drawnPolygon={drawnPolygon}
                   setDrawnPolygon={setDrawnPolygon}
+                  mapStyle={mapStyle}
                 />
               </MapContainer>
             </div>
