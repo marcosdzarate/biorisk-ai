@@ -1039,10 +1039,8 @@ function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle,
     }}>
       <div className="logo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {!collapsed && (
-          <div className="logo-mark">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M7 1L13 4V10L7 13L1 10V4L7 1Z" fill="white" fillOpacity="0.9" />
-            </svg>
+          <div className="logo-mark" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'none' }}>
+            <img src="/logo.png" style={{ width: 80, height: 50, objectFit: 'contain' }} />
           </div>
         )}
 
@@ -1091,7 +1089,6 @@ function Sidebar({ activePage, setActivePage, user, logout, collapsed, onToggle,
           </div>
         )}
       </div>
-      {!collapsed && <div className="logo-sub">Biodiversity Intelligence for ESG &amp; TNFD</div>}
 
       <div className="nav-section-label">Workspace</div>
       <nav>
