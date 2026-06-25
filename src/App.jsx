@@ -1384,13 +1384,9 @@ function OccurrenceMarker({ occ, color, taxonName, renderer }) {
       center={[occ.lat, occ.lng]}
       radius={3}
       renderer={renderer}
-      pathOptions={{
-        color: mapStyle === 'satellite' ? '#ec4899' : '#22c55e',
-        weight: 2,
-        fillColor: mapStyle === 'satellite' ? '#ec4899' : '#22c55e',
-        fillOpacity: viewMode === 'gbif' ? 0 : 0.06,
-        dashArray: viewMode === 'gbif' ? '6 4' : undefined,
-      }} eventHandlers={{ click: handleClick }}
+
+      pathOptions={{ color, fillColor: color, fillOpacity: 0.7, weight: 0.5 }}
+
     >
       <Popup>
         <Popup autoPan={false}></Popup>
@@ -1629,6 +1625,40 @@ function GbifDataIntelligenceCard({ data }) {
   )
 }
 
+function CanvasLayer({ allTaxaRecords }) {
+  const map = useMap()
+
+  useEffect(() => {
+    if (!map || !allTaxaRecords) return
+
+    const canvas = L.canvas({ padding: 0.5 })
+    const layers = []
+
+    allTaxaRecords.forEach(taxon => {
+      const color = TAXON_COLORS[taxon.name] || '#18A957'
+      ;(taxon.records ?? []).forEach(occ => {
+        if (occ.lat == null || occ.lng == null) return
+        const marker = L.circleMarker([occ.lat, occ.lng], {
+          renderer: canvas,
+          radius: 3,
+          color,
+          fillColor: color,
+          fillOpacity: 0.7,
+          weight: 0.5,
+        })
+        marker.addTo(map)
+        layers.push(marker)
+      })
+    })
+
+    return () => {
+      layers.forEach(l => map.removeLayer(l))
+    }
+  }, [map, allTaxaRecords])
+
+  return null
+}
+
 
 // ─── Cards ───────────────────────────────────────────────────────────────────
 function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, wdpaData, bufferData, geeFeatures, lang }) {
@@ -1777,18 +1807,9 @@ function MapCard({ polygon, center, zoom, allTaxaRecords, fullWidth, ndviData, w
               }}
             />
           )}
-          {hasPolygon && (
-            <MarkerClusterGroup
-              chunkedLoading
-              maxClusterRadius={50}
-              disableClusteringAtZoom={14}
-              spiderfyOnMaxZoom={true}
-              showCoverageOnHover={false}
-            >
-              {(viewMode === 'points' || viewMode === 'protected') && clusterMarkers}
-            </MarkerClusterGroup>
+          {hasPolygon && (viewMode === 'points' || viewMode === 'protected') && (
+            <CanvasLayer allTaxaRecords={allTaxaRecords} />
           )}
-
           {hasPolygon && <HeatmapLayer allTaxaRecords={allTaxaRecords} active={viewMode === 'heatmap'} />}
           {hasPolygon && ndviData && (
             <NdviLayer polygon={polygon} ndviData={viewMode === 'ndvi' ? ndviData : null} />
