@@ -4719,7 +4719,7 @@ function CopilotPanel({ gbifData, analysisProject }) {
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 400,
         system: buildCopilotSystem(gbifData, analysisProject),
         messages: [{
@@ -4775,7 +4775,7 @@ function CopilotPanel({ gbifData, analysisProject }) {
         }))
 
       const body = {
-        model: isRegulatory ? 'claude-sonnet-4-20250514' : 'claude-haiku-4-5-20251001',
+        model: isRegulatory ? 'claude-sonnet-4-6' : 'claude-haiku-4-5-20251001',
         max_tokens: 600,
         system: buildCopilotSystem(gbifData, analysisProject),
         messages: history,
