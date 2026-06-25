@@ -4711,7 +4711,7 @@ function CopilotPanel({ gbifData, analysisProject }) {
 
     const apiKey = import.meta.env.VITE_DEMO_KEY
 
-    fetch('/api/anthropic/v1/messages', {
+    fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -4789,7 +4789,7 @@ function CopilotPanel({ gbifData, analysisProject }) {
         }]
       }
 
-      const response = await fetch('/api/anthropic/v1/messages', {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
