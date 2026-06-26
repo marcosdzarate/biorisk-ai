@@ -383,7 +383,7 @@ export async function queryProtectedAreas(bbox, country) {
 
   try {
     const iso3 = ISO2_TO_ISO3[country] ?? country
-    const url = `/api/wdpa/v3/protected_areas/search?token=${token}&country=${iso3}&page=1&per_page=50&with_geometry=true`
+    const url = `https://api.protectedplanet.net/v3/protected_areas/search?token=${token}&country=${iso3}&page=1&per_page=50&with_geometry=true`
     const response = await fetch(url)
     if (!response.ok) throw new Error(`WDPA API ${response.status}`)
 
@@ -436,7 +436,8 @@ async function getSentinelToken() {
     throw new Error('Sentinel Hub credentials not configured')
   }
 
-  const response = await fetch('/api/sentinel-auth/auth/realms/CDSE/protocol/openid-connect/token', {
+  const response = await fetch('https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token', {
+ // const response = await fetch('/api/sentinel-auth/auth/realms/CDSE/protocol/openid-connect/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({
@@ -505,7 +506,8 @@ export async function queryNDVI(polygon) {
       }
     }
 
-    const response = await fetch('/api/sentinel/api/v1/statistics', {
+    //const response = await fetch('/api/sentinel/api/v1/statistics', {
+    const response = await fetch('https://sh.dataspace.copernicus.eu/api/v1/statistics', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -594,7 +596,8 @@ export async function queryForestLoss(polygon) {
       coordinates: [[...polygon.map(p => [p[1], p[0]]), [polygon[0][1], polygon[0][0]]]]
     }
 
-    const response = await fetch('/api/gfw/dataset/umd_tree_cover_loss/v1.13/query', {
+    //const response = await fetch('/api/gfw/dataset/umd_tree_cover_loss/v1.13/query', {
+    const response = await fetch('https://data-api.globalforestwatch.org/dataset/umd_tree_cover_loss/v1.13/query', {
       method: 'POST',
       headers: {
         'x-api-key': apiKey,
