@@ -236,17 +236,3 @@ BioRisk AI was designed and built by **Marcos Zárate**, researcher at CESIMAR-C
 This platform was developed with no dedicated funding — relying entirely on open data, free-tier cloud infrastructure, and the conviction that rigorous biodiversity science should be accessible to those who need it most.
 
 Argentine science operates under severe budget constraints. BioRisk AI is proof that scientific creativity and technical excellence are not determined by the size of a budget — and that researchers at the frontier of biodiversity informatics exist far beyond the traditional centers of global science.
-
----
-
-## 🔗 References
-
-- Rodrigues, A. (2025). *Species Occurrence Data and Corporate Sustainability Frameworks*. GBIF Data Blog. https://data-blog.gbif.org/post/2025-10-28-species-occurrence-data-and-corporate-sustainability-frameworks/
-- de Groot et al. (2012). Global estimates of the value of ecosystems and their services. *Ecosystem Services*, 1(1), 50–61.
-- TNFD (2023). Recommendations of the Taskforce on Nature-related Financial Disclosures.
-- IFC (2012). Performance Standard 6: Biodiversity Conservation and Sustainable Management of Living Natural Resources.
-- GBIF.org (2026). GBIF Occurrence Snapshot 2026-05-01. https://registry.opendata.aws/gbif/
-
----
-
-*Powered by GBIF open data · Submitted by Marcos Daniel Zárate, CESIMAR-CONICET / ArOBIS*
