@@ -215,7 +215,6 @@ BioRisk AI is a screening-grade tool. The following limitations should be consid
 - Coverage limited to 16 LAC countries — expansion planned
 - KBA (Key Biodiversity Areas) — access approved via Google Earth Engine (projects/ee-kbas-in-gee/assets/current). KBA intersection detection implemented in GEE Cloud Function; full polygon overlay pending asset path verification.
 - IUCN Red List status is retrieved asynchronously from the GBIF REST API (iucnRedListCategory field), enriching detected species with CR/EN/VU classifications linked to GBIF species pages. Direct IUCN Red List API integration pending.
-- Marine and freshwater species underrepresented — OBIS integration not yet implemented
 
 **Methodological:**
 - Risk score is a composite index designed for rapid screening — it has not been statistically validated against formal field assessments
@@ -224,7 +223,7 @@ BioRisk AI is a screening-grade tool. The following limitations should be consid
 - No temporal trend analysis beyond deforestation (Hansen) and NDVI
 
 **Technical:**
-- GEE Cloud Function may take 2–4 minutes for large polygons (>10,000 km²)
+- GEE Cloud Function may take 2–4 minutes for large polygons (>20,000 km²)
 - AWS Athena queries may timeout under high load — automatic fallback to GBIF REST API activates in this case (limited to 300 records/taxon)
 - Not optimized for mobile devices
 
