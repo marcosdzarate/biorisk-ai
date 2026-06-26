@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/logo.png" alt="BioRisk AI Logo" width="80" />
+  <img src="public/logo.png" alt="BioRisk AI Logo" width="100" />
 </p>
 
 ### AI-Powered Biodiversity Risk Intelligence for ESG & TNFD
