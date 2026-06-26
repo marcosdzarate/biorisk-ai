@@ -10,8 +10,6 @@
 
 BioRisk AI transforms open GBIF occurrence data into actionable, screening-grade biodiversity risk intelligence for ESG analysts, environmental consultants, and project finance teams — in minutes rather than months.
 
-**Submitted to the [2026 GBIF Ebbe Nielsen Challenge](https://www.gbif.org/article/1eehfXy1526kgc0AaoC6ok)**
-
 ---
 
 ## 🚀 Quick Start
