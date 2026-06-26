@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/logo.png" alt="BioRisk AI Logo" width="120" />
+  <img src="public/logo.png" alt="BioRisk AI Logo" width="140" />
 </p>
 
 **Biodiversity Risk Intelligence for ESG & TNFD Compliance in Latin America and the Caribbean**
@@ -36,14 +36,15 @@ Demo credentials: `demo@biorisk.ai` / `Bior!sk_GBIF_2026#`
 
 ---
 
-## 🔬 Case Study: Salar de Hombre Muerto, Catamarca, Argentina
+## 🔬 Case Study: Lithium Triangle, Jujuy, Argentina
 
-- **Project:** Lithium extraction project under RIGI regime
-- **Investment:** USD 1,500M
-- **Location:** High-altitude Andean salt flat, Catamarca Province (~-25.5°, -67.3°)
+The [Lithium Triangle](https://en.wikipedia.org/wiki/Lithium_Triangle) — spanning Argentina, Bolivia, and Chile — holds 49.6% of global lithium resources (OECD/USGS, 2025). BioRisk AI was tested on a lithium project area in the Puna region of Jujuy, Argentina:
+
+- **Location:** High-altitude Andean salt flats, Jujuy Province
+- **Sector:** Lithium Mining / RIGI regime
 - **GBIF records:** ~70,000 georeferenced occurrences across 11 taxonomic classes
 - **Threatened species detected:** Phoenicoparrus andinus (VU), Phoenicoparrus jamesi (NT)
-- **Protected areas:** 2 WDPA intersections including Laguna de los Pozuelos Ramsar site
+- **Protected areas:** WDPA intersections including Ramsar wetlands
 - **IFC PS6 trigger:** Critical Habitat — Vulnerable species present
 - **NDVI:** ~0.096 (consistent with high-altitude salt flat ecosystem)
 - **Analysis time:** ~90 seconds
@@ -156,7 +157,7 @@ The taxa detected in the bbox are queried first via a lightweight `DISTINCT clas
 
 BioRisk AI directly implements GBIF's recommendations for improving biodiversity disclosure reporting:
 
-1. **Traceability** — Analysis Reference IDs (format: BioRisk-{country}-{date}-{random8}) with DOI pathway via GBIF Derived Dataset API
+1. **Traceability** — Analysis Reference IDs (format: BioRisk-{country}-{date}-{random8}) providing traceability over the GBIF data used in each analysis
 2. **Data gap acknowledgment** — Chao1 estimator + sampling completeness % + AI reviewer notes
 3. **Sector-specific context** — Mitigation conditioned on detected taxa and project phase
 4. **Regulatory alignment** — TNFD Content Index + IFC PS6 Critical Habitat in every PDF export
