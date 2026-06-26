@@ -7112,7 +7112,7 @@ export default function App() {
         }
       })
     }).catch(() => { })
-  }, [gbifData?.allTaxaRecords])
+  }, [gbifData?.polygonCount])
 
 
   function handleNav(id) {
