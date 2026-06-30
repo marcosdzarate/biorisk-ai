@@ -1636,19 +1636,19 @@ function CanvasLayer({ allTaxaRecords }) {
 
     allTaxaRecords.forEach(taxon => {
       const color = TAXON_COLORS[taxon.name] || '#18A957'
-      ;(taxon.records ?? []).forEach(occ => {
-        if (occ.lat == null || occ.lng == null) return
-        const marker = L.circleMarker([occ.lat, occ.lng], {
-          renderer: canvas,
-          radius: 3,
-          color,
-          fillColor: color,
-          fillOpacity: 0.7,
-          weight: 0.5,
+        ; (taxon.records ?? []).forEach(occ => {
+          if (occ.lat == null || occ.lng == null) return
+          const marker = L.circleMarker([occ.lat, occ.lng], {
+            renderer: canvas,
+            radius: 3,
+            color,
+            fillColor: color,
+            fillOpacity: 0.7,
+            weight: 0.5,
+          })
+          marker.addTo(map)
+          layers.push(marker)
         })
-        marker.addTo(map)
-        layers.push(marker)
-      })
     })
 
     return () => {
@@ -8325,8 +8325,8 @@ export default function App() {
               }} />
               Live case study
             </div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#f4f4f6', marginBottom: 4 }}>Litio Galán, Catamarca</div>
-            <div style={{ fontSize: 10, color: '#6b6b7a', lineHeight: 1.5 }}>USD 1.5B · Mining · Phoenicoparrus andinus (EN) detected</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#f4f4f6', marginBottom: 4 }}>Lithium Triangle, Jujuy</div>
+            <div style={{ fontSize: 10, color: '#6b6b7a', lineHeight: 1.5 }}>USD 1.5B · Mining · Phoenicoparrus andinus (VU) detected</div>
           </div>
 
           {/* Powered by bottom left */}
