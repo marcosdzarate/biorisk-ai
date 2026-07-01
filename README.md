@@ -2,7 +2,6 @@
   <img src="public/logo.png" alt="BioRisk AI Logo" width="140" />
 </p>
 
-<h1 align="center">BioRisk AI</h1>
 <p align="center">
   Biodiversity risk screening for ESG, TNFD, and IFC PS6 workflows in Latin America and the Caribbean
 </p>
