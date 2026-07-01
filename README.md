@@ -1,7 +1,7 @@
 <p align="center">
   <img src="public/logo.png" alt="BioRisk AI Logo" width="140" />
 </p>
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21114967.svg)](https://doi.org/10.5281/zenodo.21114967)
 **Biodiversity Risk Intelligence for ESG & TNFD Compliance in Latin America and the Caribbean**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-biorisk--ai.vercel.app-7c3aed?style=flat-square)](https://biorisk-ai.vercel.app)
