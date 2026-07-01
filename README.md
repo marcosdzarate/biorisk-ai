@@ -4,6 +4,8 @@
 
 **Biodiversity Risk Intelligence for ESG & TNFD Compliance in Latin America and the Caribbean**
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21114967.svg)](https://doi.org/10.5281/zenodo.21114967)
+
+
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-biorisk--ai.vercel.app-7c3aed?style=flat-square)](https://biorisk-ai.vercel.app)
 [![GBIF](https://img.shields.io/badge/Powered%20by-GBIF%20S3%20Snapshot-18A957?style=flat-square)](https://registry.opendata.aws/gbif/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
