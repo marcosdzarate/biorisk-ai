@@ -1,0 +1,842 @@
+{
+  "_comment" : "Created with OWL2VOWL (version 0.3.5), http://vowl.visualdataweb.org",
+  "header" : {
+    "languages" : [ "en", "undefined" ],
+    "baseIris" : [ "https://w3id.org/biodivrisK-onto", "http://www.w3.org/1999/02/22-rdf-syntax-ns", "http://www.w3.org/2002/07/owl", "http://www.w3.org/2000/01/rdf-schema", "https://schema.org", "http://www.w3.org/2001/XMLSchema" ],
+    "title" : {
+      "en" : "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"
+    },
+    "iri" : "https://w3id.org/biodivrisK-onto",
+    "version" : "0.1.0",
+    "author" : [ "_:genid2147483648" ],
+    "description" : {
+      "en" : "BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC)."
+    },
+    "comments" : {
+      "en" : "Prototype v0.1.0. Developed as part of the paper submitted to AMW 2026."
+    },
+    "other" : {
+      "license" : [ {
+        "identifier" : "license",
+        "language" : "undefined",
+        "value" : "https://creativecommons.org/licenses/by/4.0/",
+        "type" : "iri"
+      } ],
+      "creator" : [ {
+        "identifier" : "creator",
+        "language" : "undefined",
+        "value" : "_:genid2147483648",
+        "type" : "label"
+      } ],
+      "created" : [ {
+        "identifier" : "created",
+        "language" : "undefined",
+        "value" : "2026-07-13",
+        "type" : "label"
+      } ],
+      "preferredNamespacePrefix" : [ {
+        "identifier" : "preferredNamespacePrefix",
+        "language" : "undefined",
+        "value" : "bro",
+        "type" : "label"
+      } ],
+      "preferredNamespaceUri" : [ {
+        "identifier" : "preferredNamespaceUri",
+        "language" : "undefined",
+        "value" : "https://w3id.org/biodivrisK-onto#",
+        "type" : "label"
+      } ],
+      "versionInfo" : [ {
+        "identifier" : "versionInfo",
+        "language" : "undefined",
+        "value" : "0.1.0",
+        "type" : "label"
+      } ],
+      "title" : [ {
+        "identifier" : "title",
+        "language" : "en",
+        "value" : "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks",
+        "type" : "label"
+      } ],
+      "seeAlso" : [ {
+        "identifier" : "seeAlso",
+        "language" : "undefined",
+        "value" : "https://github.com/marcosdzarate/biorisk-ai",
+        "type" : "iri"
+      } ]
+    }
+  },
+  "namespace" : [ ],
+  "class" : [ {
+    "id" : "8",
+    "type" : "owl:Class"
+  }, {
+    "id" : "18",
+    "type" : "owl:Class"
+  }, {
+    "id" : "16",
+    "type" : "owl:Class"
+  }, {
+    "id" : "23",
+    "type" : "owl:Class"
+  }, {
+    "id" : "25",
+    "type" : "owl:equivalentClass"
+  }, {
+    "id" : "2",
+    "type" : "owl:Class"
+  }, {
+    "id" : "1",
+    "type" : "owl:equivalentClass"
+  }, {
+    "id" : "29",
+    "type" : "owl:Class"
+  }, {
+    "id" : "30",
+    "type" : "owl:Class"
+  }, {
+    "id" : "11",
+    "type" : "owl:Class"
+  }, {
+    "id" : "7",
+    "type" : "owl:Class"
+  }, {
+    "id" : "31",
+    "type" : "owl:equivalentClass"
+  }, {
+    "id" : "5",
+    "type" : "owl:Class"
+  }, {
+    "id" : "22",
+    "type" : "owl:Class"
+  }, {
+    "id" : "12",
+    "type" : "owl:Class"
+  }, {
+    "id" : "14",
+    "type" : "owl:Class"
+  }, {
+    "id" : "4",
+    "type" : "owl:Class"
+  }, {
+    "id" : "17",
+    "type" : "owl:Class"
+  }, {
+    "id" : "9",
+    "type" : "owl:Class"
+  }, {
+    "id" : "32",
+    "type" : "owl:equivalentClass"
+  }, {
+    "id" : "27",
+    "type" : "owl:Class"
+  }, {
+    "id" : "34",
+    "type" : "owl:Class"
+  } ],
+  "classAttribute" : [ {
+    "iri" : "https://w3id.org/biodivrisK-onto#GRIImpactMateriality",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "GRIImpactMateriality",
+      "en" : "GRI Impact Materiality"
+    },
+    "comment" : {
+      "en" : "GRI impact-only materiality: issues are material based on significance of actual or potential impacts on people and environment, regardless of financial consequences."
+    },
+    "id" : "8",
+    "superClasses" : [ "9" ]
+  }, {
+    "iri" : "https://schema.org/Person",
+    "baseIri" : "https://schema.org",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "Person"
+    },
+    "attributes" : [ "external" ],
+    "id" : "18"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#GRIManagementApproach",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "GRI 101 management approach disclosures compose with TNFD nature-related risk narratives. Impact reporting under GRI informs but does not replace risk framing under TNFD.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "GRIManagementApproach",
+      "en" : "GRI 101 Management Approach"
+    },
+    "comment" : {
+      "en" : "GRI 101 qualitative disclosure describing how an organisation manages its biodiversity impacts, policies, commitments and actions. No quantitative target required."
+    },
+    "id" : "16",
+    "superClasses" : [ "17" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTarget",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "An SBTN science-based target is measurable, time-bound and grounded in scientific baselines. A GRI 101 management approach describes intent without required quantification. Different epistemic status: verifiable outcome commitment vs description of policy intent.",
+        "type" : "label"
+      } ],
+      "hasBridgingCondition" : [ {
+        "identifier" : "hasBridgingCondition",
+        "language" : "en",
+        "value" : "A lossy approximation is admissible only if the GRI management approach explicitly commits to SBTN-compatible measurable targets with defined timelines and science-based baselines, AND those commitments are independently verified.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "SBTNAR3TTarget",
+      "en" : "SBTN Science-based Target (AR3T)"
+    },
+    "comment" : {
+      "en" : "Measurable, time-bound target following the SBTN AR3T hierarchy: Avoid, Reduce, Restore, Transform."
+    },
+    "id" : "23",
+    "superClasses" : [ "17" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric",
+    "equivalent" : [ "1" ],
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "Equivalence holds because both classes measure the same physical quantity (land-use change in hectares) using the same unit. One of the rare genuine equivalences between the four frameworks.",
+        "type" : "label"
+      } ],
+      "unit" : [ {
+        "identifier" : "unit",
+        "language" : "en",
+        "value" : "hectares (ha)",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "TNFDLandUseChangeMetric",
+      "en" : "TNFD Land/Freshwater/Ocean-use Change Metric"
+    },
+    "comment" : {
+      "en" : "TNFD core cross-sector metric measuring the extent (ha) of land, freshwater or ocean-use change."
+    },
+    "attributes" : [ "equivalent" ],
+    "id" : "25",
+    "superClasses" : [ "2" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#Metric",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "Metric",
+      "en" : "Metric"
+    },
+    "subClasses" : [ "25", "27", "1" ],
+    "comment" : {
+      "en" : "A quantitative or semi-quantitative indicator expressed in specific units or using a defined measurement approach."
+    },
+    "id" : "2",
+    "superClasses" : [ "17" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint",
+    "equivalent" : [ "25" ],
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "unit" : [ {
+        "identifier" : "unit",
+        "language" : "en",
+        "value" : "hectares (ha)",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "ESRSLandUseDatapoint",
+      "en" : "ESRS E4 Land-use Change Datapoint"
+    },
+    "comment" : {
+      "en" : "ESRS E4 datapoint requiring disclosure of land-use change in hectares attributable to the undertaking's own operations and value chain."
+    },
+    "attributes" : [ "equivalent" ],
+    "id" : "1",
+    "superClasses" : [ "2" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "ESRS E4 double materiality requires assessment of both impact and financial dimensions. TNFD applies single enterprise-value materiality. The two boundaries define different populations of disclosable items; thresholds are not interchangeable.",
+        "type" : "label"
+      } ],
+      "hasBridgingCondition" : [ {
+        "identifier" : "hasBridgingCondition",
+        "language" : "en",
+        "value" : "A lossy approximation is admissible if the analyst explicitly assumes that impact-material issues under ESRS E4 are also financially material under TNFD, and documents this assumption with supporting evidence. Does not hold by default.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "ESRSDoubleMateriality",
+      "en" : "ESRS E4 Double Materiality"
+    },
+    "comment" : {
+      "en" : "ESRS E4 double materiality: an issue is material if it has significant impacts on biodiversity (impact materiality) OR poses financial risks/opportunities (financial materiality)."
+    },
+    "id" : "29",
+    "superClasses" : [ "9" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "TNFDEnterpriseMateriality",
+      "en" : "TNFD Enterprise-value Materiality"
+    },
+    "comment" : {
+      "en" : "TNFD single (enterprise-value) materiality: an issue is material if it poses financial risks or opportunities to the reporting organisation."
+    },
+    "id" : "30",
+    "superClasses" : [ "9" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "GRI 101 protected-area and KBA sites are a subset of TNFD areas of importance for biodiversity. TNFD applies a broader definition additionally covering areas of high biodiversity intactness beyond formal protection status.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "GRIOperationsAdjacentProtectedAreas",
+      "en" : "GRI 101 Operations in/adjacent to Protected Areas and KBAs"
+    },
+    "comment" : {
+      "en" : "GRI 101 disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas."
+    },
+    "id" : "11",
+    "superClasses" : [ "12", "17" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#GeographicSamplingBias",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "GeographicSamplingBias",
+      "en" : "Geographic Sampling Bias"
+    },
+    "individuals" : [ {
+      "iri" : "https://w3id.org/biodivrisK-onto#LACGeographicBias",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "comment" : {
+        "en" : "Systematic under-sampling of GBIF and OBIS records for key LAC biomes including the tropical Andes, Amazonia, the Cerrado and Caribbean marine ecosystems. Leads to false negatives in TNFD priority-location and ESRS E4 sensitive-area proximity screening."
+      },
+      "labels" : {
+        "IRI-based" : "LACGeographicBias",
+        "en" : "LAC Geographic Sampling Bias"
+      }
+    } ],
+    "comment" : {
+      "en" : "Systematic under-representation of species occurrences in GBIF/OBIS records for specific geographic regions."
+    },
+    "id" : "7",
+    "superClasses" : [ "5" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency",
+    "equivalent" : [ "32" ],
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "ESRSMaterialImpactDependency",
+      "en" : "ESRS E4 Material Impacts and Dependencies"
+    },
+    "comment" : {
+      "en" : "ESRS E4 disclosure of material impacts on biodiversity and material dependencies on ecosystem services, assessed under double materiality."
+    },
+    "attributes" : [ "equivalent" ],
+    "id" : "31",
+    "superClasses" : [ "17" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#DataGap",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "DataGap",
+      "en" : "Data Gap"
+    },
+    "subClasses" : [ "4", "7" ],
+    "comment" : {
+      "en" : "A systematic absence or insufficiency of biodiversity occurrence data limiting the reliability of framework-based risk assessments in a given geographic area, taxonomic group or ecosystem type."
+    },
+    "id" : "5"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#DisclosureFramework",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "DisclosureFramework",
+      "en" : "Disclosure Framework"
+    },
+    "individuals" : [ {
+      "iri" : "https://w3id.org/biodivrisK-onto#GRI101",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "prefLabel" : [ {
+          "identifier" : "prefLabel",
+          "language" : "en",
+          "value" : "GRI 101: Biodiversity Standard 2024",
+          "type" : "label"
+        } ],
+        "url" : [ {
+          "identifier" : "url",
+          "language" : "undefined",
+          "value" : "https://www.globalreporting.org",
+          "type" : "iri"
+        } ]
+      },
+      "labels" : {
+        "IRI-based" : "GRI101",
+        "en" : "GRI 101"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#SBTN",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "prefLabel" : [ {
+          "identifier" : "prefLabel",
+          "language" : "en",
+          "value" : "Science Based Targets Network for Nature",
+          "type" : "label"
+        } ],
+        "url" : [ {
+          "identifier" : "url",
+          "language" : "undefined",
+          "value" : "https://sciencebasedtargetsnetwork.org",
+          "type" : "iri"
+        } ]
+      },
+      "labels" : {
+        "IRI-based" : "SBTN",
+        "en" : "SBTN"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#TNFD",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "prefLabel" : [ {
+          "identifier" : "prefLabel",
+          "language" : "en",
+          "value" : "Taskforce on Nature-related Financial Disclosures",
+          "type" : "label"
+        } ],
+        "url" : [ {
+          "identifier" : "url",
+          "language" : "undefined",
+          "value" : "https://tnfd.global",
+          "type" : "iri"
+        } ]
+      },
+      "labels" : {
+        "IRI-based" : "TNFD",
+        "en" : "TNFD"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#ESRS_E4",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "prefLabel" : [ {
+          "identifier" : "prefLabel",
+          "language" : "en",
+          "value" : "European Sustainability Reporting Standard on Biodiversity and Ecosystems",
+          "type" : "label"
+        } ],
+        "url" : [ {
+          "identifier" : "url",
+          "language" : "undefined",
+          "value" : "https://www.efrag.org",
+          "type" : "iri"
+        } ]
+      },
+      "labels" : {
+        "IRI-based" : "ESRS_E4",
+        "en" : "CSRD/ESRS E4"
+      }
+    } ],
+    "comment" : {
+      "en" : "A regulatory or voluntary framework requiring organisations to assess and disclose their nature-related impacts, dependencies, risks and opportunities."
+    },
+    "id" : "22"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#TNFDPriorityLocation",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "TNFDPriorityLocation",
+      "en" : "TNFD Priority Location"
+    },
+    "subClasses" : [ "11", "14" ],
+    "comment" : {
+      "en" : "Location of high importance for biodiversity under TNFD LEAP, including areas of high biodiversity intactness, protected areas, KBAs, areas of rapid ecosystem decline, and areas of high water stress."
+    },
+    "id" : "12",
+    "superClasses" : [ "17" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "ESRS E4 biodiversity-sensitive areas are a strict subset of TNFD priority locations. TNFD additionally covers rapid ecosystem decline and high water stress sites absent from the ESRS definition. Treating as equivalent produces false negatives in LAC screening.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "ESRSBiodiversitySensitiveArea",
+      "en" : "ESRS E4 Biodiversity-sensitive Area"
+    },
+    "comment" : {
+      "en" : "Areas designated for biodiversity protection under ESRS E4, including Natura 2000 sites, UNESCO World Heritage, KBAs, and IUCN Category I–IV protected areas."
+    },
+    "id" : "14",
+    "superClasses" : [ "12", "17" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#TaxonomicSamplingBias",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "TaxonomicSamplingBias",
+      "en" : "Taxonomic Sampling Bias"
+    },
+    "comment" : {
+      "en" : "Systematic over-representation of certain taxonomic groups (e.g. birds, vascular plants) in open biodiversity databases."
+    },
+    "id" : "4",
+    "superClasses" : [ "5" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#FrameworkConcept",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "FrameworkConcept",
+      "en" : "Framework Concept"
+    },
+    "subClasses" : [ "16", "11", "12", "14", "23", "31", "2", "32" ],
+    "comment" : {
+      "en" : "A concept, disclosure requirement, indicator or metric defined within a disclosure framework. Subclasses represent specific concepts; individuals of this class are not intended."
+    },
+    "id" : "17"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#MaterialityBoundary",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "MaterialityBoundary",
+      "en" : "Materiality Boundary"
+    },
+    "subClasses" : [ "29", "30", "8" ],
+    "comment" : {
+      "en" : "The scope and criteria used by a framework to determine which impacts and financial effects are material and must be disclosed."
+    },
+    "id" : "9"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#TNFDImpactDependency",
+    "equivalent" : [ "31" ],
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "Equivalence holds on the impact side only. Both classes share the ENCORE-derived logic of identifying organisational impacts on and dependencies upon nature. The financial materiality dimension of ESRS E4 double materiality has no direct equivalent in TNFD.",
+        "type" : "label"
+      }, {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "TNFDImpactDependency",
+      "en" : "TNFD Impacts and Dependencies on Nature"
+    },
+    "comment" : {
+      "en" : "Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services."
+    },
+    "attributes" : [ "equivalent" ],
+    "id" : "32",
+    "superClasses" : [ "17" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "MSA is a composite quantitative index measuring biodiversity intactness as a ratio. GRI 101 management approach is a qualitative policy disclosure with no implied biodiversity-state outcome. Different epistemic levels: state measurement vs organisational intent.",
+        "type" : "label"
+      } ],
+      "unit" : [ {
+        "identifier" : "unit",
+        "language" : "en",
+        "value" : "dimensionless ratio (0–1)",
+        "type" : "label"
+      } ],
+      "hasBridgingCondition" : [ {
+        "identifier" : "hasBridgingCondition",
+        "language" : "en",
+        "value" : "No direct conversion exists. A lossy approximation requires deriving a proxy MSA from operational footprint data AND documenting that the GRI management approach implies no specific biodiversity-state outcome. Not recommended for regulatory compliance.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "SBTNMeanSpeciesAbundance",
+      "en" : "SBTN Mean Species Abundance (MSA)"
+    },
+    "comment" : {
+      "en" : "State-of-nature metric measuring biodiversity intactness as the average abundance of originally present species relative to their abundance in undisturbed ecosystems (GLOBIO model)."
+    },
+    "id" : "27",
+    "superClasses" : [ "2" ]
+  }, {
+    "iri" : "http://www.w3.org/2002/07/owl#Class",
+    "baseIri" : "http://www.w3.org/2002/07/owl",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "Class"
+    },
+    "attributes" : [ "external" ],
+    "id" : "34"
+  } ],
+  "property" : [ {
+    "id" : "0",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "3",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "6",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "10",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "13",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "15",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "19",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "20",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "21",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "24",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "26",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "28",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "33",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "35",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "36",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "37",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "38",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "39",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "40",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "41",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "42",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "43",
+    "type" : "rdfs:SubClassOf"
+  } ],
+  "propertyAttribute" : [ {
+    "range" : "2",
+    "domain" : "1",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "0"
+  }, {
+    "range" : "5",
+    "domain" : "4",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "3"
+  }, {
+    "range" : "5",
+    "domain" : "7",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "6"
+  }, {
+    "range" : "12",
+    "domain" : "11",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "10"
+  }, {
+    "range" : "12",
+    "domain" : "14",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "13"
+  }, {
+    "range" : "17",
+    "domain" : "16",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "15"
+  }, {
+    "range" : "17",
+    "domain" : "11",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "19"
+  }, {
+    "range" : "17",
+    "domain" : "12",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "20"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#affectsFramework",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "22",
+    "label" : {
+      "IRI-based" : "affectsFramework",
+      "en" : "affects framework"
+    },
+    "domain" : "5",
+    "comment" : {
+      "en" : "Relates a data gap to the framework(s) whose assessments are affected."
+    },
+    "attributes" : [ "object" ],
+    "id" : "21"
+  }, {
+    "range" : "2",
+    "domain" : "25",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "24"
+  }, {
+    "range" : "2",
+    "domain" : "27",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "26"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#definedBy",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "22",
+    "label" : {
+      "IRI-based" : "definedBy",
+      "en" : "defined by"
+    },
+    "domain" : "17",
+    "comment" : {
+      "en" : "Relates a framework concept class to the framework that defines it."
+    },
+    "attributes" : [ "object" ],
+    "id" : "28"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#complements",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "34",
+    "label" : {
+      "IRI-based" : "complements",
+      "en" : "complements"
+    },
+    "domain" : "34",
+    "comment" : {
+      "en" : "Two framework concept classes that address distinct, jointly-required facets of one assessment. Licenses composition of evidence, not substitution. Symmetric."
+    },
+    "attributes" : [ "symmetric", "object" ],
+    "id" : "33"
+  }, {
+    "range" : "9",
+    "domain" : "8",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "35"
+  }, {
+    "range" : "17",
+    "domain" : "32",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "36"
+  }, {
+    "range" : "17",
+    "domain" : "2",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "37"
+  }, {
+    "range" : "9",
+    "domain" : "30",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "38"
+  }, {
+    "range" : "9",
+    "domain" : "29",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "39"
+  }, {
+    "range" : "17",
+    "domain" : "14",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "40"
+  }, {
+    "range" : "17",
+    "domain" : "31",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "41"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#incommensurableWith",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "34",
+    "label" : {
+      "IRI-based" : "incommensurableWith",
+      "en" : "incommensurable with"
+    },
+    "domain" : "34",
+    "comment" : {
+      "en" : "Two framework concept classes for which no truth-preserving mapping exists due to different measurement units, materiality boundaries or epistemic commitments. Every assertion MUST carry bro:hasBridgingCondition. Symmetric."
+    },
+    "attributes" : [ "symmetric", "object" ],
+    "id" : "42"
+  }, {
+    "range" : "17",
+    "domain" : "23",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "43"
+  } ]
+}

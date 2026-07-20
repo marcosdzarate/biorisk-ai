@@ -1,0 +1,732 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://w3id.org/biodivrisK-onto#"
+     xml:base="https://w3id.org/biodivrisK-onto"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:schema="https://schema.org/"
+     xmlns:biodivrisK-onto="https://w3id.org/biodivrisK-onto#">
+    <owl:Ontology rdf:about="https://w3id.org/biodivrisK-onto">
+        <owl:versionIRI rdf:resource="https://w3id.org/biodivrisK-onto/0.1.0"/>
+        <terms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-07-13</terms:created>
+        <terms:creator rdf:nodeID="genid1"/>
+        <terms:description xml:lang="en">BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC).</terms:description>
+        <terms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+        <terms:title xml:lang="en">BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks</terms:title>
+        <vann:preferredNamespacePrefix>bro</vann:preferredNamespacePrefix>
+        <vann:preferredNamespaceUri>https://w3id.org/biodivrisK-onto#</vann:preferredNamespaceUri>
+        <rdfs:comment xml:lang="en">Prototype v0.1.0. Developed as part of the paper submitted to AMW 2026.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="https://github.com/marcosdzarate/biorisk-ai"/>
+        <owl:versionInfo>0.1.0</owl:versionInfo>
+    </owl:Ontology>
+    <rdf:Description rdf:nodeID="genid1">
+        <rdf:type rdf:resource="https://schema.org/Person"/>
+        <schema:affiliation>CESIMAR-CONICET, Puerto Madryn, Argentina</schema:affiliation>
+        <schema:name>Marcos Daniel Zárate</schema:name>
+        <schema:url rdf:resource="https://orcid.org/0000-0001-8851-8602"/>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://purl.org/dc/terms/created -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/created"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/creator -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/creator"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/description -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/description"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/license -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/license"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/title -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/title"/>
+    
+
+
+    <!-- http://purl.org/vocab/vann/preferredNamespacePrefix -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/vocab/vann/preferredNamespacePrefix"/>
+    
+
+
+    <!-- http://purl.org/vocab/vann/preferredNamespaceUri -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/vocab/vann/preferredNamespaceUri"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#note -->
+
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#note"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#prefLabel -->
+
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#prefLabel"/>
+    
+
+
+    <!-- https://schema.org/affiliation -->
+
+
+    <owl:AnnotationProperty rdf:about="https://schema.org/affiliation"/>
+    
+
+
+    <!-- https://schema.org/name -->
+
+
+    <owl:AnnotationProperty rdf:about="https://schema.org/name"/>
+    
+
+
+    <!-- https://schema.org/url -->
+
+
+    <owl:AnnotationProperty rdf:about="https://schema.org/url"/>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#hasBridgingCondition -->
+
+
+    <owl:AnnotationProperty rdf:about="https://w3id.org/biodivrisK-onto#hasBridgingCondition">
+        <rdfs:comment xml:lang="en">Documents the explicit assumption under which a lossy approximation between two incommensurable concepts is admissible. Required on every bro:incommensurableWith assertion.</rdfs:comment>
+        <rdfs:label xml:lang="en">has bridging condition</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#unit -->
+
+
+    <owl:AnnotationProperty rdf:about="https://w3id.org/biodivrisK-onto#unit">
+        <rdfs:comment xml:lang="en">Unit of measurement associated with a metric.</rdfs:comment>
+        <rdfs:label xml:lang="en">unit</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#date -->
+
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#date"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#affectsFramework -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#affectsFramework">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#DataGap"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
+        <rdfs:comment xml:lang="en">Relates a data gap to the framework(s) whose assessments are affected.</rdfs:comment>
+        <rdfs:label xml:lang="en">affects framework</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#complements -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#complements">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:comment xml:lang="en">Two framework concept classes that address distinct, jointly-required facets of one assessment. Licenses composition of evidence, not substitution. Symmetric.</rdfs:comment>
+        <rdfs:label xml:lang="en">complements</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#definedBy -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#definedBy">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
+        <rdfs:comment xml:lang="en">Relates a framework concept class to the framework that defines it.</rdfs:comment>
+        <rdfs:label xml:lang="en">defined by</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#incommensurableWith -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#incommensurableWith">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:comment xml:lang="en">Two framework concept classes for which no truth-preserving mapping exists due to different measurement units, materiality boundaries or epistemic commitments. Every assertion MUST carry bro:hasBridgingCondition. Symmetric.</rdfs:comment>
+        <rdfs:label xml:lang="en">incommensurable with</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Class -->
+
+
+    <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Class"/>
+    
+
+
+    <!-- https://schema.org/Person -->
+
+
+    <owl:Class rdf:about="https://schema.org/Person"/>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#DataGap -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#DataGap">
+        <rdfs:comment xml:lang="en">A systematic absence or insufficiency of biodiversity occurrence data limiting the reliability of framework-based risk assessments in a given geographic area, taxonomic group or ecosystem type.</rdfs:comment>
+        <rdfs:label xml:lang="en">Data Gap</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#DisclosureFramework -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#DisclosureFramework">
+        <rdfs:comment xml:lang="en">A regulatory or voluntary framework requiring organisations to assess and disclose their nature-related impacts, dependencies, risks and opportunities.</rdfs:comment>
+        <rdfs:label xml:lang="en">Disclosure Framework</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#MaterialityBoundary"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint">
+        <owl:equivalentClass rdf:resource="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric"/>
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#Metric"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency">
+        <owl:equivalentClass rdf:resource="https://w3id.org/biodivrisK-onto#TNFDImpactDependency"/>
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#FrameworkConcept -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#FrameworkConcept">
+        <rdfs:comment xml:lang="en">A concept, disclosure requirement, indicator or metric defined within a disclosure framework. Subclasses represent specific concepts; individuals of this class are not intended.</rdfs:comment>
+        <rdfs:label xml:lang="en">Framework Concept</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GRIImpactMateriality -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#GRIImpactMateriality">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#MaterialityBoundary"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GRIManagementApproach -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#GRIManagementApproach">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GeographicSamplingBias -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#GeographicSamplingBias">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#DataGap"/>
+        <rdfs:comment xml:lang="en">Systematic under-representation of species occurrences in GBIF/OBIS records for specific geographic regions.</rdfs:comment>
+        <rdfs:label xml:lang="en">Geographic Sampling Bias</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#MaterialityBoundary -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#MaterialityBoundary">
+        <rdfs:comment xml:lang="en">The scope and criteria used by a framework to determine which impacts and financial effects are material and must be disclosed.</rdfs:comment>
+        <rdfs:label xml:lang="en">Materiality Boundary</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Metric -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#Metric">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+        <rdfs:comment xml:lang="en">A quantitative or semi-quantitative indicator expressed in specific units or using a defined measurement approach.</rdfs:comment>
+        <rdfs:label xml:lang="en">Metric</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SBTNAR3TTarget -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#Metric"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#MaterialityBoundary"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TNFDImpactDependency -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#TNFDImpactDependency">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#Metric"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TNFDPriorityLocation -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TaxonomicSamplingBias -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#TaxonomicSamplingBias">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#DataGap"/>
+        <rdfs:comment xml:lang="en">Systematic over-representation of certain taxonomic groups (e.g. birds, vascular plants) in open biodiversity databases.</rdfs:comment>
+        <rdfs:label xml:lang="en">Taxonomic Sampling Bias</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#ESRS_E4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#ESRS_E4"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#ESRS_E4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#ESRS_E4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ESRS_E4 -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#ESRS_E4">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
+        <rdfs:label xml:lang="en">CSRD/ESRS E4</rdfs:label>
+        <skos:prefLabel xml:lang="en">European Sustainability Reporting Standard on Biodiversity and Ecosystems</skos:prefLabel>
+        <schema:url rdf:resource="https://www.efrag.org"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GRI101 -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#GRI101">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
+        <rdfs:label xml:lang="en">GRI 101</rdfs:label>
+        <skos:prefLabel xml:lang="en">GRI 101: Biodiversity Standard 2024</skos:prefLabel>
+        <schema:url rdf:resource="https://www.globalreporting.org"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GRIImpactMateriality -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#GRIImpactMateriality">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#GRI101"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GRIManagementApproach -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#GRIManagementApproach">
+        <complements rdf:resource="https://w3id.org/biodivrisK-onto#TNFDImpactDependency"/>
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#GRI101"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#GRI101"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#LACGeographicBias -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#LACGeographicBias">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#GeographicSamplingBias"/>
+        <affectsFramework rdf:resource="https://w3id.org/biodivrisK-onto#ESRS_E4"/>
+        <affectsFramework rdf:resource="https://w3id.org/biodivrisK-onto#GRI101"/>
+        <affectsFramework rdf:resource="https://w3id.org/biodivrisK-onto#SBTN"/>
+        <affectsFramework rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <rdfs:comment xml:lang="en">Systematic under-sampling of GBIF and OBIS records for key LAC biomes including the tropical Andes, Amazonia, the Cerrado and Caribbean marine ecosystems. Leads to false negatives in TNFD priority-location and ESRS E4 sensitive-area proximity screening.</rdfs:comment>
+        <rdfs:label xml:lang="en">LAC Geographic Sampling Bias</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SBTN -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SBTN">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
+        <rdfs:label xml:lang="en">SBTN</rdfs:label>
+        <skos:prefLabel xml:lang="en">Science Based Targets Network for Nature</skos:prefLabel>
+        <schema:url rdf:resource="https://sciencebasedtargetsnetwork.org"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SBTNAR3TTarget -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#SBTN"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#GRIManagementApproach"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#SBTN"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#GRIManagementApproach"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TNFD -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#TNFD">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
+        <rdfs:label xml:lang="en">TNFD</rdfs:label>
+        <skos:prefLabel xml:lang="en">Taskforce on Nature-related Financial Disclosures</skos:prefLabel>
+        <schema:url rdf:resource="https://tnfd.global"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TNFDImpactDependency -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#TNFDImpactDependency">
+        <complements rdf:resource="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"/>
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TNFDPriorityLocation -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea">
+        <rdfs:comment xml:lang="en">Areas designated for biodiversity protection under ESRS E4, including Natura 2000 sites, UNESCO World Heritage, KBAs, and IUCN Category I–IV protected areas.</rdfs:comment>
+        <rdfs:label xml:lang="en">ESRS E4 Biodiversity-sensitive Area</rdfs:label>
+        <skos:note xml:lang="en">ESRS E4 biodiversity-sensitive areas are a strict subset of TNFD priority locations. TNFD additionally covers rapid ecosystem decline and high water stress sites absent from the ESRS definition. Treating as equivalent produces false negatives in LAC screening.</skos:note>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality">
+        <rdfs:comment xml:lang="en">ESRS E4 double materiality: an issue is material if it has significant impacts on biodiversity (impact materiality) OR poses financial risks/opportunities (financial materiality).</rdfs:comment>
+        <rdfs:label xml:lang="en">ESRS E4 Double Materiality</rdfs:label>
+        <skos:note xml:lang="en">ESRS E4 double materiality requires assessment of both impact and financial dimensions. TNFD applies single enterprise-value materiality. The two boundaries define different populations of disclosable items; thresholds are not interchangeable.</skos:note>
+        <hasBridgingCondition xml:lang="en">A lossy approximation is admissible if the analyst explicitly assumes that impact-material issues under ESRS E4 are also financially material under TNFD, and documents this assumption with supporting evidence. Does not hold by default.</hasBridgingCondition>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint">
+        <rdfs:comment xml:lang="en">ESRS E4 datapoint requiring disclosure of land-use change in hectares attributable to the undertaking&apos;s own operations and value chain.</rdfs:comment>
+        <rdfs:label xml:lang="en">ESRS E4 Land-use Change Datapoint</rdfs:label>
+        <unit xml:lang="en">hectares (ha)</unit>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency">
+        <rdfs:comment xml:lang="en">ESRS E4 disclosure of material impacts on biodiversity and material dependencies on ecosystem services, assessed under double materiality.</rdfs:comment>
+        <rdfs:label xml:lang="en">ESRS E4 Material Impacts and Dependencies</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#GRIImpactMateriality">
+        <rdfs:comment xml:lang="en">GRI impact-only materiality: issues are material based on significance of actual or potential impacts on people and environment, regardless of financial consequences.</rdfs:comment>
+        <rdfs:label xml:lang="en">GRI Impact Materiality</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#GRIManagementApproach">
+        <rdfs:comment xml:lang="en">GRI 101 qualitative disclosure describing how an organisation manages its biodiversity impacts, policies, commitments and actions. No quantitative target required.</rdfs:comment>
+        <rdfs:label xml:lang="en">GRI 101 Management Approach</rdfs:label>
+        <skos:note xml:lang="en">GRI 101 management approach disclosures compose with TNFD nature-related risk narratives. Impact reporting under GRI informs but does not replace risk framing under TNFD.</skos:note>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas">
+        <rdfs:comment xml:lang="en">GRI 101 disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas.</rdfs:comment>
+        <rdfs:label xml:lang="en">GRI 101 Operations in/adjacent to Protected Areas and KBAs</rdfs:label>
+        <skos:note xml:lang="en">GRI 101 protected-area and KBA sites are a subset of TNFD areas of importance for biodiversity. TNFD applies a broader definition additionally covering areas of high biodiversity intactness beyond formal protection status.</skos:note>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">
+        <rdfs:comment xml:lang="en">Measurable, time-bound target following the SBTN AR3T hierarchy: Avoid, Reduce, Restore, Transform.</rdfs:comment>
+        <rdfs:label xml:lang="en">SBTN Science-based Target (AR3T)</rdfs:label>
+        <skos:note xml:lang="en">An SBTN science-based target is measurable, time-bound and grounded in scientific baselines. A GRI 101 management approach describes intent without required quantification. Different epistemic status: verifiable outcome commitment vs description of policy intent.</skos:note>
+        <hasBridgingCondition xml:lang="en">A lossy approximation is admissible only if the GRI management approach explicitly commits to SBTN-compatible measurable targets with defined timelines and science-based baselines, AND those commitments are independently verified.</hasBridgingCondition>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance">
+        <rdfs:comment xml:lang="en">State-of-nature metric measuring biodiversity intactness as the average abundance of originally present species relative to their abundance in undisturbed ecosystems (GLOBIO model).</rdfs:comment>
+        <rdfs:label xml:lang="en">SBTN Mean Species Abundance (MSA)</rdfs:label>
+        <skos:note xml:lang="en">MSA is a composite quantitative index measuring biodiversity intactness as a ratio. GRI 101 management approach is a qualitative policy disclosure with no implied biodiversity-state outcome. Different epistemic levels: state measurement vs organisational intent.</skos:note>
+        <hasBridgingCondition xml:lang="en">No direct conversion exists. A lossy approximation requires deriving a proxy MSA from operational footprint data AND documenting that the GRI management approach implies no specific biodiversity-state outcome. Not recommended for regulatory compliance.</hasBridgingCondition>
+        <unit xml:lang="en">dimensionless ratio (0–1)</unit>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality">
+        <rdfs:comment xml:lang="en">TNFD single (enterprise-value) materiality: an issue is material if it poses financial risks or opportunities to the reporting organisation.</rdfs:comment>
+        <rdfs:label xml:lang="en">TNFD Enterprise-value Materiality</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#TNFDImpactDependency">
+        <rdfs:comment xml:lang="en">Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services.</rdfs:comment>
+        <rdfs:label xml:lang="en">TNFD Impacts and Dependencies on Nature</rdfs:label>
+        <skos:note xml:lang="en">Equivalence holds on the impact side only. Both classes share the ENCORE-derived logic of identifying organisational impacts on and dependencies upon nature. The financial materiality dimension of ESRS E4 double materiality has no direct equivalent in TNFD.</skos:note>
+        <skos:note xml:lang="en">TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other.</skos:note>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric">
+        <rdfs:comment xml:lang="en">TNFD core cross-sector metric measuring the extent (ha) of land, freshwater or ocean-use change.</rdfs:comment>
+        <rdfs:label xml:lang="en">TNFD Land/Freshwater/Ocean-use Change Metric</rdfs:label>
+        <skos:note xml:lang="en">Equivalence holds because both classes measure the same physical quantity (land-use change in hectares) using the same unit. One of the rare genuine equivalences between the four frameworks.</skos:note>
+        <unit xml:lang="en">hectares (ha)</unit>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation">
+        <rdfs:comment xml:lang="en">Location of high importance for biodiversity under TNFD LEAP, including areas of high biodiversity intactness, protected areas, KBAs, areas of rapid ecosystem decline, and areas of high water stress.</rdfs:comment>
+        <rdfs:label xml:lang="en">TNFD Priority Location</rdfs:label>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 5.1.18) https://github.com/owlcs/owlapi/ -->
+
+
