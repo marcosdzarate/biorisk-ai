@@ -13,6 +13,39 @@
     "@id" : "https://orcid.org/0000-0001-8851-8602"
   } ]
 }, {
+  "@id" : "_:genid2",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://schema.org/Person"
+  } ],
+  "https://schema.org/affiliation" : [ {
+    "@value" : "CESIMAR-CONICET, Puerto Madryn, Argentina"
+  } ],
+  "https://schema.org/name" : [ {
+    "@value" : "Gustavo Nuñez"
+  } ]
+}, {
+  "@id" : "_:genid3",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://schema.org/Person"
+  } ],
+  "https://schema.org/affiliation" : [ {
+    "@value" : "CESIMAR-CONICET, Puerto Madryn, Argentina"
+  } ],
+  "https://schema.org/name" : [ {
+    "@value" : "Marcos Daniel Zárate"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://orcid.org/0000-0001-8851-8602"
+  } ]
+}, {
+  "@id" : "http://purl.obolibrary.org/obo/ENVO_00000428",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2002/07/owl#equivalentClass" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Biome"
+  } ]
+}, {
   "@id" : "http://purl.org/dc/terms/created",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
 }, {
@@ -34,6 +67,11 @@
   "@id" : "http://purl.org/vocab/vann/preferredNamespaceUri",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
 }, {
+  "@id" : "http://www.opengis.net/ont/geosparql#Feature",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ]
+}, {
   "@id" : "http://www.w3.org/2001/XMLSchema#date",
   "@type" : [ "http://www.w3.org/2000/01/rdf-schema#Datatype" ]
 }, {
@@ -42,11 +80,45 @@
     "@id" : "http://www.w3.org/2002/07/owl#Class"
   } ]
 }, {
+  "@id" : "http://www.w3.org/2004/02/skos/core#altLabel",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "http://www.w3.org/2004/02/skos/core#definition",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
   "@id" : "http://www.w3.org/2004/02/skos/core#note",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
 }, {
   "@id" : "http://www.w3.org/2004/02/skos/core#prefLabel",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "http://www.w3.org/ns/prov#Activity",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ]
+}, {
+  "@id" : "http://www.w3.org/ns/prov#Entity",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ]
+}, {
+  "@id" : "http://www.w3.org/ns/prov#wasAssociatedWith",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "https://schema.org/BankOrCreditUnion",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ]
+}, {
+  "@id" : "https://schema.org/Country",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ]
+}, {
+  "@id" : "https://schema.org/Organization",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ]
 }, {
   "@id" : "https://schema.org/Person",
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
@@ -67,18 +139,31 @@
   "http://purl.org/dc/terms/created" : [ {
     "@type" : "http://www.w3.org/2001/XMLSchema#date",
     "@value" : "2026-07-13"
+  }, {
+    "@type" : "http://www.w3.org/2001/XMLSchema#date",
+    "@value" : "2026-07-21"
   } ],
   "http://purl.org/dc/terms/creator" : [ {
     "@id" : "_:genid1"
+  }, {
+    "@id" : "_:genid2"
+  }, {
+    "@id" : "_:genid3"
   } ],
   "http://purl.org/dc/terms/description" : [ {
     "@language" : "en",
     "@value" : "BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC)."
+  }, {
+    "@language" : "en",
+    "@value" : "Extension of v0.1.0 with organizational, geographic, and evaluation modules, populated with real-world instances from the Santander Peru and CEBDS Brazil case studies."
   } ],
   "http://purl.org/dc/terms/license" : [ {
     "@id" : "https://creativecommons.org/licenses/by/4.0/"
   } ],
   "http://purl.org/dc/terms/title" : [ {
+    "@language" : "en",
+    "@value" : "BiodivRisk-Onto v0.2.0: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"
+  }, {
     "@language" : "en",
     "@value" : "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"
   } ],
@@ -94,12 +179,490 @@
   } ],
   "http://www.w3.org/2000/01/rdf-schema#seeAlso" : [ {
     "@id" : "https://github.com/marcosdzarate/biorisk-ai"
+  }, {
+    "@id" : "https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology"
+  } ],
+  "http://www.w3.org/2002/07/owl#imports" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto/0.1.0"
   } ],
   "http://www.w3.org/2002/07/owl#versionIRI" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto/0.1.0"
   } ],
   "http://www.w3.org/2002/07/owl#versionInfo" : [ {
     "@value" : "0.1.0"
+  }, {
+    "@value" : "0.2.0"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#AgriculturalProductsSector",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Sector"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Agricultural Products Sector"
+  } ],
+  "https://w3id.org/biodivrisK-onto#assessedUnder" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasSectorClassification" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#Amazonia",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Biome"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Largest tropical rainforest biome globally. Under-sampled in GBIF particularly for invertebrates and cryptic taxa. Relevant to both Santander Peru and CEBDS Brazil cases."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Amazonia Biome"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#AndeanDataGap",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GeographicSamplingBias"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Documented under-sampling of species occurrence records in GBIF for the tropical Andes biome, including Peru. Bias towards roads, cities and protected area boundaries. Leads to false negatives in TNFD priority-location screening. Empirically documented in Santander Peru LEAP L3-L4 assessment."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Andean GBIF Data Gap"
+  } ],
+  "https://w3id.org/biodivrisK-onto#affectsFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#WaterStressRisk"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Physical risk from insufficient freshwater availability in Andean mining and agricultural operations in Peru. Identified as a material dependency in Santander Peru LEAP L2: groundwater use and protection against flooding were the most material ecosystem service dependencies. High water stress zones identified via WRI Aqueduct in LEAP L4."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Andean Water Stress Risk"
+  } ],
+  "https://w3id.org/biodivrisK-onto#affectsRiskAssessment" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#AtlanticForest",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Biome"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Critical biodiversity hotspot — less than 29% of original cover remains. Among the most threatened biomes in the world. Relevant to CEBDS Brazil case."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Atlantic Forest Biome"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#altLabel" : [ {
+    "@language" : "pt",
+    "@value" : "Mata Atlântica"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#BNDES",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#FinancialInstitution"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "BNDES"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+    "@language" : "en",
+    "@value" : "Banco Nacional de Desenvolvimento Econômico e Social"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://www.bndes.gov.br"
+  } ],
+  "https://w3id.org/biodivrisK-onto#appliesFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#operatesInCountry" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Brazil"
+  } ],
+  "https://w3id.org/biodivrisK-onto#usesClassification" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CNAE"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#BiodiversityDataSource",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "An open or proprietary data source used to obtain species occurrence, ecosystem integrity or water risk data during a LEAP assessment (e.g., GBIF, OBIS, ENCORE, Global Forest Watch, WRI Aqueduct, IBAT)."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Biodiversity Data Source"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#Entity"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#Biome",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A major ecological zone characterized by distinctive climate, vegetation and biodiversity. Reuses ENVO biome concept (ENVO:00000428). In LAC, biomes are megadiverse and systematically under-sampled in GBIF/OBIS."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Biome"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#Bradesco",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#FinancialInstitution"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Banco Bradesco"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://www.bradesco.com.br"
+  } ],
+  "https://w3id.org/biodivrisK-onto#appliesFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#operatesInCountry" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Brazil"
+  } ],
+  "https://w3id.org/biodivrisK-onto#usesClassification" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CNAE"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#Brazil",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Country"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Most megadiverse country globally, hosting 15-20% of world biodiversity across 6 biomes. Site of CEBDS TNFD pilot."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Brazil"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#LEAPAssessment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Collective piloting of the TNFD LEAP Locate phase by 5 Brazilian financial institutions coordinated by CEBDS and technically led by EY, September 2023–September 2024. Source: CEBDS/EY (2024)."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CEBDS Brazil TNFD Locate Phase Pilot"
+  } ],
+  "http://www.w3.org/ns/prov#wasAssociatedWith" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#BNDES"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#Bradesco"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#Caixa"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#ItauUnibanco"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#SantanderBrasil"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasEvaluationResult" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult"
+  } ],
+  "https://w3id.org/biodivrisK-onto#informsTargetSetting" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance"
+  } ],
+  "https://w3id.org/biodivrisK-onto#requiresDataFrom" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ENCOREData"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#GBIFData"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#WRIAqueductData"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityResult"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Sectoral materiality ranking from the CEBDS Brazil LEAP pilot using ENCORE scores combined with loan volume and number of clients data. Priority order: 1st Consumer Staples, 2nd Consumer Discretionary, 3rd Utilities, 4th Industrials."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CEBDS Brazil Sector Heatmap Result"
+  } ],
+  "https://w3id.org/biodivrisK-onto#prioritisesSector" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#ConsumerStaplesSector"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#IndustrialsSector"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#UtilitiesSector"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CIIU",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#IndustrialClassification"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "UN international industrial classification used in Peru. Requires manual mapping to GICS/SASB for TNFD assessments."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CIIU"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#note" : [ {
+    "@language" : "en",
+    "@value" : "CIIU (UN international classification used in Peru) does not map automatically to GICS or SASB/SICS sectors required for ENCORE-based TNFD assessments."
+  } ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+    "@language" : "en",
+    "@value" : "Clasificación Industrial Internacional Uniforme"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasAmbiguity" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasBridgingCondition" : [ {
+    "@language" : "en",
+    "@value" : "A lossy correspondence requires manual alignment of CIIU codes to GICS and SASB/SICS sectors, with documentation of ambiguous cases. Performed by Santander Peru during LEAP L1 scoping."
+  } ],
+  "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
+  } ],
+  "https://w3id.org/biodivrisK-onto#mappableTo" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SemanticAmbiguity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Documented semantic ambiguity in the CIIU-to-GICS/SASB mapping required for TNFD assessments in Peru. Peruvian CIIU categories require manual alignment with GICS and SASB/SICS sector definitions."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CIIU to GICS Semantic Ambiguity"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CIIUtoGICSMapping",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SemanticAmbiguity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Manual sector correspondence developed by Santander Peru to align its CIIU-classified portfolio with GICS and SASB/SICS sectors required for ENCORE-based materiality screening."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CIIU to GICS/SASB Mapping (Santander Peru)"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CNAE",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#IndustrialClassification"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Brazilian national industrial classification used by financial institutions for portfolio reporting. Requires manual mapping to GICS for TNFD/ENCORE assessments."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CNAE"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#note" : [ {
+    "@language" : "en",
+    "@value" : "CNAE (Brazilian national classification) and GICS (international standard used by ENCORE/TNFD) do not maintain a bijective correspondence. Multiple CNAE codes may map to one GICS sector and vice versa, generating semantic ambiguity in sector-level materiality assessments."
+  } ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+    "@language" : "en",
+    "@value" : "Classificação Nacional de Atividades Econômicas"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasAmbiguity" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasBridgingCondition" : [ {
+    "@language" : "en",
+    "@value" : "A lossy correspondence is admissible when each CNAE code is manually mapped to the most representative GICS sector, with explicit documentation of multi-to-one and one-to-many correspondences. This mapping was performed by EY during the CEBDS Brazil LEAP pilot and required significant expert effort. The result is not automatically reversible."
+  } ],
+  "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
+  } ],
+  "https://w3id.org/biodivrisK-onto#mappableTo" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SemanticAmbiguity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Documented semantic ambiguity in the CNAE-to-GICS mapping required for TNFD/ENCORE assessments. Brazilian CNAE categories do not maintain a bijective correspondence with GICS sectors — multiple CNAE codes may map to one GICS sector or vice versa. Required significant manual effort in the CEBDS Brazil pilot."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CNAE to GICS Semantic Ambiguity"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CNAEtoGICSMapping",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SemanticAmbiguity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Manual sector correspondence developed during the CEBDS Brazil LEAP pilot to align portfolio reporting under CNAE with ENCORE/TNFD materiality assessment requiring GICS classification."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CNAE to GICS Mapping (CEBDS Brazil)"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#Caixa",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#FinancialInstitution"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Caixa Econômica Federal"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://www.caixa.gov.br"
+  } ],
+  "https://w3id.org/biodivrisK-onto#appliesFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#operatesInCountry" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Brazil"
+  } ],
+  "https://w3id.org/biodivrisK-onto#usesClassification" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CNAE"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#Cerrado",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Biome"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Brazilian tropical savanna — global biodiversity hotspot under severe agricultural pressure. 67.7% increase in deforestation in 2023. Under-sampled in GBIF for its specific endemic species."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Cerrado Biome"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CerradoDataGap",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GeographicSamplingBias"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Documented under-sampling of species occurrence records in GBIF for the Cerrado biome, particularly invertebrates and endemic species. Documented in the CEBDS Brazil LEAP pilot as a challenge for L4 sensitive site identification."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Cerrado GBIF Data Gap"
+  } ],
+  "https://w3id.org/biodivrisK-onto#affectsFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Sector"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Consumer Discretionary Sector"
+  } ],
+  "https://w3id.org/biodivrisK-onto#assessedUnder" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasSectorClassification" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#ConsumerStaplesSector",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Sector"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Consumer Staples Sector"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "Companies involved in the production or sale of essential products, including food, beverages, tobacco, and hygiene products. Priority 1 in CEBDS Brazil heatmap."
+  } ],
+  "https://w3id.org/biodivrisK-onto#assessedUnder" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasSectorClassification" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#Country",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A sovereign country where a financial institution operates or has portfolio exposure."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Country"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.opengis.net/ont/geosparql#Feature"
+  }, {
+    "@id" : "https://schema.org/Country"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#DataGap",
@@ -115,6 +678,22 @@
     "@value" : "Data Gap"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "An evaluation of whether available biodiversity data from sources such as GBIF and OBIS are sufficient to meet the information requirements of a given disclosure framework for a specific biome, sector and location. Quantifies data gaps arising from geographic and taxonomic sampling bias."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Data Sufficiency Assessment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#Activity"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#DisclosureFramework",
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
     "@id" : "http://www.w3.org/2002/07/owl#Class"
@@ -126,6 +705,75 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "Disclosure Framework"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#DisclosureRequirement",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A specific disclosure requirement within a framework, at the level of a recommended disclosure, datapoint or metric (e.g., TNFD Strategy D, ESRS E4-5, GRI 101-6)."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Disclosure Requirement"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#ENCOREData",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#BiodiversityDataSource"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Exploring Natural Capital Opportunities, Risks and Exposure — sector-level tool for screening nature-related impacts and dependencies. Uses a quantitative scale (3-9). Used in L2 by both Santander Peru and CEBDS Brazil."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "ENCORE Tool"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://encorenature.org"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#ENCOREMateriality",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "ENCORE scores impacts and dependencies on a numerical scale: very low=3, low=4.5, medium=6, high=7.5, very high=9. Used by TNFD for sector-level screening."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "ENCORE Quantitative Materiality Scale"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#note" : [ {
+    "@language" : "en",
+    "@value" : "ENCORE applies a quantitative composite scale (3-9) aggregating dependencies and impacts by production process. GRI 101 applies qualitative impact materiality requiring stakeholder-informed severity assessment. The two approaches operate at different epistemic levels and use incompatible measurement units."
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasBridgingCondition" : [ {
+    "@language" : "en",
+    "@value" : "A lossy approximation is admissible if ENCORE sector scores are supplemented with qualitative stakeholder evidence meeting GRI 101 impact severity criteria. The numerical scale (3-9) cannot be directly compared with GRI qualitative thresholds without explicit bridging assumptions documented per sector."
+  } ],
+  "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#ENCOREScale",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "ENCORE numerical scale where 3=very low, 4.5=low, 6=medium, 7.5=high, 9=very high dependency/impact. Used in CEBDS Brazil pilot to produce heatmap weighted by loan volume and client count."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "ENCORE Scale 3-9"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea",
@@ -146,9 +794,15 @@
   }, {
     "@id" : "https://w3id.org/biodivrisK-onto#TNFDPriorityLocation"
   } ],
+  "http://www.w3.org/2002/07/owl#equivalentClass" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas"
+  } ],
   "http://www.w3.org/2004/02/skos/core#note" : [ {
     "@language" : "en",
     "@value" : "ESRS E4 biodiversity-sensitive areas are a strict subset of TNFD priority locations. TNFD additionally covers rapid ecosystem decline and high water stress sites absent from the ESRS definition. Treating as equivalent produces false negatives in LAC screening."
+  }, {
+    "@language" : "en",
+    "@value" : "Partial equivalence with difference in reference: both concepts cover protected areas and KBAs, but ESRS E4 explicitly references Natura 2000 sites and IUCN Category I-IV protected areas, while GRI 101 uses a broader definition based on IUCN and Ramsar without the Natura 2000 specificity. The equivalence holds for the KBA criterion; the normative reference to EU-specific designations introduces a scope difference."
   } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"
@@ -252,6 +906,24 @@
     "@id" : "https://www.efrag.org"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#FinancialInstitution",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A bank, investment fund, insurance company or other financial institution whose portfolio exposure to nature-related risks is assessed through biodiversity risk frameworks."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Financial Institution"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://schema.org/BankOrCreditUnion"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#Organization"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#FrameworkConcept",
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
     "@id" : "http://www.w3.org/2002/07/owl#Class"
@@ -263,6 +935,46 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "Framework Concept"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#GBIFData",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#BiodiversityDataSource"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Global Biodiversity Information Facility — primary open source for terrestrial and freshwater species occurrence records. Exhibits geographic sampling bias in LAC: under-representation of Andes, Amazonia and Cerrado."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "GBIF Occurrence Data"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://www.gbif.org"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#GICS",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#IndustrialClassification"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "International sector classification used by ENCORE and TNFD for materiality assessment."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "GICS"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+    "@language" : "en",
+    "@value" : "Global Industry Classification Standard"
+  } ],
+  "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CIIU"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#CNAE"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#GRI101",
@@ -280,6 +992,23 @@
   } ],
   "https://schema.org/url" : [ {
     "@id" : "https://www.globalreporting.org"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "GRI 101 applies impact materiality: issues are material based on the significance of actual or potential impacts on people and the environment, assessed through stakeholder engagement and qualitative severity criteria."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "GRI 101 Impact Materiality"
+  } ],
+  "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ENCOREMateriality"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#GRIImpactMateriality",
@@ -327,6 +1056,11 @@
   } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#GRI101"
+  } ],
+  "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas",
@@ -355,6 +1089,23 @@
     "@id" : "https://w3id.org/biodivrisK-onto#GRI101"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#DisclosureRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "GRI 101-6: disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "GRI 101 Operations in/adjacent to Protected Areas and KBAs"
+  } ],
+  "https://w3id.org/biodivrisK-onto#definedBy" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GRI101"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#GeographicSamplingBias",
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
     "@id" : "http://www.w3.org/2002/07/owl#Class"
@@ -369,6 +1120,100 @@
   } ],
   "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#DataGap"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#GlobalForestWatchData",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#BiodiversityDataSource"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Near real-time forest monitoring platform used by Santander Peru in LEAP L3/L4 to map protected areas and KBAs across Peru."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Global Forest Watch"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://www.globalforestwatch.org"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#IndustrialClassification",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A standard system for classifying economic activities into sectors and subsectors (e.g., GICS, CNAE, CIIU, SASB/SICS). Different standards may not be mutually translatable without ambiguity."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Industrial Classification Standard"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#IndustrialsSector",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Sector"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Industrials Sector"
+  } ],
+  "https://w3id.org/biodivrisK-onto#assessedUnder" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasSectorClassification" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#InformationLoss",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "The loss of material information that occurs when translating a disclosure or target from one framework to another under an incommensurability relationship. Complements bro:hasBridgingCondition by documenting what is lost, not just under what conditions the conversion is admissible."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Information Loss"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#InternalPolicy",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "An organization's internal policy for managing environmental, social, climate or nature-related risks (e.g., an ESCC policy). May partially cover requirements of external disclosure frameworks."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Internal Policy"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#ItauUnibanco",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#FinancialInstitution"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Itaú Unibanco"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://www.itau.com.br"
+  } ],
+  "https://w3id.org/biodivrisK-onto#appliesFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#operatesInCountry" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Brazil"
+  } ],
+  "https://w3id.org/biodivrisK-onto#usesClassification" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CNAE"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#LACGeographicBias",
@@ -394,6 +1239,35 @@
     "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#LEAPAssessment",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A structured assessment following the TNFD LEAP methodology (Locate, Evaluate, Assess, Prepare), conducted by an organization to identify and assess its nature-related dependencies, impacts, risks and opportunities. Connects the organization, frameworks applied, sectors evaluated, biomes, data sources and gaps identified."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "LEAP Assessment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#Activity"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#MaterialityApproach",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A methodological approach for determining which nature-related impacts, risks and opportunities are material and must be disclosed. Different frameworks apply different approaches (financial, impact, or double materiality) that are not mutually equivalent."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Materiality Approach"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#MaterialityBoundary",
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
     "@id" : "http://www.w3.org/2002/07/owl#Class"
@@ -405,6 +1279,19 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "Materiality Boundary"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#MaterialityResult",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "The output of a materiality assessment — a ranked or scored set of sectors, locations or impacts identified as material under a specific framework and approach."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Materiality Result"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#Metric",
@@ -421,6 +1308,165 @@
   } ],
   "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#FrameworkConcept"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#MiningAndMetalsSector",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Sector"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Mining and Metals Sector"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#altLabel" : [ {
+    "@language" : "en",
+    "@value" : "Materials (GICS)"
+  } ],
+  "https://w3id.org/biodivrisK-onto#assessedUnder" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasSectorClassification" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#OBISData",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#BiodiversityDataSource"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Ocean Biodiversity Information System — primary open source for marine species occurrence records. Under-representation of Caribbean marine ecosystems."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "OBIS Marine Data"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://obis.org"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#Organization",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "An organization that applies one or more biodiversity risk disclosure frameworks to assess its nature-related dependencies, impacts, risks and opportunities."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Organization"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://schema.org/Organization"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#Peru",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Country"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Megadiverse country — one of 17 globally. Second largest copper producer worldwide. High Andean and Amazonian biodiversity with documented GBIF sampling gaps."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Peru"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#PhysicalRisk",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A nature-related physical risk arising from the degradation of ecosystems or natural capital, including water stress, ecosystem collapse, loss of pollination, erosion or flooding. Corresponds to TNFD and ESRS physical risk category."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Physical Risk"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#Portfolio",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A credit or investment portfolio of a financial institution, composed of assets across multiple economic sectors and geographic locations."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Portfolio"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#PriorityLocation",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A geographic location identified as high-priority for biodiversity assessment under TNFD LEAP L4, based on five sensitive location criteria: (1) important for biodiversity; (2) high ecosystem integrity; (3) rapid ecosystem decline; (4) high physical water risk; (5) important for ecosystem services provision."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Priority Location"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#FrameworkConcept"
+  } ],
+  "https://w3id.org/biodivrisK-onto#definedBy" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A narrative or categorical approach to assessing materiality of nature-related impacts, without a fixed numerical scale (e.g., GRI 101 impact materiality approach)."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Qualitative Materiality Scale"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityApproach"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A numerical scale used to score materiality of nature-related impacts and dependencies (e.g., ENCORE scale 3-9: very low=3, low=4.5, medium=6, high=7.5, very high=9)."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Quantitative Materiality Scale"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityApproach"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#SASB_SICS",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#IndustrialClassification"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "SASB SICS"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+    "@language" : "en",
+    "@value" : "SASB Sustainable Industry Classification System"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#SBTN",
@@ -460,6 +1506,9 @@
     "@language" : "en",
     "@value" : "An SBTN science-based target is measurable, time-bound and grounded in scientific baselines. A GRI 101 management approach describes intent without required quantification. Different epistemic status: verifiable outcome commitment vs description of policy intent."
   } ],
+  "https://w3id.org/biodivrisK-onto#coveredByFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTN"
+  } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#SBTN"
   } ],
@@ -469,6 +1518,25 @@
   } ],
   "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#GRIManagementApproach"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A science-based target following the SBTN AR3T hierarchy (Avoid, Reduce, Restore, Transform), as applicable to financial institutions assessing their portfolio exposure to nature loss. Requires LEAP assessment outputs as input for geographic and sectoral target-setting."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "SBTN AR3T Science-based Target"
+  } ],
+  "https://w3id.org/biodivrisK-onto#requiresInputFrom" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance",
@@ -491,6 +1559,9 @@
     "@language" : "en",
     "@value" : "MSA is a composite quantitative index measuring biodiversity intactness as a ratio. GRI 101 management approach is a qualitative policy disclosure with no implied biodiversity-state outcome. Different epistemic levels: state measurement vs organisational intent."
   } ],
+  "https://w3id.org/biodivrisK-onto#coveredByFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTN"
+  } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#SBTN"
   } ],
@@ -504,6 +1575,140 @@
   "https://w3id.org/biodivrisK-onto#unit" : [ {
     "@language" : "en",
     "@value" : "dimensionless ratio (0–1)"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#InformationLoss"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Information loss documented when converting an SBTN science-based target (measurable, time-bound, science-grounded) to a GRI 101 management approach disclosure (qualitative, policy-level). Lost information includes: (1) quantitative target value, (2) scientific baseline, (3) time horizon commitment, (4) verifiability. Bridging condition: the GRI management approach must explicitly commit to SBTN-compatible targets with verified science-based baselines."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "SBTN Target to GRI Management Approach Conversion"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#SantanderBrasil",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#FinancialInstitution"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Santander Brasil"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://www.santander.com.br"
+  } ],
+  "https://w3id.org/biodivrisK-onto#appliesFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#operatesInCountry" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Brazil"
+  } ],
+  "https://w3id.org/biodivrisK-onto#usesClassification" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CNAE"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#SantanderPeru",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#FinancialInstitution"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Santander Peru"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#prefLabel" : [ {
+    "@language" : "en",
+    "@value" : "Banco Santander Perú S.A."
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://www.santander.com.pe"
+  } ],
+  "https://w3id.org/biodivrisK-onto#appliesFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasPortfolioSector" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#AgriculturalProductsSector"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#MiningAndMetalsSector"
+  } ],
+  "https://w3id.org/biodivrisK-onto#operatesInCountry" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Peru"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#InternalPolicy"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Santander Peru's Environmental, Social, Climate and Compliance (ESCC) risk management policy. Covers IUCN protected areas and Ramsar sites but does not extend to all TNFD sensitive location criteria (rapid ecosystem decline, high water stress)."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Santander Peru ESCC Risk Policy"
+  } ],
+  "https://w3id.org/biodivrisK-onto#coversRequirement" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#LEAPAssessment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Santander Peru's LEAP assessment conducted during Global Canopy's TNFD familiarisation programme in 2024, covering scoping and the full Locate phase (L1-L4). Source: Global Canopy & Santander Peru (2025)."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Santander Peru LEAP L4 Assessment"
+  } ],
+  "http://www.w3.org/ns/prov#wasAssociatedWith" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SantanderPeru"
+  } ],
+  "https://w3id.org/biodivrisK-onto#informsTargetSetting" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance"
+  } ],
+  "https://w3id.org/biodivrisK-onto#requiresDataFrom" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ENCOREData"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#GlobalForestWatchData"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#WRIAqueductData"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#Sector",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "An economic sector associated with potential impacts and dependencies on nature, classifiable under international standards such as GICS or SASB/SICS."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Economic Sector"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#SemanticAmbiguity",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A documented case of semantic ambiguity in the correspondence between two industrial classification standards, where a category in one standard maps to multiple non-equivalent categories in another, or vice versa."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Semantic Ambiguity"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#TNFD",
@@ -539,8 +1744,14 @@
   "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#MaterialityBoundary"
   } ],
+  "https://w3id.org/biodivrisK-onto#coveredByFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"
+  } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#TNFDImpactDependency",
@@ -569,6 +1780,9 @@
   "https://w3id.org/biodivrisK-onto#complements" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"
   } ],
+  "https://w3id.org/biodivrisK-onto#coveredByFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"
+  } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
   } ]
@@ -592,6 +1806,9 @@
   "http://www.w3.org/2004/02/skos/core#note" : [ {
     "@language" : "en",
     "@value" : "Equivalence holds because both classes measure the same physical quantity (land-use change in hectares) using the same unit. One of the rare genuine equivalences between the four frameworks."
+  } ],
+  "https://w3id.org/biodivrisK-onto#coveredByFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"
   } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
@@ -617,6 +1834,26 @@
   "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#FrameworkConcept"
   } ],
+  "https://w3id.org/biodivrisK-onto#coveredByFramework" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"
+  } ],
+  "https://w3id.org/biodivrisK-onto#definedBy" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#TNFDStrategyD",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#DisclosureRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "TNFD recommended disclosure Strategy D: disclose the locations of assets and/or activities in direct operations and, where possible, upstream and downstream value chains that meet the criteria for priority locations."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "TNFD Strategy D"
+  } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
   } ]
@@ -637,6 +1874,69 @@
     "@id" : "https://w3id.org/biodivrisK-onto#DataGap"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#TropicalAndes",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Biome"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Biodiversity hotspot in the Andes mountains of Peru, Colombia, Ecuador and Bolivia. Under-sampled in GBIF: occurrence records biased towards roads and urban areas, with insufficient coverage of high-altitude species."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Tropical Andes Biome"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#UtilitiesSector",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Sector"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Utilities Sector"
+  } ],
+  "https://w3id.org/biodivrisK-onto#assessedUnder" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasSectorClassification" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#WRIAqueductData",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#BiodiversityDataSource"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "World Resources Institute water risk atlas — used in LEAP L4 to identify high physical water stress zones. Used by both case study institutions."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "WRI Aqueduct"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://www.wri.org/aqueduct"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#WaterStressRisk",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Physical risk arising from insufficient availability or quality of freshwater resources, particularly relevant for mining and agricultural sectors in the Andes. Identified as material dependency in the Santander Peru LEAP assessment (L2)."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Water Stress Risk"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#PhysicalRisk"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#affectsFramework",
   "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
@@ -649,6 +1949,57 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "affects framework"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#DisclosureFramework"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#affectsRiskAssessment",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Relates a materiality boundary gap to the type of physical risk whose assessment is affected."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityBoundary"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "affects risk assessment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#PhysicalRisk"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#appliesFramework",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Relates an organization to a disclosure framework it applies or is subject to."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Organization"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "applies framework"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#DisclosureFramework"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#assessedUnder",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Relates a sector or portfolio to the disclosure framework under which it was assessed for materiality."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Sector"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "assessed under"
   } ],
   "http://www.w3.org/2000/01/rdf-schema#range" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#DisclosureFramework"
@@ -671,6 +2022,40 @@
     "@id" : "http://www.w3.org/2002/07/owl#Class"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#coveredByFramework",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Relates a framework concept to the frameworks that include or address it."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#FrameworkConcept"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "covered by framework"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#DisclosureFramework"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#coversRequirement",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Relates an internal policy to the disclosure requirements of external frameworks that it partially or fully covers."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#InternalPolicy"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "covers requirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#DisclosureRequirement"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#definedBy",
   "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
@@ -688,6 +2073,19 @@
     "@id" : "https://w3id.org/biodivrisK-onto#DisclosureFramework"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#hasAmbiguity",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#IndustrialClassification"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "has ambiguity"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SemanticAmbiguity"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#hasBridgingCondition",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
@@ -697,6 +2095,122 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "has bridging condition"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#hasDataGapIn",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Relates a disclosure framework to a biome where its data requirements cannot be met due to GBIF/OBIS sampling bias."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#DisclosureFramework"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "has data gap in"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Biome"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#hasDataSufficiency",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "has data sufficiency"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Biome"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#hasEvaluationResult",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#LEAPAssessment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "has evaluation result"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityResult"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#hasInformationLoss",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Documents what information is lost when converting between two incommensurable framework concepts."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "has information loss"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#InformationLoss"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#hasMaterialityApproach",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#DisclosureFramework"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "has materiality approach"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityApproach"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#hasPortfolioSector",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Relates a financial institution to an economic sector represented in its credit or investment portfolio."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#FinancialInstitution"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "has portfolio sector"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Sector"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#hasScale",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityApproach"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "has scale"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#hasSectorClassification",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Sector"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "has sector classification"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#IndustrialClassification"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#incommensurableWith",
@@ -716,6 +2230,112 @@
     "@id" : "http://www.w3.org/2002/07/owl#Class"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#informsTargetSetting",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A directed property: the output of a LEAP assessment informs the science-based target-setting process of SBTN AR3T."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#LEAPAssessment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "informs target setting"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#mappableTo",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A lossy correspondence between two industrial classification standards requiring manual effort and producing semantic ambiguity."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#IndustrialClassification"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "mappable to"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#IndustrialClassification"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#operatesInBiome",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Organization"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "operates in biome"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Biome"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#operatesInCountry",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Organization"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "operates in country"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Country"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#prioritisesSector",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityResult"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "prioritises sector"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Sector"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#requiresDataFrom",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#LEAPAssessment"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "requires data from"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#BiodiversityDataSource"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#requiresInputFrom",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A directed property: SBTN AR3T target setting requires location and materiality data produced by a TNFD LEAP assessment."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "requires input from"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#LEAPAssessment"
+  } ],
+  "http://www.w3.org/2002/07/owl#inverseOf" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#informsTargetSetting"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#unit",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
@@ -725,5 +2345,18 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "unit"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#usesClassification",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Organization"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "uses classification"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#IndustrialClassification"
   } ]
 } ]

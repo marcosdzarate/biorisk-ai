@@ -5,6 +5,7 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:prov="http://www.w3.org/ns/prov#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
      xmlns:vann="http://purl.org/vocab/vann/"
@@ -13,18 +14,37 @@
      xmlns:biodivrisK-onto="https://w3id.org/biodivrisK-onto#">
     <owl:Ontology rdf:about="https://w3id.org/biodivrisK-onto">
         <owl:versionIRI rdf:resource="https://w3id.org/biodivrisK-onto/0.1.0"/>
+        <owl:imports rdf:resource="https://w3id.org/biodivrisK-onto/0.1.0"/>
         <terms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-07-13</terms:created>
+        <terms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-07-21</terms:created>
         <terms:creator rdf:nodeID="genid1"/>
+        <terms:creator rdf:nodeID="genid2"/>
+        <terms:creator rdf:nodeID="genid3"/>
         <terms:description xml:lang="en">BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC).</terms:description>
+        <terms:description xml:lang="en">Extension of v0.1.0 with organizational, geographic, and evaluation modules, populated with real-world instances from the Santander Peru and CEBDS Brazil case studies.</terms:description>
         <terms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+        <terms:title xml:lang="en">BiodivRisk-Onto v0.2.0: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks</terms:title>
         <terms:title xml:lang="en">BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks</terms:title>
         <vann:preferredNamespacePrefix>bro</vann:preferredNamespacePrefix>
         <vann:preferredNamespaceUri>https://w3id.org/biodivrisK-onto#</vann:preferredNamespaceUri>
         <rdfs:comment xml:lang="en">Prototype v0.1.0. Developed as part of the paper submitted to AMW 2026.</rdfs:comment>
         <rdfs:seeAlso rdf:resource="https://github.com/marcosdzarate/biorisk-ai"/>
+        <rdfs:seeAlso rdf:resource="https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology"/>
         <owl:versionInfo>0.1.0</owl:versionInfo>
+        <owl:versionInfo>0.2.0</owl:versionInfo>
     </owl:Ontology>
     <rdf:Description rdf:nodeID="genid1">
+        <rdf:type rdf:resource="https://schema.org/Person"/>
+        <schema:affiliation>CESIMAR-CONICET, Puerto Madryn, Argentina</schema:affiliation>
+        <schema:name>Marcos Daniel Zárate</schema:name>
+        <schema:url rdf:resource="https://orcid.org/0000-0001-8851-8602"/>
+    </rdf:Description>
+    <rdf:Description rdf:nodeID="genid2">
+        <rdf:type rdf:resource="https://schema.org/Person"/>
+        <schema:affiliation>CESIMAR-CONICET, Puerto Madryn, Argentina</schema:affiliation>
+        <schema:name>Gustavo Nuñez</schema:name>
+    </rdf:Description>
+    <rdf:Description rdf:nodeID="genid3">
         <rdf:type rdf:resource="https://schema.org/Person"/>
         <schema:affiliation>CESIMAR-CONICET, Puerto Madryn, Argentina</schema:affiliation>
         <schema:name>Marcos Daniel Zárate</schema:name>
@@ -94,6 +114,20 @@
     
 
 
+    <!-- http://www.w3.org/2004/02/skos/core#altLabel -->
+
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#altLabel"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#definition -->
+
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#definition"/>
+    
+
+
     <!-- http://www.w3.org/2004/02/skos/core#note -->
 
 
@@ -105,6 +139,13 @@
 
 
     <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#prefLabel"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#wasAssociatedWith -->
+
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/ns/prov#wasAssociatedWith"/>
     
 
 
@@ -192,6 +233,42 @@
     
 
 
+    <!-- https://w3id.org/biodivrisK-onto#affectsRiskAssessment -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#affectsRiskAssessment">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#MaterialityBoundary"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#PhysicalRisk"/>
+        <rdfs:comment xml:lang="en">Relates a materiality boundary gap to the type of physical risk whose assessment is affected.</rdfs:comment>
+        <rdfs:label xml:lang="en">affects risk assessment</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#appliesFramework -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#appliesFramework">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#Organization"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
+        <rdfs:comment xml:lang="en">Relates an organization to a disclosure framework it applies or is subject to.</rdfs:comment>
+        <rdfs:label xml:lang="en">applies framework</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#assessedUnder -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#assessedUnder">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#Sector"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
+        <rdfs:comment xml:lang="en">Relates a sector or portfolio to the disclosure framework under which it was assessed for materiality.</rdfs:comment>
+        <rdfs:label xml:lang="en">assessed under</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
     <!-- https://w3id.org/biodivrisK-onto#complements -->
 
 
@@ -205,6 +282,30 @@
     
 
 
+    <!-- https://w3id.org/biodivrisK-onto#coveredByFramework -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#coveredByFramework">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
+        <rdfs:comment xml:lang="en">Relates a framework concept to the frameworks that include or address it.</rdfs:comment>
+        <rdfs:label xml:lang="en">covered by framework</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#coversRequirement -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#coversRequirement">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#InternalPolicy"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureRequirement"/>
+        <rdfs:comment xml:lang="en">Relates an internal policy to the disclosure requirements of external frameworks that it partially or fully covers.</rdfs:comment>
+        <rdfs:label xml:lang="en">covers requirement</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
     <!-- https://w3id.org/biodivrisK-onto#definedBy -->
 
 
@@ -213,6 +314,108 @@
         <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
         <rdfs:comment xml:lang="en">Relates a framework concept class to the framework that defines it.</rdfs:comment>
         <rdfs:label xml:lang="en">defined by</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#hasAmbiguity -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#hasAmbiguity">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#IndustrialClassification"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#SemanticAmbiguity"/>
+        <rdfs:label xml:lang="en">has ambiguity</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#hasDataGapIn -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#hasDataGapIn">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#Biome"/>
+        <rdfs:comment xml:lang="en">Relates a disclosure framework to a biome where its data requirements cannot be met due to GBIF/OBIS sampling bias.</rdfs:comment>
+        <rdfs:label xml:lang="en">has data gap in</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#hasDataSufficiency -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#hasDataSufficiency">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#Biome"/>
+        <rdfs:label xml:lang="en">has data sufficiency</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#hasEvaluationResult -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#hasEvaluationResult">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#LEAPAssessment"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#MaterialityResult"/>
+        <rdfs:label xml:lang="en">has evaluation result</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#hasInformationLoss -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#hasInformationLoss">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#InformationLoss"/>
+        <rdfs:comment xml:lang="en">Documents what information is lost when converting between two incommensurable framework concepts.</rdfs:comment>
+        <rdfs:label xml:lang="en">has information loss</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#hasMaterialityApproach -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#hasMaterialityApproach">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureFramework"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#MaterialityApproach"/>
+        <rdfs:label xml:lang="en">has materiality approach</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#hasPortfolioSector -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#hasPortfolioSector">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#FinancialInstitution"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#Sector"/>
+        <rdfs:comment xml:lang="en">Relates a financial institution to an economic sector represented in its credit or investment portfolio.</rdfs:comment>
+        <rdfs:label xml:lang="en">has portfolio sector</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#hasScale -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#hasScale">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#MaterialityApproach"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale"/>
+        <rdfs:label xml:lang="en">has scale</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#hasSectorClassification -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#hasSectorClassification">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#Sector"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#IndustrialClassification"/>
+        <rdfs:label xml:lang="en">has sector classification</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -230,6 +433,98 @@
     
 
 
+    <!-- https://w3id.org/biodivrisK-onto#informsTargetSetting -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#informsTargetSetting">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#LEAPAssessment"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"/>
+        <rdfs:comment xml:lang="en">A directed property: the output of a LEAP assessment informs the science-based target-setting process of SBTN AR3T.</rdfs:comment>
+        <rdfs:label xml:lang="en">informs target setting</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#mappableTo -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#mappableTo">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#IndustrialClassification"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#IndustrialClassification"/>
+        <rdfs:comment xml:lang="en">A lossy correspondence between two industrial classification standards requiring manual effort and producing semantic ambiguity.</rdfs:comment>
+        <rdfs:label xml:lang="en">mappable to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#operatesInBiome -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#operatesInBiome">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#Organization"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#Biome"/>
+        <rdfs:label xml:lang="en">operates in biome</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#operatesInCountry -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#operatesInCountry">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#Organization"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#Country"/>
+        <rdfs:label xml:lang="en">operates in country</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#prioritisesSector -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#prioritisesSector">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#MaterialityResult"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#Sector"/>
+        <rdfs:label xml:lang="en">prioritises sector</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#requiresDataFrom -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#requiresDataFrom">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#LEAPAssessment"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#BiodiversityDataSource"/>
+        <rdfs:label xml:lang="en">requires data from</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#requiresInputFrom -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#requiresInputFrom">
+        <owl:inverseOf rdf:resource="https://w3id.org/biodivrisK-onto#informsTargetSetting"/>
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#LEAPAssessment"/>
+        <rdfs:comment xml:lang="en">A directed property: SBTN AR3T target setting requires location and materiality data produced by a TNFD LEAP assessment.</rdfs:comment>
+        <rdfs:label xml:lang="en">requires input from</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#usesClassification -->
+
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/biodivrisK-onto#usesClassification">
+        <rdfs:domain rdf:resource="https://w3id.org/biodivrisK-onto#Organization"/>
+        <rdfs:range rdf:resource="https://w3id.org/biodivrisK-onto#IndustrialClassification"/>
+        <rdfs:label xml:lang="en">uses classification</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -242,10 +537,61 @@
     
 
 
+    <!-- http://purl.obolibrary.org/obo/ENVO_00000428 -->
+
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/ENVO_00000428">
+        <owl:equivalentClass rdf:resource="https://w3id.org/biodivrisK-onto#Biome"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/ont/geosparql#Feature -->
+
+
+    <owl:Class rdf:about="http://www.opengis.net/ont/geosparql#Feature"/>
+    
+
+
     <!-- http://www.w3.org/2002/07/owl#Class -->
 
 
     <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Class"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Activity -->
+
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Activity"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Entity -->
+
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Entity"/>
+    
+
+
+    <!-- https://schema.org/BankOrCreditUnion -->
+
+
+    <owl:Class rdf:about="https://schema.org/BankOrCreditUnion"/>
+    
+
+
+    <!-- https://schema.org/Country -->
+
+
+    <owl:Class rdf:about="https://schema.org/Country"/>
+    
+
+
+    <!-- https://schema.org/Organization -->
+
+
+    <owl:Class rdf:about="https://schema.org/Organization"/>
     
 
 
@@ -256,12 +602,56 @@
     
 
 
+    <!-- https://w3id.org/biodivrisK-onto#BiodiversityDataSource -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#BiodiversityDataSource">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+        <rdfs:comment xml:lang="en">An open or proprietary data source used to obtain species occurrence, ecosystem integrity or water risk data during a LEAP assessment (e.g., GBIF, OBIS, ENCORE, Global Forest Watch, WRI Aqueduct, IBAT).</rdfs:comment>
+        <rdfs:label xml:lang="en">Biodiversity Data Source</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Biome -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#Biome">
+        <rdfs:comment xml:lang="en">A major ecological zone characterized by distinctive climate, vegetation and biodiversity. Reuses ENVO biome concept (ENVO:00000428). In LAC, biomes are megadiverse and systematically under-sampled in GBIF/OBIS.</rdfs:comment>
+        <rdfs:label xml:lang="en">Biome</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Country -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#Country">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/ont/geosparql#Feature"/>
+        <rdfs:subClassOf rdf:resource="https://schema.org/Country"/>
+        <rdfs:comment xml:lang="en">A sovereign country where a financial institution operates or has portfolio exposure.</rdfs:comment>
+        <rdfs:label xml:lang="en">Country</rdfs:label>
+    </owl:Class>
+    
+
+
     <!-- https://w3id.org/biodivrisK-onto#DataGap -->
 
 
     <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#DataGap">
         <rdfs:comment xml:lang="en">A systematic absence or insufficiency of biodiversity occurrence data limiting the reliability of framework-based risk assessments in a given geographic area, taxonomic group or ecosystem type.</rdfs:comment>
         <rdfs:label xml:lang="en">Data Gap</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+        <rdfs:comment xml:lang="en">An evaluation of whether available biodiversity data from sources such as GBIF and OBIS are sufficient to meet the information requirements of a given disclosure framework for a specific biome, sector and location. Quantifies data gaps arising from geographic and taxonomic sampling bias.</rdfs:comment>
+        <rdfs:label xml:lang="en">Data Sufficiency Assessment</rdfs:label>
     </owl:Class>
     
 
@@ -276,10 +666,21 @@
     
 
 
+    <!-- https://w3id.org/biodivrisK-onto#DisclosureRequirement -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#DisclosureRequirement">
+        <rdfs:comment xml:lang="en">A specific disclosure requirement within a framework, at the level of a recommended disclosure, datapoint or metric (e.g., TNFD Strategy D, ESRS E4-5, GRI 101-6).</rdfs:comment>
+        <rdfs:label xml:lang="en">Disclosure Requirement</rdfs:label>
+    </owl:Class>
+    
+
+
     <!-- https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea -->
 
 
     <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea">
+        <owl:equivalentClass rdf:resource="https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation"/>
     </owl:Class>
@@ -311,6 +712,18 @@
     <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency">
         <owl:equivalentClass rdf:resource="https://w3id.org/biodivrisK-onto#TNFDImpactDependency"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#FinancialInstitution -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#FinancialInstitution">
+        <rdfs:subClassOf rdf:resource="https://schema.org/BankOrCreditUnion"/>
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#Organization"/>
+        <rdfs:comment xml:lang="en">A bank, investment fund, insurance company or other financial institution whose portfolio exposure to nature-related risks is assessed through biodiversity risk frameworks.</rdfs:comment>
+        <rdfs:label xml:lang="en">Financial Institution</rdfs:label>
     </owl:Class>
     
 
@@ -364,12 +777,73 @@
     
 
 
+    <!-- https://w3id.org/biodivrisK-onto#IndustrialClassification -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#IndustrialClassification">
+        <rdfs:comment xml:lang="en">A standard system for classifying economic activities into sectors and subsectors (e.g., GICS, CNAE, CIIU, SASB/SICS). Different standards may not be mutually translatable without ambiguity.</rdfs:comment>
+        <rdfs:label xml:lang="en">Industrial Classification Standard</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#InformationLoss -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#InformationLoss">
+        <rdfs:comment xml:lang="en">The loss of material information that occurs when translating a disclosure or target from one framework to another under an incommensurability relationship. Complements bro:hasBridgingCondition by documenting what is lost, not just under what conditions the conversion is admissible.</rdfs:comment>
+        <rdfs:label xml:lang="en">Information Loss</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#InternalPolicy -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#InternalPolicy">
+        <rdfs:comment xml:lang="en">An organization&apos;s internal policy for managing environmental, social, climate or nature-related risks (e.g., an ESCC policy). May partially cover requirements of external disclosure frameworks.</rdfs:comment>
+        <rdfs:label xml:lang="en">Internal Policy</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#LEAPAssessment -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#LEAPAssessment">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+        <rdfs:comment xml:lang="en">A structured assessment following the TNFD LEAP methodology (Locate, Evaluate, Assess, Prepare), conducted by an organization to identify and assess its nature-related dependencies, impacts, risks and opportunities. Connects the organization, frameworks applied, sectors evaluated, biomes, data sources and gaps identified.</rdfs:comment>
+        <rdfs:label xml:lang="en">LEAP Assessment</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#MaterialityApproach -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#MaterialityApproach">
+        <rdfs:comment xml:lang="en">A methodological approach for determining which nature-related impacts, risks and opportunities are material and must be disclosed. Different frameworks apply different approaches (financial, impact, or double materiality) that are not mutually equivalent.</rdfs:comment>
+        <rdfs:label xml:lang="en">Materiality Approach</rdfs:label>
+    </owl:Class>
+    
+
+
     <!-- https://w3id.org/biodivrisK-onto#MaterialityBoundary -->
 
 
     <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#MaterialityBoundary">
         <rdfs:comment xml:lang="en">The scope and criteria used by a framework to determine which impacts and financial effects are material and must be disclosed.</rdfs:comment>
         <rdfs:label xml:lang="en">Materiality Boundary</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#MaterialityResult -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#MaterialityResult">
+        <rdfs:comment xml:lang="en">The output of a materiality assessment — a ranked or scored set of sectors, locations or impacts identified as material under a specific framework and approach.</rdfs:comment>
+        <rdfs:label xml:lang="en">Materiality Result</rdfs:label>
     </owl:Class>
     
 
@@ -381,6 +855,68 @@
         <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
         <rdfs:comment xml:lang="en">A quantitative or semi-quantitative indicator expressed in specific units or using a defined measurement approach.</rdfs:comment>
         <rdfs:label xml:lang="en">Metric</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Organization -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#Organization">
+        <rdfs:subClassOf rdf:resource="https://schema.org/Organization"/>
+        <rdfs:comment xml:lang="en">An organization that applies one or more biodiversity risk disclosure frameworks to assess its nature-related dependencies, impacts, risks and opportunities.</rdfs:comment>
+        <rdfs:label xml:lang="en">Organization</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#PhysicalRisk -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#PhysicalRisk">
+        <rdfs:comment xml:lang="en">A nature-related physical risk arising from the degradation of ecosystems or natural capital, including water stress, ecosystem collapse, loss of pollination, erosion or flooding. Corresponds to TNFD and ESRS physical risk category.</rdfs:comment>
+        <rdfs:label xml:lang="en">Physical Risk</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Portfolio -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#Portfolio">
+        <rdfs:comment xml:lang="en">A credit or investment portfolio of a financial institution, composed of assets across multiple economic sectors and geographic locations.</rdfs:comment>
+        <rdfs:label xml:lang="en">Portfolio</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#PriorityLocation -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#PriorityLocation">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#MaterialityApproach"/>
+        <rdfs:comment xml:lang="en">A narrative or categorical approach to assessing materiality of nature-related impacts, without a fixed numerical scale (e.g., GRI 101 impact materiality approach).</rdfs:comment>
+        <rdfs:label xml:lang="en">Qualitative Materiality Scale</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#MaterialityApproach"/>
+        <rdfs:comment xml:lang="en">A numerical scale used to score materiality of nature-related impacts and dependencies (e.g., ENCORE scale 3-9: very low=3, low=4.5, medium=6, high=7.5, very high=9).</rdfs:comment>
+        <rdfs:label xml:lang="en">Quantitative Materiality Scale</rdfs:label>
     </owl:Class>
     
 
@@ -399,6 +935,26 @@
 
     <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance">
         <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#Metric"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Sector -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#Sector">
+        <rdfs:comment xml:lang="en">An economic sector associated with potential impacts and dependencies on nature, classifiable under international standards such as GICS or SASB/SICS.</rdfs:comment>
+        <rdfs:label xml:lang="en">Economic Sector</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SemanticAmbiguity -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#SemanticAmbiguity">
+        <rdfs:comment xml:lang="en">A documented case of semantic ambiguity in the correspondence between two industrial classification standards, where a category in one standard maps to multiple non-equivalent categories in another, or vice versa.</rdfs:comment>
+        <rdfs:label xml:lang="en">Semantic Ambiguity</rdfs:label>
     </owl:Class>
     
 
@@ -450,6 +1006,17 @@
     
 
 
+    <!-- https://w3id.org/biodivrisK-onto#WaterStressRisk -->
+
+
+    <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#WaterStressRisk">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#PhysicalRisk"/>
+        <rdfs:comment xml:lang="en">Physical risk arising from insufficient availability or quality of freshwater resources, particularly relevant for mining and agricultural sectors in the Andes. Identified as material dependency in the Santander Peru LEAP assessment (L2).</rdfs:comment>
+        <rdfs:label xml:lang="en">Water Stress Risk</rdfs:label>
+    </owl:Class>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -459,6 +1026,320 @@
      -->
 
 
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#AgriculturalProductsSector -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#AgriculturalProductsSector">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Sector"/>
+        <assessedUnder rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <hasSectorClassification rdf:resource="https://w3id.org/biodivrisK-onto#GICS"/>
+        <rdfs:label xml:lang="en">Agricultural Products Sector</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Amazonia -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#Amazonia">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Biome"/>
+        <rdfs:comment xml:lang="en">Largest tropical rainforest biome globally. Under-sampled in GBIF particularly for invertebrates and cryptic taxa. Relevant to both Santander Peru and CEBDS Brazil cases.</rdfs:comment>
+        <rdfs:label xml:lang="en">Amazonia Biome</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#AndeanDataGap -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#AndeanDataGap">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#GeographicSamplingBias"/>
+        <affectsFramework rdf:resource="https://w3id.org/biodivrisK-onto#ESRS_E4"/>
+        <affectsFramework rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <rdfs:comment xml:lang="en">Documented under-sampling of species occurrence records in GBIF for the tropical Andes biome, including Peru. Bias towards roads, cities and protected area boundaries. Leads to false negatives in TNFD priority-location screening. Empirically documented in Santander Peru LEAP L3-L4 assessment.</rdfs:comment>
+        <rdfs:label xml:lang="en">Andean GBIF Data Gap</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#WaterStressRisk"/>
+        <affectsRiskAssessment rdf:resource="https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality"/>
+        <rdfs:comment xml:lang="en">Physical risk from insufficient freshwater availability in Andean mining and agricultural operations in Peru. Identified as a material dependency in Santander Peru LEAP L2: groundwater use and protection against flooding were the most material ecosystem service dependencies. High water stress zones identified via WRI Aqueduct in LEAP L4.</rdfs:comment>
+        <rdfs:label xml:lang="en">Andean Water Stress Risk</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#AtlanticForest -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#AtlanticForest">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Biome"/>
+        <rdfs:comment xml:lang="en">Critical biodiversity hotspot — less than 29% of original cover remains. Among the most threatened biomes in the world. Relevant to CEBDS Brazil case.</rdfs:comment>
+        <rdfs:label xml:lang="en">Atlantic Forest Biome</rdfs:label>
+        <skos:altLabel xml:lang="pt">Mata Atlântica</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#BNDES -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#BNDES">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#FinancialInstitution"/>
+        <appliesFramework rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <operatesInCountry rdf:resource="https://w3id.org/biodivrisK-onto#Brazil"/>
+        <usesClassification rdf:resource="https://w3id.org/biodivrisK-onto#CNAE"/>
+        <rdfs:label xml:lang="en">BNDES</rdfs:label>
+        <skos:prefLabel xml:lang="en">Banco Nacional de Desenvolvimento Econômico e Social</skos:prefLabel>
+        <schema:url rdf:resource="https://www.bndes.gov.br"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Bradesco -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#Bradesco">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#FinancialInstitution"/>
+        <appliesFramework rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <operatesInCountry rdf:resource="https://w3id.org/biodivrisK-onto#Brazil"/>
+        <usesClassification rdf:resource="https://w3id.org/biodivrisK-onto#CNAE"/>
+        <rdfs:label xml:lang="en">Banco Bradesco</rdfs:label>
+        <schema:url rdf:resource="https://www.bradesco.com.br"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Brazil -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#Brazil">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Country"/>
+        <rdfs:comment xml:lang="en">Most megadiverse country globally, hosting 15-20% of world biodiversity across 6 biomes. Site of CEBDS TNFD pilot.</rdfs:comment>
+        <rdfs:label xml:lang="en">Brazil</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#LEAPAssessment"/>
+        <hasEvaluationResult rdf:resource="https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult"/>
+        <informsTargetSetting rdf:resource="https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance"/>
+        <requiresDataFrom rdf:resource="https://w3id.org/biodivrisK-onto#ENCOREData"/>
+        <requiresDataFrom rdf:resource="https://w3id.org/biodivrisK-onto#GBIFData"/>
+        <requiresDataFrom rdf:resource="https://w3id.org/biodivrisK-onto#WRIAqueductData"/>
+        <rdfs:comment xml:lang="en">Collective piloting of the TNFD LEAP Locate phase by 5 Brazilian financial institutions coordinated by CEBDS and technically led by EY, September 2023–September 2024. Source: CEBDS/EY (2024).</rdfs:comment>
+        <rdfs:label xml:lang="en">CEBDS Brazil TNFD Locate Phase Pilot</rdfs:label>
+        <prov:wasAssociatedWith rdf:resource="https://w3id.org/biodivrisK-onto#BNDES"/>
+        <prov:wasAssociatedWith rdf:resource="https://w3id.org/biodivrisK-onto#Bradesco"/>
+        <prov:wasAssociatedWith rdf:resource="https://w3id.org/biodivrisK-onto#Caixa"/>
+        <prov:wasAssociatedWith rdf:resource="https://w3id.org/biodivrisK-onto#ItauUnibanco"/>
+        <prov:wasAssociatedWith rdf:resource="https://w3id.org/biodivrisK-onto#SantanderBrasil"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#MaterialityResult"/>
+        <prioritisesSector rdf:resource="https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector"/>
+        <prioritisesSector rdf:resource="https://w3id.org/biodivrisK-onto#ConsumerStaplesSector"/>
+        <prioritisesSector rdf:resource="https://w3id.org/biodivrisK-onto#IndustrialsSector"/>
+        <prioritisesSector rdf:resource="https://w3id.org/biodivrisK-onto#UtilitiesSector"/>
+        <rdfs:comment xml:lang="en">Sectoral materiality ranking from the CEBDS Brazil LEAP pilot using ENCORE scores combined with loan volume and number of clients data. Priority order: 1st Consumer Staples, 2nd Consumer Discretionary, 3rd Utilities, 4th Industrials.</rdfs:comment>
+        <rdfs:label xml:lang="en">CEBDS Brazil Sector Heatmap Result</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#CIIU -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#CIIU">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#IndustrialClassification"/>
+        <hasAmbiguity rdf:resource="https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#GICS"/>
+        <mappableTo rdf:resource="https://w3id.org/biodivrisK-onto#GICS"/>
+        <rdfs:comment xml:lang="en">UN international industrial classification used in Peru. Requires manual mapping to GICS/SASB for TNFD assessments.</rdfs:comment>
+        <rdfs:label xml:lang="en">CIIU</rdfs:label>
+        <skos:note xml:lang="en">CIIU (UN international classification used in Peru) does not map automatically to GICS or SASB/SICS sectors required for ENCORE-based TNFD assessments.</skos:note>
+        <skos:prefLabel xml:lang="en">Clasificación Industrial Internacional Uniforme</skos:prefLabel>
+        <hasBridgingCondition xml:lang="en">A lossy correspondence requires manual alignment of CIIU codes to GICS and SASB/SICS sectors, with documentation of ambiguous cases. Performed by Santander Peru during LEAP L1 scoping.</hasBridgingCondition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#SemanticAmbiguity"/>
+        <rdfs:comment xml:lang="en">Documented semantic ambiguity in the CIIU-to-GICS/SASB mapping required for TNFD assessments in Peru. Peruvian CIIU categories require manual alignment with GICS and SASB/SICS sector definitions.</rdfs:comment>
+        <rdfs:label xml:lang="en">CIIU to GICS Semantic Ambiguity</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#CIIUtoGICSMapping -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#CIIUtoGICSMapping">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#SemanticAmbiguity"/>
+        <rdfs:comment xml:lang="en">Manual sector correspondence developed by Santander Peru to align its CIIU-classified portfolio with GICS and SASB/SICS sectors required for ENCORE-based materiality screening.</rdfs:comment>
+        <rdfs:label xml:lang="en">CIIU to GICS/SASB Mapping (Santander Peru)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#CNAE -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#CNAE">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#IndustrialClassification"/>
+        <hasAmbiguity rdf:resource="https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#GICS"/>
+        <mappableTo rdf:resource="https://w3id.org/biodivrisK-onto#GICS"/>
+        <rdfs:comment xml:lang="en">Brazilian national industrial classification used by financial institutions for portfolio reporting. Requires manual mapping to GICS for TNFD/ENCORE assessments.</rdfs:comment>
+        <rdfs:label xml:lang="en">CNAE</rdfs:label>
+        <skos:note xml:lang="en">CNAE (Brazilian national classification) and GICS (international standard used by ENCORE/TNFD) do not maintain a bijective correspondence. Multiple CNAE codes may map to one GICS sector and vice versa, generating semantic ambiguity in sector-level materiality assessments.</skos:note>
+        <skos:prefLabel xml:lang="en">Classificação Nacional de Atividades Econômicas</skos:prefLabel>
+        <hasBridgingCondition xml:lang="en">A lossy correspondence is admissible when each CNAE code is manually mapped to the most representative GICS sector, with explicit documentation of multi-to-one and one-to-many correspondences. This mapping was performed by EY during the CEBDS Brazil LEAP pilot and required significant expert effort. The result is not automatically reversible.</hasBridgingCondition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#SemanticAmbiguity"/>
+        <rdfs:comment xml:lang="en">Documented semantic ambiguity in the CNAE-to-GICS mapping required for TNFD/ENCORE assessments. Brazilian CNAE categories do not maintain a bijective correspondence with GICS sectors — multiple CNAE codes may map to one GICS sector or vice versa. Required significant manual effort in the CEBDS Brazil pilot.</rdfs:comment>
+        <rdfs:label xml:lang="en">CNAE to GICS Semantic Ambiguity</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#CNAEtoGICSMapping -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#CNAEtoGICSMapping">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#SemanticAmbiguity"/>
+        <rdfs:comment xml:lang="en">Manual sector correspondence developed during the CEBDS Brazil LEAP pilot to align portfolio reporting under CNAE with ENCORE/TNFD materiality assessment requiring GICS classification.</rdfs:comment>
+        <rdfs:label xml:lang="en">CNAE to GICS Mapping (CEBDS Brazil)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Caixa -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#Caixa">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#FinancialInstitution"/>
+        <appliesFramework rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <operatesInCountry rdf:resource="https://w3id.org/biodivrisK-onto#Brazil"/>
+        <usesClassification rdf:resource="https://w3id.org/biodivrisK-onto#CNAE"/>
+        <rdfs:label xml:lang="en">Caixa Econômica Federal</rdfs:label>
+        <schema:url rdf:resource="https://www.caixa.gov.br"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Cerrado -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#Cerrado">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Biome"/>
+        <rdfs:comment xml:lang="en">Brazilian tropical savanna — global biodiversity hotspot under severe agricultural pressure. 67.7% increase in deforestation in 2023. Under-sampled in GBIF for its specific endemic species.</rdfs:comment>
+        <rdfs:label xml:lang="en">Cerrado Biome</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#CerradoDataGap -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#CerradoDataGap">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#GeographicSamplingBias"/>
+        <affectsFramework rdf:resource="https://w3id.org/biodivrisK-onto#ESRS_E4"/>
+        <affectsFramework rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <rdfs:comment xml:lang="en">Documented under-sampling of species occurrence records in GBIF for the Cerrado biome, particularly invertebrates and endemic species. Documented in the CEBDS Brazil LEAP pilot as a challenge for L4 sensitive site identification.</rdfs:comment>
+        <rdfs:label xml:lang="en">Cerrado GBIF Data Gap</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Sector"/>
+        <assessedUnder rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <hasSectorClassification rdf:resource="https://w3id.org/biodivrisK-onto#GICS"/>
+        <rdfs:label xml:lang="en">Consumer Discretionary Sector</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ConsumerStaplesSector -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#ConsumerStaplesSector">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Sector"/>
+        <assessedUnder rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <hasSectorClassification rdf:resource="https://w3id.org/biodivrisK-onto#GICS"/>
+        <rdfs:label xml:lang="en">Consumer Staples Sector</rdfs:label>
+        <skos:definition xml:lang="en">Companies involved in the production or sale of essential products, including food, beverages, tobacco, and hygiene products. Priority 1 in CEBDS Brazil heatmap.</skos:definition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ENCOREData -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#ENCOREData">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#BiodiversityDataSource"/>
+        <rdfs:comment xml:lang="en">Exploring Natural Capital Opportunities, Risks and Exposure — sector-level tool for screening nature-related impacts and dependencies. Uses a quantitative scale (3-9). Used in L2 by both Santander Peru and CEBDS Brazil.</rdfs:comment>
+        <rdfs:label xml:lang="en">ENCORE Tool</rdfs:label>
+        <schema:url rdf:resource="https://encorenature.org"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ENCOREMateriality -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#ENCOREMateriality">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality"/>
+        <rdfs:comment xml:lang="en">ENCORE scores impacts and dependencies on a numerical scale: very low=3, low=4.5, medium=6, high=7.5, very high=9. Used by TNFD for sector-level screening.</rdfs:comment>
+        <rdfs:label xml:lang="en">ENCORE Quantitative Materiality Scale</rdfs:label>
+        <skos:note xml:lang="en">ENCORE applies a quantitative composite scale (3-9) aggregating dependencies and impacts by production process. GRI 101 applies qualitative impact materiality requiring stakeholder-informed severity assessment. The two approaches operate at different epistemic levels and use incompatible measurement units.</skos:note>
+        <hasBridgingCondition xml:lang="en">A lossy approximation is admissible if ENCORE sector scores are supplemented with qualitative stakeholder evidence meeting GRI 101 impact severity criteria. The numerical scale (3-9) cannot be directly compared with GRI qualitative thresholds without explicit bridging assumptions documented per sector.</hasBridgingCondition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ENCOREScale -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#ENCOREScale">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale"/>
+        <rdfs:comment xml:lang="en">ENCORE numerical scale where 3=very low, 4.5=low, 6=medium, 7.5=high, 9=very high dependency/impact. Used in CEBDS Brazil pilot to produce heatmap weighted by loan volume and client count.</rdfs:comment>
+        <rdfs:label xml:lang="en">ENCORE Scale 3-9</rdfs:label>
+    </owl:NamedIndividual>
     
 
 
@@ -511,6 +1392,32 @@
     
 
 
+    <!-- https://w3id.org/biodivrisK-onto#GBIFData -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#GBIFData">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#BiodiversityDataSource"/>
+        <rdfs:comment xml:lang="en">Global Biodiversity Information Facility — primary open source for terrestrial and freshwater species occurrence records. Exhibits geographic sampling bias in LAC: under-representation of Andes, Amazonia and Cerrado.</rdfs:comment>
+        <rdfs:label xml:lang="en">GBIF Occurrence Data</rdfs:label>
+        <schema:url rdf:resource="https://www.gbif.org"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GICS -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#GICS">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#IndustrialClassification"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#CIIU"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#CNAE"/>
+        <rdfs:comment xml:lang="en">International sector classification used by ENCORE and TNFD for materiality assessment.</rdfs:comment>
+        <rdfs:label xml:lang="en">GICS</rdfs:label>
+        <skos:prefLabel xml:lang="en">Global Industry Classification Standard</skos:prefLabel>
+    </owl:NamedIndividual>
+    
+
+
     <!-- https://w3id.org/biodivrisK-onto#GRI101 -->
 
 
@@ -519,6 +1426,18 @@
         <rdfs:label xml:lang="en">GRI 101</rdfs:label>
         <skos:prefLabel xml:lang="en">GRI 101: Biodiversity Standard 2024</skos:prefLabel>
         <schema:url rdf:resource="https://www.globalreporting.org"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#ENCOREMateriality"/>
+        <rdfs:comment xml:lang="en">GRI 101 applies impact materiality: issues are material based on the significance of actual or potential impacts on people and the environment, assessed through stakeholder engagement and qualitative severity criteria.</rdfs:comment>
+        <rdfs:label xml:lang="en">GRI 101 Impact Materiality</rdfs:label>
     </owl:NamedIndividual>
     
 
@@ -538,6 +1457,8 @@
     <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#GRIManagementApproach">
         <complements rdf:resource="https://w3id.org/biodivrisK-onto#TNFDImpactDependency"/>
         <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#GRI101"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance"/>
     </owl:NamedIndividual>
     
 
@@ -547,6 +1468,56 @@
 
     <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas">
         <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#GRI101"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureRequirement"/>
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#GRI101"/>
+        <rdfs:comment xml:lang="en">GRI 101-6: disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas.</rdfs:comment>
+        <rdfs:label xml:lang="en">GRI 101 Operations in/adjacent to Protected Areas and KBAs</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#GlobalForestWatchData -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#GlobalForestWatchData">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#BiodiversityDataSource"/>
+        <rdfs:comment xml:lang="en">Near real-time forest monitoring platform used by Santander Peru in LEAP L3/L4 to map protected areas and KBAs across Peru.</rdfs:comment>
+        <rdfs:label xml:lang="en">Global Forest Watch</rdfs:label>
+        <schema:url rdf:resource="https://www.globalforestwatch.org"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#IndustrialsSector -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#IndustrialsSector">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Sector"/>
+        <assessedUnder rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <hasSectorClassification rdf:resource="https://w3id.org/biodivrisK-onto#GICS"/>
+        <rdfs:label xml:lang="en">Industrials Sector</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#ItauUnibanco -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#ItauUnibanco">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#FinancialInstitution"/>
+        <appliesFramework rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <operatesInCountry rdf:resource="https://w3id.org/biodivrisK-onto#Brazil"/>
+        <usesClassification rdf:resource="https://w3id.org/biodivrisK-onto#CNAE"/>
+        <rdfs:label xml:lang="en">Itaú Unibanco</rdfs:label>
+        <schema:url rdf:resource="https://www.itau.com.br"/>
     </owl:NamedIndividual>
     
 
@@ -562,6 +1533,62 @@
         <affectsFramework rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
         <rdfs:comment xml:lang="en">Systematic under-sampling of GBIF and OBIS records for key LAC biomes including the tropical Andes, Amazonia, the Cerrado and Caribbean marine ecosystems. Leads to false negatives in TNFD priority-location and ESRS E4 sensitive-area proximity screening.</rdfs:comment>
         <rdfs:label xml:lang="en">LAC Geographic Sampling Bias</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#MiningAndMetalsSector -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#MiningAndMetalsSector">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Sector"/>
+        <assessedUnder rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <hasSectorClassification rdf:resource="https://w3id.org/biodivrisK-onto#GICS"/>
+        <rdfs:label xml:lang="en">Mining and Metals Sector</rdfs:label>
+        <skos:altLabel xml:lang="en">Materials (GICS)</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#OBISData -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#OBISData">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#BiodiversityDataSource"/>
+        <rdfs:comment xml:lang="en">Ocean Biodiversity Information System — primary open source for marine species occurrence records. Under-representation of Caribbean marine ecosystems.</rdfs:comment>
+        <rdfs:label xml:lang="en">OBIS Marine Data</rdfs:label>
+        <schema:url rdf:resource="https://obis.org"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#Peru -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#Peru">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Country"/>
+        <rdfs:comment xml:lang="en">Megadiverse country — one of 17 globally. Second largest copper producer worldwide. High Andean and Amazonian biodiversity with documented GBIF sampling gaps.</rdfs:comment>
+        <rdfs:label xml:lang="en">Peru</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#PriorityLocation -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#PriorityLocation">
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SASB_SICS -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SASB_SICS">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#IndustrialClassification"/>
+        <rdfs:label xml:lang="en">SASB SICS</rdfs:label>
+        <skos:prefLabel xml:lang="en">SASB Sustainable Industry Classification System</skos:prefLabel>
     </owl:NamedIndividual>
     
 
@@ -582,8 +1609,22 @@
 
 
     <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">
+        <coveredByFramework rdf:resource="https://w3id.org/biodivrisK-onto#SBTN"/>
         <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#SBTN"/>
         <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#GRIManagementApproach"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"/>
+        <requiresInputFrom rdf:resource="https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment"/>
+        <requiresInputFrom rdf:resource="https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment"/>
+        <rdfs:comment xml:lang="en">A science-based target following the SBTN AR3T hierarchy (Avoid, Reduce, Restore, Transform), as applicable to financial institutions assessing their portfolio exposure to nature loss. Requires LEAP assessment outputs as input for geographic and sectoral target-setting.</rdfs:comment>
+        <rdfs:label xml:lang="en">SBTN AR3T Science-based Target</rdfs:label>
     </owl:NamedIndividual>
     
 
@@ -592,8 +1633,78 @@
 
 
     <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance">
+        <coveredByFramework rdf:resource="https://w3id.org/biodivrisK-onto#SBTN"/>
         <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#SBTN"/>
         <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#GRIManagementApproach"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#InformationLoss"/>
+        <rdfs:comment xml:lang="en">Information loss documented when converting an SBTN science-based target (measurable, time-bound, science-grounded) to a GRI 101 management approach disclosure (qualitative, policy-level). Lost information includes: (1) quantitative target value, (2) scientific baseline, (3) time horizon commitment, (4) verifiability. Bridging condition: the GRI management approach must explicitly commit to SBTN-compatible targets with verified science-based baselines.</rdfs:comment>
+        <rdfs:label xml:lang="en">SBTN Target to GRI Management Approach Conversion</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SantanderBrasil -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SantanderBrasil">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#FinancialInstitution"/>
+        <appliesFramework rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <operatesInCountry rdf:resource="https://w3id.org/biodivrisK-onto#Brazil"/>
+        <usesClassification rdf:resource="https://w3id.org/biodivrisK-onto#CNAE"/>
+        <rdfs:label xml:lang="en">Santander Brasil</rdfs:label>
+        <schema:url rdf:resource="https://www.santander.com.br"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SantanderPeru -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SantanderPeru">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#FinancialInstitution"/>
+        <appliesFramework rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <hasPortfolioSector rdf:resource="https://w3id.org/biodivrisK-onto#AgriculturalProductsSector"/>
+        <hasPortfolioSector rdf:resource="https://w3id.org/biodivrisK-onto#MiningAndMetalsSector"/>
+        <operatesInCountry rdf:resource="https://w3id.org/biodivrisK-onto#Peru"/>
+        <rdfs:label xml:lang="en">Santander Peru</rdfs:label>
+        <skos:prefLabel xml:lang="en">Banco Santander Perú S.A.</skos:prefLabel>
+        <schema:url rdf:resource="https://www.santander.com.pe"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#InternalPolicy"/>
+        <coversRequirement rdf:resource="https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA"/>
+        <rdfs:comment xml:lang="en">Santander Peru&apos;s Environmental, Social, Climate and Compliance (ESCC) risk management policy. Covers IUCN protected areas and Ramsar sites but does not extend to all TNFD sensitive location criteria (rapid ecosystem decline, high water stress).</rdfs:comment>
+        <rdfs:label xml:lang="en">Santander Peru ESCC Risk Policy</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#LEAPAssessment"/>
+        <informsTargetSetting rdf:resource="https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance"/>
+        <requiresDataFrom rdf:resource="https://w3id.org/biodivrisK-onto#ENCOREData"/>
+        <requiresDataFrom rdf:resource="https://w3id.org/biodivrisK-onto#GlobalForestWatchData"/>
+        <requiresDataFrom rdf:resource="https://w3id.org/biodivrisK-onto#WRIAqueductData"/>
+        <rdfs:comment xml:lang="en">Santander Peru&apos;s LEAP assessment conducted during Global Canopy&apos;s TNFD familiarisation programme in 2024, covering scoping and the full Locate phase (L1-L4). Source: Global Canopy &amp; Santander Peru (2025).</rdfs:comment>
+        <rdfs:label xml:lang="en">Santander Peru LEAP L4 Assessment</rdfs:label>
+        <prov:wasAssociatedWith rdf:resource="https://w3id.org/biodivrisK-onto#SantanderPeru"/>
     </owl:NamedIndividual>
     
 
@@ -614,7 +1725,9 @@
 
 
     <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality">
+        <coveredByFramework rdf:resource="https://w3id.org/biodivrisK-onto#ESRS_E4"/>
         <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <incommensurableWith rdf:resource="https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality"/>
     </owl:NamedIndividual>
     
 
@@ -624,6 +1737,7 @@
 
     <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#TNFDImpactDependency">
         <complements rdf:resource="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"/>
+        <coveredByFramework rdf:resource="https://w3id.org/biodivrisK-onto#ESRS_E4"/>
         <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
     </owl:NamedIndividual>
     
@@ -633,6 +1747,7 @@
 
 
     <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric">
+        <coveredByFramework rdf:resource="https://w3id.org/biodivrisK-onto#ESRS_E4"/>
         <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
     </owl:NamedIndividual>
     
@@ -642,7 +1757,55 @@
 
 
     <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation">
+        <coveredByFramework rdf:resource="https://w3id.org/biodivrisK-onto#ESRS_E4"/>
         <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TNFDStrategyD -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#TNFDStrategyD">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#DisclosureRequirement"/>
+        <definedBy rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <rdfs:comment xml:lang="en">TNFD recommended disclosure Strategy D: disclose the locations of assets and/or activities in direct operations and, where possible, upstream and downstream value chains that meet the criteria for priority locations.</rdfs:comment>
+        <rdfs:label xml:lang="en">TNFD Strategy D</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#TropicalAndes -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#TropicalAndes">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Biome"/>
+        <rdfs:comment xml:lang="en">Biodiversity hotspot in the Andes mountains of Peru, Colombia, Ecuador and Bolivia. Under-sampled in GBIF: occurrence records biased towards roads and urban areas, with insufficient coverage of high-altitude species.</rdfs:comment>
+        <rdfs:label xml:lang="en">Tropical Andes Biome</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#UtilitiesSector -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#UtilitiesSector">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#Sector"/>
+        <assessedUnder rdf:resource="https://w3id.org/biodivrisK-onto#TNFD"/>
+        <hasSectorClassification rdf:resource="https://w3id.org/biodivrisK-onto#GICS"/>
+        <rdfs:label xml:lang="en">Utilities Sector</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/biodivrisK-onto#WRIAqueductData -->
+
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/biodivrisK-onto#WRIAqueductData">
+        <rdf:type rdf:resource="https://w3id.org/biodivrisK-onto#BiodiversityDataSource"/>
+        <rdfs:comment xml:lang="en">World Resources Institute water risk atlas — used in LEAP L4 to identify high physical water stress zones. Used by both case study institutions.</rdfs:comment>
+        <rdfs:label xml:lang="en">WRI Aqueduct</rdfs:label>
+        <schema:url rdf:resource="https://www.wri.org/aqueduct"/>
     </owl:NamedIndividual>
     
 
@@ -660,6 +1823,7 @@
         <rdfs:comment xml:lang="en">Areas designated for biodiversity protection under ESRS E4, including Natura 2000 sites, UNESCO World Heritage, KBAs, and IUCN Category I–IV protected areas.</rdfs:comment>
         <rdfs:label xml:lang="en">ESRS E4 Biodiversity-sensitive Area</rdfs:label>
         <skos:note xml:lang="en">ESRS E4 biodiversity-sensitive areas are a strict subset of TNFD priority locations. TNFD additionally covers rapid ecosystem decline and high water stress sites absent from the ESRS definition. Treating as equivalent produces false negatives in LAC screening.</skos:note>
+        <skos:note xml:lang="en">Partial equivalence with difference in reference: both concepts cover protected areas and KBAs, but ESRS E4 explicitly references Natura 2000 sites and IUCN Category I-IV protected areas, while GRI 101 uses a broader definition based on IUCN and Ramsar without the Natura 2000 specificity. The equivalence holds for the KBA criterion; the normative reference to EU-specific designations introduces a scope difference.</skos:note>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality">
         <rdfs:comment xml:lang="en">ESRS E4 double materiality: an issue is material if it has significant impacts on biodiversity (impact materiality) OR poses financial risks/opportunities (financial materiality).</rdfs:comment>
@@ -689,6 +1853,10 @@
         <rdfs:comment xml:lang="en">GRI 101 disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas.</rdfs:comment>
         <rdfs:label xml:lang="en">GRI 101 Operations in/adjacent to Protected Areas and KBAs</rdfs:label>
         <skos:note xml:lang="en">GRI 101 protected-area and KBA sites are a subset of TNFD areas of importance for biodiversity. TNFD applies a broader definition additionally covering areas of high biodiversity intactness beyond formal protection status.</skos:note>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#PriorityLocation">
+        <rdfs:comment xml:lang="en">A geographic location identified as high-priority for biodiversity assessment under TNFD LEAP L4, based on five sensitive location criteria: (1) important for biodiversity; (2) high ecosystem integrity; (3) rapid ecosystem decline; (4) high physical water risk; (5) important for ecosystem services provision.</rdfs:comment>
+        <rdfs:label xml:lang="en">Priority Location</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">
         <rdfs:comment xml:lang="en">Measurable, time-bound target following the SBTN AR3T hierarchy: Avoid, Reduce, Restore, Transform.</rdfs:comment>

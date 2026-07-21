@@ -17,7 +17,7 @@
 
 
 <!-- SCHEMA.ORG METADATA -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"https://w3id.org/biodivrisK-onto#","image":"http://vowl.visualdataweb.org/webvowl/#iri=https://w3id.org/biodivrisK-onto#","name":"BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks", "headline":"Document describing the ontology https://w3id.org/biodivrisK-onto#", "dateReleased":"2026-07-13", "version":"0.1.0", "license":"https://creativecommons.org/licenses/by/4.0/", "author":[{"@type":"Person","name":"Marcos Daniel Zárate","url":"https://orcid.org/0000-0001-8851-8602"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"https://w3id.org/biodivrisK-onto#","image":"http://vowl.visualdataweb.org/webvowl/#iri=https://w3id.org/biodivrisK-onto#","name":"BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks", "headline":"Document describing the ontology https://w3id.org/biodivrisK-onto#", "dateReleased":"2026-07-21", "version":"0.2.0", "license":"https://creativecommons.org/licenses/by/4.0/", "author":[{"@type":"Person","name":"Marcos Daniel Zárate","url":"https://orcid.org/0000-0001-8851-8602"},{"@type":"Person","name":"Gustavo Nuñez"},{"@type":"Person","name":"Marcos Daniel Zárate","url":"https://orcid.org/0000-0001-8851-8602"}]}</script>
 
 <script src="resources/jquery.js"></script> 
 <script src="resources/marked.min.js"></script> 
@@ -66,24 +66,27 @@ $(function(){
 <div class="head">
 <div style="float:right">language <a href="index-en.html"><b>en</b></a> </div>
 <h1>BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks</h1>
-<h2>Release: 2026-07-13</h2>
+<h2>Release: 2026-07-21</h2>
 
 
 <dl>
 <dt>This version:</dt>
 <dd><a href="https://w3id.org/biodivrisK-onto/0.1.0">https://w3id.org/biodivrisK-onto/0.1.0</a></dd>
 <dt>Revision:</dt>
-<dd>0.1.0</dd>
+<dd>0.2.0</dd>
 <dt>Authors:</dt>
-<dd><a href="https://orcid.org/0000-0001-8851-8602">Marcos Daniel Zárate</a></dd>
+<dd><a href="https://orcid.org/0000-0001-8851-8602">Marcos Daniel Zárate</a></dd><dd>Gustavo Nuñez</dd><dd><a href="https://orcid.org/0000-0001-8851-8602">Marcos Daniel Zárate</a></dd>
+
+<dt>Imported Ontologies:</dt>
+<dd><a href="https://w3id.org/biodivrisK-onto">biodivrisK-onto</a></dd>
 
 <dt>See also:</dt>
-<dd><a href="https://github.com/marcosdzarate/biorisk-ai">https://github.com/marcosdzarate/biorisk-ai</a></dd>
+<dd><a href="https://github.com/marcosdzarate/biorisk-ai">https://github.com/marcosdzarate/biorisk-ai</a></dd><dd><a href="https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology">https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology</a></dd>
 
 <dt>Download serialization:</dt><dd><span><a href="ontology.jsonld" target="_blank"><img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD" /></a> </span><span><a href="ontology.owl" target="_blank"><img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML" /></a> </span><span><a href="ontology.nt" target="_blank"><img src="https://img.shields.io/badge/Format-N_Triples-blue.svg" alt="N-Triples" /></a> </span><span><a href="ontology.ttl" target="_blank"><img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL" /></a> </span></dd><dt>License:</dt><dd><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="https://img.shields.io/badge/License-https://creativecommons.org/licenses/by/4.0/-blue.svg" alt="https://creativecommons.org/licenses/by/4.0/" /></a>
 </dd><dt>Visualization:</dt><dd><a href="webvowl/index.html#" target="_blank"><img src="https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg" alt="Visualize with WebVowl" /></a></dd>
 <!-- <dt>Evaluation:</dt><dd><a href="OOPSevaluation/oopsEval.html#" target="_blank"><img src="https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg" alt="Evaluate with OOPS!" /></a></dd> --><dt>Cite as:</dt>
-<dd>Marcos Daniel Zárate. BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks. Revision: 0.1.0. Retrieved from: https://w3id.org/biodivrisK-onto/0.1.0</dd>
+<dd>Marcos Daniel Zárate, Gustavo Nuñez, Marcos Daniel Zárate. BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks. Revision: 0.2.0. Retrieved from: https://w3id.org/biodivrisK-onto/0.1.0</dd>
 </dl>
 
 <a href="provenance/provenance-en.html" target="_blank">Provenance of this page</a><hr/>
@@ -113,11 +116,37 @@ This ontology has the following classes and properties.</span>
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     class="hlist">
    <li>
+      <a href="#BiodiversityDataSource"
+         title="https://w3id.org/biodivrisK-onto#BiodiversityDataSource">Biodiversity Data Source</a>
+   </li>
+   <li>
+      <a href="#Biome" title="https://w3id.org/biodivrisK-onto#Biome">Biome</a>
+   </li>
+   <li>
+      <a href="#Country" title="https://w3id.org/biodivrisK-onto#Country">Country</a>
+   </li>
+   <li>
       <a href="#DataGap" title="https://w3id.org/biodivrisK-onto#DataGap">Data Gap</a>
+   </li>
+   <li>
+      <a href="#DataSufficiencyAssessment"
+         title="https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment">Data Sufficiency Assessment</a>
    </li>
    <li>
       <a href="#DisclosureFramework"
          title="https://w3id.org/biodivrisK-onto#DisclosureFramework">Disclosure Framework</a>
+   </li>
+   <li>
+      <a href="#DisclosureRequirement"
+         title="https://w3id.org/biodivrisK-onto#DisclosureRequirement">Disclosure Requirement</a>
+   </li>
+   <li>
+      <a href="#http://purl.obolibrary.org/obo/ENVO_00000428" title="http://purl.obolibrary.org/obo/ENVO_00000428">
+         <span>E N V O 00000428</span>
+      </a>
+   </li>
+   <li>
+      <a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a>
    </li>
    <li>
       <a href="#ESRSBiodiversitySensitiveArea"
@@ -142,6 +171,10 @@ This ontology has the following classes and properties.</span>
          title="https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency">
          <span>ESRS E4 Material Impacts and Dependencies</span>
       </a>
+   </li>
+   <li>
+      <a href="#FinancialInstitution"
+         title="https://w3id.org/biodivrisK-onto#FinancialInstitution">Financial Institution</a>
    </li>
    <li>
       <a href="#FrameworkConcept"
@@ -170,11 +203,55 @@ This ontology has the following classes and properties.</span>
       </a>
    </li>
    <li>
+      <a href="#IndustrialClassification"
+         title="https://w3id.org/biodivrisK-onto#IndustrialClassification">Industrial Classification Standard</a>
+   </li>
+   <li>
+      <a href="#InformationLoss" title="https://w3id.org/biodivrisK-onto#InformationLoss">Information Loss</a>
+   </li>
+   <li>
+      <a href="#InternalPolicy" title="https://w3id.org/biodivrisK-onto#InternalPolicy">Internal Policy</a>
+   </li>
+   <li>
+      <a href="#LEAPAssessment" title="https://w3id.org/biodivrisK-onto#LEAPAssessment">LEAP Assessment</a>
+   </li>
+   <li>
+      <a href="#MaterialityApproach"
+         title="https://w3id.org/biodivrisK-onto#MaterialityApproach">Materiality Approach</a>
+   </li>
+   <li>
       <a href="#MaterialityBoundary"
          title="https://w3id.org/biodivrisK-onto#MaterialityBoundary">Materiality Boundary</a>
    </li>
    <li>
+      <a href="#MaterialityResult"
+         title="https://w3id.org/biodivrisK-onto#MaterialityResult">Materiality Result</a>
+   </li>
+   <li>
       <a href="#Metric" title="https://w3id.org/biodivrisK-onto#Metric">Metric</a>
+   </li>
+   <li>
+      <a href="#Organization" title="https://w3id.org/biodivrisK-onto#Organization">Organization</a>
+   </li>
+   <li>
+      <a href="#PhysicalRisk" title="https://w3id.org/biodivrisK-onto#PhysicalRisk">Physical Risk</a>
+   </li>
+   <li>
+      <a href="#Portfolio" title="https://w3id.org/biodivrisK-onto#Portfolio">Portfolio</a>
+   </li>
+   <li>
+      <a href="#PriorityLocation"
+         title="https://w3id.org/biodivrisK-onto#PriorityLocation">
+         <span>Priority Location</span>
+      </a>
+   </li>
+   <li>
+      <a href="#QualitativeMaterialityScale"
+         title="https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale">Qualitative Materiality Scale</a>
+   </li>
+   <li>
+      <a href="#QuantitativeMaterialityScale"
+         title="https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale">Quantitative Materiality Scale</a>
    </li>
    <li>
       <a href="#SBTNMeanSpeciesAbundance"
@@ -186,6 +263,10 @@ This ontology has the following classes and properties.</span>
       <a href="#SBTNAR3TTarget" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">
          <span>SBTN Science-based Target (AR3T)</span>
       </a>
+   </li>
+   <li>
+      <a href="#SemanticAmbiguity"
+         title="https://w3id.org/biodivrisK-onto#SemanticAmbiguity">Semantic Ambiguity</a>
    </li>
    <li>
       <a href="#TaxonomicSamplingBias"
@@ -215,6 +296,10 @@ This ontology has the following classes and properties.</span>
          <span>TNFD Priority Location</span>
       </a>
    </li>
+   <li>
+      <a href="#WaterStressRisk"
+         title="https://w3id.org/biodivrisK-onto#WaterStressRisk">Water Stress Risk</a>
+   </li>
 </ul><h4>Object Properties</h4><ul xmlns:widoco="https://w3id.org/widoco/vocab#"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     class="hlist">
@@ -223,14 +308,96 @@ This ontology has the following classes and properties.</span>
          title="https://w3id.org/biodivrisK-onto#affectsFramework">affects framework</a>
    </li>
    <li>
+      <a href="#affectsRiskAssessment"
+         title="https://w3id.org/biodivrisK-onto#affectsRiskAssessment">affects risk assessment</a>
+   </li>
+   <li>
+      <a href="#appliesFramework"
+         title="https://w3id.org/biodivrisK-onto#appliesFramework">applies framework</a>
+   </li>
+   <li>
+      <a href="#assessedUnder" title="https://w3id.org/biodivrisK-onto#assessedUnder">assessed under</a>
+   </li>
+   <li>
       <a href="#complements" title="https://w3id.org/biodivrisK-onto#complements">complements</a>
+   </li>
+   <li>
+      <a href="#coveredByFramework"
+         title="https://w3id.org/biodivrisK-onto#coveredByFramework">covered by framework</a>
+   </li>
+   <li>
+      <a href="#coversRequirement"
+         title="https://w3id.org/biodivrisK-onto#coversRequirement">covers requirement</a>
    </li>
    <li>
       <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a>
    </li>
    <li>
+      <a href="#hasAmbiguity" title="https://w3id.org/biodivrisK-onto#hasAmbiguity">has ambiguity</a>
+   </li>
+   <li>
+      <a href="#hasDataGapIn" title="https://w3id.org/biodivrisK-onto#hasDataGapIn">has data gap in</a>
+   </li>
+   <li>
+      <a href="#hasDataSufficiency"
+         title="https://w3id.org/biodivrisK-onto#hasDataSufficiency">has data sufficiency</a>
+   </li>
+   <li>
+      <a href="#hasEvaluationResult"
+         title="https://w3id.org/biodivrisK-onto#hasEvaluationResult">has evaluation result</a>
+   </li>
+   <li>
+      <a href="#hasInformationLoss"
+         title="https://w3id.org/biodivrisK-onto#hasInformationLoss">has information loss</a>
+   </li>
+   <li>
+      <a href="#hasMaterialityApproach"
+         title="https://w3id.org/biodivrisK-onto#hasMaterialityApproach">has materiality approach</a>
+   </li>
+   <li>
+      <a href="#hasPortfolioSector"
+         title="https://w3id.org/biodivrisK-onto#hasPortfolioSector">has portfolio sector</a>
+   </li>
+   <li>
+      <a href="#hasScale" title="https://w3id.org/biodivrisK-onto#hasScale">has scale</a>
+   </li>
+   <li>
+      <a href="#hasSectorClassification"
+         title="https://w3id.org/biodivrisK-onto#hasSectorClassification">has sector classification</a>
+   </li>
+   <li>
       <a href="#incommensurableWith"
          title="https://w3id.org/biodivrisK-onto#incommensurableWith">incommensurable with</a>
+   </li>
+   <li>
+      <a href="#informsTargetSetting"
+         title="https://w3id.org/biodivrisK-onto#informsTargetSetting">informs target setting</a>
+   </li>
+   <li>
+      <a href="#mappableTo" title="https://w3id.org/biodivrisK-onto#mappableTo">mappable to</a>
+   </li>
+   <li>
+      <a href="#operatesInBiome" title="https://w3id.org/biodivrisK-onto#operatesInBiome">operates in biome</a>
+   </li>
+   <li>
+      <a href="#operatesInCountry"
+         title="https://w3id.org/biodivrisK-onto#operatesInCountry">operates in country</a>
+   </li>
+   <li>
+      <a href="#prioritisesSector"
+         title="https://w3id.org/biodivrisK-onto#prioritisesSector">prioritises sector</a>
+   </li>
+   <li>
+      <a href="#requiresDataFrom"
+         title="https://w3id.org/biodivrisK-onto#requiresDataFrom">requires data from</a>
+   </li>
+   <li>
+      <a href="#requiresInputFrom"
+         title="https://w3id.org/biodivrisK-onto#requiresInputFrom">requires input from</a>
+   </li>
+   <li>
+      <a href="#usesClassification"
+         title="https://w3id.org/biodivrisK-onto#usesClassification">uses classification</a>
    </li>
 </ul><h4>Annotation Properties</h4><ul xmlns:widoco="https://w3id.org/widoco/vocab#"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -241,6 +408,11 @@ This ontology has the following classes and properties.</span>
       </a>
    </li>
    <li>
+      <a href="#http://www.w3.org/2004/02/skos/core#altLabel" title="http://www.w3.org/2004/02/skos/core#altLabel">
+         <span>alt Label</span>
+      </a>
+   </li>
+   <li>
       <a href="#http://purl.org/dc/terms/created" title="http://purl.org/dc/terms/created">
          <span>created</span>
       </a>
@@ -248,6 +420,11 @@ This ontology has the following classes and properties.</span>
    <li>
       <a href="#http://purl.org/dc/terms/creator" title="http://purl.org/dc/terms/creator">
          <span>creator</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2004/02/skos/core#definition" title="http://www.w3.org/2004/02/skos/core#definition">
+         <span>definition</span>
       </a>
    </li>
    <li>
@@ -303,11 +480,99 @@ This ontology has the following classes and properties.</span>
          <span>url</span>
       </a>
    </li>
+   <li>
+      <a href="#http://www.w3.org/ns/prov#wasAssociatedWith" title="http://www.w3.org/ns/prov#wasAssociatedWith">
+         <span>was Associated With</span>
+      </a>
+   </li>
 </ul><h4>Named Individuals</h4><ul xmlns:widoco="https://w3id.org/widoco/vocab#"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     class="hlist">
    <li>
+      <a href="#AgriculturalProductsSector"
+         title="https://w3id.org/biodivrisK-onto#AgriculturalProductsSector">Agricultural Products Sector</a>
+   </li>
+   <li>
+      <a href="#Amazonia" title="https://w3id.org/biodivrisK-onto#Amazonia">Amazonia Biome</a>
+   </li>
+   <li>
+      <a href="#AndeanDataGap" title="https://w3id.org/biodivrisK-onto#AndeanDataGap">Andean GBIF Data Gap</a>
+   </li>
+   <li>
+      <a href="#AndeanWaterStressRisk"
+         title="https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk">Andean Water Stress Risk</a>
+   </li>
+   <li>
+      <a href="#AtlanticForest" title="https://w3id.org/biodivrisK-onto#AtlanticForest">Atlantic Forest Biome</a>
+   </li>
+   <li>
+      <a href="#Bradesco" title="https://w3id.org/biodivrisK-onto#Bradesco">Banco Bradesco</a>
+   </li>
+   <li>
+      <a href="#BNDES" title="https://w3id.org/biodivrisK-onto#BNDES">BNDES</a>
+   </li>
+   <li>
+      <a href="#Brazil" title="https://w3id.org/biodivrisK-onto#Brazil">Brazil</a>
+   </li>
+   <li>
+      <a href="#Caixa" title="https://w3id.org/biodivrisK-onto#Caixa">Caixa Econômica Federal</a>
+   </li>
+   <li>
+      <a href="#CEBDSHeatmapResult"
+         title="https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult">CEBDS Brazil Sector Heatmap Result</a>
+   </li>
+   <li>
+      <a href="#CEBDSBrazilLocateAssessment"
+         title="https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment">CEBDS Brazil TNFD Locate Phase Pilot</a>
+   </li>
+   <li>
+      <a href="#Cerrado" title="https://w3id.org/biodivrisK-onto#Cerrado">Cerrado Biome</a>
+   </li>
+   <li>
+      <a href="#CerradoDataGap" title="https://w3id.org/biodivrisK-onto#CerradoDataGap">Cerrado GBIF Data Gap</a>
+   </li>
+   <li>
+      <a href="#CIIU" title="https://w3id.org/biodivrisK-onto#CIIU">CIIU</a>
+   </li>
+   <li>
+      <a href="#CIIUtoGICSAmbiguity"
+         title="https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity">CIIU to GICS Semantic Ambiguity</a>
+   </li>
+   <li>
+      <a href="#CIIUtoGICSMapping"
+         title="https://w3id.org/biodivrisK-onto#CIIUtoGICSMapping">CIIU to GICS/SASB Mapping (Santander Peru)</a>
+   </li>
+   <li>
+      <a href="#CNAE" title="https://w3id.org/biodivrisK-onto#CNAE">CNAE</a>
+   </li>
+   <li>
+      <a href="#CNAEtoGICSMapping"
+         title="https://w3id.org/biodivrisK-onto#CNAEtoGICSMapping">CNAE to GICS Mapping (CEBDS Brazil)</a>
+   </li>
+   <li>
+      <a href="#CNAEtoGICSAmbiguity"
+         title="https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity">CNAE to GICS Semantic Ambiguity</a>
+   </li>
+   <li>
+      <a href="#ConsumerDiscretionarySector"
+         title="https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector">Consumer Discretionary Sector</a>
+   </li>
+   <li>
+      <a href="#ConsumerStaplesSector"
+         title="https://w3id.org/biodivrisK-onto#ConsumerStaplesSector">Consumer Staples Sector</a>
+   </li>
+   <li>
       <a href="#ESRS_E4" title="https://w3id.org/biodivrisK-onto#ESRS_E4">CSRD/ESRS E4</a>
+   </li>
+   <li>
+      <a href="#ENCOREMateriality"
+         title="https://w3id.org/biodivrisK-onto#ENCOREMateriality">ENCORE Quantitative Materiality Scale</a>
+   </li>
+   <li>
+      <a href="#ENCOREScale" title="https://w3id.org/biodivrisK-onto#ENCOREScale">ENCORE Scale 3-9</a>
+   </li>
+   <li>
+      <a href="#ENCOREData" title="https://w3id.org/biodivrisK-onto#ENCOREData">ENCORE Tool</a>
    </li>
    <li>
       <a href="#ESRSBiodiversitySensitiveArea"
@@ -334,7 +599,21 @@ This ontology has the following classes and properties.</span>
       </a>
    </li>
    <li>
+      <a href="#GBIFData" title="https://w3id.org/biodivrisK-onto#GBIFData">GBIF Occurrence Data</a>
+   </li>
+   <li>
+      <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a>
+   </li>
+   <li>
+      <a href="#GlobalForestWatchData"
+         title="https://w3id.org/biodivrisK-onto#GlobalForestWatchData">Global Forest Watch</a>
+   </li>
+   <li>
       <a href="#GRI101" title="https://w3id.org/biodivrisK-onto#GRI101">GRI 101</a>
+   </li>
+   <li>
+      <a href="#GRI101ImpactMateriality"
+         title="https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality">GRI 101 Impact Materiality</a>
    </li>
    <li>
       <a href="#GRIManagementApproach"
@@ -349,17 +628,66 @@ This ontology has the following classes and properties.</span>
       </a>
    </li>
    <li>
+      <a href="#GRIProtectedAreaKBA"
+         title="https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA">GRI 101 Operations in/adjacent to Protected Areas and KBAs</a>
+   </li>
+   <li>
       <a href="#GRIImpactMateriality"
          title="https://w3id.org/biodivrisK-onto#GRIImpactMateriality">
          <span>GRI Impact Materiality</span>
       </a>
    </li>
    <li>
+      <a href="#IndustrialsSector"
+         title="https://w3id.org/biodivrisK-onto#IndustrialsSector">Industrials Sector</a>
+   </li>
+   <li>
+      <a href="#ItauUnibanco" title="https://w3id.org/biodivrisK-onto#ItauUnibanco">Itaú Unibanco</a>
+   </li>
+   <li>
       <a href="#LACGeographicBias"
          title="https://w3id.org/biodivrisK-onto#LACGeographicBias">LAC Geographic Sampling Bias</a>
    </li>
    <li>
+      <a href="#MiningAndMetalsSector"
+         title="https://w3id.org/biodivrisK-onto#MiningAndMetalsSector">Mining and Metals Sector</a>
+   </li>
+   <li>
+      <a href="#OBISData" title="https://w3id.org/biodivrisK-onto#OBISData">OBIS Marine Data</a>
+   </li>
+   <li>
+      <a href="#Peru" title="https://w3id.org/biodivrisK-onto#Peru">Peru</a>
+   </li>
+   <li>
+      <a href="#PriorityLocation"
+         title="https://w3id.org/biodivrisK-onto#PriorityLocation">
+         <span>Priority Location</span>
+      </a>
+   </li>
+   <li>
+      <a href="#SantanderBrasil"
+         title="https://w3id.org/biodivrisK-onto#SantanderBrasil">Santander Brasil</a>
+   </li>
+   <li>
+      <a href="#SantanderPeru" title="https://w3id.org/biodivrisK-onto#SantanderPeru">Santander Peru</a>
+   </li>
+   <li>
+      <a href="#SantanderPeruESCCPolicy"
+         title="https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy">Santander Peru ESCC Risk Policy</a>
+   </li>
+   <li>
+      <a href="#SantanderPeruL4Assessment"
+         title="https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment">Santander Peru LEAP L4 Assessment</a>
+   </li>
+   <li>
+      <a href="#SASB_SICS" title="https://w3id.org/biodivrisK-onto#SASB_SICS">SASB SICS</a>
+   </li>
+   <li>
       <a href="#SBTN" title="https://w3id.org/biodivrisK-onto#SBTN">SBTN</a>
+   </li>
+   <li>
+      <a href="#SBTNAR3TTargetInstance"
+         title="https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance">SBTN AR3T Science-based Target</a>
    </li>
    <li>
       <a href="#SBTNMeanSpeciesAbundance"
@@ -371,6 +699,10 @@ This ontology has the following classes and properties.</span>
       <a href="#SBTNAR3TTarget" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">
          <span>SBTN Science-based Target (AR3T)</span>
       </a>
+   </li>
+   <li>
+      <a href="#SBTNtargetToGRIConversion"
+         title="https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion">SBTN Target to GRI Management Approach Conversion</a>
    </li>
    <li>
       <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a>
@@ -399,6 +731,20 @@ This ontology has the following classes and properties.</span>
          <span>TNFD Priority Location</span>
       </a>
    </li>
+   <li>
+      <a href="#TNFDStrategyD" title="https://w3id.org/biodivrisK-onto#TNFDStrategyD">TNFD Strategy D</a>
+   </li>
+   <li>
+      <a href="#TropicalAndes" title="https://w3id.org/biodivrisK-onto#TropicalAndes">Tropical Andes Biome</a>
+   </li>
+   <li>
+      <a href="#UtilitiesSector"
+         title="https://w3id.org/biodivrisK-onto#UtilitiesSector">Utilities Sector</a>
+   </li>
+   <li>
+      <a href="#WRIAqueductData"
+         title="https://w3id.org/biodivrisK-onto#WRIAqueductData">WRI Aqueduct</a>
+   </li>
 </ul><iframe src="webvowl/index.html"></iframe> 
 </div>
   
@@ -415,27 +761,124 @@ This section provides details for each class and property defined by BiodivRisk-
 <div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="classes">
  <h3 id="classes-headline" class="list">Classes</h3>
  <ul class="hlist">
+  <li><a href="#BiodiversityDataSource" title="https://w3id.org/biodivrisK-onto#BiodiversityDataSource">Biodiversity Data Source</a></li>
+  <li><a href="#Biome" title="https://w3id.org/biodivrisK-onto#Biome">Biome</a></li>
+  <li><a href="#Country" title="https://w3id.org/biodivrisK-onto#Country">Country</a></li>
   <li><a href="#DataGap" title="https://w3id.org/biodivrisK-onto#DataGap">Data Gap</a></li>
+  <li><a href="#DataSufficiencyAssessment" title="https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment">Data Sufficiency Assessment</a></li>
   <li><a href="#DisclosureFramework" title="https://w3id.org/biodivrisK-onto#DisclosureFramework">Disclosure Framework</a></li>
+  <li><a href="#DisclosureRequirement" title="https://w3id.org/biodivrisK-onto#DisclosureRequirement">Disclosure Requirement</a></li>
+  <li><a href="#http://purl.obolibrary.org/obo/ENVO_00000428" title="http://purl.obolibrary.org/obo/ENVO_00000428"> <span>E N V O 00000428</span> </a></li>
+  <li><a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a></li>
   <li><a href="#ESRSBiodiversitySensitiveArea" title="https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea"> <span>ESRS E4 Biodiversity-sensitive Area</span> </a></li>
   <li><a href="#ESRSDoubleMateriality" title="https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality"> <span>ESRS E4 Double Materiality</span> </a></li>
   <li><a href="#ESRSLandUseDatapoint" title="https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint"> <span>ESRS E4 Land-use Change Datapoint</span> </a></li>
   <li><a href="#ESRSMaterialImpactDependency" title="https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency"> <span>ESRS E4 Material Impacts and Dependencies</span> </a></li>
+  <li><a href="#FinancialInstitution" title="https://w3id.org/biodivrisK-onto#FinancialInstitution">Financial Institution</a></li>
   <li><a href="#FrameworkConcept" title="https://w3id.org/biodivrisK-onto#FrameworkConcept">Framework Concept</a></li>
   <li><a href="#GeographicSamplingBias" title="https://w3id.org/biodivrisK-onto#GeographicSamplingBias">Geographic Sampling Bias</a></li>
   <li><a href="#GRIManagementApproach" title="https://w3id.org/biodivrisK-onto#GRIManagementApproach"> <span>GRI 101 Management Approach</span> </a></li>
   <li><a href="#GRIOperationsAdjacentProtectedAreas" title="https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas"> <span>GRI 101 Operations in/adjacent to Protected Areas and KBAs</span> </a></li>
   <li><a href="#GRIImpactMateriality" title="https://w3id.org/biodivrisK-onto#GRIImpactMateriality"> <span>GRI Impact Materiality</span> </a></li>
+  <li><a href="#IndustrialClassification" title="https://w3id.org/biodivrisK-onto#IndustrialClassification">Industrial Classification Standard</a></li>
+  <li><a href="#InformationLoss" title="https://w3id.org/biodivrisK-onto#InformationLoss">Information Loss</a></li>
+  <li><a href="#InternalPolicy" title="https://w3id.org/biodivrisK-onto#InternalPolicy">Internal Policy</a></li>
+  <li><a href="#LEAPAssessment" title="https://w3id.org/biodivrisK-onto#LEAPAssessment">LEAP Assessment</a></li>
+  <li><a href="#MaterialityApproach" title="https://w3id.org/biodivrisK-onto#MaterialityApproach">Materiality Approach</a></li>
   <li><a href="#MaterialityBoundary" title="https://w3id.org/biodivrisK-onto#MaterialityBoundary">Materiality Boundary</a></li>
+  <li><a href="#MaterialityResult" title="https://w3id.org/biodivrisK-onto#MaterialityResult">Materiality Result</a></li>
   <li><a href="#Metric" title="https://w3id.org/biodivrisK-onto#Metric">Metric</a></li>
+  <li><a href="#Organization" title="https://w3id.org/biodivrisK-onto#Organization">Organization</a></li>
+  <li><a href="#PhysicalRisk" title="https://w3id.org/biodivrisK-onto#PhysicalRisk">Physical Risk</a></li>
+  <li><a href="#Portfolio" title="https://w3id.org/biodivrisK-onto#Portfolio">Portfolio</a></li>
+  <li><a href="#PriorityLocation" title="https://w3id.org/biodivrisK-onto#PriorityLocation"> <span>Priority Location</span> </a></li>
+  <li><a href="#QualitativeMaterialityScale" title="https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale">Qualitative Materiality Scale</a></li>
+  <li><a href="#QuantitativeMaterialityScale" title="https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale">Quantitative Materiality Scale</a></li>
   <li><a href="#SBTNMeanSpeciesAbundance" title="https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance"> <span>SBTN Mean Species Abundance (MSA)</span> </a></li>
   <li><a href="#SBTNAR3TTarget" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"> <span>SBTN Science-based Target (AR3T)</span> </a></li>
+  <li><a href="#SemanticAmbiguity" title="https://w3id.org/biodivrisK-onto#SemanticAmbiguity">Semantic Ambiguity</a></li>
   <li><a href="#TaxonomicSamplingBias" title="https://w3id.org/biodivrisK-onto#TaxonomicSamplingBias">Taxonomic Sampling Bias</a></li>
   <li><a href="#TNFDEnterpriseMateriality" title="https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality"> <span>TNFD Enterprise-value Materiality</span> </a></li>
   <li><a href="#TNFDImpactDependency" title="https://w3id.org/biodivrisK-onto#TNFDImpactDependency"> <span>TNFD Impacts and Dependencies on Nature</span> </a></li>
   <li><a href="#TNFDLandUseChangeMetric" title="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric"> <span>TNFD Land/Freshwater/Ocean-use Change Metric</span> </a></li>
   <li><a href="#TNFDPriorityLocation" title="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation"> <span>TNFD Priority Location</span> </a></li>
+  <li><a href="#WaterStressRisk" title="https://w3id.org/biodivrisK-onto#WaterStressRisk">Water Stress Risk</a></li>
  </ul>
+ <div class="entity" id="BiodiversityDataSource">
+  <h3>Biodiversity Data Source<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#BiodiversityDataSource</p>
+  <div class="comment">
+   <span class="markdown">An open or proprietary data source used to obtain species occurrence, ecosystem integrity or water risk data during a LEAP assessment (e.g., GBIF, OBIS, ENCORE, Global Forest Watch, WRI Aqueduct, IBAT).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#Entity" target="_blank" title="http://www.w3.org/ns/prov#Entity">Entity</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#requiresDataFrom" title="https://w3id.org/biodivrisK-onto#requiresDataFrom">requires data from</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#ENCOREData" title="https://w3id.org/biodivrisK-onto#ENCOREData">ENCORE Tool</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#GBIFData" title="https://w3id.org/biodivrisK-onto#GBIFData">GBIF Occurrence Data</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#GlobalForestWatchData" title="https://w3id.org/biodivrisK-onto#GlobalForestWatchData">Global Forest Watch</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#OBISData" title="https://w3id.org/biodivrisK-onto#OBISData">OBIS Marine Data</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#WRIAqueductData" title="https://w3id.org/biodivrisK-onto#WRIAqueductData">WRI Aqueduct</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Biome">
+  <h3>Biome<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#Biome</p>
+  <div class="comment">
+   <span class="markdown">A major ecological zone characterized by distinctive climate, vegetation and biodiversity. Reuses ENVO biome concept (ENVO:00000428). In LAC, biomes are megadiverse and systematically under-sampled in GBIF/OBIS.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasDataGapIn" title="https://w3id.org/biodivrisK-onto#hasDataGapIn">has data gap in</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasDataSufficiency" title="https://w3id.org/biodivrisK-onto#hasDataSufficiency">has data sufficiency</a> <sup class="type-op" title="object property">op</sup>, <a href="#operatesInBiome" title="https://w3id.org/biodivrisK-onto#operatesInBiome">operates in biome</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#Amazonia" title="https://w3id.org/biodivrisK-onto#Amazonia">Amazonia Biome</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#AtlanticForest" title="https://w3id.org/biodivrisK-onto#AtlanticForest">Atlantic Forest Biome</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#Cerrado" title="https://w3id.org/biodivrisK-onto#Cerrado">Cerrado Biome</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#TropicalAndes" title="https://w3id.org/biodivrisK-onto#TropicalAndes">Tropical Andes Biome</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Country">
+  <h3>Country<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#Country</p>
+  <div class="comment">
+   <span class="markdown">A sovereign country where a financial institution operates or has portfolio exposure.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="https://schema.org/Country" target="_blank" title="https://schema.org/Country">Country</a> <sup class="type-c" title="class">c</sup>, <a href="http://www.opengis.net/ont/geosparql#Feature" target="_blank" title="http://www.opengis.net/ont/geosparql#Feature">Feature</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#operatesInCountry" title="https://w3id.org/biodivrisK-onto#operatesInCountry">operates in country</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#Brazil" title="https://w3id.org/biodivrisK-onto#Brazil">Brazil</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#Peru" title="https://w3id.org/biodivrisK-onto#Peru">Peru</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
  <div class="entity" id="DataGap">
   <h3>Data Gap<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#DataGap</p>
@@ -457,6 +900,27 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
   </dl>
  </div>
+ <div class="entity" id="DataSufficiencyAssessment">
+  <h3>Data Sufficiency Assessment<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment</p>
+  <div class="comment">
+   <span class="markdown">An evaluation of whether available biodiversity data from sources such as GBIF and OBIS are sufficient to meet the information requirements of a given disclosure framework for a specific biome, sector and location. Quantifies data gaps arising from geographic and taxonomic sampling bias.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#Activity" target="_blank" title="http://www.w3.org/ns/prov#Activity">Activity</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasDataSufficiency" title="https://w3id.org/biodivrisK-onto#hasDataSufficiency">has data sufficiency</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
  <div class="entity" id="DisclosureFramework">
   <h3>Disclosure Framework<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#DisclosureFramework</p>
@@ -465,10 +929,16 @@ This section provides details for each class and property defined by BiodivRisk-
   </div>
   <dl class="description">
    <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasDataGapIn" title="https://w3id.org/biodivrisK-onto#hasDataGapIn">has data gap in</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasMaterialityApproach" title="https://w3id.org/biodivrisK-onto#hasMaterialityApproach">has materiality approach</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
     is in range of
    </dt>
    <dd>
-    <a href="#affectsFramework" title="https://w3id.org/biodivrisK-onto#affectsFramework">affects framework</a> <sup class="type-op" title="object property">op</sup>, <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup>
+    <a href="#affectsFramework" title="https://w3id.org/biodivrisK-onto#affectsFramework">affects framework</a> <sup class="type-op" title="object property">op</sup>, <a href="#appliesFramework" title="https://w3id.org/biodivrisK-onto#appliesFramework">applies framework</a> <sup class="type-op" title="object property">op</sup>, <a href="#assessedUnder" title="https://w3id.org/biodivrisK-onto#assessedUnder">assessed under</a> <sup class="type-op" title="object property">op</sup>, <a href="#coveredByFramework" title="https://w3id.org/biodivrisK-onto#coveredByFramework">covered by framework</a> <sup class="type-op" title="object property">op</sup>, <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup>
    </dd>
    <dt>
     has members
@@ -478,10 +948,76 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
   </dl>
  </div>
+ <div class="entity" id="DisclosureRequirement">
+  <h3>Disclosure Requirement<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#DisclosureRequirement</p>
+  <div class="comment">
+   <span class="markdown">A specific disclosure requirement within a framework, at the level of a recommended disclosure, datapoint or metric (e.g., TNFD Strategy D, ESRS E4-5, GRI 101-6).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#coversRequirement" title="https://w3id.org/biodivrisK-onto#coversRequirement">covers requirement</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#GRIProtectedAreaKBA" title="https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA">GRI 101 Operations in/adjacent to Protected Areas and KBAs</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#TNFDStrategyD" title="https://w3id.org/biodivrisK-onto#TNFDStrategyD">TNFD Strategy D</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="http://purl.obolibrary.org/obo/ENVO_00000428">
+  <h3>E N V O 00000428<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.obolibrary.org/obo/ENVO_00000428</p>
+  <dl class="description">
+   <dt>
+    is equivalent to
+   </dt>
+   <dd>
+    <a href="#Biome" title="https://w3id.org/biodivrisK-onto#Biome">Biome</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Sector">
+  <h3>Economic Sector<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#Sector</p>
+  <div class="comment">
+   <span class="markdown">An economic sector associated with potential impacts and dependencies on nature, classifiable under international standards such as GICS or SASB/SICS.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#assessedUnder" title="https://w3id.org/biodivrisK-onto#assessedUnder">assessed under</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasSectorClassification" title="https://w3id.org/biodivrisK-onto#hasSectorClassification">has sector classification</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasPortfolioSector" title="https://w3id.org/biodivrisK-onto#hasPortfolioSector">has portfolio sector</a> <sup class="type-op" title="object property">op</sup>, <a href="#prioritisesSector" title="https://w3id.org/biodivrisK-onto#prioritisesSector">prioritises sector</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#AgriculturalProductsSector" title="https://w3id.org/biodivrisK-onto#AgriculturalProductsSector">Agricultural Products Sector</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#ConsumerDiscretionarySector" title="https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector">Consumer Discretionary Sector</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#ConsumerStaplesSector" title="https://w3id.org/biodivrisK-onto#ConsumerStaplesSector">Consumer Staples Sector</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#IndustrialsSector" title="https://w3id.org/biodivrisK-onto#IndustrialsSector">Industrials Sector</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#MiningAndMetalsSector" title="https://w3id.org/biodivrisK-onto#MiningAndMetalsSector">Mining and Metals Sector</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#UtilitiesSector" title="https://w3id.org/biodivrisK-onto#UtilitiesSector">Utilities Sector</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
  <div class="entity" id="ESRSBiodiversitySensitiveArea">
   <h3>ESRS E4 Biodiversity-sensitive Area<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea</p>
   <dl class="description">
+   <dt>
+    is equivalent to
+   </dt>
+   <dd>
+    <a href="#GRIOperationsAdjacentProtectedAreas" title="https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas">GRI 101 Operations in/adjacent to Protected Areas and KBAs</a> <sup class="type-c" title="class">c</sup>
+   </dd>
    <dt>
     has super-classes
    </dt>
@@ -562,6 +1098,33 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
   </dl>
  </div>
+ <div class="entity" id="FinancialInstitution">
+  <h3>Financial Institution<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#FinancialInstitution</p>
+  <div class="comment">
+   <span class="markdown">A bank, investment fund, insurance company or other financial institution whose portfolio exposure to nature-related risks is assessed through biodiversity risk frameworks.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="https://schema.org/BankOrCreditUnion" target="_blank" title="https://schema.org/BankOrCreditUnion">Bank Or Credit Union</a> <sup class="type-c" title="class">c</sup>, <a href="#Organization" title="https://w3id.org/biodivrisK-onto#Organization">Organization</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasPortfolioSector" title="https://w3id.org/biodivrisK-onto#hasPortfolioSector">has portfolio sector</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#BNDES" title="https://w3id.org/biodivrisK-onto#BNDES">BNDES</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#Bradesco" title="https://w3id.org/biodivrisK-onto#Bradesco">Banco Bradesco</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#Caixa" title="https://w3id.org/biodivrisK-onto#Caixa">Caixa Econômica Federal</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#ItauUnibanco" title="https://w3id.org/biodivrisK-onto#ItauUnibanco">Itaú Unibanco</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#SantanderBrasil" title="https://w3id.org/biodivrisK-onto#SantanderBrasil">Santander Brasil</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#SantanderPeru" title="https://w3id.org/biodivrisK-onto#SantanderPeru">Santander Peru</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
  <div class="entity" id="FrameworkConcept">
   <h3>Framework Concept<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#FrameworkConcept</p>
@@ -573,13 +1136,13 @@ This section provides details for each class and property defined by BiodivRisk-
     has sub-classes
    </dt>
    <dd>
-    <a href="#ESRSBiodiversitySensitiveArea" title="https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea">ESRS E4 Biodiversity-sensitive Area</a> <sup class="type-c" title="class">c</sup>, <a href="#ESRSMaterialImpactDependency" title="https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency">ESRS E4 Material Impacts and Dependencies</a> <sup class="type-c" title="class">c</sup>, <a href="#GRIManagementApproach" title="https://w3id.org/biodivrisK-onto#GRIManagementApproach">GRI 101 Management Approach</a> <sup class="type-c" title="class">c</sup>, <a href="#GRIOperationsAdjacentProtectedAreas" title="https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas">GRI 101 Operations in/adjacent to Protected Areas and KBAs</a> <sup class="type-c" title="class">c</sup>, <a href="#Metric" title="https://w3id.org/biodivrisK-onto#Metric">Metric</a> <sup class="type-c" title="class">c</sup>, <a href="#SBTNAR3TTarget" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">SBTN Science-based Target (AR3T)</a> <sup class="type-c" title="class">c</sup>, <a href="#TNFDImpactDependency" title="https://w3id.org/biodivrisK-onto#TNFDImpactDependency">TNFD Impacts and Dependencies on Nature</a> <sup class="type-c" title="class">c</sup>, <a href="#TNFDPriorityLocation" title="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation">TNFD Priority Location</a> <sup class="type-c" title="class">c</sup>
+    <a href="#ESRSBiodiversitySensitiveArea" title="https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea">ESRS E4 Biodiversity-sensitive Area</a> <sup class="type-c" title="class">c</sup>, <a href="#ESRSMaterialImpactDependency" title="https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency">ESRS E4 Material Impacts and Dependencies</a> <sup class="type-c" title="class">c</sup>, <a href="#GRIManagementApproach" title="https://w3id.org/biodivrisK-onto#GRIManagementApproach">GRI 101 Management Approach</a> <sup class="type-c" title="class">c</sup>, <a href="#GRIOperationsAdjacentProtectedAreas" title="https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas">GRI 101 Operations in/adjacent to Protected Areas and KBAs</a> <sup class="type-c" title="class">c</sup>, <a href="#Metric" title="https://w3id.org/biodivrisK-onto#Metric">Metric</a> <sup class="type-c" title="class">c</sup>, <a href="#PriorityLocation" title="https://w3id.org/biodivrisK-onto#PriorityLocation">Priority Location</a> <sup class="type-c" title="class">c</sup>, <a href="#SBTNAR3TTarget" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">SBTN Science-based Target (AR3T)</a> <sup class="type-c" title="class">c</sup>, <a href="#TNFDImpactDependency" title="https://w3id.org/biodivrisK-onto#TNFDImpactDependency">TNFD Impacts and Dependencies on Nature</a> <sup class="type-c" title="class">c</sup>, <a href="#TNFDPriorityLocation" title="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation">TNFD Priority Location</a> <sup class="type-c" title="class">c</sup>
    </dd>
    <dt>
     is in domain of
    </dt>
    <dd>
-    <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup>
+    <a href="#coveredByFramework" title="https://w3id.org/biodivrisK-onto#coveredByFramework">covered by framework</a> <sup class="type-op" title="object property">op</sup>, <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup>
    </dd>
   </dl>
  </div>
@@ -600,7 +1163,7 @@ This section provides details for each class and property defined by BiodivRisk-
     has members
    </dt>
    <dd>
-    <a href="#LACGeographicBias" title="https://w3id.org/biodivrisK-onto#LACGeographicBias">LAC Geographic Sampling Bias</a> <sup class="type-ni" title="named individual">ni</sup>
+    <a href="#AndeanDataGap" title="https://w3id.org/biodivrisK-onto#AndeanDataGap">Andean GBIF Data Gap</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#CerradoDataGap" title="https://w3id.org/biodivrisK-onto#CerradoDataGap">Cerrado GBIF Data Gap</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#LACGeographicBias" title="https://w3id.org/biodivrisK-onto#LACGeographicBias">LAC Geographic Sampling Bias</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
   </dl>
  </div>
@@ -658,6 +1221,135 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
   </dl>
  </div>
+ <div class="entity" id="IndustrialClassification">
+  <h3>Industrial Classification Standard<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#IndustrialClassification</p>
+  <div class="comment">
+   <span class="markdown">A standard system for classifying economic activities into sectors and subsectors (e.g., GICS, CNAE, CIIU, SASB/SICS). Different standards may not be mutually translatable without ambiguity.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasAmbiguity" title="https://w3id.org/biodivrisK-onto#hasAmbiguity">has ambiguity</a> <sup class="type-op" title="object property">op</sup>, <a href="#mappableTo" title="https://w3id.org/biodivrisK-onto#mappableTo">mappable to</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasSectorClassification" title="https://w3id.org/biodivrisK-onto#hasSectorClassification">has sector classification</a> <sup class="type-op" title="object property">op</sup>, <a href="#mappableTo" title="https://w3id.org/biodivrisK-onto#mappableTo">mappable to</a> <sup class="type-op" title="object property">op</sup>, <a href="#usesClassification" title="https://w3id.org/biodivrisK-onto#usesClassification">uses classification</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#CIIU" title="https://w3id.org/biodivrisK-onto#CIIU">CIIU</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#CNAE" title="https://w3id.org/biodivrisK-onto#CNAE">CNAE</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#SASB_SICS" title="https://w3id.org/biodivrisK-onto#SASB_SICS">SASB SICS</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="InformationLoss">
+  <h3>Information Loss<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#InformationLoss</p>
+  <div class="comment">
+   <span class="markdown">The loss of material information that occurs when translating a disclosure or target from one framework to another under an incommensurability relationship. Complements bro:hasBridgingCondition by documenting what is lost, not just under what conditions the conversion is admissible.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasInformationLoss" title="https://w3id.org/biodivrisK-onto#hasInformationLoss">has information loss</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#SBTNtargetToGRIConversion" title="https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion">SBTN Target to GRI Management Approach Conversion</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="InternalPolicy">
+  <h3>Internal Policy<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#InternalPolicy</p>
+  <div class="comment">
+   <span class="markdown">An organization's internal policy for managing environmental, social, climate or nature-related risks (e.g., an ESCC policy). May partially cover requirements of external disclosure frameworks.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#coversRequirement" title="https://w3id.org/biodivrisK-onto#coversRequirement">covers requirement</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#SantanderPeruESCCPolicy" title="https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy">Santander Peru ESCC Risk Policy</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="LEAPAssessment">
+  <h3>LEAP Assessment<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#LEAPAssessment</p>
+  <div class="comment">
+   <span class="markdown">A structured assessment following the TNFD LEAP methodology (Locate, Evaluate, Assess, Prepare), conducted by an organization to identify and assess its nature-related dependencies, impacts, risks and opportunities. Connects the organization, frameworks applied, sectors evaluated, biomes, data sources and gaps identified.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#Activity" target="_blank" title="http://www.w3.org/ns/prov#Activity">Activity</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasEvaluationResult" title="https://w3id.org/biodivrisK-onto#hasEvaluationResult">has evaluation result</a> <sup class="type-op" title="object property">op</sup>, <a href="#informsTargetSetting" title="https://w3id.org/biodivrisK-onto#informsTargetSetting">informs target setting</a> <sup class="type-op" title="object property">op</sup>, <a href="#requiresDataFrom" title="https://w3id.org/biodivrisK-onto#requiresDataFrom">requires data from</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#requiresInputFrom" title="https://w3id.org/biodivrisK-onto#requiresInputFrom">requires input from</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#CEBDSBrazilLocateAssessment" title="https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment">CEBDS Brazil TNFD Locate Phase Pilot</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#SantanderPeruL4Assessment" title="https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment">Santander Peru LEAP L4 Assessment</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="MaterialityApproach">
+  <h3>Materiality Approach<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#MaterialityApproach</p>
+  <div class="comment">
+   <span class="markdown">A methodological approach for determining which nature-related impacts, risks and opportunities are material and must be disclosed. Different frameworks apply different approaches (financial, impact, or double materiality) that are not mutually equivalent.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#QualitativeMaterialityScale" title="https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale">Qualitative Materiality Scale</a> <sup class="type-c" title="class">c</sup>, <a href="#QuantitativeMaterialityScale" title="https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale">Quantitative Materiality Scale</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasScale" title="https://w3id.org/biodivrisK-onto#hasScale">has scale</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasMaterialityApproach" title="https://w3id.org/biodivrisK-onto#hasMaterialityApproach">has materiality approach</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
  <div class="entity" id="MaterialityBoundary">
   <h3>Materiality Boundary<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#MaterialityBoundary</p>
@@ -670,6 +1362,39 @@ This section provides details for each class and property defined by BiodivRisk-
    </dt>
    <dd>
     <a href="#ESRSDoubleMateriality" title="https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality">ESRS E4 Double Materiality</a> <sup class="type-c" title="class">c</sup>, <a href="#GRIImpactMateriality" title="https://w3id.org/biodivrisK-onto#GRIImpactMateriality">GRI Impact Materiality</a> <sup class="type-c" title="class">c</sup>, <a href="#TNFDEnterpriseMateriality" title="https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality">TNFD Enterprise-value Materiality</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#affectsRiskAssessment" title="https://w3id.org/biodivrisK-onto#affectsRiskAssessment">affects risk assessment</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="MaterialityResult">
+  <h3>Materiality Result<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#MaterialityResult</p>
+  <div class="comment">
+   <span class="markdown">The output of a materiality assessment — a ranked or scored set of sectors, locations or impacts identified as material under a specific framework and approach.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#prioritisesSector" title="https://w3id.org/biodivrisK-onto#prioritisesSector">prioritises sector</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasEvaluationResult" title="https://w3id.org/biodivrisK-onto#hasEvaluationResult">has evaluation result</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#CEBDSHeatmapResult" title="https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult">CEBDS Brazil Sector Heatmap Result</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
   </dl>
  </div>
@@ -691,6 +1416,127 @@ This section provides details for each class and property defined by BiodivRisk-
    </dt>
    <dd>
     <a href="#ESRSLandUseDatapoint" title="https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint">ESRS E4 Land-use Change Datapoint</a> <sup class="type-c" title="class">c</sup>, <a href="#SBTNMeanSpeciesAbundance" title="https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance">SBTN Mean Species Abundance (MSA)</a> <sup class="type-c" title="class">c</sup>, <a href="#TNFDLandUseChangeMetric" title="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric">TNFD Land/Freshwater/Ocean-use Change Metric</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Organization">
+  <h3>Organization<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#Organization</p>
+  <div class="comment">
+   <span class="markdown">An organization that applies one or more biodiversity risk disclosure frameworks to assess its nature-related dependencies, impacts, risks and opportunities.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="https://schema.org/Organization" target="_blank" title="https://schema.org/Organization">Organization</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#FinancialInstitution" title="https://w3id.org/biodivrisK-onto#FinancialInstitution">Financial Institution</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#appliesFramework" title="https://w3id.org/biodivrisK-onto#appliesFramework">applies framework</a> <sup class="type-op" title="object property">op</sup>, <a href="#operatesInBiome" title="https://w3id.org/biodivrisK-onto#operatesInBiome">operates in biome</a> <sup class="type-op" title="object property">op</sup>, <a href="#operatesInCountry" title="https://w3id.org/biodivrisK-onto#operatesInCountry">operates in country</a> <sup class="type-op" title="object property">op</sup>, <a href="#usesClassification" title="https://w3id.org/biodivrisK-onto#usesClassification">uses classification</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="PhysicalRisk">
+  <h3>Physical Risk<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#PhysicalRisk</p>
+  <div class="comment">
+   <span class="markdown">A nature-related physical risk arising from the degradation of ecosystems or natural capital, including water stress, ecosystem collapse, loss of pollination, erosion or flooding. Corresponds to TNFD and ESRS physical risk category.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#WaterStressRisk" title="https://w3id.org/biodivrisK-onto#WaterStressRisk">Water Stress Risk</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#affectsRiskAssessment" title="https://w3id.org/biodivrisK-onto#affectsRiskAssessment">affects risk assessment</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Portfolio">
+  <h3>Portfolio<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#Portfolio</p>
+  <div class="comment">
+   <span class="markdown">A credit or investment portfolio of a financial institution, composed of assets across multiple economic sectors and geographic locations.</span>
+  </div>
+ </div>
+ <div class="entity" id="PriorityLocation">
+  <h3>Priority Location<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#PriorityLocation</p>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#FrameworkConcept" title="https://w3id.org/biodivrisK-onto#FrameworkConcept">Framework Concept</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is also defined as
+   </dt>
+   <dd>
+    <a href="#PriorityLocation">named individual</a>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="QualitativeMaterialityScale">
+  <h3>Qualitative Materiality Scale<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale</p>
+  <div class="comment">
+   <span class="markdown">A narrative or categorical approach to assessing materiality of nature-related impacts, without a fixed numerical scale (e.g., GRI 101 impact materiality approach).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#MaterialityApproach" title="https://w3id.org/biodivrisK-onto#MaterialityApproach">Materiality Approach</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#GRI101ImpactMateriality" title="https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality">GRI 101 Impact Materiality</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="QuantitativeMaterialityScale">
+  <h3>Quantitative Materiality Scale<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale</p>
+  <div class="comment">
+   <span class="markdown">A numerical scale used to score materiality of nature-related impacts and dependencies (e.g., ENCORE scale 3-9: very low=3, low=4.5, medium=6, high=7.5, very high=9).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#MaterialityApproach" title="https://w3id.org/biodivrisK-onto#MaterialityApproach">Materiality Approach</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasScale" title="https://w3id.org/biodivrisK-onto#hasScale">has scale</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#ENCOREMateriality" title="https://w3id.org/biodivrisK-onto#ENCOREMateriality">ENCORE Quantitative Materiality Scale</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#ENCOREScale" title="https://w3id.org/biodivrisK-onto#ENCOREScale">ENCORE Scale 3-9</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
   </dl>
  </div>
@@ -723,10 +1569,49 @@ This section provides details for each class and property defined by BiodivRisk-
     <a href="#FrameworkConcept" title="https://w3id.org/biodivrisK-onto#FrameworkConcept">Framework Concept</a> <sup class="type-c" title="class">c</sup>
    </dd>
    <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#requiresInputFrom" title="https://w3id.org/biodivrisK-onto#requiresInputFrom">requires input from</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#informsTargetSetting" title="https://w3id.org/biodivrisK-onto#informsTargetSetting">informs target setting</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#SBTNAR3TTargetInstance" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance">SBTN AR3T Science-based Target</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dt>
     is also defined as
    </dt>
    <dd>
     <a href="#SBTNAR3TTarget">named individual</a>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="SemanticAmbiguity">
+  <h3>Semantic Ambiguity<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#SemanticAmbiguity</p>
+  <div class="comment">
+   <span class="markdown">A documented case of semantic ambiguity in the correspondence between two industrial classification standards, where a category in one standard maps to multiple non-equivalent categories in another, or vice versa.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasAmbiguity" title="https://w3id.org/biodivrisK-onto#hasAmbiguity">has ambiguity</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#CIIUtoGICSAmbiguity" title="https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity">CIIU to GICS Semantic Ambiguity</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#CIIUtoGICSMapping" title="https://w3id.org/biodivrisK-onto#CIIUtoGICSMapping">CIIU to GICS/SASB Mapping (Santander Peru)</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#CNAEtoGICSMapping" title="https://w3id.org/biodivrisK-onto#CNAEtoGICSMapping">CNAE to GICS Mapping (CEBDS Brazil)</a> <sup class="type-ni" title="named individual">ni</sup>, <a href="#CNAEtoGICSAmbiguity" title="https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity">CNAE to GICS Semantic Ambiguity</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
   </dl>
  </div>
@@ -823,13 +1708,56 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
   </dl>
  </div>
+ <div class="entity" id="WaterStressRisk">
+  <h3>Water Stress Risk<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#WaterStressRisk</p>
+  <div class="comment">
+   <span class="markdown">Physical risk arising from insufficient availability or quality of freshwater resources, particularly relevant for mining and agricultural sectors in the Andes. Identified as material dependency in the Santander Peru LEAP assessment (L2).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#PhysicalRisk" title="https://w3id.org/biodivrisK-onto#PhysicalRisk">Physical Risk</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has members
+   </dt>
+   <dd>
+    <a href="#AndeanWaterStressRisk" title="https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk">Andean Water Stress Risk</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
 </div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="objectproperties">
  <h3 id="properties" class="list">Object Properties</h3>
  <ul class="hlist">
   <li><a href="#affectsFramework" title="https://w3id.org/biodivrisK-onto#affectsFramework">affects framework</a></li>
+  <li><a href="#affectsRiskAssessment" title="https://w3id.org/biodivrisK-onto#affectsRiskAssessment">affects risk assessment</a></li>
+  <li><a href="#appliesFramework" title="https://w3id.org/biodivrisK-onto#appliesFramework">applies framework</a></li>
+  <li><a href="#assessedUnder" title="https://w3id.org/biodivrisK-onto#assessedUnder">assessed under</a></li>
   <li><a href="#complements" title="https://w3id.org/biodivrisK-onto#complements">complements</a></li>
+  <li><a href="#coveredByFramework" title="https://w3id.org/biodivrisK-onto#coveredByFramework">covered by framework</a></li>
+  <li><a href="#coversRequirement" title="https://w3id.org/biodivrisK-onto#coversRequirement">covers requirement</a></li>
   <li><a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a></li>
+  <li><a href="#hasAmbiguity" title="https://w3id.org/biodivrisK-onto#hasAmbiguity">has ambiguity</a></li>
+  <li><a href="#hasDataGapIn" title="https://w3id.org/biodivrisK-onto#hasDataGapIn">has data gap in</a></li>
+  <li><a href="#hasDataSufficiency" title="https://w3id.org/biodivrisK-onto#hasDataSufficiency">has data sufficiency</a></li>
+  <li><a href="#hasEvaluationResult" title="https://w3id.org/biodivrisK-onto#hasEvaluationResult">has evaluation result</a></li>
+  <li><a href="#hasInformationLoss" title="https://w3id.org/biodivrisK-onto#hasInformationLoss">has information loss</a></li>
+  <li><a href="#hasMaterialityApproach" title="https://w3id.org/biodivrisK-onto#hasMaterialityApproach">has materiality approach</a></li>
+  <li><a href="#hasPortfolioSector" title="https://w3id.org/biodivrisK-onto#hasPortfolioSector">has portfolio sector</a></li>
+  <li><a href="#hasScale" title="https://w3id.org/biodivrisK-onto#hasScale">has scale</a></li>
+  <li><a href="#hasSectorClassification" title="https://w3id.org/biodivrisK-onto#hasSectorClassification">has sector classification</a></li>
   <li><a href="#incommensurableWith" title="https://w3id.org/biodivrisK-onto#incommensurableWith">incommensurable with</a></li>
+  <li><a href="#informsTargetSetting" title="https://w3id.org/biodivrisK-onto#informsTargetSetting">informs target setting</a></li>
+  <li><a href="#mappableTo" title="https://w3id.org/biodivrisK-onto#mappableTo">mappable to</a></li>
+  <li><a href="#operatesInBiome" title="https://w3id.org/biodivrisK-onto#operatesInBiome">operates in biome</a></li>
+  <li><a href="#operatesInCountry" title="https://w3id.org/biodivrisK-onto#operatesInCountry">operates in country</a></li>
+  <li><a href="#prioritisesSector" title="https://w3id.org/biodivrisK-onto#prioritisesSector">prioritises sector</a></li>
+  <li><a href="#requiresDataFrom" title="https://w3id.org/biodivrisK-onto#requiresDataFrom">requires data from</a></li>
+  <li><a href="#requiresInputFrom" title="https://w3id.org/biodivrisK-onto#requiresInputFrom">requires input from</a></li>
+  <li><a href="#usesClassification" title="https://w3id.org/biodivrisK-onto#usesClassification">uses classification</a></li>
  </ul>
  <div class="entity" id="affectsFramework">
   <h3>affects framework<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
@@ -844,6 +1772,75 @@ This section provides details for each class and property defined by BiodivRisk-
     </dt>
     <dd>
      <a href="#DataGap" title="https://w3id.org/biodivrisK-onto#DataGap">Data Gap</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#DisclosureFramework" title="https://w3id.org/biodivrisK-onto#DisclosureFramework">Disclosure Framework</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="affectsRiskAssessment">
+  <h3>affects risk assessment<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#affectsRiskAssessment</p>
+  <div class="comment">
+   <span class="markdown">Relates a materiality boundary gap to the type of physical risk whose assessment is affected.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#MaterialityBoundary" title="https://w3id.org/biodivrisK-onto#MaterialityBoundary">Materiality Boundary</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#PhysicalRisk" title="https://w3id.org/biodivrisK-onto#PhysicalRisk">Physical Risk</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="appliesFramework">
+  <h3>applies framework<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#appliesFramework</p>
+  <div class="comment">
+   <span class="markdown">Relates an organization to a disclosure framework it applies or is subject to.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Organization" title="https://w3id.org/biodivrisK-onto#Organization">Organization</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#DisclosureFramework" title="https://w3id.org/biodivrisK-onto#DisclosureFramework">Disclosure Framework</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="assessedUnder">
+  <h3>assessed under<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#assessedUnder</p>
+  <div class="comment">
+   <span class="markdown">Relates a sector or portfolio to the disclosure framework under which it was assessed for materiality.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a> <sup class="type-c" title="class">c</sup>
     </dd>
     <dt>
      has range
@@ -878,6 +1875,52 @@ This section provides details for each class and property defined by BiodivRisk-
    </dl>
   </div>
  </div>
+ <div class="entity" id="coveredByFramework">
+  <h3>covered by framework<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#coveredByFramework</p>
+  <div class="comment">
+   <span class="markdown">Relates a framework concept to the frameworks that include or address it.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#FrameworkConcept" title="https://w3id.org/biodivrisK-onto#FrameworkConcept">Framework Concept</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#DisclosureFramework" title="https://w3id.org/biodivrisK-onto#DisclosureFramework">Disclosure Framework</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="coversRequirement">
+  <h3>covers requirement<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#coversRequirement</p>
+  <div class="comment">
+   <span class="markdown">Relates an internal policy to the disclosure requirements of external frameworks that it partially or fully covers.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#InternalPolicy" title="https://w3id.org/biodivrisK-onto#InternalPolicy">Internal Policy</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#DisclosureRequirement" title="https://w3id.org/biodivrisK-onto#DisclosureRequirement">Disclosure Requirement</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
  <div class="entity" id="definedBy">
   <h3>defined by<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#definedBy</p>
@@ -897,6 +1940,195 @@ This section provides details for each class and property defined by BiodivRisk-
     </dt>
     <dd>
      <a href="#DisclosureFramework" title="https://w3id.org/biodivrisK-onto#DisclosureFramework">Disclosure Framework</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasAmbiguity">
+  <h3>has ambiguity<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#hasAmbiguity</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#IndustrialClassification" title="https://w3id.org/biodivrisK-onto#IndustrialClassification">Industrial Classification Standard</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#SemanticAmbiguity" title="https://w3id.org/biodivrisK-onto#SemanticAmbiguity">Semantic Ambiguity</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasDataGapIn">
+  <h3>has data gap in<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#hasDataGapIn</p>
+  <div class="comment">
+   <span class="markdown">Relates a disclosure framework to a biome where its data requirements cannot be met due to GBIF/OBIS sampling bias.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#DisclosureFramework" title="https://w3id.org/biodivrisK-onto#DisclosureFramework">Disclosure Framework</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Biome" title="https://w3id.org/biodivrisK-onto#Biome">Biome</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasDataSufficiency">
+  <h3>has data sufficiency<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#hasDataSufficiency</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#DataSufficiencyAssessment" title="https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment">Data Sufficiency Assessment</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Biome" title="https://w3id.org/biodivrisK-onto#Biome">Biome</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasEvaluationResult">
+  <h3>has evaluation result<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#hasEvaluationResult</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#LEAPAssessment" title="https://w3id.org/biodivrisK-onto#LEAPAssessment">LEAP Assessment</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#MaterialityResult" title="https://w3id.org/biodivrisK-onto#MaterialityResult">Materiality Result</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasInformationLoss">
+  <h3>has information loss<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#hasInformationLoss</p>
+  <div class="comment">
+   <span class="markdown">Documents what information is lost when converting between two incommensurable framework concepts.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2002/07/owl#Class" target="_blank" title="http://www.w3.org/2002/07/owl#Class">Class</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#InformationLoss" title="https://w3id.org/biodivrisK-onto#InformationLoss">Information Loss</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasMaterialityApproach">
+  <h3>has materiality approach<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#hasMaterialityApproach</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#DisclosureFramework" title="https://w3id.org/biodivrisK-onto#DisclosureFramework">Disclosure Framework</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#MaterialityApproach" title="https://w3id.org/biodivrisK-onto#MaterialityApproach">Materiality Approach</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasPortfolioSector">
+  <h3>has portfolio sector<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#hasPortfolioSector</p>
+  <div class="comment">
+   <span class="markdown">Relates a financial institution to an economic sector represented in its credit or investment portfolio.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#FinancialInstitution" title="https://w3id.org/biodivrisK-onto#FinancialInstitution">Financial Institution</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasScale">
+  <h3>has scale<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#hasScale</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#MaterialityApproach" title="https://w3id.org/biodivrisK-onto#MaterialityApproach">Materiality Approach</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#QuantitativeMaterialityScale" title="https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale">Quantitative Materiality Scale</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasSectorClassification">
+  <h3>has sector classification<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#hasSectorClassification</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#IndustrialClassification" title="https://w3id.org/biodivrisK-onto#IndustrialClassification">Industrial Classification Standard</a> <sup class="type-c" title="class">c</sup>
     </dd>
    </dl>
   </div>
@@ -925,12 +2157,195 @@ This section provides details for each class and property defined by BiodivRisk-
    </dl>
   </div>
  </div>
+ <div class="entity" id="informsTargetSetting">
+  <h3>informs target setting<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#informsTargetSetting</p>
+  <div class="comment">
+   <span class="markdown">A directed property: the output of a LEAP assessment informs the science-based target-setting process of SBTN AR3T.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#LEAPAssessment" title="https://w3id.org/biodivrisK-onto#LEAPAssessment">LEAP Assessment</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#SBTNAR3TTarget" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">SBTN Science-based Target (AR3T)</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     is inverse of
+    </dt>
+    <dd>
+     <a href="#requiresInputFrom" title="https://w3id.org/biodivrisK-onto#requiresInputFrom">requires input from</a> <sup class="type-op" title="object property">op</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="mappableTo">
+  <h3>mappable to<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#mappableTo</p>
+  <div class="comment">
+   <span class="markdown">A lossy correspondence between two industrial classification standards requiring manual effort and producing semantic ambiguity.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#IndustrialClassification" title="https://w3id.org/biodivrisK-onto#IndustrialClassification">Industrial Classification Standard</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#IndustrialClassification" title="https://w3id.org/biodivrisK-onto#IndustrialClassification">Industrial Classification Standard</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="operatesInBiome">
+  <h3>operates in biome<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#operatesInBiome</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Organization" title="https://w3id.org/biodivrisK-onto#Organization">Organization</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Biome" title="https://w3id.org/biodivrisK-onto#Biome">Biome</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="operatesInCountry">
+  <h3>operates in country<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#operatesInCountry</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Organization" title="https://w3id.org/biodivrisK-onto#Organization">Organization</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Country" title="https://w3id.org/biodivrisK-onto#Country">Country</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="prioritisesSector">
+  <h3>prioritises sector<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#prioritisesSector</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#MaterialityResult" title="https://w3id.org/biodivrisK-onto#MaterialityResult">Materiality Result</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="requiresDataFrom">
+  <h3>requires data from<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#requiresDataFrom</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#LEAPAssessment" title="https://w3id.org/biodivrisK-onto#LEAPAssessment">LEAP Assessment</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#BiodiversityDataSource" title="https://w3id.org/biodivrisK-onto#BiodiversityDataSource">Biodiversity Data Source</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="requiresInputFrom">
+  <h3>requires input from<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#requiresInputFrom</p>
+  <div class="comment">
+   <span class="markdown">A directed property: SBTN AR3T target setting requires location and materiality data produced by a TNFD LEAP assessment.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#SBTNAR3TTarget" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">SBTN Science-based Target (AR3T)</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#LEAPAssessment" title="https://w3id.org/biodivrisK-onto#LEAPAssessment">LEAP Assessment</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     is inverse of
+    </dt>
+    <dd>
+     <a href="#informsTargetSetting" title="https://w3id.org/biodivrisK-onto#informsTargetSetting">informs target setting</a> <sup class="type-op" title="object property">op</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="usesClassification">
+  <h3>uses classification<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#usesClassification</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Organization" title="https://w3id.org/biodivrisK-onto#Organization">Organization</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#IndustrialClassification" title="https://w3id.org/biodivrisK-onto#IndustrialClassification">Industrial Classification Standard</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
 </div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="annotationproperties">
  <h3 id="annotationproperties" class="list">Annotation Properties</h3>
  <ul class="hlist">
   <li><a href="#https://schema.org/affiliation" title="https://schema.org/affiliation"> <span>affiliation</span> </a></li>
+  <li><a href="#http://www.w3.org/2004/02/skos/core#altLabel" title="http://www.w3.org/2004/02/skos/core#altLabel"> <span>alt Label</span> </a></li>
   <li><a href="#http://purl.org/dc/terms/created" title="http://purl.org/dc/terms/created"> <span>created</span> </a></li>
   <li><a href="#http://purl.org/dc/terms/creator" title="http://purl.org/dc/terms/creator"> <span>creator</span> </a></li>
+  <li><a href="#http://www.w3.org/2004/02/skos/core#definition" title="http://www.w3.org/2004/02/skos/core#definition"> <span>definition</span> </a></li>
   <li><a href="#http://purl.org/dc/terms/description" title="http://purl.org/dc/terms/description"> <span>description</span> </a></li>
   <li><a href="#hasBridgingCondition" title="https://w3id.org/biodivrisK-onto#hasBridgingCondition">has bridging condition</a></li>
   <li><a href="#http://purl.org/dc/terms/license" title="http://purl.org/dc/terms/license"> <span>license</span> </a></li>
@@ -942,10 +2357,15 @@ This section provides details for each class and property defined by BiodivRisk-
   <li><a href="#http://purl.org/dc/terms/title" title="http://purl.org/dc/terms/title"> <span>title</span> </a></li>
   <li><a href="#unit" title="https://w3id.org/biodivrisK-onto#unit">unit</a></li>
   <li><a href="#https://schema.org/url" title="https://schema.org/url"> <span>url</span> </a></li>
+  <li><a href="#http://www.w3.org/ns/prov#wasAssociatedWith" title="http://www.w3.org/ns/prov#wasAssociatedWith"> <span>was Associated With</span> </a></li>
  </ul>
  <div class="entity" id="https://schema.org/affiliation">
   <h3>affiliation<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://schema.org/affiliation</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2004/02/skos/core#altLabel">
+  <h3>alt Label<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2004/02/skos/core#altLabel</p>
  </div>
  <div class="entity" id="http://purl.org/dc/terms/created">
   <h3>created<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
@@ -954,6 +2374,10 @@ This section provides details for each class and property defined by BiodivRisk-
  <div class="entity" id="http://purl.org/dc/terms/creator">
   <h3>creator<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
   <p><strong>IRI:</strong> http://purl.org/dc/terms/creator</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2004/02/skos/core#definition">
+  <h3>definition<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2004/02/skos/core#definition</p>
  </div>
  <div class="entity" id="http://purl.org/dc/terms/description">
   <h3>description<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
@@ -1005,28 +2429,576 @@ This section provides details for each class and property defined by BiodivRisk-
   <h3>url<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://schema.org/url</p>
  </div>
+ <div class="entity" id="http://www.w3.org/ns/prov#wasAssociatedWith">
+  <h3>was Associated With<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/ns/prov#wasAssociatedWith</p>
+ </div>
 </div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="namedindividuals">
  <h3 id="namedindividuals" class="list">Named Individuals</h3>
  <ul class="hlist">
+  <li><a href="#AgriculturalProductsSector" title="https://w3id.org/biodivrisK-onto#AgriculturalProductsSector">Agricultural Products Sector</a></li>
+  <li><a href="#Amazonia" title="https://w3id.org/biodivrisK-onto#Amazonia">Amazonia Biome</a></li>
+  <li><a href="#AndeanDataGap" title="https://w3id.org/biodivrisK-onto#AndeanDataGap">Andean GBIF Data Gap</a></li>
+  <li><a href="#AndeanWaterStressRisk" title="https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk">Andean Water Stress Risk</a></li>
+  <li><a href="#AtlanticForest" title="https://w3id.org/biodivrisK-onto#AtlanticForest">Atlantic Forest Biome</a></li>
+  <li><a href="#Bradesco" title="https://w3id.org/biodivrisK-onto#Bradesco">Banco Bradesco</a></li>
+  <li><a href="#BNDES" title="https://w3id.org/biodivrisK-onto#BNDES">BNDES</a></li>
+  <li><a href="#Brazil" title="https://w3id.org/biodivrisK-onto#Brazil">Brazil</a></li>
+  <li><a href="#Caixa" title="https://w3id.org/biodivrisK-onto#Caixa">Caixa Econômica Federal</a></li>
+  <li><a href="#CEBDSHeatmapResult" title="https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult">CEBDS Brazil Sector Heatmap Result</a></li>
+  <li><a href="#CEBDSBrazilLocateAssessment" title="https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment">CEBDS Brazil TNFD Locate Phase Pilot</a></li>
+  <li><a href="#Cerrado" title="https://w3id.org/biodivrisK-onto#Cerrado">Cerrado Biome</a></li>
+  <li><a href="#CerradoDataGap" title="https://w3id.org/biodivrisK-onto#CerradoDataGap">Cerrado GBIF Data Gap</a></li>
+  <li><a href="#CIIU" title="https://w3id.org/biodivrisK-onto#CIIU">CIIU</a></li>
+  <li><a href="#CIIUtoGICSAmbiguity" title="https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity">CIIU to GICS Semantic Ambiguity</a></li>
+  <li><a href="#CIIUtoGICSMapping" title="https://w3id.org/biodivrisK-onto#CIIUtoGICSMapping">CIIU to GICS/SASB Mapping (Santander Peru)</a></li>
+  <li><a href="#CNAE" title="https://w3id.org/biodivrisK-onto#CNAE">CNAE</a></li>
+  <li><a href="#CNAEtoGICSMapping" title="https://w3id.org/biodivrisK-onto#CNAEtoGICSMapping">CNAE to GICS Mapping (CEBDS Brazil)</a></li>
+  <li><a href="#CNAEtoGICSAmbiguity" title="https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity">CNAE to GICS Semantic Ambiguity</a></li>
+  <li><a href="#ConsumerDiscretionarySector" title="https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector">Consumer Discretionary Sector</a></li>
+  <li><a href="#ConsumerStaplesSector" title="https://w3id.org/biodivrisK-onto#ConsumerStaplesSector">Consumer Staples Sector</a></li>
   <li><a href="#ESRS_E4" title="https://w3id.org/biodivrisK-onto#ESRS_E4">CSRD/ESRS E4</a></li>
+  <li><a href="#ENCOREMateriality" title="https://w3id.org/biodivrisK-onto#ENCOREMateriality">ENCORE Quantitative Materiality Scale</a></li>
+  <li><a href="#ENCOREScale" title="https://w3id.org/biodivrisK-onto#ENCOREScale">ENCORE Scale 3-9</a></li>
+  <li><a href="#ENCOREData" title="https://w3id.org/biodivrisK-onto#ENCOREData">ENCORE Tool</a></li>
   <li><a href="#ESRSBiodiversitySensitiveArea" title="https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea"> <span>ESRS E4 Biodiversity-sensitive Area</span> </a></li>
   <li><a href="#ESRSDoubleMateriality" title="https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality"> <span>ESRS E4 Double Materiality</span> </a></li>
   <li><a href="#ESRSLandUseDatapoint" title="https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint"> <span>ESRS E4 Land-use Change Datapoint</span> </a></li>
   <li><a href="#ESRSMaterialImpactDependency" title="https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency"> <span>ESRS E4 Material Impacts and Dependencies</span> </a></li>
+  <li><a href="#GBIFData" title="https://w3id.org/biodivrisK-onto#GBIFData">GBIF Occurrence Data</a></li>
+  <li><a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a></li>
+  <li><a href="#GlobalForestWatchData" title="https://w3id.org/biodivrisK-onto#GlobalForestWatchData">Global Forest Watch</a></li>
   <li><a href="#GRI101" title="https://w3id.org/biodivrisK-onto#GRI101">GRI 101</a></li>
+  <li><a href="#GRI101ImpactMateriality" title="https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality">GRI 101 Impact Materiality</a></li>
   <li><a href="#GRIManagementApproach" title="https://w3id.org/biodivrisK-onto#GRIManagementApproach"> <span>GRI 101 Management Approach</span> </a></li>
   <li><a href="#GRIOperationsAdjacentProtectedAreas" title="https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas"> <span>GRI 101 Operations in/adjacent to Protected Areas and KBAs</span> </a></li>
+  <li><a href="#GRIProtectedAreaKBA" title="https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA">GRI 101 Operations in/adjacent to Protected Areas and KBAs</a></li>
   <li><a href="#GRIImpactMateriality" title="https://w3id.org/biodivrisK-onto#GRIImpactMateriality"> <span>GRI Impact Materiality</span> </a></li>
+  <li><a href="#IndustrialsSector" title="https://w3id.org/biodivrisK-onto#IndustrialsSector">Industrials Sector</a></li>
+  <li><a href="#ItauUnibanco" title="https://w3id.org/biodivrisK-onto#ItauUnibanco">Itaú Unibanco</a></li>
   <li><a href="#LACGeographicBias" title="https://w3id.org/biodivrisK-onto#LACGeographicBias">LAC Geographic Sampling Bias</a></li>
+  <li><a href="#MiningAndMetalsSector" title="https://w3id.org/biodivrisK-onto#MiningAndMetalsSector">Mining and Metals Sector</a></li>
+  <li><a href="#OBISData" title="https://w3id.org/biodivrisK-onto#OBISData">OBIS Marine Data</a></li>
+  <li><a href="#Peru" title="https://w3id.org/biodivrisK-onto#Peru">Peru</a></li>
+  <li><a href="#PriorityLocation" title="https://w3id.org/biodivrisK-onto#PriorityLocation"> <span>Priority Location</span> </a></li>
+  <li><a href="#SantanderBrasil" title="https://w3id.org/biodivrisK-onto#SantanderBrasil">Santander Brasil</a></li>
+  <li><a href="#SantanderPeru" title="https://w3id.org/biodivrisK-onto#SantanderPeru">Santander Peru</a></li>
+  <li><a href="#SantanderPeruESCCPolicy" title="https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy">Santander Peru ESCC Risk Policy</a></li>
+  <li><a href="#SantanderPeruL4Assessment" title="https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment">Santander Peru LEAP L4 Assessment</a></li>
+  <li><a href="#SASB_SICS" title="https://w3id.org/biodivrisK-onto#SASB_SICS">SASB SICS</a></li>
   <li><a href="#SBTN" title="https://w3id.org/biodivrisK-onto#SBTN">SBTN</a></li>
+  <li><a href="#SBTNAR3TTargetInstance" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance">SBTN AR3T Science-based Target</a></li>
   <li><a href="#SBTNMeanSpeciesAbundance" title="https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance"> <span>SBTN Mean Species Abundance (MSA)</span> </a></li>
   <li><a href="#SBTNAR3TTarget" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"> <span>SBTN Science-based Target (AR3T)</span> </a></li>
+  <li><a href="#SBTNtargetToGRIConversion" title="https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion">SBTN Target to GRI Management Approach Conversion</a></li>
   <li><a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a></li>
   <li><a href="#TNFDEnterpriseMateriality" title="https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality"> <span>TNFD Enterprise-value Materiality</span> </a></li>
   <li><a href="#TNFDImpactDependency" title="https://w3id.org/biodivrisK-onto#TNFDImpactDependency"> <span>TNFD Impacts and Dependencies on Nature</span> </a></li>
   <li><a href="#TNFDLandUseChangeMetric" title="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric"> <span>TNFD Land/Freshwater/Ocean-use Change Metric</span> </a></li>
   <li><a href="#TNFDPriorityLocation" title="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation"> <span>TNFD Priority Location</span> </a></li>
+  <li><a href="#TNFDStrategyD" title="https://w3id.org/biodivrisK-onto#TNFDStrategyD">TNFD Strategy D</a></li>
+  <li><a href="#TropicalAndes" title="https://w3id.org/biodivrisK-onto#TropicalAndes">Tropical Andes Biome</a></li>
+  <li><a href="#UtilitiesSector" title="https://w3id.org/biodivrisK-onto#UtilitiesSector">Utilities Sector</a></li>
+  <li><a href="#WRIAqueductData" title="https://w3id.org/biodivrisK-onto#WRIAqueductData">WRI Aqueduct</a></li>
  </ul>
+ <div class="entity" id="AgriculturalProductsSector">
+  <h3>Agricultural Products Sector<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#AgriculturalProductsSector</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#assessedUnder" title="https://w3id.org/biodivrisK-onto#assessedUnder">assessed under</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#hasSectorClassification" title="https://w3id.org/biodivrisK-onto#hasSectorClassification">has sector classification</a> <sup class="type-op" title="object property">op</sup> <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Amazonia">
+  <h3>Amazonia Biome<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#Amazonia</p>
+  <div class="comment">
+   <span class="markdown">Largest tropical rainforest biome globally. Under-sampled in GBIF particularly for invertebrates and cryptic taxa. Relevant to both Santander Peru and CEBDS Brazil cases.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Biome" title="https://w3id.org/biodivrisK-onto#Biome">Biome</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="AndeanDataGap">
+  <h3>Andean GBIF Data Gap<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#AndeanDataGap</p>
+  <div class="comment">
+   <span class="markdown">Documented under-sampling of species occurrence records in GBIF for the tropical Andes biome, including Peru. Bias towards roads, cities and protected area boundaries. Leads to false negatives in TNFD priority-location screening. Empirically documented in Santander Peru LEAP L3-L4 assessment.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#GeographicSamplingBias" title="https://w3id.org/biodivrisK-onto#GeographicSamplingBias">Geographic Sampling Bias</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#affectsFramework" title="https://w3id.org/biodivrisK-onto#affectsFramework">affects framework</a> <sup class="type-op" title="object property">op</sup> <a href="#ESRS_E4" title="https://w3id.org/biodivrisK-onto#ESRS_E4">CSRD/ESRS E4</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#affectsFramework" title="https://w3id.org/biodivrisK-onto#affectsFramework">affects framework</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="AndeanWaterStressRisk">
+  <h3>Andean Water Stress Risk<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk</p>
+  <div class="comment">
+   <span class="markdown">Physical risk from insufficient freshwater availability in Andean mining and agricultural operations in Peru. Identified as a material dependency in Santander Peru LEAP L2: groundwater use and protection against flooding were the most material ecosystem service dependencies. High water stress zones identified via WRI Aqueduct in LEAP L4.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#WaterStressRisk" title="https://w3id.org/biodivrisK-onto#WaterStressRisk">Water Stress Risk</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#affectsRiskAssessment" title="https://w3id.org/biodivrisK-onto#affectsRiskAssessment">affects risk assessment</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFDEnterpriseMateriality" title="https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality">TNFD Enterprise-value Materiality</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="AtlanticForest">
+  <h3>Atlantic Forest Biome<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#AtlanticForest</p>
+  <div class="comment">
+   <span class="markdown">Critical biodiversity hotspot — less than 29% of original cover remains. Among the most threatened biomes in the world. Relevant to CEBDS Brazil case.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Biome" title="https://w3id.org/biodivrisK-onto#Biome">Biome</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#altLabel" target="_blank" title="http://www.w3.org/2004/02/skos/core#altLabel">alt Label</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"Mata Atlântica"@pt</span>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Bradesco">
+  <h3>Banco Bradesco<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#Bradesco</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#FinancialInstitution" title="https://w3id.org/biodivrisK-onto#FinancialInstitution">Financial Institution</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#appliesFramework" title="https://w3id.org/biodivrisK-onto#appliesFramework">applies framework</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#operatesInCountry" title="https://w3id.org/biodivrisK-onto#operatesInCountry">operates in country</a> <sup class="type-op" title="object property">op</sup> <a href="#Brazil" title="https://w3id.org/biodivrisK-onto#Brazil">Brazil</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#usesClassification" title="https://w3id.org/biodivrisK-onto#usesClassification">uses classification</a> <sup class="type-op" title="object property">op</sup> <a href="#CNAE" title="https://w3id.org/biodivrisK-onto#CNAE">CNAE</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://www.bradesco.com.br" target="_blank" title="https://www.bradesco.com.br">https://www.bradesco.com.br</a> <sup class="type-ep" title="external property">ep</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="BNDES">
+  <h3>BNDES<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#BNDES</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#FinancialInstitution" title="https://w3id.org/biodivrisK-onto#FinancialInstitution">Financial Institution</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#appliesFramework" title="https://w3id.org/biodivrisK-onto#appliesFramework">applies framework</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#operatesInCountry" title="https://w3id.org/biodivrisK-onto#operatesInCountry">operates in country</a> <sup class="type-op" title="object property">op</sup> <a href="#Brazil" title="https://w3id.org/biodivrisK-onto#Brazil">Brazil</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#usesClassification" title="https://w3id.org/biodivrisK-onto#usesClassification">uses classification</a> <sup class="type-op" title="object property">op</sup> <a href="#CNAE" title="https://w3id.org/biodivrisK-onto#CNAE">CNAE</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#prefLabel" target="_blank" title="http://www.w3.org/2004/02/skos/core#prefLabel">pref Label</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"Banco Nacional de Desenvolvimento Econômico e Social"@en</span>
+   </dd>
+   <dd>
+    <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://www.bndes.gov.br" target="_blank" title="https://www.bndes.gov.br">https://www.bndes.gov.br</a> <sup class="type-ep" title="external property">ep</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Brazil">
+  <h3>Brazil<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#Brazil</p>
+  <div class="comment">
+   <span class="markdown">Most megadiverse country globally, hosting 15-20% of world biodiversity across 6 biomes. Site of CEBDS TNFD pilot.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Country" title="https://w3id.org/biodivrisK-onto#Country">Country</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Caixa">
+  <h3>Caixa Econômica Federal<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#Caixa</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#FinancialInstitution" title="https://w3id.org/biodivrisK-onto#FinancialInstitution">Financial Institution</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#appliesFramework" title="https://w3id.org/biodivrisK-onto#appliesFramework">applies framework</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#operatesInCountry" title="https://w3id.org/biodivrisK-onto#operatesInCountry">operates in country</a> <sup class="type-op" title="object property">op</sup> <a href="#Brazil" title="https://w3id.org/biodivrisK-onto#Brazil">Brazil</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#usesClassification" title="https://w3id.org/biodivrisK-onto#usesClassification">uses classification</a> <sup class="type-op" title="object property">op</sup> <a href="#CNAE" title="https://w3id.org/biodivrisK-onto#CNAE">CNAE</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://www.caixa.gov.br" target="_blank" title="https://www.caixa.gov.br">https://www.caixa.gov.br</a> <sup class="type-ep" title="external property">ep</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="CEBDSHeatmapResult">
+  <h3>CEBDS Brazil Sector Heatmap Result<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult</p>
+  <div class="comment">
+   <span class="markdown">Sectoral materiality ranking from the CEBDS Brazil LEAP pilot using ENCORE scores combined with loan volume and number of clients data. Priority order: 1st Consumer Staples, 2nd Consumer Discretionary, 3rd Utilities, 4th Industrials.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#MaterialityResult" title="https://w3id.org/biodivrisK-onto#MaterialityResult">Materiality Result</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#prioritisesSector" title="https://w3id.org/biodivrisK-onto#prioritisesSector">prioritises sector</a> <sup class="type-op" title="object property">op</sup> <a href="#ConsumerDiscretionarySector" title="https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector">Consumer Discretionary Sector</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#prioritisesSector" title="https://w3id.org/biodivrisK-onto#prioritisesSector">prioritises sector</a> <sup class="type-op" title="object property">op</sup> <a href="#ConsumerStaplesSector" title="https://w3id.org/biodivrisK-onto#ConsumerStaplesSector">Consumer Staples Sector</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#prioritisesSector" title="https://w3id.org/biodivrisK-onto#prioritisesSector">prioritises sector</a> <sup class="type-op" title="object property">op</sup> <a href="#IndustrialsSector" title="https://w3id.org/biodivrisK-onto#IndustrialsSector">Industrials Sector</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#prioritisesSector" title="https://w3id.org/biodivrisK-onto#prioritisesSector">prioritises sector</a> <sup class="type-op" title="object property">op</sup> <a href="#UtilitiesSector" title="https://w3id.org/biodivrisK-onto#UtilitiesSector">Utilities Sector</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="CEBDSBrazilLocateAssessment">
+  <h3>CEBDS Brazil TNFD Locate Phase Pilot<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment</p>
+  <div class="comment">
+   <span class="markdown">Collective piloting of the TNFD LEAP Locate phase by 5 Brazilian financial institutions coordinated by CEBDS and technically led by EY, September 2023–September 2024. Source: CEBDS/EY (2024).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#LEAPAssessment" title="https://w3id.org/biodivrisK-onto#LEAPAssessment">LEAP Assessment</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#hasEvaluationResult" title="https://w3id.org/biodivrisK-onto#hasEvaluationResult">has evaluation result</a> <sup class="type-op" title="object property">op</sup> <a href="#CEBDSHeatmapResult" title="https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult">CEBDS Brazil Sector Heatmap Result</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#informsTargetSetting" title="https://w3id.org/biodivrisK-onto#informsTargetSetting">informs target setting</a> <sup class="type-op" title="object property">op</sup> <a href="#SBTNAR3TTargetInstance" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance">SBTN AR3T Science-based Target</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#requiresDataFrom" title="https://w3id.org/biodivrisK-onto#requiresDataFrom">requires data from</a> <sup class="type-op" title="object property">op</sup> <a href="#ENCOREData" title="https://w3id.org/biodivrisK-onto#ENCOREData">ENCORE Tool</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#requiresDataFrom" title="https://w3id.org/biodivrisK-onto#requiresDataFrom">requires data from</a> <sup class="type-op" title="object property">op</sup> <a href="#GBIFData" title="https://w3id.org/biodivrisK-onto#GBIFData">GBIF Occurrence Data</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#requiresDataFrom" title="https://w3id.org/biodivrisK-onto#requiresDataFrom">requires data from</a> <sup class="type-op" title="object property">op</sup> <a href="#WRIAqueductData" title="https://w3id.org/biodivrisK-onto#WRIAqueductData">WRI Aqueduct</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#wasAssociatedWith" target="_blank" title="http://www.w3.org/ns/prov#wasAssociatedWith">was Associated With</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="#BNDES" title="https://w3id.org/biodivrisK-onto#BNDES">BNDES</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#wasAssociatedWith" target="_blank" title="http://www.w3.org/ns/prov#wasAssociatedWith">was Associated With</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="#Bradesco" title="https://w3id.org/biodivrisK-onto#Bradesco">Banco Bradesco</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#wasAssociatedWith" target="_blank" title="http://www.w3.org/ns/prov#wasAssociatedWith">was Associated With</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="#Caixa" title="https://w3id.org/biodivrisK-onto#Caixa">Caixa Econômica Federal</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#wasAssociatedWith" target="_blank" title="http://www.w3.org/ns/prov#wasAssociatedWith">was Associated With</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="#ItauUnibanco" title="https://w3id.org/biodivrisK-onto#ItauUnibanco">Itaú Unibanco</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#wasAssociatedWith" target="_blank" title="http://www.w3.org/ns/prov#wasAssociatedWith">was Associated With</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="#SantanderBrasil" title="https://w3id.org/biodivrisK-onto#SantanderBrasil">Santander Brasil</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Cerrado">
+  <h3>Cerrado Biome<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#Cerrado</p>
+  <div class="comment">
+   <span class="markdown">Brazilian tropical savanna — global biodiversity hotspot under severe agricultural pressure. 67.7% increase in deforestation in 2023. Under-sampled in GBIF for its specific endemic species.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Biome" title="https://w3id.org/biodivrisK-onto#Biome">Biome</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="CerradoDataGap">
+  <h3>Cerrado GBIF Data Gap<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#CerradoDataGap</p>
+  <div class="comment">
+   <span class="markdown">Documented under-sampling of species occurrence records in GBIF for the Cerrado biome, particularly invertebrates and endemic species. Documented in the CEBDS Brazil LEAP pilot as a challenge for L4 sensitive site identification.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#GeographicSamplingBias" title="https://w3id.org/biodivrisK-onto#GeographicSamplingBias">Geographic Sampling Bias</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#affectsFramework" title="https://w3id.org/biodivrisK-onto#affectsFramework">affects framework</a> <sup class="type-op" title="object property">op</sup> <a href="#ESRS_E4" title="https://w3id.org/biodivrisK-onto#ESRS_E4">CSRD/ESRS E4</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#affectsFramework" title="https://w3id.org/biodivrisK-onto#affectsFramework">affects framework</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="CIIU">
+  <h3>CIIU<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#CIIU</p>
+  <div class="comment">
+   <span class="markdown">UN international industrial classification used in Peru. Requires manual mapping to GICS/SASB for TNFD assessments.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#IndustrialClassification" title="https://w3id.org/biodivrisK-onto#IndustrialClassification">Industrial Classification Standard</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#hasAmbiguity" title="https://w3id.org/biodivrisK-onto#hasAmbiguity">has ambiguity</a> <sup class="type-op" title="object property">op</sup> <a href="#CIIUtoGICSAmbiguity" title="https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity">CIIU to GICS Semantic Ambiguity</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#incommensurableWith" title="https://w3id.org/biodivrisK-onto#incommensurableWith">incommensurable with</a> <sup class="type-op" title="object property">op</sup> <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#mappableTo" title="https://w3id.org/biodivrisK-onto#mappableTo">mappable to</a> <sup class="type-op" title="object property">op</sup> <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#note" target="_blank" title="http://www.w3.org/2004/02/skos/core#note">note</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"CIIU (UN international classification used in Peru) does not map automatically to GICS or SASB/SICS sectors required for ENCORE-based TNFD assessments."@en</span>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#prefLabel" target="_blank" title="http://www.w3.org/2004/02/skos/core#prefLabel">pref Label</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"Clasificación Industrial Internacional Uniforme"@en</span>
+   </dd>
+   <dd>
+    <a href="hasBridgingCondition" title="https://w3id.org/biodivrisK-onto#hasBridgingCondition">has bridging condition</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"A lossy correspondence requires manual alignment of CIIU codes to GICS and SASB/SICS sectors, with documentation of ambiguous cases. Performed by Santander Peru during LEAP L1 scoping."@en</span>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="CIIUtoGICSAmbiguity">
+  <h3>CIIU to GICS Semantic Ambiguity<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity</p>
+  <div class="comment">
+   <span class="markdown">Documented semantic ambiguity in the CIIU-to-GICS/SASB mapping required for TNFD assessments in Peru. Peruvian CIIU categories require manual alignment with GICS and SASB/SICS sector definitions.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#SemanticAmbiguity" title="https://w3id.org/biodivrisK-onto#SemanticAmbiguity">Semantic Ambiguity</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="CIIUtoGICSMapping">
+  <h3>CIIU to GICS/SASB Mapping (Santander Peru)<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#CIIUtoGICSMapping</p>
+  <div class="comment">
+   <span class="markdown">Manual sector correspondence developed by Santander Peru to align its CIIU-classified portfolio with GICS and SASB/SICS sectors required for ENCORE-based materiality screening.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#SemanticAmbiguity" title="https://w3id.org/biodivrisK-onto#SemanticAmbiguity">Semantic Ambiguity</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="CNAE">
+  <h3>CNAE<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#CNAE</p>
+  <div class="comment">
+   <span class="markdown">Brazilian national industrial classification used by financial institutions for portfolio reporting. Requires manual mapping to GICS for TNFD/ENCORE assessments.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#IndustrialClassification" title="https://w3id.org/biodivrisK-onto#IndustrialClassification">Industrial Classification Standard</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#hasAmbiguity" title="https://w3id.org/biodivrisK-onto#hasAmbiguity">has ambiguity</a> <sup class="type-op" title="object property">op</sup> <a href="#CNAEtoGICSAmbiguity" title="https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity">CNAE to GICS Semantic Ambiguity</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#incommensurableWith" title="https://w3id.org/biodivrisK-onto#incommensurableWith">incommensurable with</a> <sup class="type-op" title="object property">op</sup> <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#mappableTo" title="https://w3id.org/biodivrisK-onto#mappableTo">mappable to</a> <sup class="type-op" title="object property">op</sup> <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#note" target="_blank" title="http://www.w3.org/2004/02/skos/core#note">note</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"CNAE (Brazilian national classification) and GICS (international standard used by ENCORE/TNFD) do not maintain a bijective correspondence. Multiple CNAE codes may map to one GICS sector and vice versa, generating semantic ambiguity in sector-level materiality assessments."@en</span>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#prefLabel" target="_blank" title="http://www.w3.org/2004/02/skos/core#prefLabel">pref Label</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"Classificação Nacional de Atividades Econômicas"@en</span>
+   </dd>
+   <dd>
+    <a href="hasBridgingCondition" title="https://w3id.org/biodivrisK-onto#hasBridgingCondition">has bridging condition</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"A lossy correspondence is admissible when each CNAE code is manually mapped to the most representative GICS sector, with explicit documentation of multi-to-one and one-to-many correspondences. This mapping was performed by EY during the CEBDS Brazil LEAP pilot and required significant expert effort. The result is not automatically reversible."@en</span>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="CNAEtoGICSMapping">
+  <h3>CNAE to GICS Mapping (CEBDS Brazil)<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#CNAEtoGICSMapping</p>
+  <div class="comment">
+   <span class="markdown">Manual sector correspondence developed during the CEBDS Brazil LEAP pilot to align portfolio reporting under CNAE with ENCORE/TNFD materiality assessment requiring GICS classification.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#SemanticAmbiguity" title="https://w3id.org/biodivrisK-onto#SemanticAmbiguity">Semantic Ambiguity</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="CNAEtoGICSAmbiguity">
+  <h3>CNAE to GICS Semantic Ambiguity<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity</p>
+  <div class="comment">
+   <span class="markdown">Documented semantic ambiguity in the CNAE-to-GICS mapping required for TNFD/ENCORE assessments. Brazilian CNAE categories do not maintain a bijective correspondence with GICS sectors — multiple CNAE codes may map to one GICS sector or vice versa. Required significant manual effort in the CEBDS Brazil pilot.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#SemanticAmbiguity" title="https://w3id.org/biodivrisK-onto#SemanticAmbiguity">Semantic Ambiguity</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="ConsumerDiscretionarySector">
+  <h3>Consumer Discretionary Sector<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#assessedUnder" title="https://w3id.org/biodivrisK-onto#assessedUnder">assessed under</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#hasSectorClassification" title="https://w3id.org/biodivrisK-onto#hasSectorClassification">has sector classification</a> <sup class="type-op" title="object property">op</sup> <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="ConsumerStaplesSector">
+  <h3>Consumer Staples Sector<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#ConsumerStaplesSector</p>
+  <div class="comment">
+   <span class="markdown">Companies involved in the production or sale of essential products, including food, beverages, tobacco, and hygiene products. Priority 1 in CEBDS Brazil heatmap.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#assessedUnder" title="https://w3id.org/biodivrisK-onto#assessedUnder">assessed under</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#hasSectorClassification" title="https://w3id.org/biodivrisK-onto#hasSectorClassification">has sector classification</a> <sup class="type-op" title="object property">op</sup> <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#definition" target="_blank" title="http://www.w3.org/2004/02/skos/core#definition">definition</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"Companies involved in the production or sale of essential products, including food, beverages, tobacco, and hygiene products. Priority 1 in CEBDS Brazil heatmap."@en</span>
+   </dd>
+  </dl>
+ </div>
  <div class="entity" id="ESRS_E4">
   <h3>CSRD/ESRS E4<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#ESRS_E4</p>
@@ -1045,6 +3017,69 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
    <dd>
     <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://www.efrag.org" target="_blank" title="https://www.efrag.org">https://www.efrag.org</a> <sup class="type-ep" title="external property">ep</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="ENCOREMateriality">
+  <h3>ENCORE Quantitative Materiality Scale<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#ENCOREMateriality</p>
+  <div class="comment">
+   <span class="markdown">ENCORE scores impacts and dependencies on a numerical scale: very low=3, low=4.5, medium=6, high=7.5, very high=9. Used by TNFD for sector-level screening.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#QuantitativeMaterialityScale" title="https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale">Quantitative Materiality Scale</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#incommensurableWith" title="https://w3id.org/biodivrisK-onto#incommensurableWith">incommensurable with</a> <sup class="type-op" title="object property">op</sup> <a href="#GRI101ImpactMateriality" title="https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality">GRI 101 Impact Materiality</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#note" target="_blank" title="http://www.w3.org/2004/02/skos/core#note">note</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"ENCORE applies a quantitative composite scale (3-9) aggregating dependencies and impacts by production process. GRI 101 applies qualitative impact materiality requiring stakeholder-informed severity assessment. The two approaches operate at different epistemic levels and use incompatible measurement units."@en</span>
+   </dd>
+   <dd>
+    <a href="hasBridgingCondition" title="https://w3id.org/biodivrisK-onto#hasBridgingCondition">has bridging condition</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"A lossy approximation is admissible if ENCORE sector scores are supplemented with qualitative stakeholder evidence meeting GRI 101 impact severity criteria. The numerical scale (3-9) cannot be directly compared with GRI qualitative thresholds without explicit bridging assumptions documented per sector."@en</span>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="ENCOREScale">
+  <h3>ENCORE Scale 3-9<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#ENCOREScale</p>
+  <div class="comment">
+   <span class="markdown">ENCORE numerical scale where 3=very low, 4.5=low, 6=medium, 7.5=high, 9=very high dependency/impact. Used in CEBDS Brazil pilot to produce heatmap weighted by loan volume and client count.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#QuantitativeMaterialityScale" title="https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale">Quantitative Materiality Scale</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="ENCOREData">
+  <h3>ENCORE Tool<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#ENCOREData</p>
+  <div class="comment">
+   <span class="markdown">Exploring Natural Capital Opportunities, Risks and Exposure — sector-level tool for screening nature-related impacts and dependencies. Uses a quantitative scale (3-9). Used in L2 by both Santander Peru and CEBDS Brazil.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#BiodiversityDataSource" title="https://w3id.org/biodivrisK-onto#BiodiversityDataSource">Biodiversity Data Source</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://encorenature.org" target="_blank" title="https://encorenature.org">https://encorenature.org</a> <sup class="type-ep" title="external property">ep</sup>
    </dd>
   </dl>
  </div>
@@ -1123,6 +3158,75 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
   </dl>
  </div>
+ <div class="entity" id="GBIFData">
+  <h3>GBIF Occurrence Data<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#GBIFData</p>
+  <div class="comment">
+   <span class="markdown">Global Biodiversity Information Facility — primary open source for terrestrial and freshwater species occurrence records. Exhibits geographic sampling bias in LAC: under-representation of Andes, Amazonia and Cerrado.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#BiodiversityDataSource" title="https://w3id.org/biodivrisK-onto#BiodiversityDataSource">Biodiversity Data Source</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://www.gbif.org" target="_blank" title="https://www.gbif.org">https://www.gbif.org</a> <sup class="type-ep" title="external property">ep</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="GICS">
+  <h3>GICS<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#GICS</p>
+  <div class="comment">
+   <span class="markdown">International sector classification used by ENCORE and TNFD for materiality assessment.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#IndustrialClassification" title="https://w3id.org/biodivrisK-onto#IndustrialClassification">Industrial Classification Standard</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#incommensurableWith" title="https://w3id.org/biodivrisK-onto#incommensurableWith">incommensurable with</a> <sup class="type-op" title="object property">op</sup> <a href="#CIIU" title="https://w3id.org/biodivrisK-onto#CIIU">CIIU</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#incommensurableWith" title="https://w3id.org/biodivrisK-onto#incommensurableWith">incommensurable with</a> <sup class="type-op" title="object property">op</sup> <a href="#CNAE" title="https://w3id.org/biodivrisK-onto#CNAE">CNAE</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#prefLabel" target="_blank" title="http://www.w3.org/2004/02/skos/core#prefLabel">pref Label</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"Global Industry Classification Standard"@en</span>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="GlobalForestWatchData">
+  <h3>Global Forest Watch<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#GlobalForestWatchData</p>
+  <div class="comment">
+   <span class="markdown">Near real-time forest monitoring platform used by Santander Peru in LEAP L3/L4 to map protected areas and KBAs across Peru.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#BiodiversityDataSource" title="https://w3id.org/biodivrisK-onto#BiodiversityDataSource">Biodiversity Data Source</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://www.globalforestwatch.org" target="_blank" title="https://www.globalforestwatch.org">https://www.globalforestwatch.org</a> <sup class="type-ep" title="external property">ep</sup>
+   </dd>
+  </dl>
+ </div>
  <div class="entity" id="GRI101">
   <h3>GRI 101<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#GRI101</p>
@@ -1144,6 +3248,27 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
   </dl>
  </div>
+ <div class="entity" id="GRI101ImpactMateriality">
+  <h3>GRI 101 Impact Materiality<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality</p>
+  <div class="comment">
+   <span class="markdown">GRI 101 applies impact materiality: issues are material based on the significance of actual or potential impacts on people and the environment, assessed through stakeholder engagement and qualitative severity criteria.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#QualitativeMaterialityScale" title="https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale">Qualitative Materiality Scale</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#incommensurableWith" title="https://w3id.org/biodivrisK-onto#incommensurableWith">incommensurable with</a> <sup class="type-op" title="object property">op</sup> <a href="#ENCOREMateriality" title="https://w3id.org/biodivrisK-onto#ENCOREMateriality">ENCORE Quantitative Materiality Scale</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
  <div class="entity" id="GRIManagementApproach">
   <h3>GRI 101 Management Approach<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#GRIManagementApproach</p>
@@ -1156,6 +3281,12 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
    <dd>
     <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup> <a href="#GRI101" title="https://w3id.org/biodivrisK-onto#GRI101">GRI 101</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#incommensurableWith" title="https://w3id.org/biodivrisK-onto#incommensurableWith">incommensurable with</a> <sup class="type-op" title="object property">op</sup> <a href="#SBTNAR3TTarget" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">SBTN Science-based Target (AR3T)</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#incommensurableWith" title="https://w3id.org/biodivrisK-onto#incommensurableWith">incommensurable with</a> <sup class="type-op" title="object property">op</sup> <a href="#SBTNMeanSpeciesAbundance" title="https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance">SBTN Mean Species Abundance (MSA)</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
    <dt>
     is also defined as
@@ -1183,6 +3314,27 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
   </dl>
  </div>
+ <div class="entity" id="GRIProtectedAreaKBA">
+  <h3>GRI 101 Operations in/adjacent to Protected Areas and KBAs<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA</p>
+  <div class="comment">
+   <span class="markdown">GRI 101-6: disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#DisclosureRequirement" title="https://w3id.org/biodivrisK-onto#DisclosureRequirement">Disclosure Requirement</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup> <a href="#GRI101" title="https://w3id.org/biodivrisK-onto#GRI101">GRI 101</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
  <div class="entity" id="GRIImpactMateriality">
   <h3>GRI Impact Materiality<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#GRIImpactMateriality</p>
@@ -1198,6 +3350,54 @@ This section provides details for each class and property defined by BiodivRisk-
    </dt>
    <dd>
     <a href="#GRIImpactMateriality">class</a>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="IndustrialsSector">
+  <h3>Industrials Sector<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#IndustrialsSector</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#assessedUnder" title="https://w3id.org/biodivrisK-onto#assessedUnder">assessed under</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#hasSectorClassification" title="https://w3id.org/biodivrisK-onto#hasSectorClassification">has sector classification</a> <sup class="type-op" title="object property">op</sup> <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="ItauUnibanco">
+  <h3>Itaú Unibanco<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#ItauUnibanco</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#FinancialInstitution" title="https://w3id.org/biodivrisK-onto#FinancialInstitution">Financial Institution</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#appliesFramework" title="https://w3id.org/biodivrisK-onto#appliesFramework">applies framework</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#operatesInCountry" title="https://w3id.org/biodivrisK-onto#operatesInCountry">operates in country</a> <sup class="type-op" title="object property">op</sup> <a href="#Brazil" title="https://w3id.org/biodivrisK-onto#Brazil">Brazil</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#usesClassification" title="https://w3id.org/biodivrisK-onto#usesClassification">uses classification</a> <sup class="type-op" title="object property">op</sup> <a href="#CNAE" title="https://w3id.org/biodivrisK-onto#CNAE">CNAE</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://www.itau.com.br" target="_blank" title="https://www.itau.com.br">https://www.itau.com.br</a> <sup class="type-ep" title="external property">ep</sup>
    </dd>
   </dl>
  </div>
@@ -1231,6 +3431,216 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
   </dl>
  </div>
+ <div class="entity" id="MiningAndMetalsSector">
+  <h3>Mining and Metals Sector<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#MiningAndMetalsSector</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#assessedUnder" title="https://w3id.org/biodivrisK-onto#assessedUnder">assessed under</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#hasSectorClassification" title="https://w3id.org/biodivrisK-onto#hasSectorClassification">has sector classification</a> <sup class="type-op" title="object property">op</sup> <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#altLabel" target="_blank" title="http://www.w3.org/2004/02/skos/core#altLabel">alt Label</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"Materials (GICS)"@en</span>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="OBISData">
+  <h3>OBIS Marine Data<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#OBISData</p>
+  <div class="comment">
+   <span class="markdown">Ocean Biodiversity Information System — primary open source for marine species occurrence records. Under-representation of Caribbean marine ecosystems.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#BiodiversityDataSource" title="https://w3id.org/biodivrisK-onto#BiodiversityDataSource">Biodiversity Data Source</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://obis.org" target="_blank" title="https://obis.org">https://obis.org</a> <sup class="type-ep" title="external property">ep</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Peru">
+  <h3>Peru<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#Peru</p>
+  <div class="comment">
+   <span class="markdown">Megadiverse country — one of 17 globally. Second largest copper producer worldwide. High Andean and Amazonian biodiversity with documented GBIF sampling gaps.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Country" title="https://w3id.org/biodivrisK-onto#Country">Country</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="PriorityLocation">
+  <h3>Priority Location<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#PriorityLocation</p>
+  <dl class="description">
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dt>
+    is also defined as
+   </dt>
+   <dd>
+    <a href="#PriorityLocation">class</a>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="SantanderBrasil">
+  <h3>Santander Brasil<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#SantanderBrasil</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#FinancialInstitution" title="https://w3id.org/biodivrisK-onto#FinancialInstitution">Financial Institution</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#appliesFramework" title="https://w3id.org/biodivrisK-onto#appliesFramework">applies framework</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#operatesInCountry" title="https://w3id.org/biodivrisK-onto#operatesInCountry">operates in country</a> <sup class="type-op" title="object property">op</sup> <a href="#Brazil" title="https://w3id.org/biodivrisK-onto#Brazil">Brazil</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#usesClassification" title="https://w3id.org/biodivrisK-onto#usesClassification">uses classification</a> <sup class="type-op" title="object property">op</sup> <a href="#CNAE" title="https://w3id.org/biodivrisK-onto#CNAE">CNAE</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://www.santander.com.br" target="_blank" title="https://www.santander.com.br">https://www.santander.com.br</a> <sup class="type-ep" title="external property">ep</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="SantanderPeru">
+  <h3>Santander Peru<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#SantanderPeru</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#FinancialInstitution" title="https://w3id.org/biodivrisK-onto#FinancialInstitution">Financial Institution</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#appliesFramework" title="https://w3id.org/biodivrisK-onto#appliesFramework">applies framework</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#hasPortfolioSector" title="https://w3id.org/biodivrisK-onto#hasPortfolioSector">has portfolio sector</a> <sup class="type-op" title="object property">op</sup> <a href="#AgriculturalProductsSector" title="https://w3id.org/biodivrisK-onto#AgriculturalProductsSector">Agricultural Products Sector</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#hasPortfolioSector" title="https://w3id.org/biodivrisK-onto#hasPortfolioSector">has portfolio sector</a> <sup class="type-op" title="object property">op</sup> <a href="#MiningAndMetalsSector" title="https://w3id.org/biodivrisK-onto#MiningAndMetalsSector">Mining and Metals Sector</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#operatesInCountry" title="https://w3id.org/biodivrisK-onto#operatesInCountry">operates in country</a> <sup class="type-op" title="object property">op</sup> <a href="#Peru" title="https://w3id.org/biodivrisK-onto#Peru">Peru</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#prefLabel" target="_blank" title="http://www.w3.org/2004/02/skos/core#prefLabel">pref Label</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"Banco Santander Perú S.A."@en</span>
+   </dd>
+   <dd>
+    <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://www.santander.com.pe" target="_blank" title="https://www.santander.com.pe">https://www.santander.com.pe</a> <sup class="type-ep" title="external property">ep</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="SantanderPeruESCCPolicy">
+  <h3>Santander Peru ESCC Risk Policy<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy</p>
+  <div class="comment">
+   <span class="markdown">Santander Peru's Environmental, Social, Climate and Compliance (ESCC) risk management policy. Covers IUCN protected areas and Ramsar sites but does not extend to all TNFD sensitive location criteria (rapid ecosystem decline, high water stress).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#InternalPolicy" title="https://w3id.org/biodivrisK-onto#InternalPolicy">Internal Policy</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#coversRequirement" title="https://w3id.org/biodivrisK-onto#coversRequirement">covers requirement</a> <sup class="type-op" title="object property">op</sup> <a href="#GRIProtectedAreaKBA" title="https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA">GRI 101 Operations in/adjacent to Protected Areas and KBAs</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="SantanderPeruL4Assessment">
+  <h3>Santander Peru LEAP L4 Assessment<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment</p>
+  <div class="comment">
+   <span class="markdown">Santander Peru's LEAP assessment conducted during Global Canopy's TNFD familiarisation programme in 2024, covering scoping and the full Locate phase (L1-L4). Source: Global Canopy &amp; Santander Peru (2025).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#LEAPAssessment" title="https://w3id.org/biodivrisK-onto#LEAPAssessment">LEAP Assessment</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#informsTargetSetting" title="https://w3id.org/biodivrisK-onto#informsTargetSetting">informs target setting</a> <sup class="type-op" title="object property">op</sup> <a href="#SBTNAR3TTargetInstance" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance">SBTN AR3T Science-based Target</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#requiresDataFrom" title="https://w3id.org/biodivrisK-onto#requiresDataFrom">requires data from</a> <sup class="type-op" title="object property">op</sup> <a href="#ENCOREData" title="https://w3id.org/biodivrisK-onto#ENCOREData">ENCORE Tool</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#requiresDataFrom" title="https://w3id.org/biodivrisK-onto#requiresDataFrom">requires data from</a> <sup class="type-op" title="object property">op</sup> <a href="#GlobalForestWatchData" title="https://w3id.org/biodivrisK-onto#GlobalForestWatchData">Global Forest Watch</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#requiresDataFrom" title="https://w3id.org/biodivrisK-onto#requiresDataFrom">requires data from</a> <sup class="type-op" title="object property">op</sup> <a href="#WRIAqueductData" title="https://w3id.org/biodivrisK-onto#WRIAqueductData">WRI Aqueduct</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#wasAssociatedWith" target="_blank" title="http://www.w3.org/ns/prov#wasAssociatedWith">was Associated With</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="#SantanderPeru" title="https://w3id.org/biodivrisK-onto#SantanderPeru">Santander Peru</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="SASB_SICS">
+  <h3>SASB SICS<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#SASB_SICS</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#IndustrialClassification" title="https://w3id.org/biodivrisK-onto#IndustrialClassification">Industrial Classification Standard</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="http://www.w3.org/2004/02/skos/core#prefLabel" target="_blank" title="http://www.w3.org/2004/02/skos/core#prefLabel">pref Label</a> <sup class="type-ap" title="annotation property">ap</sup> <span class="literal">"SASB Sustainable Industry Classification System"@en</span>
+   </dd>
+  </dl>
+ </div>
  <div class="entity" id="SBTN">
   <h3>SBTN<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#SBTN</p>
@@ -1252,6 +3662,30 @@ This section provides details for each class and property defined by BiodivRisk-
    </dd>
   </dl>
  </div>
+ <div class="entity" id="SBTNAR3TTargetInstance">
+  <h3>SBTN AR3T Science-based Target<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance</p>
+  <div class="comment">
+   <span class="markdown">A science-based target following the SBTN AR3T hierarchy (Avoid, Reduce, Restore, Transform), as applicable to financial institutions assessing their portfolio exposure to nature loss. Requires LEAP assessment outputs as input for geographic and sectoral target-setting.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#SBTNAR3TTarget" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">SBTN Science-based Target (AR3T)</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#requiresInputFrom" title="https://w3id.org/biodivrisK-onto#requiresInputFrom">requires input from</a> <sup class="type-op" title="object property">op</sup> <a href="#CEBDSBrazilLocateAssessment" title="https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment">CEBDS Brazil TNFD Locate Phase Pilot</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#requiresInputFrom" title="https://w3id.org/biodivrisK-onto#requiresInputFrom">requires input from</a> <sup class="type-op" title="object property">op</sup> <a href="#SantanderPeruL4Assessment" title="https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment">Santander Peru LEAP L4 Assessment</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
  <div class="entity" id="SBTNMeanSpeciesAbundance">
   <h3>SBTN Mean Species Abundance (MSA)<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance</p>
@@ -1259,6 +3693,9 @@ This section provides details for each class and property defined by BiodivRisk-
    <dt>
     has facts
    </dt>
+   <dd>
+    <a href="#coveredByFramework" title="https://w3id.org/biodivrisK-onto#coveredByFramework">covered by framework</a> <sup class="type-op" title="object property">op</sup> <a href="#SBTN" title="https://w3id.org/biodivrisK-onto#SBTN">SBTN</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
    <dd>
     <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup> <a href="#SBTN" title="https://w3id.org/biodivrisK-onto#SBTN">SBTN</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
@@ -1281,6 +3718,9 @@ This section provides details for each class and property defined by BiodivRisk-
     has facts
    </dt>
    <dd>
+    <a href="#coveredByFramework" title="https://w3id.org/biodivrisK-onto#coveredByFramework">covered by framework</a> <sup class="type-op" title="object property">op</sup> <a href="#SBTN" title="https://w3id.org/biodivrisK-onto#SBTN">SBTN</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
     <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup> <a href="#SBTN" title="https://w3id.org/biodivrisK-onto#SBTN">SBTN</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
    <dd>
@@ -1291,6 +3731,21 @@ This section provides details for each class and property defined by BiodivRisk-
    </dt>
    <dd>
     <a href="#SBTNAR3TTarget">class</a>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="SBTNtargetToGRIConversion">
+  <h3>SBTN Target to GRI Management Approach Conversion<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion</p>
+  <div class="comment">
+   <span class="markdown">Information loss documented when converting an SBTN science-based target (measurable, time-bound, science-grounded) to a GRI 101 management approach disclosure (qualitative, policy-level). Lost information includes: (1) quantitative target value, (2) scientific baseline, (3) time horizon commitment, (4) verifiability. Bridging condition: the GRI management approach must explicitly commit to SBTN-compatible targets with verified science-based baselines.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#InformationLoss" title="https://w3id.org/biodivrisK-onto#InformationLoss">Information Loss</a> <sup class="type-c" title="class">c</sup>
    </dd>
   </dl>
  </div>
@@ -1323,7 +3778,13 @@ This section provides details for each class and property defined by BiodivRisk-
     has facts
    </dt>
    <dd>
+    <a href="#coveredByFramework" title="https://w3id.org/biodivrisK-onto#coveredByFramework">covered by framework</a> <sup class="type-op" title="object property">op</sup> <a href="#ESRS_E4" title="https://w3id.org/biodivrisK-onto#ESRS_E4">CSRD/ESRS E4</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
     <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#incommensurableWith" title="https://w3id.org/biodivrisK-onto#incommensurableWith">incommensurable with</a> <sup class="type-op" title="object property">op</sup> <a href="#ESRSDoubleMateriality" title="https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality">ESRS E4 Double Materiality</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
    <dt>
     is also defined as
@@ -1344,6 +3805,9 @@ This section provides details for each class and property defined by BiodivRisk-
     <a href="#complements" title="https://w3id.org/biodivrisK-onto#complements">complements</a> <sup class="type-op" title="object property">op</sup> <a href="#SBTNAR3TTarget" title="https://w3id.org/biodivrisK-onto#SBTNAR3TTarget">SBTN Science-based Target (AR3T)</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
    <dd>
+    <a href="#coveredByFramework" title="https://w3id.org/biodivrisK-onto#coveredByFramework">covered by framework</a> <sup class="type-op" title="object property">op</sup> <a href="#ESRS_E4" title="https://w3id.org/biodivrisK-onto#ESRS_E4">CSRD/ESRS E4</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
     <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
    <dt>
@@ -1361,6 +3825,9 @@ This section provides details for each class and property defined by BiodivRisk-
    <dt>
     has facts
    </dt>
+   <dd>
+    <a href="#coveredByFramework" title="https://w3id.org/biodivrisK-onto#coveredByFramework">covered by framework</a> <sup class="type-op" title="object property">op</sup> <a href="#ESRS_E4" title="https://w3id.org/biodivrisK-onto#ESRS_E4">CSRD/ESRS E4</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
    <dd>
     <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
@@ -1380,6 +3847,9 @@ This section provides details for each class and property defined by BiodivRisk-
     has facts
    </dt>
    <dd>
+    <a href="#coveredByFramework" title="https://w3id.org/biodivrisK-onto#coveredByFramework">covered by framework</a> <sup class="type-op" title="object property">op</sup> <a href="#ESRS_E4" title="https://w3id.org/biodivrisK-onto#ESRS_E4">CSRD/ESRS E4</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
     <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
    </dd>
    <dt>
@@ -1387,6 +3857,84 @@ This section provides details for each class and property defined by BiodivRisk-
    </dt>
    <dd>
     <a href="#TNFDPriorityLocation">class</a>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="TNFDStrategyD">
+  <h3>TNFD Strategy D<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#TNFDStrategyD</p>
+  <div class="comment">
+   <span class="markdown">TNFD recommended disclosure Strategy D: disclose the locations of assets and/or activities in direct operations and, where possible, upstream and downstream value chains that meet the criteria for priority locations.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#DisclosureRequirement" title="https://w3id.org/biodivrisK-onto#DisclosureRequirement">Disclosure Requirement</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#definedBy" title="https://w3id.org/biodivrisK-onto#definedBy">defined by</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="TropicalAndes">
+  <h3>Tropical Andes Biome<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#TropicalAndes</p>
+  <div class="comment">
+   <span class="markdown">Biodiversity hotspot in the Andes mountains of Peru, Colombia, Ecuador and Bolivia. Under-sampled in GBIF: occurrence records biased towards roads and urban areas, with insufficient coverage of high-altitude species.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Biome" title="https://w3id.org/biodivrisK-onto#Biome">Biome</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="UtilitiesSector">
+  <h3>Utilities Sector<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#UtilitiesSector</p>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#Sector" title="https://w3id.org/biodivrisK-onto#Sector">Economic Sector</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="#assessedUnder" title="https://w3id.org/biodivrisK-onto#assessedUnder">assessed under</a> <sup class="type-op" title="object property">op</sup> <a href="#TNFD" title="https://w3id.org/biodivrisK-onto#TNFD">TNFD</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+   <dd>
+    <a href="#hasSectorClassification" title="https://w3id.org/biodivrisK-onto#hasSectorClassification">has sector classification</a> <sup class="type-op" title="object property">op</sup> <a href="#GICS" title="https://w3id.org/biodivrisK-onto#GICS">GICS</a> <sup class="type-ni" title="named individual">ni</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="WRIAqueductData">
+  <h3>WRI Aqueduct<sup class="type-ni" title="named individual">ni</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#WRIAqueductData</p>
+  <div class="comment">
+   <span class="markdown">World Resources Institute water risk atlas — used in LEAP L4 to identify high physical water stress zones. Used by both case study institutions.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    belongs to
+   </dt>
+   <dd>
+    <a href="#BiodiversityDataSource" title="https://w3id.org/biodivrisK-onto#BiodiversityDataSource">Biodiversity Data Source</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has facts
+   </dt>
+   <dd>
+    <a href="https://schema.org/url" target="_blank" title="https://schema.org/url">url</a> <sup class="type-ap" title="annotation property">ap</sup> <a href="https://www.wri.org/aqueduct" target="_blank" title="https://www.wri.org/aqueduct">aqueduct</a> <sup class="type-ep" title="external property">ep</sup>
    </dd>
   </dl>
  </div>

@@ -6,6 +6,10 @@
 	 dc:title "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks";
 	 prov:wasAttributedTo <https://orcid.org/0000-0001-8851-8602>;
 	 dc:creator <https://orcid.org/0000-0001-8851-8602>;
+	 prov:wasAttributedTo :agent0;
+	 prov:wasAttributedTo <https://orcid.org/0000-0001-8851-8602>;
+	 dc:creator <https://orcid.org/0000-0001-8851-8602>;
 	 prov:wasAttributedTo <https://github.com/dgarijo/Widoco/>,<http://www.essepuntato.it/lode/>;
-	 prov:wasGeneratedAt "2026-07-13";
+	 prov:wasGeneratedAt "2026-07-21";
 .
+:agent0 a prov:Agent; foaf:name "Gustavo Nuñez".
