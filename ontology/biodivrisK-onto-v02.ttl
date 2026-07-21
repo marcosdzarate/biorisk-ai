@@ -1,0 +1,784 @@
+@prefix bro:     <https://w3id.org/biodivrisK-onto#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann:    <http://purl.org/vocab/vann/> .
+@prefix schema:  <https://schema.org/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix envo:    <http://purl.obolibrary.org/obo/ENVO_> .
+@prefix geo:     <http://www.opengis.net/ont/geosparql#> .
+
+# ---------------------------------------------------------------
+# Ontology metadata
+# ---------------------------------------------------------------
+
+<https://w3id.org/biodivrisK-onto>
+    a owl:Ontology ;
+    owl:versionIRI <https://w3id.org/biodivrisK-onto/0.2.0> ;
+    owl:imports <https://w3id.org/biodivrisK-onto/0.1.0> ;
+    dcterms:title
+        "BiodivRisk-Onto v0.2.0: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"@en ;
+    dcterms:description
+        "Extension of v0.1.0 with organizational, geographic, and evaluation modules, populated with real-world instances from the Santander Peru and CEBDS Brazil case studies."@en ;
+    dcterms:creator [
+        a schema:Person ;
+        schema:name "Marcos Daniel Zárate" ;
+        schema:affiliation "CESIMAR-CONICET, Puerto Madryn, Argentina" ;
+        schema:url <https://orcid.org/0000-0001-8851-8602>
+    ] ;
+    dcterms:creator [
+        a schema:Person ;
+        schema:name "Gustavo Nuñez" ;
+        schema:affiliation "CESIMAR-CONICET, Puerto Madryn, Argentina"
+    ] ;
+    dcterms:created "2026-07-21"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    vann:preferredNamespacePrefix "bro" ;
+    vann:preferredNamespaceUri "https://w3id.org/biodivrisK-onto#" ;
+    owl:versionInfo "0.2.0" ;
+    rdfs:seeAlso <https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology> .
+
+# ---------------------------------------------------------------
+# MODULE 1: Organization
+# Reuses schema:Organization, schema:BankOrCreditUnion
+# ---------------------------------------------------------------
+
+bro:Organization
+    a owl:Class ;
+    rdfs:label "Organization"@en ;
+    rdfs:comment
+        "An organization that applies one or more biodiversity risk disclosure frameworks to assess its nature-related dependencies, impacts, risks and opportunities."@en ;
+    rdfs:subClassOf schema:Organization .
+
+bro:FinancialInstitution
+    a owl:Class ;
+    rdfs:subClassOf bro:Organization ;
+    rdfs:subClassOf schema:BankOrCreditUnion ;
+    rdfs:label "Financial Institution"@en ;
+    rdfs:comment
+        "A bank, investment fund, insurance company or other financial institution whose portfolio exposure to nature-related risks is assessed through biodiversity risk frameworks."@en .
+
+bro:Portfolio
+    a owl:Class ;
+    rdfs:label "Portfolio"@en ;
+    rdfs:comment
+        "A credit or investment portfolio of a financial institution, composed of assets across multiple economic sectors and geographic locations."@en .
+
+bro:Sector
+    a owl:Class ;
+    rdfs:label "Economic Sector"@en ;
+    rdfs:comment
+        "An economic sector associated with potential impacts and dependencies on nature, classifiable under international standards such as GICS or SASB/SICS."@en .
+
+bro:IndustrialClassification
+    a owl:Class ;
+    rdfs:label "Industrial Classification Standard"@en ;
+    rdfs:comment
+        "A standard system for classifying economic activities into sectors and subsectors (e.g., GICS, CNAE, CIIU, SASB/SICS). Different standards may not be mutually translatable without ambiguity."@en .
+
+# ---------------------------------------------------------------
+# MODULE 2: Geographic
+# Reuses ENVO biome classes, schema:Country, geo:Feature
+# ---------------------------------------------------------------
+
+bro:Biome
+    a owl:Class ;
+    rdfs:label "Biome"@en ;
+    rdfs:comment
+        "A major ecological zone characterized by distinctive climate, vegetation and biodiversity. Reuses ENVO biome concept (ENVO:00000428). In LAC, biomes are megadiverse and systematically under-sampled in GBIF/OBIS."@en ;
+    owl:equivalentClass envo:00000428 .
+
+bro:Country
+    a owl:Class ;
+    rdfs:subClassOf schema:Country ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Country"@en ;
+    rdfs:comment "A sovereign country where a financial institution operates or has portfolio exposure."@en .
+
+bro:PriorityLocation
+    a owl:Class ;
+    rdfs:subClassOf bro:FrameworkConcept ;
+    rdfs:label "Priority Location"@en ;
+    rdfs:comment
+        "A geographic location identified as high-priority for biodiversity assessment under TNFD LEAP L4, based on five sensitive location criteria: (1) important for biodiversity; (2) high ecosystem integrity; (3) rapid ecosystem decline; (4) high physical water risk; (5) important for ecosystem services provision."@en ;
+    bro:definedBy bro:TNFD .
+
+# ---------------------------------------------------------------
+# MODULE 3: LEAP Assessment and Data Sources
+# Reuses prov:Activity, prov:Entity
+# ---------------------------------------------------------------
+
+bro:LEAPAssessment
+    a owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:label "LEAP Assessment"@en ;
+    rdfs:comment
+        "A structured assessment following the TNFD LEAP methodology (Locate, Evaluate, Assess, Prepare), conducted by an organization to identify and assess its nature-related dependencies, impacts, risks and opportunities. Connects the organization, frameworks applied, sectors evaluated, biomes, data sources and gaps identified."@en .
+
+bro:BiodiversityDataSource
+    a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Biodiversity Data Source"@en ;
+    rdfs:comment
+        "An open or proprietary data source used to obtain species occurrence, ecosystem integrity or water risk data during a LEAP assessment (e.g., GBIF, OBIS, ENCORE, Global Forest Watch, WRI Aqueduct, IBAT)."@en .
+
+bro:DataSufficiencyAssessment
+    a owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:label "Data Sufficiency Assessment"@en ;
+    rdfs:comment
+        "An evaluation of whether available biodiversity data from sources such as GBIF and OBIS are sufficient to meet the information requirements of a given disclosure framework for a specific biome, sector and location. Quantifies data gaps arising from geographic and taxonomic sampling bias."@en .
+
+# ---------------------------------------------------------------
+# MODULE 4: Materiality
+# ---------------------------------------------------------------
+
+bro:MaterialityApproach
+    a owl:Class ;
+    rdfs:label "Materiality Approach"@en ;
+    rdfs:comment
+        "A methodological approach for determining which nature-related impacts, risks and opportunities are material and must be disclosed. Different frameworks apply different approaches (financial, impact, or double materiality) that are not mutually equivalent."@en .
+
+bro:QuantitativeMaterialityScale
+    a owl:Class ;
+    rdfs:subClassOf bro:MaterialityApproach ;
+    rdfs:label "Quantitative Materiality Scale"@en ;
+    rdfs:comment
+        "A numerical scale used to score materiality of nature-related impacts and dependencies (e.g., ENCORE scale 3-9: very low=3, low=4.5, medium=6, high=7.5, very high=9)."@en .
+
+bro:QualitativeMaterialityScale
+    a owl:Class ;
+    rdfs:subClassOf bro:MaterialityApproach ;
+    rdfs:label "Qualitative Materiality Scale"@en ;
+    rdfs:comment
+        "A narrative or categorical approach to assessing materiality of nature-related impacts, without a fixed numerical scale (e.g., GRI 101 impact materiality approach)."@en .
+
+bro:MaterialityResult
+    a owl:Class ;
+    rdfs:label "Materiality Result"@en ;
+    rdfs:comment
+        "The output of a materiality assessment — a ranked or scored set of sectors, locations or impacts identified as material under a specific framework and approach."@en .
+
+# ---------------------------------------------------------------
+# MODULE 5: Disclosure and Policy
+# ---------------------------------------------------------------
+
+bro:DisclosureRequirement
+    a owl:Class ;
+    rdfs:label "Disclosure Requirement"@en ;
+    rdfs:comment
+        "A specific disclosure requirement within a framework, at the level of a recommended disclosure, datapoint or metric (e.g., TNFD Strategy D, ESRS E4-5, GRI 101-6)."@en .
+
+bro:InternalPolicy
+    a owl:Class ;
+    rdfs:label "Internal Policy"@en ;
+    rdfs:comment
+        "An organization's internal policy for managing environmental, social, climate or nature-related risks (e.g., an ESCC policy). May partially cover requirements of external disclosure frameworks."@en .
+
+# ---------------------------------------------------------------
+# MODULE 6: Risk
+# Reuses ENVO environmental hazard concept
+# ---------------------------------------------------------------
+
+bro:PhysicalRisk
+    a owl:Class ;
+    rdfs:label "Physical Risk"@en ;
+    rdfs:comment
+        "A nature-related physical risk arising from the degradation of ecosystems or natural capital, including water stress, ecosystem collapse, loss of pollination, erosion or flooding. Corresponds to TNFD and ESRS physical risk category."@en .
+
+bro:WaterStressRisk
+    a owl:Class ;
+    rdfs:subClassOf bro:PhysicalRisk ;
+    rdfs:label "Water Stress Risk"@en ;
+    rdfs:comment
+        "Physical risk arising from insufficient availability or quality of freshwater resources, particularly relevant for mining and agricultural sectors in the Andes. Identified as material dependency in the Santander Peru LEAP assessment (L2)."@en .
+
+# ---------------------------------------------------------------
+# MODULE 7: Semantic ambiguity and information loss
+# ---------------------------------------------------------------
+
+bro:SemanticAmbiguity
+    a owl:Class ;
+    rdfs:label "Semantic Ambiguity"@en ;
+    rdfs:comment
+        "A documented case of semantic ambiguity in the correspondence between two industrial classification standards, where a category in one standard maps to multiple non-equivalent categories in another, or vice versa."@en .
+
+bro:InformationLoss
+    a owl:Class ;
+    rdfs:label "Information Loss"@en ;
+    rdfs:comment
+        "The loss of material information that occurs when translating a disclosure or target from one framework to another under an incommensurability relationship. Complements bro:hasBridgingCondition by documenting what is lost, not just under what conditions the conversion is admissible."@en .
+
+# ---------------------------------------------------------------
+# New object properties
+# ---------------------------------------------------------------
+
+bro:hasPortfolioSector
+    a owl:ObjectProperty ;
+    rdfs:label "has portfolio sector"@en ;
+    rdfs:comment "Relates a financial institution to an economic sector represented in its credit or investment portfolio."@en ;
+    rdfs:domain bro:FinancialInstitution ;
+    rdfs:range bro:Sector .
+
+bro:appliesFramework
+    a owl:ObjectProperty ;
+    rdfs:label "applies framework"@en ;
+    rdfs:comment "Relates an organization to a disclosure framework it applies or is subject to."@en ;
+    rdfs:domain bro:Organization ;
+    rdfs:range bro:DisclosureFramework .
+
+bro:assessedUnder
+    a owl:ObjectProperty ;
+    rdfs:label "assessed under"@en ;
+    rdfs:comment "Relates a sector or portfolio to the disclosure framework under which it was assessed for materiality."@en ;
+    rdfs:domain bro:Sector ;
+    rdfs:range bro:DisclosureFramework .
+
+bro:operatesInCountry
+    a owl:ObjectProperty ;
+    rdfs:label "operates in country"@en ;
+    rdfs:domain bro:Organization ;
+    rdfs:range bro:Country .
+
+bro:operatesInBiome
+    a owl:ObjectProperty ;
+    rdfs:label "operates in biome"@en ;
+    rdfs:domain bro:Organization ;
+    rdfs:range bro:Biome .
+
+bro:usesClassification
+    a owl:ObjectProperty ;
+    rdfs:label "uses classification"@en ;
+    rdfs:domain bro:Organization ;
+    rdfs:range bro:IndustrialClassification .
+
+bro:hasDataGapIn
+    a owl:ObjectProperty ;
+    rdfs:label "has data gap in"@en ;
+    rdfs:comment "Relates a disclosure framework to a biome where its data requirements cannot be met due to GBIF/OBIS sampling bias."@en ;
+    rdfs:domain bro:DisclosureFramework ;
+    rdfs:range bro:Biome .
+
+bro:coveredByFramework
+    a owl:ObjectProperty ;
+    rdfs:label "covered by framework"@en ;
+    rdfs:comment "Relates a framework concept to the frameworks that include or address it."@en ;
+    rdfs:domain bro:FrameworkConcept ;
+    rdfs:range bro:DisclosureFramework .
+
+bro:hasMaterialityApproach
+    a owl:ObjectProperty ;
+    rdfs:label "has materiality approach"@en ;
+    rdfs:domain bro:DisclosureFramework ;
+    rdfs:range bro:MaterialityApproach .
+
+bro:hasSectorClassification
+    a owl:ObjectProperty ;
+    rdfs:label "has sector classification"@en ;
+    rdfs:domain bro:Sector ;
+    rdfs:range bro:IndustrialClassification .
+
+bro:mappableTo
+    a owl:ObjectProperty ;
+    rdfs:label "mappable to"@en ;
+    rdfs:comment "A lossy correspondence between two industrial classification standards requiring manual effort and producing semantic ambiguity."@en ;
+    rdfs:domain bro:IndustrialClassification ;
+    rdfs:range bro:IndustrialClassification .
+
+bro:informsTargetSetting
+    a owl:ObjectProperty ;
+    rdfs:label "informs target setting"@en ;
+    rdfs:comment "A directed property: the output of a LEAP assessment informs the science-based target-setting process of SBTN AR3T."@en ;
+    rdfs:domain bro:LEAPAssessment ;
+    rdfs:range bro:SBTNAR3TTarget .
+
+bro:requiresInputFrom
+    a owl:ObjectProperty ;
+    rdfs:label "requires input from"@en ;
+    rdfs:comment "A directed property: SBTN AR3T target setting requires location and materiality data produced by a TNFD LEAP assessment."@en ;
+    rdfs:domain bro:SBTNAR3TTarget ;
+    rdfs:range bro:LEAPAssessment .
+
+bro:prioritisesSector
+    a owl:ObjectProperty ;
+    rdfs:label "prioritises sector"@en ;
+    rdfs:domain bro:MaterialityResult ;
+    rdfs:range bro:Sector .
+
+bro:hasEvaluationResult
+    a owl:ObjectProperty ;
+    rdfs:label "has evaluation result"@en ;
+    rdfs:domain bro:LEAPAssessment ;
+    rdfs:range bro:MaterialityResult .
+
+bro:requiresDataFrom
+    a owl:ObjectProperty ;
+    rdfs:label "requires data from"@en ;
+    rdfs:domain bro:LEAPAssessment ;
+    rdfs:range bro:BiodiversityDataSource .
+
+bro:hasDataSufficiency
+    a owl:ObjectProperty ;
+    rdfs:label "has data sufficiency"@en ;
+    rdfs:domain bro:DataSufficiencyAssessment ;
+    rdfs:range bro:Biome .
+
+bro:coversRequirement
+    a owl:ObjectProperty ;
+    rdfs:label "covers requirement"@en ;
+    rdfs:comment "Relates an internal policy to the disclosure requirements of external frameworks that it partially or fully covers."@en ;
+    rdfs:domain bro:InternalPolicy ;
+    rdfs:range bro:DisclosureRequirement .
+
+bro:hasScale
+    a owl:ObjectProperty ;
+    rdfs:label "has scale"@en ;
+    rdfs:domain bro:MaterialityApproach ;
+    rdfs:range bro:QuantitativeMaterialityScale .
+
+bro:hasInformationLoss
+    a owl:ObjectProperty ;
+    rdfs:label "has information loss"@en ;
+    rdfs:comment "Documents what information is lost when converting between two incommensurable framework concepts."@en ;
+    rdfs:domain owl:Class ;
+    rdfs:range bro:InformationLoss .
+
+bro:affectsRiskAssessment
+    a owl:ObjectProperty ;
+    rdfs:label "affects risk assessment"@en ;
+    rdfs:comment "Relates a materiality boundary gap to the type of physical risk whose assessment is affected."@en ;
+    rdfs:domain bro:MaterialityBoundary ;
+    rdfs:range bro:PhysicalRisk .
+
+bro:hasAmbiguity
+    a owl:ObjectProperty ;
+    rdfs:label "has ambiguity"@en ;
+    rdfs:domain bro:IndustrialClassification ;
+    rdfs:range bro:SemanticAmbiguity .
+
+# ---------------------------------------------------------------
+# INSTANCES — Case 1: Santander Peru
+# ---------------------------------------------------------------
+
+bro:SantanderPeru
+    a owl:NamedIndividual, bro:FinancialInstitution ;
+    rdfs:label "Santander Peru"@en ;
+    skos:prefLabel "Banco Santander Perú S.A."@en ;
+    schema:url <https://www.santander.com.pe> ;
+    bro:appliesFramework bro:TNFD ;
+    bro:operatesInCountry bro:Peru ;
+    bro:hasPortfolioSector bro:MiningAndMetalsSector ;
+    bro:hasPortfolioSector bro:AgriculturalProductsSector .
+
+bro:SantanderPeruL4Assessment
+    a owl:NamedIndividual, bro:LEAPAssessment ;
+    rdfs:label "Santander Peru LEAP L4 Assessment"@en ;
+    rdfs:comment
+        "Santander Peru's LEAP assessment conducted during Global Canopy's TNFD familiarisation programme in 2024, covering scoping and the full Locate phase (L1-L4). Source: Global Canopy & Santander Peru (2025)."@en ;
+    bro:requiresDataFrom bro:GlobalForestWatchData ;
+    bro:requiresDataFrom bro:ENCOREData ;
+    bro:requiresDataFrom bro:WRIAqueductData ;
+    prov:wasAssociatedWith bro:SantanderPeru .
+
+bro:SantanderPeruESCCPolicy
+    a owl:NamedIndividual, bro:InternalPolicy ;
+    rdfs:label "Santander Peru ESCC Risk Policy"@en ;
+    rdfs:comment
+        "Santander Peru's Environmental, Social, Climate and Compliance (ESCC) risk management policy. Covers IUCN protected areas and Ramsar sites but does not extend to all TNFD sensitive location criteria (rapid ecosystem decline, high water stress)."@en ;
+    bro:coversRequirement bro:GRIProtectedAreaKBA .
+
+# ---------------------------------------------------------------
+# INSTANCES — Case 2: CEBDS Brazil
+# ---------------------------------------------------------------
+
+bro:BNDES
+    a owl:NamedIndividual, bro:FinancialInstitution ;
+    rdfs:label "BNDES"@en ;
+    skos:prefLabel "Banco Nacional de Desenvolvimento Econômico e Social"@en ;
+    schema:url <https://www.bndes.gov.br> ;
+    bro:appliesFramework bro:TNFD ;
+    bro:operatesInCountry bro:Brazil ;
+    bro:usesClassification bro:CNAE .
+
+bro:Bradesco
+    a owl:NamedIndividual, bro:FinancialInstitution ;
+    rdfs:label "Banco Bradesco"@en ;
+    schema:url <https://www.bradesco.com.br> ;
+    bro:appliesFramework bro:TNFD ;
+    bro:operatesInCountry bro:Brazil ;
+    bro:usesClassification bro:CNAE .
+
+bro:Caixa
+    a owl:NamedIndividual, bro:FinancialInstitution ;
+    rdfs:label "Caixa Econômica Federal"@en ;
+    schema:url <https://www.caixa.gov.br> ;
+    bro:appliesFramework bro:TNFD ;
+    bro:operatesInCountry bro:Brazil ;
+    bro:usesClassification bro:CNAE .
+
+bro:ItauUnibanco
+    a owl:NamedIndividual, bro:FinancialInstitution ;
+    rdfs:label "Itaú Unibanco"@en ;
+    schema:url <https://www.itau.com.br> ;
+    bro:appliesFramework bro:TNFD ;
+    bro:operatesInCountry bro:Brazil ;
+    bro:usesClassification bro:CNAE .
+
+bro:SantanderBrasil
+    a owl:NamedIndividual, bro:FinancialInstitution ;
+    rdfs:label "Santander Brasil"@en ;
+    schema:url <https://www.santander.com.br> ;
+    bro:appliesFramework bro:TNFD ;
+    bro:operatesInCountry bro:Brazil ;
+    bro:usesClassification bro:CNAE .
+
+bro:CEBDSBrazilLocateAssessment
+    a owl:NamedIndividual, bro:LEAPAssessment ;
+    rdfs:label "CEBDS Brazil TNFD Locate Phase Pilot"@en ;
+    rdfs:comment
+        "Collective piloting of the TNFD LEAP Locate phase by 5 Brazilian financial institutions coordinated by CEBDS and technically led by EY, September 2023–September 2024. Source: CEBDS/EY (2024)."@en ;
+    bro:requiresDataFrom bro:ENCOREData ;
+    bro:requiresDataFrom bro:WRIAqueductData ;
+    bro:requiresDataFrom bro:GBIFData ;
+    bro:hasEvaluationResult bro:CEBDSHeatmapResult ;
+    prov:wasAssociatedWith bro:BNDES ;
+    prov:wasAssociatedWith bro:Bradesco ;
+    prov:wasAssociatedWith bro:Caixa ;
+    prov:wasAssociatedWith bro:ItauUnibanco ;
+    prov:wasAssociatedWith bro:SantanderBrasil .
+
+bro:CEBDSHeatmapResult
+    a owl:NamedIndividual, bro:MaterialityResult ;
+    rdfs:label "CEBDS Brazil Sector Heatmap Result"@en ;
+    rdfs:comment
+        "Sectoral materiality ranking from the CEBDS Brazil LEAP pilot using ENCORE scores combined with loan volume and number of clients data. Priority order: 1st Consumer Staples, 2nd Consumer Discretionary, 3rd Utilities, 4th Industrials."@en ;
+    bro:prioritisesSector bro:ConsumerStaplesSector ;
+    bro:prioritisesSector bro:ConsumerDiscretionarySector ;
+    bro:prioritisesSector bro:UtilitiesSector ;
+    bro:prioritisesSector bro:IndustrialsSector .
+
+# ---------------------------------------------------------------
+# INSTANCES — Sectors
+# ---------------------------------------------------------------
+
+bro:MiningAndMetalsSector
+    a owl:NamedIndividual, bro:Sector ;
+    rdfs:label "Mining and Metals Sector"@en ;
+    skos:altLabel "Materials (GICS)"@en ;
+    bro:hasSectorClassification bro:GICS ;
+    bro:assessedUnder bro:TNFD .
+
+bro:AgriculturalProductsSector
+    a owl:NamedIndividual, bro:Sector ;
+    rdfs:label "Agricultural Products Sector"@en ;
+    bro:hasSectorClassification bro:GICS ;
+    bro:assessedUnder bro:TNFD .
+
+bro:ConsumerStaplesSector
+    a owl:NamedIndividual, bro:Sector ;
+    rdfs:label "Consumer Staples Sector"@en ;
+    skos:definition "Companies involved in the production or sale of essential products, including food, beverages, tobacco, and hygiene products. Priority 1 in CEBDS Brazil heatmap."@en ;
+    bro:hasSectorClassification bro:GICS ;
+    bro:assessedUnder bro:TNFD .
+
+bro:ConsumerDiscretionarySector
+    a owl:NamedIndividual, bro:Sector ;
+    rdfs:label "Consumer Discretionary Sector"@en ;
+    bro:hasSectorClassification bro:GICS ;
+    bro:assessedUnder bro:TNFD .
+
+bro:UtilitiesSector
+    a owl:NamedIndividual, bro:Sector ;
+    rdfs:label "Utilities Sector"@en ;
+    bro:hasSectorClassification bro:GICS ;
+    bro:assessedUnder bro:TNFD .
+
+bro:IndustrialsSector
+    a owl:NamedIndividual, bro:Sector ;
+    rdfs:label "Industrials Sector"@en ;
+    bro:hasSectorClassification bro:GICS ;
+    bro:assessedUnder bro:TNFD .
+
+# ---------------------------------------------------------------
+# INSTANCES — Industrial Classifications
+# ---------------------------------------------------------------
+
+bro:GICS
+    a owl:NamedIndividual, bro:IndustrialClassification ;
+    rdfs:label "GICS"@en ;
+    skos:prefLabel "Global Industry Classification Standard"@en ;
+    rdfs:comment "International sector classification used by ENCORE and TNFD for materiality assessment."@en .
+
+bro:CNAE
+    a owl:NamedIndividual, bro:IndustrialClassification ;
+    rdfs:label "CNAE"@en ;
+    skos:prefLabel "Classificação Nacional de Atividades Econômicas"@en ;
+    rdfs:comment "Brazilian national industrial classification used by financial institutions for portfolio reporting. Requires manual mapping to GICS for TNFD/ENCORE assessments."@en ;
+    bro:mappableTo bro:GICS ;
+    bro:hasAmbiguity bro:CNAEtoGICSAmbiguity .
+
+bro:CIIU
+    a owl:NamedIndividual, bro:IndustrialClassification ;
+    rdfs:label "CIIU"@en ;
+    skos:prefLabel "Clasificación Industrial Internacional Uniforme"@en ;
+    rdfs:comment "UN international industrial classification used in Peru. Requires manual mapping to GICS/SASB for TNFD assessments."@en ;
+    bro:mappableTo bro:GICS ;
+    bro:hasAmbiguity bro:CIIUtoGICSAmbiguity .
+
+bro:SASB_SICS
+    a owl:NamedIndividual, bro:IndustrialClassification ;
+    rdfs:label "SASB SICS"@en ;
+    skos:prefLabel "SASB Sustainable Industry Classification System"@en .
+
+# ---------------------------------------------------------------
+# INSTANCES — Countries and Biomes
+# ---------------------------------------------------------------
+
+bro:Peru
+    a owl:NamedIndividual, bro:Country ;
+    rdfs:label "Peru"@en ;
+    rdfs:comment "Megadiverse country — one of 17 globally. Second largest copper producer worldwide. High Andean and Amazonian biodiversity with documented GBIF sampling gaps."@en .
+
+bro:Brazil
+    a owl:NamedIndividual, bro:Country ;
+    rdfs:label "Brazil"@en ;
+    rdfs:comment "Most megadiverse country globally, hosting 15-20% of world biodiversity across 6 biomes. Site of CEBDS TNFD pilot."@en .
+
+bro:TropicalAndes
+    a owl:NamedIndividual, bro:Biome ;
+    rdfs:label "Tropical Andes Biome"@en ;
+    rdfs:comment "Biodiversity hotspot in the Andes mountains of Peru, Colombia, Ecuador and Bolivia. Under-sampled in GBIF: occurrence records biased towards roads and urban areas, with insufficient coverage of high-altitude species."@en .
+
+bro:Amazonia
+    a owl:NamedIndividual, bro:Biome ;
+    rdfs:label "Amazonia Biome"@en ;
+    rdfs:comment "Largest tropical rainforest biome globally. Under-sampled in GBIF particularly for invertebrates and cryptic taxa. Relevant to both Santander Peru and CEBDS Brazil cases."@en .
+
+bro:Cerrado
+    a owl:NamedIndividual, bro:Biome ;
+    rdfs:label "Cerrado Biome"@en ;
+    rdfs:comment "Brazilian tropical savanna — global biodiversity hotspot under severe agricultural pressure. 67.7% increase in deforestation in 2023. Under-sampled in GBIF for its specific endemic species."@en .
+
+bro:AtlanticForest
+    a owl:NamedIndividual, bro:Biome ;
+    rdfs:label "Atlantic Forest Biome"@en ;
+    skos:altLabel "Mata Atlântica"@pt ;
+    rdfs:comment "Critical biodiversity hotspot — less than 29% of original cover remains. Among the most threatened biomes in the world. Relevant to CEBDS Brazil case."@en .
+
+# ---------------------------------------------------------------
+# INSTANCES — Biodiversity Data Sources
+# ---------------------------------------------------------------
+
+bro:GBIFData
+    a owl:NamedIndividual, bro:BiodiversityDataSource ;
+    rdfs:label "GBIF Occurrence Data"@en ;
+    rdfs:comment "Global Biodiversity Information Facility — primary open source for terrestrial and freshwater species occurrence records. Exhibits geographic sampling bias in LAC: under-representation of Andes, Amazonia and Cerrado."@en ;
+    schema:url <https://www.gbif.org> .
+
+bro:OBISData
+    a owl:NamedIndividual, bro:BiodiversityDataSource ;
+    rdfs:label "OBIS Marine Data"@en ;
+    rdfs:comment "Ocean Biodiversity Information System — primary open source for marine species occurrence records. Under-representation of Caribbean marine ecosystems."@en ;
+    schema:url <https://obis.org> .
+
+bro:ENCOREData
+    a owl:NamedIndividual, bro:BiodiversityDataSource ;
+    rdfs:label "ENCORE Tool"@en ;
+    rdfs:comment "Exploring Natural Capital Opportunities, Risks and Exposure — sector-level tool for screening nature-related impacts and dependencies. Uses a quantitative scale (3-9). Used in L2 by both Santander Peru and CEBDS Brazil."@en ;
+    schema:url <https://encorenature.org> .
+
+bro:GlobalForestWatchData
+    a owl:NamedIndividual, bro:BiodiversityDataSource ;
+    rdfs:label "Global Forest Watch"@en ;
+    rdfs:comment "Near real-time forest monitoring platform used by Santander Peru in LEAP L3/L4 to map protected areas and KBAs across Peru."@en ;
+    schema:url <https://www.globalforestwatch.org> .
+
+bro:WRIAqueductData
+    a owl:NamedIndividual, bro:BiodiversityDataSource ;
+    rdfs:label "WRI Aqueduct"@en ;
+    rdfs:comment "World Resources Institute water risk atlas — used in LEAP L4 to identify high physical water stress zones. Used by both case study institutions."@en ;
+    schema:url <https://www.wri.org/aqueduct> .
+
+# ---------------------------------------------------------------
+# INSTANCES — Materiality approaches
+# ---------------------------------------------------------------
+
+bro:ENCOREMateriality
+    a owl:NamedIndividual, bro:QuantitativeMaterialityScale ;
+    rdfs:label "ENCORE Quantitative Materiality Scale"@en ;
+    rdfs:comment "ENCORE scores impacts and dependencies on a numerical scale: very low=3, low=4.5, medium=6, high=7.5, very high=9. Used by TNFD for sector-level screening."@en .
+
+bro:GRI101ImpactMateriality
+    a owl:NamedIndividual, bro:QualitativeMaterialityScale ;
+    rdfs:label "GRI 101 Impact Materiality"@en ;
+    rdfs:comment "GRI 101 applies impact materiality: issues are material based on the significance of actual or potential impacts on people and the environment, assessed through stakeholder engagement and qualitative severity criteria."@en .
+
+bro:ENCOREScale
+    a owl:NamedIndividual, bro:QuantitativeMaterialityScale ;
+    rdfs:label "ENCORE Scale 3-9"@en ;
+    rdfs:comment "ENCORE numerical scale where 3=very low, 4.5=low, 6=medium, 7.5=high, 9=very high dependency/impact. Used in CEBDS Brazil pilot to produce heatmap weighted by loan volume and client count."@en .
+
+# ---------------------------------------------------------------
+# INSTANCES — Data gaps
+# ---------------------------------------------------------------
+
+bro:AndeanDataGap
+    a owl:NamedIndividual, bro:GeographicSamplingBias ;
+    rdfs:label "Andean GBIF Data Gap"@en ;
+    rdfs:comment
+        "Documented under-sampling of species occurrence records in GBIF for the tropical Andes biome, including Peru. Bias towards roads, cities and protected area boundaries. Leads to false negatives in TNFD priority-location screening. Empirically documented in Santander Peru LEAP L3-L4 assessment."@en ;
+    bro:affectsFramework bro:TNFD ;
+    bro:affectsFramework bro:ESRS_E4 .
+
+bro:CerradoDataGap
+    a owl:NamedIndividual, bro:GeographicSamplingBias ;
+    rdfs:label "Cerrado GBIF Data Gap"@en ;
+    rdfs:comment
+        "Documented under-sampling of species occurrence records in GBIF for the Cerrado biome, particularly invertebrates and endemic species. Documented in the CEBDS Brazil LEAP pilot as a challenge for L4 sensitive site identification."@en ;
+    bro:affectsFramework bro:TNFD ;
+    bro:affectsFramework bro:ESRS_E4 .
+
+# ---------------------------------------------------------------
+# INSTANCES — Semantic ambiguities
+# ---------------------------------------------------------------
+
+bro:CNAEtoGICSAmbiguity
+    a owl:NamedIndividual, bro:SemanticAmbiguity ;
+    rdfs:label "CNAE to GICS Semantic Ambiguity"@en ;
+    rdfs:comment
+        "Documented semantic ambiguity in the CNAE-to-GICS mapping required for TNFD/ENCORE assessments. Brazilian CNAE categories do not maintain a bijective correspondence with GICS sectors — multiple CNAE codes may map to one GICS sector or vice versa. Required significant manual effort in the CEBDS Brazil pilot."@en .
+
+bro:CIIUtoGICSAmbiguity
+    a owl:NamedIndividual, bro:SemanticAmbiguity ;
+    rdfs:label "CIIU to GICS Semantic Ambiguity"@en ;
+    rdfs:comment
+        "Documented semantic ambiguity in the CIIU-to-GICS/SASB mapping required for TNFD assessments in Peru. Peruvian CIIU categories require manual alignment with GICS and SASB/SICS sector definitions."@en .
+
+# ---------------------------------------------------------------
+# INSTANCES — Disclosure requirements
+# ---------------------------------------------------------------
+
+bro:TNFDStrategyD
+    a owl:NamedIndividual, bro:DisclosureRequirement ;
+    rdfs:label "TNFD Strategy D"@en ;
+    rdfs:comment "TNFD recommended disclosure Strategy D: disclose the locations of assets and/or activities in direct operations and, where possible, upstream and downstream value chains that meet the criteria for priority locations."@en ;
+    bro:definedBy bro:TNFD .
+
+bro:GRIProtectedAreaKBA
+    a owl:NamedIndividual, bro:DisclosureRequirement ;
+    rdfs:label "GRI 101 Operations in/adjacent to Protected Areas and KBAs"@en ;
+    rdfs:comment "GRI 101-6: disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas."@en ;
+    bro:definedBy bro:GRI101 .
+
+# ---------------------------------------------------------------
+# INSTANCES — Industrial classification mappings
+# ---------------------------------------------------------------
+
+bro:CNAEtoGICSMapping
+    a owl:NamedIndividual, bro:SemanticAmbiguity ;
+    rdfs:label "CNAE to GICS Mapping (CEBDS Brazil)"@en ;
+    rdfs:comment "Manual sector correspondence developed during the CEBDS Brazil LEAP pilot to align portfolio reporting under CNAE with ENCORE/TNFD materiality assessment requiring GICS classification."@en .
+
+bro:CIIUtoGICSMapping
+    a owl:NamedIndividual, bro:SemanticAmbiguity ;
+    rdfs:label "CIIU to GICS/SASB Mapping (Santander Peru)"@en ;
+    rdfs:comment "Manual sector correspondence developed by Santander Peru to align its CIIU-classified portfolio with GICS and SASB/SICS sectors required for ENCORE-based materiality screening."@en .
+
+# ---------------------------------------------------------------
+# INSTANCES — Information loss
+# ---------------------------------------------------------------
+
+bro:SBTNtargetToGRIConversion
+    a owl:NamedIndividual, bro:InformationLoss ;
+    rdfs:label "SBTN Target to GRI Management Approach Conversion"@en ;
+    rdfs:comment
+        "Information loss documented when converting an SBTN science-based target (measurable, time-bound, science-grounded) to a GRI 101 management approach disclosure (qualitative, policy-level). Lost information includes: (1) quantitative target value, (2) scientific baseline, (3) time horizon commitment, (4) verifiability. Bridging condition: the GRI management approach must explicitly commit to SBTN-compatible targets with verified science-based baselines."@en .
+
+
+# ---------------------------------------------------------------
+# SPRINT 3 — Closing CQ gaps
+# ---------------------------------------------------------------
+
+# CQ2 — Poblar bro:coveredByFramework en conceptos TNFD
+bro:TNFDImpactDependency bro:coveredByFramework bro:ESRS_E4 .
+bro:TNFDLandUseChangeMetric bro:coveredByFramework bro:ESRS_E4 .
+bro:TNFDPriorityLocation bro:coveredByFramework bro:ESRS_E4 .
+bro:TNFDEnterpriseMateriality bro:coveredByFramework bro:ESRS_E4 .
+bro:SBTNAR3TTarget bro:coveredByFramework bro:SBTN .
+bro:SBTNMeanSpeciesAbundance bro:coveredByFramework bro:SBTN .
+
+# CQ4 — Incommensurability entre individuos de materialidad
+bro:ENCOREMateriality
+    bro:incommensurableWith bro:GRI101ImpactMateriality ;
+    bro:hasBridgingCondition
+        "A lossy approximation is admissible if ENCORE sector scores are supplemented with qualitative stakeholder evidence meeting GRI 101 impact severity criteria. The numerical scale (3-9) cannot be directly compared with GRI qualitative thresholds without explicit bridging assumptions documented per sector."@en ;
+    skos:note
+        "ENCORE applies a quantitative composite scale (3-9) aggregating dependencies and impacts by production process. GRI 101 applies qualitative impact materiality requiring stakeholder-informed severity assessment. The two approaches operate at different epistemic levels and use incompatible measurement units."@en .
+
+# CQ6 — Equivalencia lateral ESRS E4 ↔ GRI 101 para áreas sensibles
+bro:ESRSBiodiversitySensitiveArea
+    owl:equivalentClass bro:GRIOperationsAdjacentProtectedAreas ;
+    skos:note
+        "Partial equivalence with difference in reference: both concepts cover protected areas and KBAs, but ESRS E4 explicitly references Natura 2000 sites and IUCN Category I-IV protected areas, while GRI 101 uses a broader definition based on IUCN and Ramsar without the Natura 2000 specificity. The equivalence holds for the KBA criterion; the normative reference to EU-specific designations introduces a scope difference."@en .
+
+# CQ7 — Incommensurability entre clasificaciones industriales
+bro:CNAE
+    bro:incommensurableWith bro:GICS ;
+    bro:hasBridgingCondition
+        "A lossy correspondence is admissible when each CNAE code is manually mapped to the most representative GICS sector, with explicit documentation of multi-to-one and one-to-many correspondences. This mapping was performed by EY during the CEBDS Brazil LEAP pilot and required significant expert effort. The result is not automatically reversible."@en ;
+    skos:note
+        "CNAE (Brazilian national classification) and GICS (international standard used by ENCORE/TNFD) do not maintain a bijective correspondence. Multiple CNAE codes may map to one GICS sector and vice versa, generating semantic ambiguity in sector-level materiality assessments."@en .
+
+bro:CIIU
+    bro:incommensurableWith bro:GICS ;
+    bro:hasBridgingCondition
+        "A lossy correspondence requires manual alignment of CIIU codes to GICS and SASB/SICS sectors, with documentation of ambiguous cases. Performed by Santander Peru during LEAP L1 scoping."@en ;
+    skos:note
+        "CIIU (UN international classification used in Peru) does not map automatically to GICS or SASB/SICS sectors required for ENCORE-based TNFD assessments."@en .
+
+# CQ8 — Instancia de SBTNAR3TTarget como individual + informsTargetSetting
+bro:SBTNAR3TTargetInstance
+    a owl:NamedIndividual, bro:SBTNAR3TTarget ;
+    rdfs:label "SBTN AR3T Science-based Target"@en ;
+    rdfs:comment
+        "A science-based target following the SBTN AR3T hierarchy (Avoid, Reduce, Restore, Transform), as applicable to financial institutions assessing their portfolio exposure to nature loss. Requires LEAP assessment outputs as input for geographic and sectoral target-setting."@en .
+
+bro:SantanderPeruL4Assessment
+    bro:informsTargetSetting bro:SBTNAR3TTargetInstance .
+
+bro:CEBDSBrazilLocateAssessment
+    bro:informsTargetSetting bro:SBTNAR3TTargetInstance .
+
+bro:SBTNAR3TTargetInstance
+    bro:requiresInputFrom bro:SantanderPeruL4Assessment ;
+    bro:requiresInputFrom bro:CEBDSBrazilLocateAssessment .
+
+# CQ14 — Instancia de WaterStressRisk
+bro:AndeanWaterStressRisk
+    a owl:NamedIndividual, bro:WaterStressRisk ;
+    rdfs:label "Andean Water Stress Risk"@en ;
+    rdfs:comment
+        "Physical risk from insufficient freshwater availability in Andean mining and agricultural operations in Peru. Identified as a material dependency in Santander Peru LEAP L2: groundwater use and protection against flooding were the most material ecosystem service dependencies. High water stress zones identified via WRI Aqueduct in LEAP L4."@en ;
+    bro:affectsRiskAssessment bro:TNFDEnterpriseMateriality .
+
+
+# ---------------------------------------------------------------
+# SPRINT 3b — OOPS! fixes
+# ---------------------------------------------------------------
+
+# P13 — Declarar inverseOf entre informsTargetSetting y requiresInputFrom
+bro:informsTargetSetting owl:inverseOf bro:requiresInputFrom .
+bro:requiresInputFrom owl:inverseOf bro:informsTargetSetting .
+
+# Simetría — agregar direcciones inversas para incommensurableWith
+# (aunque la propiedad es simétrica, se declaran explícitamente para rdflib)
+bro:GRI101ImpactMateriality bro:incommensurableWith bro:ENCOREMateriality .
+bro:GICS bro:incommensurableWith bro:CNAE .
+bro:GICS bro:incommensurableWith bro:CIIU .
+bro:TNFDEnterpriseMateriality bro:incommensurableWith bro:ESRSDoubleMateriality .
+bro:GRIManagementApproach bro:incommensurableWith bro:SBTNMeanSpeciesAbundance .
+bro:GRIManagementApproach bro:incommensurableWith bro:SBTNAR3TTarget .
+
