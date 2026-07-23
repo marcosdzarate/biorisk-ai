@@ -253,20 +253,44 @@ bro:hasBridgingCondition
         "Documents the explicit assumption under which a lossy approximation between two incommensurable concepts is admissible. Required on every bro:incommensurableWith assertion."@en .
 
 # ---------------------------------------------------------------
-# L3 — Equivalence axioms (A_≡): owl:equivalentClass
+# OWL 2 Punning declarations (metamodeling)
+# These six resources serve simultaneously as owl:Class (in the
+# taxonomy) and as owl:NamedIndividual (as relata of the object
+# properties bro:incommensurableWith and bro:complements).
+# OWL 2 DL allows this under the metamodeling / punning facility
+# (OWL 2 Specification §5.8.3). The class interpretation is used
+# for subsumption reasoning; the individual interpretation is used
+# for the semantic-relation assertions. Reasoners treat the two
+# interpretations as disjoint (different names), so no logical
+# conflict arises. This design follows the approach documented in
+# Motik (2007) "Ontology-based data access with databases" and is
+# consistent with the OWL 2 DL profile used throughout this ontology.
 # ---------------------------------------------------------------
 
-## TNFD impact-dependency ≡ ESRS E4 material impact-dependency (impact side)
-bro:TNFDImpactDependency
-    owl:equivalentClass bro:ESRSMaterialImpactDependency ;
-    skos:note
-        "Equivalence holds on the impact side only. Both classes share the ENCORE-derived logic of identifying organisational impacts on and dependencies upon nature. The financial materiality dimension of ESRS E4 double materiality has no direct equivalent in TNFD."@en .
+bro:ESRSDoubleMateriality a owl:NamedIndividual .
+bro:GRIManagementApproach a owl:NamedIndividual .
+bro:SBTNAR3TTarget a owl:NamedIndividual .
+bro:SBTNMeanSpeciesAbundance a owl:NamedIndividual .
+bro:TNFDEnterpriseMateriality a owl:NamedIndividual .
+bro:TNFDImpactDependency a owl:NamedIndividual .
 
-## TNFD land-use change metric ≡ ESRS E4 land-use datapoint
+
+
+## TNFD impact-dependency ~ ESRS E4 material impact-dependency (close match, not equivalence)
+## R1-M2 fix: owl:equivalentClass was incorrect because the materiality boundaries differ
+## (enterprise-value for TNFD vs double materiality for ESRS E4). Changed to skos:closeMatch.
+bro:TNFDImpactDependency
+    skos:closeMatch bro:ESRSMaterialImpactDependency ;
+    skos:note
+        "Close match (not equivalence): both classes identify organisational impacts on and dependencies upon nature using the ENCORE framework logic, but their materiality boundaries differ. TNFD applies enterprise-value materiality (financial impact on the organisation); ESRS E4 applies double materiality (financial impact AND impact on biodiversity, regardless of financial consequence). owl:equivalentClass was rejected because it would collapse the materiality distinction that bro:incommensurableWith between TNFDEnterpriseMateriality and ESRSDoubleMateriality is designed to preserve."@en .
+
+## TNFD land-use change metric ≡ ESRS E4 land-use datapoint (genuine equivalence)
+## Justified: both measure the same physical quantity (land-use change in ha) using the same unit.
+## GRI-TNFD mapping §2 confirms 'difference in granularity' only, not semantic difference.
 bro:TNFDLandUseChangeMetric
     owl:equivalentClass bro:ESRSLandUseDatapoint ;
     skos:note
-        "Equivalence holds because both classes measure the same physical quantity (land-use change in hectares) using the same unit. One of the rare genuine equivalences between the four frameworks."@en .
+        "Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a 'difference in granularity' between these datapoints, not a semantic difference — confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes."@en .
 
 # ---------------------------------------------------------------
 # L3 — Subsumption axioms (A_⊑): rdfs:subClassOf between concepts
