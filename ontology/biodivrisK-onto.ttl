@@ -32,7 +32,7 @@
     owl:versionInfo "0.1.0" ;
     rdfs:seeAlso <https://github.com/marcosdzarate/biorisk-ai> ;
     rdfs:comment
-        "Prototype v0.1.0. Developed as part of the paper submitted to AMW 2026."@en .
+        "Version 0.1.0 — core taxonomy and semantic relation framework. Extended in v0.2.0 with real-world instances from LAC case studies."@en .
 
 # ---------------------------------------------------------------
 # L2 — Framework module: top-level classes
