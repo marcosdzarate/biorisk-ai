@@ -21,7 +21,10 @@
     "@value" : "CESIMAR-CONICET, Puerto Madryn, Argentina"
   } ],
   "https://schema.org/name" : [ {
-    "@value" : "Gustavo Nuñez"
+    "@value" : "Marcos Daniel Zárate"
+  } ],
+  "https://schema.org/url" : [ {
+    "@id" : "https://orcid.org/0000-0001-8851-8602"
   } ]
 }, {
   "@id" : "_:genid3",
@@ -32,10 +35,7 @@
     "@value" : "CESIMAR-CONICET, Puerto Madryn, Argentina"
   } ],
   "https://schema.org/name" : [ {
-    "@value" : "Marcos Daniel Zárate"
-  } ],
-  "https://schema.org/url" : [ {
-    "@id" : "https://orcid.org/0000-0001-8851-8602"
+    "@value" : "Gustavo Nuñez"
   } ]
 }, {
   "@id" : "http://purl.obolibrary.org/obo/ENVO_00000428",
@@ -81,6 +81,9 @@
   } ]
 }, {
   "@id" : "http://www.w3.org/2004/02/skos/core#altLabel",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "http://www.w3.org/2004/02/skos/core#closeMatch",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
 }, {
   "@id" : "http://www.w3.org/2004/02/skos/core#definition",
@@ -175,7 +178,7 @@
   } ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
     "@language" : "en",
-    "@value" : "Prototype v0.1.0. Developed as part of the paper submitted to AMW 2026."
+    "@value" : "Version 0.1.0 — core taxonomy and semantic relation framework. Extended in v0.2.0 with real-world instances from LAC case studies."
   } ],
   "http://www.w3.org/2000/01/rdf-schema#seeAlso" : [ {
     "@id" : "https://github.com/marcosdzarate/biorisk-ai"
@@ -186,7 +189,7 @@
     "@id" : "https://w3id.org/biodivrisK-onto/0.1.0"
   } ],
   "http://www.w3.org/2002/07/owl#versionIRI" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto/0.1.0"
+    "@id" : "https://w3id.org/biodivrisK-onto/0.2.0"
   } ],
   "http://www.w3.org/2002/07/owl#versionInfo" : [ {
     "@value" : "0.1.0"
@@ -881,9 +884,6 @@
   } ],
   "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#FrameworkConcept"
-  } ],
-  "http://www.w3.org/2002/07/owl#equivalentClass" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#TNFDImpactDependency"
   } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"
@@ -1770,9 +1770,12 @@
   "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#FrameworkConcept"
   } ],
+  "http://www.w3.org/2004/02/skos/core#closeMatch" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency"
+  } ],
   "http://www.w3.org/2004/02/skos/core#note" : [ {
     "@language" : "en",
-    "@value" : "Equivalence holds on the impact side only. Both classes share the ENCORE-derived logic of identifying organisational impacts on and dependencies upon nature. The financial materiality dimension of ESRS E4 double materiality has no direct equivalent in TNFD."
+    "@value" : "Close match (not equivalence): both classes identify organisational impacts on and dependencies upon nature using the ENCORE framework logic, but their materiality boundaries differ. TNFD applies enterprise-value materiality (financial impact on the organisation); ESRS E4 applies double materiality (financial impact AND impact on biodiversity, regardless of financial consequence). owl:equivalentClass was rejected because it would collapse the materiality distinction that bro:incommensurableWith between TNFDEnterpriseMateriality and ESRSDoubleMateriality is designed to preserve."
   }, {
     "@language" : "en",
     "@value" : "TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other."
@@ -1805,7 +1808,7 @@
   } ],
   "http://www.w3.org/2004/02/skos/core#note" : [ {
     "@language" : "en",
-    "@value" : "Equivalence holds because both classes measure the same physical quantity (land-use change in hectares) using the same unit. One of the rare genuine equivalences between the four frameworks."
+    "@value" : "Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a 'difference in granularity' between these datapoints, not a semantic difference — confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes."
   } ],
   "https://w3id.org/biodivrisK-onto#coveredByFramework" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"

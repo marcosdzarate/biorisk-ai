@@ -17,7 +17,7 @@
 
 
 <!-- SCHEMA.ORG METADATA -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"https://w3id.org/biodivrisK-onto#","image":"http://vowl.visualdataweb.org/webvowl/#iri=https://w3id.org/biodivrisK-onto#","name":"BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks", "headline":"Document describing the ontology https://w3id.org/biodivrisK-onto#", "dateReleased":"2026-07-21", "version":"0.2.0", "license":"https://creativecommons.org/licenses/by/4.0/", "author":[{"@type":"Person","name":"Marcos Daniel Zárate","url":"https://orcid.org/0000-0001-8851-8602"},{"@type":"Person","name":"Gustavo Nuñez"},{"@type":"Person","name":"Marcos Daniel Zárate","url":"https://orcid.org/0000-0001-8851-8602"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"https://w3id.org/biodivrisK-onto#","image":"http://vowl.visualdataweb.org/webvowl/#iri=https://w3id.org/biodivrisK-onto#","name":"BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks", "headline":"Document describing the ontology https://w3id.org/biodivrisK-onto#", "dateReleased":"2026-07-21", "version":"0.2.0", "license":"https://creativecommons.org/licenses/by/4.0/", "author":[{"@type":"Person","name":"Marcos Daniel Zárate","url":"https://orcid.org/0000-0001-8851-8602"},{"@type":"Person","name":"Marcos Daniel Zárate","url":"https://orcid.org/0000-0001-8851-8602"},{"@type":"Person","name":"Gustavo Nuñez"}]}</script>
 
 <script src="resources/jquery.js"></script> 
 <script src="resources/marked.min.js"></script> 
@@ -71,14 +71,11 @@ $(function(){
 
 <dl>
 <dt>This version:</dt>
-<dd><a href="https://w3id.org/biodivrisK-onto/0.1.0">https://w3id.org/biodivrisK-onto/0.1.0</a></dd>
+<dd><a href="https://w3id.org/biodivrisK-onto/0.2.0">https://w3id.org/biodivrisK-onto/0.2.0</a></dd>
 <dt>Revision:</dt>
 <dd>0.2.0</dd>
 <dt>Authors:</dt>
-<dd><a href="https://orcid.org/0000-0001-8851-8602">Marcos Daniel Zárate</a></dd><dd>Gustavo Nuñez</dd><dd><a href="https://orcid.org/0000-0001-8851-8602">Marcos Daniel Zárate</a></dd>
-
-<dt>Imported Ontologies:</dt>
-<dd><a href="https://w3id.org/biodivrisK-onto">biodivrisK-onto</a></dd>
+<dd><a href="https://orcid.org/0000-0001-8851-8602">Marcos Daniel Zárate</a></dd><dd><a href="https://orcid.org/0000-0001-8851-8602">Marcos Daniel Zárate</a></dd><dd>Gustavo Nuñez</dd>
 
 <dt>See also:</dt>
 <dd><a href="https://github.com/marcosdzarate/biorisk-ai">https://github.com/marcosdzarate/biorisk-ai</a></dd><dd><a href="https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology">https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology</a></dd>
@@ -86,7 +83,7 @@ $(function(){
 <dt>Download serialization:</dt><dd><span><a href="ontology.jsonld" target="_blank"><img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD" /></a> </span><span><a href="ontology.owl" target="_blank"><img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML" /></a> </span><span><a href="ontology.nt" target="_blank"><img src="https://img.shields.io/badge/Format-N_Triples-blue.svg" alt="N-Triples" /></a> </span><span><a href="ontology.ttl" target="_blank"><img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL" /></a> </span></dd><dt>License:</dt><dd><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="https://img.shields.io/badge/License-https://creativecommons.org/licenses/by/4.0/-blue.svg" alt="https://creativecommons.org/licenses/by/4.0/" /></a>
 </dd><dt>Visualization:</dt><dd><a href="webvowl/index.html#" target="_blank"><img src="https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg" alt="Visualize with WebVowl" /></a></dd>
 <!-- <dt>Evaluation:</dt><dd><a href="OOPSevaluation/oopsEval.html#" target="_blank"><img src="https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg" alt="Evaluate with OOPS!" /></a></dd> --><dt>Cite as:</dt>
-<dd>Marcos Daniel Zárate, Gustavo Nuñez, Marcos Daniel Zárate. BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks. Revision: 0.2.0. Retrieved from: https://w3id.org/biodivrisK-onto/0.1.0</dd>
+<dd>Marcos Daniel Zárate, Marcos Daniel Zárate, Gustavo Nuñez. BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks. Revision: 0.2.0. Retrieved from: https://w3id.org/biodivrisK-onto/0.2.0</dd>
 </dl>
 
 <a href="provenance/provenance-en.html" target="_blank">Provenance of this page</a><hr/>
@@ -410,6 +407,11 @@ This ontology has the following classes and properties.</span>
    <li>
       <a href="#http://www.w3.org/2004/02/skos/core#altLabel" title="http://www.w3.org/2004/02/skos/core#altLabel">
          <span>alt Label</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2004/02/skos/core#closeMatch" title="http://www.w3.org/2004/02/skos/core#closeMatch">
+         <span>close Match</span>
       </a>
    </li>
    <li>
@@ -752,7 +754,7 @@ This ontology has the following classes and properties.</span>
 <!--DESCRIPTION SECTION-->
     <div id="description"><h2 id="desc" class="list">BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks: Description <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
 
-<span class="markdown">Prototype v0.1.0. Developed as part of the paper submitted to AMW 2026.</span></div>
+<span class="markdown">Version 0.1.0 — core taxonomy and semantic relation framework. Extended in v0.2.0 with real-world instances from LAC case studies.</span></div>
    
 
 <!--CROSSREF SECTION-->
@@ -1078,12 +1080,6 @@ This section provides details for each class and property defined by BiodivRisk-
   <h3>ESRS E4 Material Impacts and Dependencies<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
   <p><strong>IRI:</strong> https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency</p>
   <dl class="description">
-   <dt>
-    is equivalent to
-   </dt>
-   <dd>
-    <a href="#TNFDImpactDependency" title="https://w3id.org/biodivrisK-onto#TNFDImpactDependency">TNFD Impacts and Dependencies on Nature</a> <sup class="type-c" title="class">c</sup>
-   </dd>
    <dt>
     has super-classes
    </dt>
@@ -2343,6 +2339,7 @@ This section provides details for each class and property defined by BiodivRisk-
  <ul class="hlist">
   <li><a href="#https://schema.org/affiliation" title="https://schema.org/affiliation"> <span>affiliation</span> </a></li>
   <li><a href="#http://www.w3.org/2004/02/skos/core#altLabel" title="http://www.w3.org/2004/02/skos/core#altLabel"> <span>alt Label</span> </a></li>
+  <li><a href="#http://www.w3.org/2004/02/skos/core#closeMatch" title="http://www.w3.org/2004/02/skos/core#closeMatch"> <span>close Match</span> </a></li>
   <li><a href="#http://purl.org/dc/terms/created" title="http://purl.org/dc/terms/created"> <span>created</span> </a></li>
   <li><a href="#http://purl.org/dc/terms/creator" title="http://purl.org/dc/terms/creator"> <span>creator</span> </a></li>
   <li><a href="#http://www.w3.org/2004/02/skos/core#definition" title="http://www.w3.org/2004/02/skos/core#definition"> <span>definition</span> </a></li>
@@ -2366,6 +2363,10 @@ This section provides details for each class and property defined by BiodivRisk-
  <div class="entity" id="http://www.w3.org/2004/02/skos/core#altLabel">
   <h3>alt Label<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
   <p><strong>IRI:</strong> http://www.w3.org/2004/02/skos/core#altLabel</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2004/02/skos/core#closeMatch">
+  <h3>close Match<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2004/02/skos/core#closeMatch</p>
  </div>
  <div class="entity" id="http://purl.org/dc/terms/created">
   <h3>created<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>

@@ -13,7 +13,7 @@
      xmlns:schema="https://schema.org/"
      xmlns:biodivrisK-onto="https://w3id.org/biodivrisK-onto#">
     <owl:Ontology rdf:about="https://w3id.org/biodivrisK-onto">
-        <owl:versionIRI rdf:resource="https://w3id.org/biodivrisK-onto/0.1.0"/>
+        <owl:versionIRI rdf:resource="https://w3id.org/biodivrisK-onto/0.2.0"/>
         <owl:imports rdf:resource="https://w3id.org/biodivrisK-onto/0.1.0"/>
         <terms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-07-13</terms:created>
         <terms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-07-21</terms:created>
@@ -27,7 +27,7 @@
         <terms:title xml:lang="en">BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks</terms:title>
         <vann:preferredNamespacePrefix>bro</vann:preferredNamespacePrefix>
         <vann:preferredNamespaceUri>https://w3id.org/biodivrisK-onto#</vann:preferredNamespaceUri>
-        <rdfs:comment xml:lang="en">Prototype v0.1.0. Developed as part of the paper submitted to AMW 2026.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Version 0.1.0 — core taxonomy and semantic relation framework. Extended in v0.2.0 with real-world instances from LAC case studies.</rdfs:comment>
         <rdfs:seeAlso rdf:resource="https://github.com/marcosdzarate/biorisk-ai"/>
         <rdfs:seeAlso rdf:resource="https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology"/>
         <owl:versionInfo>0.1.0</owl:versionInfo>
@@ -42,13 +42,13 @@
     <rdf:Description rdf:nodeID="genid2">
         <rdf:type rdf:resource="https://schema.org/Person"/>
         <schema:affiliation>CESIMAR-CONICET, Puerto Madryn, Argentina</schema:affiliation>
-        <schema:name>Gustavo Nuñez</schema:name>
+        <schema:name>Marcos Daniel Zárate</schema:name>
+        <schema:url rdf:resource="https://orcid.org/0000-0001-8851-8602"/>
     </rdf:Description>
     <rdf:Description rdf:nodeID="genid3">
         <rdf:type rdf:resource="https://schema.org/Person"/>
         <schema:affiliation>CESIMAR-CONICET, Puerto Madryn, Argentina</schema:affiliation>
-        <schema:name>Marcos Daniel Zárate</schema:name>
-        <schema:url rdf:resource="https://orcid.org/0000-0001-8851-8602"/>
+        <schema:name>Gustavo Nuñez</schema:name>
     </rdf:Description>
     
 
@@ -118,6 +118,13 @@
 
 
     <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#altLabel"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#closeMatch -->
+
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#closeMatch"/>
     
 
 
@@ -710,7 +717,6 @@
 
 
     <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency">
-        <owl:equivalentClass rdf:resource="https://w3id.org/biodivrisK-onto#TNFDImpactDependency"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#FrameworkConcept"/>
     </owl:Class>
     
@@ -1878,13 +1884,14 @@
     <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#TNFDImpactDependency">
         <rdfs:comment xml:lang="en">Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services.</rdfs:comment>
         <rdfs:label xml:lang="en">TNFD Impacts and Dependencies on Nature</rdfs:label>
-        <skos:note xml:lang="en">Equivalence holds on the impact side only. Both classes share the ENCORE-derived logic of identifying organisational impacts on and dependencies upon nature. The financial materiality dimension of ESRS E4 double materiality has no direct equivalent in TNFD.</skos:note>
+        <skos:closeMatch rdf:resource="https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency"/>
+        <skos:note xml:lang="en">Close match (not equivalence): both classes identify organisational impacts on and dependencies upon nature using the ENCORE framework logic, but their materiality boundaries differ. TNFD applies enterprise-value materiality (financial impact on the organisation); ESRS E4 applies double materiality (financial impact AND impact on biodiversity, regardless of financial consequence). owl:equivalentClass was rejected because it would collapse the materiality distinction that bro:incommensurableWith between TNFDEnterpriseMateriality and ESRSDoubleMateriality is designed to preserve.</skos:note>
         <skos:note xml:lang="en">TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other.</skos:note>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric">
         <rdfs:comment xml:lang="en">TNFD core cross-sector metric measuring the extent (ha) of land, freshwater or ocean-use change.</rdfs:comment>
         <rdfs:label xml:lang="en">TNFD Land/Freshwater/Ocean-use Change Metric</rdfs:label>
-        <skos:note xml:lang="en">Equivalence holds because both classes measure the same physical quantity (land-use change in hectares) using the same unit. One of the rare genuine equivalences between the four frameworks.</skos:note>
+        <skos:note xml:lang="en">Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a &apos;difference in granularity&apos; between these datapoints, not a semantic difference — confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes.</skos:note>
         <unit xml:lang="en">hectares (ha)</unit>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation">

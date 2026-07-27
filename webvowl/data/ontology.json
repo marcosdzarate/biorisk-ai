@@ -7,13 +7,13 @@
       "en" : "BiodivRisk-Onto v0.2.0: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"
     },
     "iri" : "https://w3id.org/biodivrisK-onto",
-    "version" : "0.1.0",
+    "version" : "0.2.0",
     "author" : [ "_:genid2147483649", "_:genid2147483648", "_:genid2147483650" ],
     "description" : {
-      "en" : "BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC)."
+      "en" : "Extension of v0.1.0 with organizational, geographic, and evaluation modules, populated with real-world instances from the Santander Peru and CEBDS Brazil case studies."
     },
     "comments" : {
-      "en" : "Prototype v0.1.0. Developed as part of the paper submitted to AMW 2026."
+      "en" : "Version 0.1.0 — core taxonomy and semantic relation framework. Extended in v0.2.0 with real-world instances from LAC case studies."
     },
     "other" : {
       "license" : [ {
@@ -25,11 +25,6 @@
       "creator" : [ {
         "identifier" : "creator",
         "language" : "undefined",
-        "value" : "_:genid2147483650",
-        "type" : "label"
-      }, {
-        "identifier" : "creator",
-        "language" : "undefined",
         "value" : "_:genid2147483648",
         "type" : "label"
       }, {
@@ -37,16 +32,21 @@
         "language" : "undefined",
         "value" : "_:genid2147483649",
         "type" : "label"
+      }, {
+        "identifier" : "creator",
+        "language" : "undefined",
+        "value" : "_:genid2147483650",
+        "type" : "label"
       } ],
       "created" : [ {
         "identifier" : "created",
         "language" : "undefined",
-        "value" : "2026-07-21",
+        "value" : "2026-07-13",
         "type" : "label"
       }, {
         "identifier" : "created",
         "language" : "undefined",
-        "value" : "2026-07-13",
+        "value" : "2026-07-21",
         "type" : "label"
       } ],
       "preferredNamespacePrefix" : [ {
@@ -58,12 +58,12 @@
       "versionInfo" : [ {
         "identifier" : "versionInfo",
         "language" : "undefined",
-        "value" : "0.1.0",
+        "value" : "0.2.0",
         "type" : "label"
       }, {
         "identifier" : "versionInfo",
         "language" : "undefined",
-        "value" : "0.2.0",
+        "value" : "0.1.0",
         "type" : "label"
       } ],
       "preferredNamespaceUri" : [ {
@@ -86,12 +86,12 @@
       "seeAlso" : [ {
         "identifier" : "seeAlso",
         "language" : "undefined",
-        "value" : "https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology",
+        "value" : "https://github.com/marcosdzarate/biorisk-ai",
         "type" : "iri"
       }, {
         "identifier" : "seeAlso",
         "language" : "undefined",
-        "value" : "https://github.com/marcosdzarate/biorisk-ai",
+        "value" : "https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology",
         "type" : "iri"
       } ]
     }
@@ -170,10 +170,10 @@
     "id" : "46",
     "type" : "owl:Class"
   }, {
-    "id" : "61",
+    "id" : "78",
     "type" : "owl:Class"
   }, {
-    "id" : "78",
+    "id" : "61",
     "type" : "owl:Class"
   }, {
     "id" : "37",
@@ -195,7 +195,7 @@
     "type" : "owl:Class"
   }, {
     "id" : "57",
-    "type" : "owl:equivalentClass"
+    "type" : "owl:Class"
   }, {
     "id" : "31",
     "type" : "owl:Class"
@@ -212,10 +212,10 @@
     "id" : "28",
     "type" : "owl:Class"
   }, {
-    "id" : "34",
-    "type" : "owl:equivalentClass"
-  }, {
     "id" : "84",
+    "type" : "owl:Class"
+  }, {
+    "id" : "34",
     "type" : "owl:Class"
   }, {
     "id" : "90",
@@ -637,7 +637,7 @@
     "label" : {
       "IRI-based" : "ENVO_00000428"
     },
-    "attributes" : [ "external", "equivalent" ],
+    "attributes" : [ "equivalent", "external" ],
     "id" : "70"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#LEAPAssessment",
@@ -672,7 +672,7 @@
         "wasAssociatedWith" : [ {
           "identifier" : "wasAssociatedWith",
           "language" : "undefined",
-          "value" : "https://w3id.org/biodivrisK-onto#BNDES",
+          "value" : "https://w3id.org/biodivrisK-onto#SantanderBrasil",
           "type" : "iri"
         }, {
           "identifier" : "wasAssociatedWith",
@@ -682,12 +682,12 @@
         }, {
           "identifier" : "wasAssociatedWith",
           "language" : "undefined",
-          "value" : "https://w3id.org/biodivrisK-onto#SantanderBrasil",
+          "value" : "https://w3id.org/biodivrisK-onto#ItauUnibanco",
           "type" : "iri"
         }, {
           "identifier" : "wasAssociatedWith",
           "language" : "undefined",
-          "value" : "https://w3id.org/biodivrisK-onto#ItauUnibanco",
+          "value" : "https://w3id.org/biodivrisK-onto#BNDES",
           "type" : "iri"
         }, {
           "identifier" : "wasAssociatedWith",
@@ -933,27 +933,6 @@
     },
     "id" : "46"
   }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#GRIManagementApproach",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "instances" : 0,
-    "annotations" : {
-      "note" : [ {
-        "identifier" : "note",
-        "language" : "en",
-        "value" : "GRI 101 management approach disclosures compose with TNFD nature-related risk narratives. Impact reporting under GRI informs but does not replace risk framing under TNFD.",
-        "type" : "label"
-      } ]
-    },
-    "label" : {
-      "IRI-based" : "GRIManagementApproach",
-      "en" : "GRI 101 Management Approach"
-    },
-    "comment" : {
-      "en" : "GRI 101 qualitative disclosure describing how an organisation manages its biodiversity impacts, policies, commitments and actions. No quantitative target required."
-    },
-    "id" : "61",
-    "superClasses" : [ "35" ]
-  }, {
     "iri" : "https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
     "instances" : 0,
@@ -977,6 +956,27 @@
     },
     "id" : "78",
     "superClasses" : [ "4" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#GRIManagementApproach",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "GRI 101 management approach disclosures compose with TNFD nature-related risk narratives. Impact reporting under GRI informs but does not replace risk framing under TNFD.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "GRIManagementApproach",
+      "en" : "GRI 101 Management Approach"
+    },
+    "comment" : {
+      "en" : "GRI 101 qualitative disclosure describing how an organisation manages its biodiversity impacts, policies, commitments and actions. No quantitative target required."
+    },
+    "id" : "61",
+    "superClasses" : [ "35" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#Metric",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1158,7 +1158,6 @@
     "id" : "76"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency",
-    "equivalent" : [ "34" ],
     "baseIri" : "https://w3id.org/biodivrisK-onto",
     "instances" : 0,
     "label" : {
@@ -1168,7 +1167,6 @@
     "comment" : {
       "en" : "ESRS E4 disclosure of material impacts on biodiversity and material dependencies on ecosystem services, assessed under double materiality."
     },
-    "attributes" : [ "equivalent" ],
     "id" : "57",
     "superClasses" : [ "35" ]
   }, {
@@ -1201,21 +1199,6 @@
         "en" : "Santander Peru"
       }
     }, {
-      "iri" : "https://w3id.org/biodivrisK-onto#ItauUnibanco",
-      "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "annotations" : {
-        "url" : [ {
-          "identifier" : "url",
-          "language" : "undefined",
-          "value" : "https://www.itau.com.br",
-          "type" : "iri"
-        } ]
-      },
-      "labels" : {
-        "IRI-based" : "ItauUnibanco",
-        "en" : "Itaú Unibanco"
-      }
-    }, {
       "iri" : "https://w3id.org/biodivrisK-onto#Caixa",
       "baseIri" : "https://w3id.org/biodivrisK-onto",
       "annotations" : {
@@ -1229,6 +1212,21 @@
       "labels" : {
         "IRI-based" : "Caixa",
         "en" : "Caixa Econômica Federal"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#ItauUnibanco",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "url" : [ {
+          "identifier" : "url",
+          "language" : "undefined",
+          "value" : "https://www.itau.com.br",
+          "type" : "iri"
+        } ]
+      },
+      "labels" : {
+        "IRI-based" : "ItauUnibanco",
+        "en" : "Itaú Unibanco"
       }
     }, {
       "iri" : "https://w3id.org/biodivrisK-onto#SantanderBrasil",
@@ -1320,16 +1318,6 @@
         "en" : "Tropical Andes Biome"
       }
     }, {
-      "iri" : "https://w3id.org/biodivrisK-onto#Amazonia",
-      "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "comment" : {
-        "en" : "Largest tropical rainforest biome globally. Under-sampled in GBIF particularly for invertebrates and cryptic taxa. Relevant to both Santander Peru and CEBDS Brazil cases."
-      },
-      "labels" : {
-        "IRI-based" : "Amazonia",
-        "en" : "Amazonia Biome"
-      }
-    }, {
       "iri" : "https://w3id.org/biodivrisK-onto#Cerrado",
       "baseIri" : "https://w3id.org/biodivrisK-onto",
       "comment" : {
@@ -1338,6 +1326,16 @@
       "labels" : {
         "IRI-based" : "Cerrado",
         "en" : "Cerrado Biome"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#Amazonia",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "comment" : {
+        "en" : "Largest tropical rainforest biome globally. Under-sampled in GBIF particularly for invertebrates and cryptic taxa. Relevant to both Santander Peru and CEBDS Brazil cases."
+      },
+      "labels" : {
+        "IRI-based" : "Amazonia",
+        "en" : "Amazonia Biome"
       }
     }, {
       "iri" : "https://w3id.org/biodivrisK-onto#AtlanticForest",
@@ -1390,34 +1388,6 @@
     },
     "id" : "28"
   }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#TNFDImpactDependency",
-    "equivalent" : [ "57" ],
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "instances" : 0,
-    "annotations" : {
-      "note" : [ {
-        "identifier" : "note",
-        "language" : "en",
-        "value" : "TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other.",
-        "type" : "label"
-      }, {
-        "identifier" : "note",
-        "language" : "en",
-        "value" : "Equivalence holds on the impact side only. Both classes share the ENCORE-derived logic of identifying organisational impacts on and dependencies upon nature. The financial materiality dimension of ESRS E4 double materiality has no direct equivalent in TNFD.",
-        "type" : "label"
-      } ]
-    },
-    "label" : {
-      "IRI-based" : "TNFDImpactDependency",
-      "en" : "TNFD Impacts and Dependencies on Nature"
-    },
-    "comment" : {
-      "en" : "Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services."
-    },
-    "attributes" : [ "equivalent" ],
-    "id" : "34",
-    "superClasses" : [ "35" ]
-  }, {
     "iri" : "https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
     "instances" : 0,
@@ -1450,6 +1420,38 @@
     },
     "id" : "84",
     "superClasses" : [ "37" ]
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#TNFDImpactDependency",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "Close match (not equivalence): both classes identify organisational impacts on and dependencies upon nature using the ENCORE framework logic, but their materiality boundaries differ. TNFD applies enterprise-value materiality (financial impact on the organisation); ESRS E4 applies double materiality (financial impact AND impact on biodiversity, regardless of financial consequence). owl:equivalentClass was rejected because it would collapse the materiality distinction that bro:incommensurableWith between TNFDEnterpriseMateriality and ESRSDoubleMateriality is designed to preserve.",
+        "type" : "label"
+      }, {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other.",
+        "type" : "label"
+      } ],
+      "closeMatch" : [ {
+        "identifier" : "closeMatch",
+        "language" : "undefined",
+        "value" : "https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency",
+        "type" : "iri"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "TNFDImpactDependency",
+      "en" : "TNFD Impacts and Dependencies on Nature"
+    },
+    "comment" : {
+      "en" : "Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services."
+    },
+    "id" : "34",
+    "superClasses" : [ "35" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#Portfolio",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1516,7 +1518,7 @@
       "note" : [ {
         "identifier" : "note",
         "language" : "en",
-        "value" : "Equivalence holds because both classes measure the same physical quantity (land-use change in hectares) using the same unit. One of the rare genuine equivalences between the four frameworks.",
+        "value" : "Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a 'difference in granularity' between these datapoints, not a semantic difference — confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes.",
         "type" : "label"
       } ],
       "unit" : [ {
@@ -1545,24 +1547,6 @@
       "en" : "Biodiversity Data Source"
     },
     "individuals" : [ {
-      "iri" : "https://w3id.org/biodivrisK-onto#GBIFData",
-      "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "annotations" : {
-        "url" : [ {
-          "identifier" : "url",
-          "language" : "undefined",
-          "value" : "https://www.gbif.org",
-          "type" : "iri"
-        } ]
-      },
-      "comment" : {
-        "en" : "Global Biodiversity Information Facility — primary open source for terrestrial and freshwater species occurrence records. Exhibits geographic sampling bias in LAC: under-representation of Andes, Amazonia and Cerrado."
-      },
-      "labels" : {
-        "IRI-based" : "GBIFData",
-        "en" : "GBIF Occurrence Data"
-      }
-    }, {
       "iri" : "https://w3id.org/biodivrisK-onto#OBISData",
       "baseIri" : "https://w3id.org/biodivrisK-onto",
       "annotations" : {
@@ -1579,6 +1563,24 @@
       "labels" : {
         "IRI-based" : "OBISData",
         "en" : "OBIS Marine Data"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#GBIFData",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "url" : [ {
+          "identifier" : "url",
+          "language" : "undefined",
+          "value" : "https://www.gbif.org",
+          "type" : "iri"
+        } ]
+      },
+      "comment" : {
+        "en" : "Global Biodiversity Information Facility — primary open source for terrestrial and freshwater species occurrence records. Exhibits geographic sampling bias in LAC: under-representation of Andes, Amazonia and Cerrado."
+      },
+      "labels" : {
+        "IRI-based" : "GBIFData",
+        "en" : "GBIF Occurrence Data"
       }
     }, {
       "iri" : "https://w3id.org/biodivrisK-onto#ENCOREData",
@@ -1673,12 +1675,12 @@
       "note" : [ {
         "identifier" : "note",
         "language" : "en",
-        "value" : "ESRS E4 biodiversity-sensitive areas are a strict subset of TNFD priority locations. TNFD additionally covers rapid ecosystem decline and high water stress sites absent from the ESRS definition. Treating as equivalent produces false negatives in LAC screening.",
+        "value" : "Partial equivalence with difference in reference: both concepts cover protected areas and KBAs, but ESRS E4 explicitly references Natura 2000 sites and IUCN Category I-IV protected areas, while GRI 101 uses a broader definition based on IUCN and Ramsar without the Natura 2000 specificity. The equivalence holds for the KBA criterion; the normative reference to EU-specific designations introduces a scope difference.",
         "type" : "label"
       }, {
         "identifier" : "note",
         "language" : "en",
-        "value" : "Partial equivalence with difference in reference: both concepts cover protected areas and KBAs, but ESRS E4 explicitly references Natura 2000 sites and IUCN Category I-IV protected areas, while GRI 101 uses a broader definition based on IUCN and Ramsar without the Natura 2000 specificity. The equivalence holds for the KBA criterion; the normative reference to EU-specific designations introduces a scope difference.",
+        "value" : "ESRS E4 biodiversity-sensitive areas are a strict subset of TNFD priority locations. TNFD additionally covers rapid ecosystem decline and high water stress sites absent from the ESRS definition. Treating as equivalent produces false negatives in LAC screening.",
         "type" : "label"
       } ]
     },

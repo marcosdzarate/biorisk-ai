@@ -1,5 +1,5 @@
 <https://w3id.org/biodivrisK-onto> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
-<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2002/07/owl#versionIRI> <https://w3id.org/biodivrisK-onto/0.1.0> .
+<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2002/07/owl#versionIRI> <https://w3id.org/biodivrisK-onto/0.2.0> .
 <https://w3id.org/biodivrisK-onto> <http://www.w3.org/2002/07/owl#imports> <https://w3id.org/biodivrisK-onto/0.1.0> .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/created> "2026-07-13"^^<http://www.w3.org/2001/XMLSchema#date> .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/created> "2026-07-21"^^<http://www.w3.org/2001/XMLSchema#date> .
@@ -10,12 +10,12 @@ _:genid1 <https://schema.org/affiliation> "CESIMAR-CONICET, Puerto Madryn, Argen
 _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/Person> .
 <https://schema.org/Person> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/creator> _:genid2 .
-_:genid2 <https://schema.org/name> "Gustavo Nuñez" .
+_:genid2 <https://schema.org/url> <https://orcid.org/0000-0001-8851-8602> .
+_:genid2 <https://schema.org/name> "Marcos Daniel Zárate" .
 _:genid2 <https://schema.org/affiliation> "CESIMAR-CONICET, Puerto Madryn, Argentina" .
 _:genid2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/Person> .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/creator> _:genid3 .
-_:genid3 <https://schema.org/url> <https://orcid.org/0000-0001-8851-8602> .
-_:genid3 <https://schema.org/name> "Marcos Daniel Zárate" .
+_:genid3 <https://schema.org/name> "Gustavo Nuñez" .
 _:genid3 <https://schema.org/affiliation> "CESIMAR-CONICET, Puerto Madryn, Argentina" .
 _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/Person> .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/description> "BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC)."@en .
@@ -25,7 +25,7 @@ _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/title> "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"@en .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/vocab/vann/preferredNamespacePrefix> "bro" .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/vocab/vann/preferredNamespaceUri> "https://w3id.org/biodivrisK-onto#" .
-<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2000/01/rdf-schema#comment> "Prototype v0.1.0. Developed as part of the paper submitted to AMW 2026."@en .
+<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2000/01/rdf-schema#comment> "Version 0.1.0 — core taxonomy and semantic relation framework. Extended in v0.2.0 with real-world instances from LAC case studies."@en .
 <https://w3id.org/biodivrisK-onto> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <https://github.com/marcosdzarate/biorisk-ai> .
 <https://w3id.org/biodivrisK-onto> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology> .
 <https://w3id.org/biodivrisK-onto> <http://www.w3.org/2002/07/owl#versionInfo> "0.1.0" .
@@ -62,6 +62,9 @@ _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 # 
 # http://www.w3.org/2004/02/skos/core#altLabel
 <http://www.w3.org/2004/02/skos/core#altLabel> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
+# 
+# http://www.w3.org/2004/02/skos/core#closeMatch
+<http://www.w3.org/2004/02/skos/core#closeMatch> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
 # 
 # http://www.w3.org/2004/02/skos/core#definition
 <http://www.w3.org/2004/02/skos/core#definition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
@@ -381,7 +384,6 @@ _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 # 
 # https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency
 <https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-<https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency> <http://www.w3.org/2002/07/owl#equivalentClass> <https://w3id.org/biodivrisK-onto#TNFDImpactDependency> .
 <https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
 # 
 # https://w3id.org/biodivrisK-onto#FinancialInstitution
@@ -569,7 +571,6 @@ _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#WaterStressRisk> .
 <https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk> <https://w3id.org/biodivrisK-onto#affectsRiskAssessment> <https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> .
-<https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk> <http://www.w3.org/2000/01/rdf-schema#comment> "Physical risk from insufficient freshwater availability in Andean mining and agricultural operations in Peru. Identified as a material dependency in Santander Peru LEAP L2: groundwater use and protection against flooding were the most material ecosystem service dependencies. High water stress zones identified via WRI Aqueduct in LEAP L4."@en .
 <https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk> <http://www.w3.org/2000/01/rdf-schema#label> "Andean Water Stress Risk"@en .
 # 
@@ -800,12 +801,9 @@ _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 # https://w3id.org/biodivrisK-onto#GRIManagementApproach
 <https://w3id.org/biodivrisK-onto#GRIManagementApproach> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#GRIManagementApproach> <https://w3id.org/biodivrisK-onto#complements> <https://w3id.org/biodivrisK-onto#TNFDImpactDependency> .
-<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#GRIManagementApproach> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#GRI101> .
 <https://w3id.org/biodivrisK-onto#GRIManagementApproach> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> .
-<https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#GRIManagementApproach> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> .
-<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 # 
 # https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas
 <https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
@@ -890,6 +888,7 @@ _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#SBTN> <https://schema.org/url> <https://sciencebasedtargetsnetwork.org> .
 # 
 # https://w3id.org/biodivrisK-onto#SBTNAR3TTarget
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <https://w3id.org/biodivrisK-onto#coveredByFramework> <https://w3id.org/biodivrisK-onto#SBTN> .
 <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#SBTN> .
 <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#GRIManagementApproach> .
@@ -903,6 +902,7 @@ _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance> <http://www.w3.org/2000/01/rdf-schema#label> "SBTN AR3T Science-based Target"@en .
 # 
 # https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance
+<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <https://w3id.org/biodivrisK-onto#coveredByFramework> <https://w3id.org/biodivrisK-onto#SBTN> .
 <https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#SBTN> .
 <https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#GRIManagementApproach> .
@@ -959,11 +959,13 @@ _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#TNFD> <https://schema.org/url> <https://tnfd.global> .
 # 
 # https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality
+<https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <https://w3id.org/biodivrisK-onto#coveredByFramework> <https://w3id.org/biodivrisK-onto#ESRS_E4> .
 <https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#TNFD> .
 <https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> .
 # 
 # https://w3id.org/biodivrisK-onto#TNFDImpactDependency
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <https://w3id.org/biodivrisK-onto#complements> <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> .
 <https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <https://w3id.org/biodivrisK-onto#coveredByFramework> <https://w3id.org/biodivrisK-onto#ESRS_E4> .
 <https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#TNFD> .
@@ -1061,12 +1063,13 @@ _:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 # 
 <https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2000/01/rdf-schema#comment> "Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services."@en .
 <https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2000/01/rdf-schema#label> "TNFD Impacts and Dependencies on Nature"@en .
-<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2004/02/skos/core#note> "Equivalence holds on the impact side only. Both classes share the ENCORE-derived logic of identifying organisational impacts on and dependencies upon nature. The financial materiality dimension of ESRS E4 double materiality has no direct equivalent in TNFD."@en .
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2004/02/skos/core#closeMatch> <https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency> .
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2004/02/skos/core#note> "Close match (not equivalence): both classes identify organisational impacts on and dependencies upon nature using the ENCORE framework logic, but their materiality boundaries differ. TNFD applies enterprise-value materiality (financial impact on the organisation); ESRS E4 applies double materiality (financial impact AND impact on biodiversity, regardless of financial consequence). owl:equivalentClass was rejected because it would collapse the materiality distinction that bro:incommensurableWith between TNFDEnterpriseMateriality and ESRSDoubleMateriality is designed to preserve."@en .
 <https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2004/02/skos/core#note> "TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other."@en .
 # 
 <https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <http://www.w3.org/2000/01/rdf-schema#comment> "TNFD core cross-sector metric measuring the extent (ha) of land, freshwater or ocean-use change."@en .
 <https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <http://www.w3.org/2000/01/rdf-schema#label> "TNFD Land/Freshwater/Ocean-use Change Metric"@en .
-<https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <http://www.w3.org/2004/02/skos/core#note> "Equivalence holds because both classes measure the same physical quantity (land-use change in hectares) using the same unit. One of the rare genuine equivalences between the four frameworks."@en .
+<https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <http://www.w3.org/2004/02/skos/core#note> "Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a 'difference in granularity' between these datapoints, not a semantic difference — confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes."@en .
 <https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <https://w3id.org/biodivrisK-onto#unit> "hectares (ha)"@en .
 # 
 <https://w3id.org/biodivrisK-onto#TNFDPriorityLocation> <http://www.w3.org/2000/01/rdf-schema#comment> "Location of high importance for biodiversity under TNFD LEAP, including areas of high biodiversity intactness, protected areas, KBAs, areas of rapid ecosystem decline, and areas of high water stress."@en .
