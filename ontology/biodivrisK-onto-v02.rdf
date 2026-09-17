@@ -49,12 +49,6 @@
       </schema:Person>
     </dcterms:creator>
     <dcterms:creator>
-      <schema:Person rdf:nodeID="n5e26570e22bf49059752cef39ec9f318b2">
-        <schema:name>Gustavo Nuñez</schema:name>
-        <schema:affiliation>CESIMAR-CONICET, Puerto Madryn, Argentina</schema:affiliation>
-      </schema:Person>
-    </dcterms:creator>
-    <dcterms:creator>
       <schema:Person rdf:nodeID="na017e31c3a1f4e8e861b652ee6b55bd7b1">
         <schema:name>Marcos Daniel Zárate</schema:name>
         <schema:affiliation>CESIMAR-CONICET, Puerto Madryn, Argentina</schema:affiliation>

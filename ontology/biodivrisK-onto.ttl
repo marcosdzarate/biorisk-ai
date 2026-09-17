@@ -1,386 +1,935 @@
-@prefix bro:     <https://w3id.org/biodivrisK-onto#> .
-@prefix owl:     <http://www.w3.org/2002/07/owl#> .
-@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
-@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix : <https://w3id.org/biodivrisK-onto#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix vann:    <http://purl.org/vocab/vann/> .
-@prefix schema:  <https://schema.org/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-# ---------------------------------------------------------------
-# Ontology metadata — OWL 2 DL profile declared
-# ---------------------------------------------------------------
+<http://purl.obolibrary.org/obo/ENVO_00000428> a owl:Class ;
+    owl:equivalentClass :Biome .
 
-<https://w3id.org/biodivrisK-onto>
-    a owl:Ontology ;
-    owl:versionIRI <https://w3id.org/biodivrisK-onto/0.1.0> ;
-    dcterms:title
-        "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"@en ;
-    dcterms:description
-        "BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC)."@en ;
-    dcterms:creator [
-        a schema:Person ;
-        schema:name "Marcos Daniel Zárate" ;
-        schema:affiliation "CESIMAR-CONICET, Puerto Madryn, Argentina" ;
-        schema:url <https://orcid.org/0000-0001-8851-8602>
-    ] ;
+dcterms:created a owl:AnnotationProperty .
+
+dcterms:creator a owl:AnnotationProperty .
+
+dcterms:description a owl:AnnotationProperty .
+
+dcterms:license a owl:AnnotationProperty .
+
+dcterms:title a owl:AnnotationProperty .
+
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+
+xsd:date a rdfs:Datatype .
+
+skos:altLabel a owl:AnnotationProperty .
+
+skos:closeMatch a owl:ObjectProperty,
+        owl:SymmetricProperty .
+
+skos:definition a owl:AnnotationProperty .
+
+skos:note a owl:AnnotationProperty .
+
+skos:prefLabel a owl:AnnotationProperty .
+
+prov:wasAssociatedWith a owl:ObjectProperty .
+
+schema:affiliation a owl:AnnotationProperty .
+
+schema:name a owl:AnnotationProperty .
+
+schema:url a owl:AnnotationProperty .
+
+<https://w3id.org/biodivrisK-onto> a owl:Ontology ;
     dcterms:created "2026-07-13"^^xsd:date ;
+    dcterms:creator [ a schema:Person ;
+            schema:affiliation "CESIMAR-CONICET, Puerto Madryn, Argentina" ;
+            schema:name "Marcos Daniel Zárate" ;
+            schema:url <https://orcid.org/0000-0001-8851-8602> ] ;
+    dcterms:description "BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC)."@en,
+        "Framework concepts intentionally use OWL 2 punning: the same IRI may denote a class for subsumption axioms and an individual for concept-level alignment relations. These interpretations remain semantically distinct under OWL 2 DL."@en,
+        "Version 0.3.0 extends the core taxonomy with organizational, geographic and evaluation modules, explicit information-loss records, and populated instances from the Santander Peru and CEBDS Brazil case studies."@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-09-17"^^xsd:date ;
+    dcterms:title "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"@en ;
     vann:preferredNamespacePrefix "bro" ;
     vann:preferredNamespaceUri "https://w3id.org/biodivrisK-onto#" ;
-    owl:versionInfo "0.1.0" ;
-    rdfs:seeAlso <https://github.com/marcosdzarate/biorisk-ai> ;
-    rdfs:comment
-        "Version 0.1.0 — core taxonomy and semantic relation framework. Extended in v0.2.0 with real-world instances from LAC case studies."@en .
+    rdfs:comment "Version 0.3.0 — structural release adding explicit information-loss records, ordered sector priorities and biome links, while removing redundant or unused modelling elements."@en ;
+    rdfs:seeAlso <https://github.com/marcosdzarate/biorisk-ai>,
+        <https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology> ;
+    owl:priorVersion <https://w3id.org/biodivrisK-onto/0.2.0> ;
+    owl:versionIRI <https://w3id.org/biodivrisK-onto/0.3.0> ;
+    owl:versionInfo "0.3.0" .
 
-# ---------------------------------------------------------------
-# L2 — Framework module: top-level classes
-# ---------------------------------------------------------------
+:AndeanDataGap a owl:NamedIndividual,
+        :GeographicSamplingBias ;
+    rdfs:label "Andean GBIF Data Gap"@en ;
+    rdfs:comment "Documented under-sampling of species occurrence records in GBIF for the tropical Andes biome, including Peru. Bias towards roads, cities and protected area boundaries. Leads to false negatives in TNFD priority-location screening. Empirically documented in Santander Peru LEAP L3-L4 assessment."@en ;
+    :affectsBiome :TropicalAndes ;
+    :affectsFramework :ESRS_E4,
+        :TNFD .
 
-bro:DisclosureFramework
-    a owl:Class ;
-    rdfs:label "Disclosure Framework"@en ;
-    rdfs:comment
-        "A regulatory or voluntary framework requiring organisations to assess and disclose their nature-related impacts, dependencies, risks and opportunities."@en .
+:AndeanWaterStressRisk a owl:NamedIndividual,
+        :WaterStressRisk ;
+    rdfs:label "Andean Water Stress Risk"@en ;
+    rdfs:comment "Physical risk from insufficient freshwater availability in Andean mining and agricultural operations in Peru. Identified as a material dependency in Santander Peru LEAP L2: groundwater use and protection against flooding were the most material ecosystem service dependencies. High water stress zones identified via WRI Aqueduct in LEAP L4."@en ;
+    :affectsRiskAssessment :TNFDEnterpriseMateriality .
 
-bro:FrameworkConcept
-    a owl:Class ;
-    rdfs:label "Framework Concept"@en ;
-    rdfs:comment
-        "A concept, disclosure requirement, indicator or metric defined within a disclosure framework. Subclasses represent specific concepts; individuals of this class are not intended."@en .
+:CerradoDataGap a owl:NamedIndividual,
+        :GeographicSamplingBias ;
+    rdfs:label "Cerrado GBIF Data Gap"@en ;
+    rdfs:comment "Documented under-sampling of species occurrence records in GBIF for the Cerrado biome, particularly invertebrates and endemic species. Documented in the CEBDS Brazil LEAP pilot as a challenge for L4 sensitive site identification."@en ;
+    :affectsBiome :Cerrado ;
+    :affectsFramework :ESRS_E4,
+        :TNFD .
 
-bro:Metric
-    a owl:Class ;
-    rdfs:subClassOf bro:FrameworkConcept ;
+:DataSufficiencyAssessment a owl:Class ;
+    rdfs:label "Data Sufficiency Assessment"@en ;
+    rdfs:comment "An evaluation of whether available biodiversity data from sources such as GBIF and OBIS are sufficient to meet the information requirements of a given disclosure framework for a specific biome, sector and location. Quantifies data gaps arising from geographic and taxonomic sampling bias."@en ;
+    rdfs:subClassOf prov:Activity .
+
+:ESRSLandUseDatapoint a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "ESRS E4 Land-use Change Datapoint"@en ;
+    rdfs:comment "ESRS E4 datapoint requiring disclosure of land-use change in hectares attributable to the undertaking's own operations and value chain."@en ;
+    rdfs:subClassOf :Metric ;
+    owl:equivalentClass :TNFDLandUseChangeMetric ;
+    :definedBy :ESRS_E4 ;
+    :unit "hectares (ha)"@en .
+
+:GRIImpactMateriality a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "GRI Impact Materiality"@en ;
+    rdfs:comment "GRI impact-only materiality: issues are material based on significance of actual or potential impacts on people and environment, regardless of financial consequences."@en ;
+    rdfs:subClassOf :MaterialityBoundary ;
+    :definedBy :GRI101 .
+
+:GRIOperationsAdjacentProtectedAreas a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "GRI 101 Operations in/adjacent to Protected Areas and KBAs"@en ;
+    rdfs:comment "GRI 101 disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas."@en ;
+    rdfs:subClassOf :ESRSBiodiversitySensitiveArea,
+        :FrameworkConcept ;
+    skos:note "GRI 101 protected-area and KBA sites are a subset of TNFD areas of importance for biodiversity. TNFD applies a broader definition additionally covering areas of high biodiversity intactness beyond formal protection status."@en ;
+    :definedBy :GRI101 .
+
+:LACGeographicBias a owl:NamedIndividual,
+        :GeographicSamplingBias ;
+    rdfs:label "LAC Geographic Sampling Bias"@en ;
+    rdfs:comment "Systematic under-sampling of GBIF and OBIS records for key LAC biomes including the tropical Andes, Amazonia, the Cerrado and Caribbean marine ecosystems. Leads to false negatives in TNFD priority-location and ESRS E4 sensitive-area proximity screening."@en ;
+    :affectsBiome :Amazonia,
+        :AtlanticForest,
+        :Cerrado,
+        :TropicalAndes ;
+    :affectsFramework :ESRS_E4,
+        :GRI101,
+        :SBTN,
+        :TNFD .
+
+:OBISData a owl:NamedIndividual,
+        :BiodiversityDataSource ;
+    rdfs:label "OBIS Marine Data"@en ;
+    rdfs:comment "Ocean Biodiversity Information System — primary open source for marine species occurrence records. Under-representation of Caribbean marine ecosystems."@en ;
+    schema:url <https://obis.org> .
+
+:Portfolio a owl:Class ;
+    rdfs:label "Portfolio"@en ;
+    rdfs:comment "A credit or investment portfolio of a financial institution, composed of assets across multiple economic sectors and geographic locations."@en .
+
+:PriorityLocation a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "Priority Location"@en ;
+    rdfs:comment "A geographic location identified as high-priority for biodiversity assessment under TNFD LEAP L4, based on five sensitive location criteria: (1) important for biodiversity; (2) high ecosystem integrity; (3) rapid ecosystem decline; (4) high physical water risk; (5) important for ecosystem services provision."@en ;
+    rdfs:subClassOf :FrameworkConcept ;
+    :definedBy :TNFD .
+
+:SantanderPeruESCCPolicy a owl:NamedIndividual,
+        :InternalPolicy ;
+    rdfs:label "Santander Peru ESCC Risk Policy"@en ;
+    rdfs:comment "Santander Peru's Environmental, Social, Climate and Compliance (ESCC) risk management policy. Covers IUCN protected areas and Ramsar sites but does not extend to all TNFD sensitive location criteria (rapid ecosystem decline, high water stress)."@en ;
+    :coversRequirement :GRIProtectedAreaKBA .
+
+:TNFDStrategyD a owl:NamedIndividual,
+        :DisclosureRequirement ;
+    rdfs:label "TNFD Strategy D"@en ;
+    rdfs:comment "TNFD recommended disclosure Strategy D: disclose the locations of assets and/or activities in direct operations and, where possible, upstream and downstream value chains that meet the criteria for priority locations."@en ;
+    :definedBy :TNFD .
+
+:TaxonomicSamplingBias a owl:Class ;
+    rdfs:label "Taxonomic Sampling Bias"@en ;
+    rdfs:comment "Systematic over-representation of certain taxonomic groups (e.g. birds, vascular plants) in open biodiversity databases."@en ;
+    rdfs:subClassOf :DataGap .
+
+:affectsBiome a owl:ObjectProperty ;
+    rdfs:label "affects biome"@en ;
+    rdfs:comment "Relates a biodiversity data gap to a biome whose assessment is affected by that gap."@en ;
+    rdfs:domain :DataGap ;
+    rdfs:range :Biome .
+
+:affectsFramework a owl:ObjectProperty ;
+    rdfs:label "affects framework"@en ;
+    rdfs:comment "Relates a data gap to the framework(s) whose assessments are affected."@en ;
+    rdfs:domain :DataGap ;
+    rdfs:range :DisclosureFramework .
+
+:affectsRiskAssessment a owl:ObjectProperty ;
+    rdfs:label "affects risk assessment"@en ;
+    rdfs:comment "Relates a physical risk to the materiality boundary under which that risk is assessed."@en ;
+    rdfs:domain :PhysicalRisk ;
+    rdfs:range :MaterialityBoundary .
+
+:appliesFramework a owl:ObjectProperty ;
+    rdfs:label "applies framework"@en ;
+    rdfs:comment "Relates an organization to a disclosure framework it applies or is subject to."@en ;
+    rdfs:domain :Organization ;
+    rdfs:range :DisclosureFramework .
+
+:assessedUnder a owl:ObjectProperty ;
+    rdfs:label "assessed under"@en ;
+    rdfs:comment "Relates a sector or portfolio to the disclosure framework under which it was assessed for materiality."@en ;
+    rdfs:domain :Sector ;
+    rdfs:range :DisclosureFramework .
+
+:complements a owl:ObjectProperty,
+        owl:SymmetricProperty ;
+    rdfs:label "complements"@en ;
+    rdfs:comment "Two framework concept classes that address distinct, jointly-required facets of one assessment. Licenses composition of evidence, not substitution. Symmetric."@en ;
+    rdfs:domain owl:Class ;
+    rdfs:range owl:Class .
+
+:coveredByFramework a owl:ObjectProperty ;
+    rdfs:label "covered by framework"@en ;
+    rdfs:comment "Relates a framework concept to the frameworks that include or address it."@en ;
+    rdfs:domain :FrameworkConcept ;
+    rdfs:range :DisclosureFramework .
+
+:coversRequirement a owl:ObjectProperty ;
+    rdfs:label "covers requirement"@en ;
+    rdfs:comment "Relates an internal policy to the disclosure requirements of external frameworks that it partially or fully covers."@en ;
+    rdfs:domain :InternalPolicy ;
+    rdfs:range :DisclosureRequirement .
+
+:definedBy a owl:ObjectProperty ;
+    rdfs:label "defined by"@en ;
+    rdfs:comment "Relates a framework concept class to the framework that defines it."@en ;
+    rdfs:domain :FrameworkConcept ;
+    rdfs:range :DisclosureFramework .
+
+:hasAmbiguity a owl:ObjectProperty ;
+    rdfs:label "has ambiguity"@en ;
+    rdfs:domain :IndustrialClassification ;
+    rdfs:range :SemanticAmbiguity .
+
+:hasBridgingCondition a owl:AnnotationProperty ;
+    rdfs:label "has bridging condition"@en ;
+    rdfs:comment "Documents the explicit assumption under which a lossy approximation between two incommensurable concepts is admissible. Required on every bro:incommensurableWith assertion."@en .
+
+:hasEvaluationResult a owl:ObjectProperty ;
+    rdfs:label "has evaluation result"@en ;
+    rdfs:domain :LEAPAssessment ;
+    rdfs:range :MaterialityResult .
+
+:hasInformationLoss a owl:ObjectProperty ;
+    rdfs:label "has information loss"@en ;
+    rdfs:comment "Documents what information is lost when converting between two incommensurable framework concepts."@en ;
+    rdfs:domain owl:Class ;
+    rdfs:range :InformationLoss .
+
+:hasPortfolioSector a owl:ObjectProperty ;
+    rdfs:label "has portfolio sector"@en ;
+    rdfs:comment "Relates a financial institution to an economic sector represented in its credit or investment portfolio."@en ;
+    rdfs:domain :FinancialInstitution ;
+    rdfs:range :Sector .
+
+:hasSectorClassification a owl:ObjectProperty ;
+    rdfs:label "has sector classification"@en ;
+    rdfs:domain :Sector ;
+    rdfs:range :IndustrialClassification .
+
+:hasSectorPriority a owl:ObjectProperty ;
+    rdfs:label "has sector priority"@en ;
+    rdfs:comment "Relates a materiality result to an ordered sector-priority entry."@en ;
+    rdfs:domain :MaterialityResult ;
+    rdfs:range :SectorPriority .
+
+:incommensurableWith a owl:ObjectProperty,
+        owl:SymmetricProperty ;
+    rdfs:label "incommensurable with"@en ;
+    rdfs:comment "Two framework concept classes for which no truth-preserving mapping exists due to different measurement units, materiality boundaries or epistemic commitments. Every assertion MUST carry bro:hasBridgingCondition. Symmetric."@en ;
+    rdfs:domain owl:Class ;
+    rdfs:range owl:Class .
+
+:mappableTo a owl:ObjectProperty ;
+    rdfs:label "mappable to"@en ;
+    rdfs:comment "A lossy correspondence between two industrial classification standards requiring manual effort and producing semantic ambiguity."@en ;
+    rdfs:domain :IndustrialClassification ;
+    rdfs:range :IndustrialClassification .
+
+:operatesInBiome a owl:ObjectProperty ;
+    rdfs:label "operates in biome"@en ;
+    rdfs:domain :Organization ;
+    rdfs:range :Biome .
+
+:operatesInCountry a owl:ObjectProperty ;
+    rdfs:label "operates in country"@en ;
+    rdfs:domain :Organization ;
+    rdfs:range :Country .
+
+:prioritisesSector a owl:ObjectProperty ;
+    rdfs:label "prioritises sector"@en ;
+    rdfs:domain :MaterialityResult ;
+    rdfs:range :Sector .
+
+:priorityRank a owl:DatatypeProperty ;
+    rdfs:label "priority rank"@en ;
+    rdfs:comment "The one-based ordinal position of a sector within a materiality result."@en ;
+    rdfs:domain :SectorPriority ;
+    rdfs:range xsd:positiveInteger .
+
+:prioritySector a owl:ObjectProperty ;
+    rdfs:label "priority sector"@en ;
+    rdfs:comment "Identifies the economic sector represented by an ordered sector-priority entry."@en ;
+    rdfs:domain :SectorPriority ;
+    rdfs:range :Sector .
+
+:requiresDataFrom a owl:ObjectProperty ;
+    rdfs:label "requires data from"@en ;
+    rdfs:domain :LEAPAssessment ;
+    rdfs:range :BiodiversityDataSource .
+
+:requiresInputFrom a owl:ObjectProperty ;
+    rdfs:label "requires input from"@en ;
+    rdfs:comment "A directed property: SBTN AR3T target setting requires location and materiality data produced by a TNFD LEAP assessment."@en ;
+    rdfs:domain :SBTNAR3TTarget ;
+    rdfs:range :LEAPAssessment ;
+    owl:inverseOf :informsTargetSetting .
+
+:sourceConcept a owl:ObjectProperty ;
+    rdfs:label "source concept"@en ;
+    rdfs:comment "Identifies the source concept in a directed lossy conversion."@en ;
+    rdfs:domain :InformationLoss ;
+    rdfs:range owl:Class .
+
+:targetConcept a owl:ObjectProperty ;
+    rdfs:label "target concept"@en ;
+    rdfs:comment "Identifies the target concept in a directed lossy conversion."@en ;
+    rdfs:domain :InformationLoss ;
+    rdfs:range owl:Class .
+
+:unit a owl:AnnotationProperty ;
+    rdfs:label "unit"@en ;
+    rdfs:comment "Unit of measurement associated with a metric."@en .
+
+:usesClassification a owl:ObjectProperty ;
+    rdfs:label "uses classification"@en ;
+    rdfs:domain :Organization ;
+    rdfs:range :IndustrialClassification .
+
+geo:Feature a owl:Class .
+
+prov:Entity a owl:Class .
+
+schema:BankOrCreditUnion a owl:Class .
+
+schema:Country a owl:Class .
+
+schema:Organization a owl:Class .
+
+schema:Person a owl:Class .
+
+:AgriculturalProductsSector a owl:NamedIndividual,
+        :Sector ;
+    rdfs:label "Agricultural Products Sector"@en ;
+    :assessedUnder :TNFD ;
+    :hasSectorClassification :GICS .
+
+:Amazonia a owl:NamedIndividual,
+        :Biome ;
+    rdfs:label "Amazonia Biome"@en ;
+    rdfs:comment "Largest tropical rainforest biome globally. Under-sampled in GBIF particularly for invertebrates and cryptic taxa. Relevant to both Santander Peru and CEBDS Brazil cases."@en .
+
+:AtlanticForest a owl:NamedIndividual,
+        :Biome ;
+    rdfs:label "Atlantic Forest Biome"@en ;
+    rdfs:comment "Critical biodiversity hotspot — less than 29% of original cover remains. Among the most threatened biomes in the world. Relevant to CEBDS Brazil case."@en ;
+    skos:altLabel "Mata Atlântica"@pt .
+
+:BNDES a owl:NamedIndividual,
+        :FinancialInstitution ;
+    rdfs:label "BNDES"@en ;
+    skos:prefLabel "Banco Nacional de Desenvolvimento Econômico e Social"@en ;
+    schema:url <https://www.bndes.gov.br> ;
+    :appliesFramework :TNFD ;
+    :operatesInCountry :Brazil ;
+    :usesClassification :CNAE .
+
+:Bradesco a owl:NamedIndividual,
+        :FinancialInstitution ;
+    rdfs:label "Banco Bradesco"@en ;
+    schema:url <https://www.bradesco.com.br> ;
+    :appliesFramework :TNFD ;
+    :operatesInCountry :Brazil ;
+    :usesClassification :CNAE .
+
+:CEBDSBrazilLocateAssessment a owl:NamedIndividual,
+        :LEAPAssessment ;
+    rdfs:label "CEBDS Brazil TNFD Locate Phase Pilot"@en ;
+    rdfs:comment "Collective piloting of the TNFD LEAP Locate phase by 5 Brazilian financial institutions coordinated by CEBDS and technically led by EY, September 2023–September 2024. Source: CEBDS/EY (2024)."@en ;
+    prov:wasAssociatedWith :BNDES,
+        :Bradesco,
+        :Caixa,
+        :ItauUnibanco,
+        :SantanderBrasil ;
+    :hasEvaluationResult :CEBDSHeatmapResult ;
+    :informsTargetSetting :SBTNAR3TTargetInstance ;
+    :requiresDataFrom :ENCOREData,
+        :GBIFData,
+        :WRIAqueductData .
+
+:CEBDSHeatmapResult a owl:NamedIndividual,
+        :MaterialityResult ;
+    rdfs:label "CEBDS Brazil Sector Heatmap Result"@en ;
+    rdfs:comment "Sectoral materiality ranking from the CEBDS Brazil LEAP pilot using ENCORE scores combined with loan volume and number of clients data. Priority order: 1st Consumer Staples, 2nd Consumer Discretionary, 3rd Utilities, 4th Industrials."@en ;
+    :hasSectorPriority :CEBDSPriority1ConsumerStaples,
+        :CEBDSPriority2ConsumerDiscretionary,
+        :CEBDSPriority3Utilities,
+        :CEBDSPriority4Industrials ;
+    :prioritisesSector :ConsumerDiscretionarySector,
+        :ConsumerStaplesSector,
+        :IndustrialsSector,
+        :UtilitiesSector .
+
+:CEBDSPriority1ConsumerStaples a owl:NamedIndividual,
+        :SectorPriority ;
+    rdfs:label "CEBDS Priority 1: Consumer Staples"@en ;
+    rdfs:comment "First-ranked sector in the CEBDS Brazil materiality heatmap."@en ;
+    :priorityRank "1"^^xsd:positiveInteger ;
+    :prioritySector :ConsumerStaplesSector .
+
+:CEBDSPriority2ConsumerDiscretionary a owl:NamedIndividual,
+        :SectorPriority ;
+    rdfs:label "CEBDS Priority 2: Consumer Discretionary"@en ;
+    rdfs:comment "Second-ranked sector in the CEBDS Brazil materiality heatmap."@en ;
+    :priorityRank "2"^^xsd:positiveInteger ;
+    :prioritySector :ConsumerDiscretionarySector .
+
+:CEBDSPriority3Utilities a owl:NamedIndividual,
+        :SectorPriority ;
+    rdfs:label "CEBDS Priority 3: Utilities"@en ;
+    rdfs:comment "Third-ranked sector in the CEBDS Brazil materiality heatmap."@en ;
+    :priorityRank "3"^^xsd:positiveInteger ;
+    :prioritySector :UtilitiesSector .
+
+:CEBDSPriority4Industrials a owl:NamedIndividual,
+        :SectorPriority ;
+    rdfs:label "CEBDS Priority 4: Industrials"@en ;
+    rdfs:comment "Fourth-ranked sector in the CEBDS Brazil materiality heatmap."@en ;
+    :priorityRank "4"^^xsd:positiveInteger ;
+    :prioritySector :IndustrialsSector .
+
+:CIIUtoGICSAmbiguity a owl:NamedIndividual,
+        :SemanticAmbiguity ;
+    rdfs:label "CIIU to GICS Semantic Ambiguity"@en ;
+    rdfs:comment "Documented semantic ambiguity in the CIIU-to-GICS/SASB mapping required for TNFD assessments in Peru. Peruvian CIIU categories require manual alignment with GICS and SASB/SICS sector definitions."@en .
+
+:CNAEtoGICSAmbiguity a owl:NamedIndividual,
+        :SemanticAmbiguity ;
+    rdfs:label "CNAE to GICS Semantic Ambiguity"@en ;
+    rdfs:comment "Documented semantic ambiguity in the CNAE-to-GICS mapping required for TNFD/ENCORE assessments. Brazilian CNAE categories do not maintain a bijective correspondence with GICS sectors — multiple CNAE codes may map to one GICS sector or vice versa. Required significant manual effort in the CEBDS Brazil pilot."@en .
+
+:Caixa a owl:NamedIndividual,
+        :FinancialInstitution ;
+    rdfs:label "Caixa Econômica Federal"@en ;
+    schema:url <https://www.caixa.gov.br> ;
+    :appliesFramework :TNFD ;
+    :operatesInCountry :Brazil ;
+    :usesClassification :CNAE .
+
+:ESRSBiodiversitySensitiveArea a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "ESRS E4 Biodiversity-sensitive Area"@en ;
+    rdfs:comment "Areas designated for biodiversity protection under ESRS E4, including Natura 2000 sites, UNESCO World Heritage, KBAs, and IUCN Category I–IV protected areas."@en ;
+    rdfs:subClassOf :FrameworkConcept,
+        :TNFDPriorityLocation ;
+    skos:note "ESRS E4 biodiversity-sensitive areas are a strict subset of TNFD priority locations. TNFD additionally covers rapid ecosystem decline and high water stress sites absent from the ESRS definition. Treating as equivalent produces false negatives in LAC screening."@en,
+        "Partial equivalence with difference in reference: both concepts cover protected areas and KBAs, but ESRS E4 explicitly references Natura 2000 sites and IUCN Category I-IV protected areas, while GRI 101 uses a broader definition based on IUCN and Ramsar without the Natura 2000 specificity. The equivalence holds for the KBA criterion; the normative reference to EU-specific designations introduces a scope difference."@en ;
+    :definedBy :ESRS_E4 .
+
+:ESRSMaterialImpactDependency a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "ESRS E4 Material Impacts and Dependencies"@en ;
+    rdfs:comment "ESRS E4 disclosure of material impacts on biodiversity and material dependencies on ecosystem services, assessed under double materiality."@en ;
+    rdfs:subClassOf :FrameworkConcept ;
+    :definedBy :ESRS_E4 .
+
+:GBIFData a owl:NamedIndividual,
+        :BiodiversityDataSource ;
+    rdfs:label "GBIF Occurrence Data"@en ;
+    rdfs:comment "Global Biodiversity Information Facility — primary open source for terrestrial and freshwater species occurrence records. Exhibits geographic sampling bias in LAC: under-representation of Andes, Amazonia and Cerrado."@en ;
+    schema:url <https://www.gbif.org> .
+
+:GRIProtectedAreaKBA a owl:NamedIndividual,
+        :DisclosureRequirement ;
+    rdfs:label "GRI 101-6 Protected Areas and KBA Disclosure Requirement"@en ;
+    rdfs:comment "GRI 101-6: disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas."@en ;
+    :definedBy :GRI101 .
+
+:GlobalForestWatchData a owl:NamedIndividual,
+        :BiodiversityDataSource ;
+    rdfs:label "Global Forest Watch"@en ;
+    rdfs:comment "Near real-time forest monitoring platform used by Santander Peru in LEAP L3/L4 to map protected areas and KBAs across Peru."@en ;
+    schema:url <https://www.globalforestwatch.org> .
+
+:ItauUnibanco a owl:NamedIndividual,
+        :FinancialInstitution ;
+    rdfs:label "Itaú Unibanco"@en ;
+    schema:url <https://www.itau.com.br> ;
+    :appliesFramework :TNFD ;
+    :operatesInCountry :Brazil ;
+    :usesClassification :CNAE .
+
+:MiningAndMetalsSector a owl:NamedIndividual,
+        :Sector ;
+    rdfs:label "Mining and Metals Sector"@en ;
+    skos:altLabel "Materials (GICS)"@en ;
+    :assessedUnder :TNFD ;
+    :hasSectorClassification :GICS .
+
+:Peru a owl:NamedIndividual,
+        :Country ;
+    rdfs:label "Peru"@en ;
+    rdfs:comment "Megadiverse country — one of 17 globally. Second largest copper producer worldwide. High Andean and Amazonian biodiversity with documented GBIF sampling gaps."@en .
+
+:QualitativeMaterialityScale a owl:Class ;
+    rdfs:label "Qualitative Materiality Scale"@en ;
+    rdfs:comment "A narrative or categorical approach to assessing materiality of nature-related impacts, without a fixed numerical scale (e.g., GRI 101 impact materiality approach)."@en ;
+    rdfs:subClassOf :MaterialityApproach .
+
+:QuantitativeMaterialityScale a owl:Class ;
+    rdfs:label "Quantitative Materiality Scale"@en ;
+    rdfs:comment "A numerical scale used to score materiality of nature-related impacts and dependencies (e.g., ENCORE scale 3-9: very low=3, low=4.5, medium=6, high=7.5, very high=9)."@en ;
+    rdfs:subClassOf :MaterialityApproach .
+
+:SASB_SICS a owl:NamedIndividual,
+        :IndustrialClassification ;
+    rdfs:label "SASB SICS"@en ;
+    skos:prefLabel "SASB Sustainable Industry Classification System"@en .
+
+:SantanderBrasil a owl:NamedIndividual,
+        :FinancialInstitution ;
+    rdfs:label "Santander Brasil"@en ;
+    schema:url <https://www.santander.com.br> ;
+    :appliesFramework :TNFD ;
+    :operatesInCountry :Brazil ;
+    :usesClassification :CNAE .
+
+:SantanderPeru a owl:NamedIndividual,
+        :FinancialInstitution ;
+    rdfs:label "Santander Peru"@en ;
+    skos:prefLabel "Banco Santander Perú S.A."@en ;
+    schema:url <https://www.santander.com.pe> ;
+    :appliesFramework :TNFD ;
+    :hasPortfolioSector :AgriculturalProductsSector,
+        :MiningAndMetalsSector ;
+    :operatesInCountry :Peru .
+
+:SantanderPeruL4Assessment a owl:NamedIndividual,
+        :LEAPAssessment ;
+    rdfs:label "Santander Peru LEAP L4 Assessment"@en ;
+    rdfs:comment "Santander Peru's LEAP assessment conducted during Global Canopy's TNFD familiarisation programme in 2024, covering scoping and the full Locate phase (L1-L4). Source: Global Canopy & Santander Peru (2025)."@en ;
+    prov:wasAssociatedWith :SantanderPeru ;
+    :informsTargetSetting :SBTNAR3TTargetInstance ;
+    :requiresDataFrom :ENCOREData,
+        :GlobalForestWatchData,
+        :WRIAqueductData .
+
+:TNFDImpactDependency a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "TNFD Impacts and Dependencies on Nature"@en ;
+    rdfs:comment "Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services."@en ;
+    rdfs:subClassOf :FrameworkConcept ;
+    skos:closeMatch :ESRSMaterialImpactDependency ;
+    skos:note "Close match (not equivalence): both classes identify organisational impacts on and dependencies upon nature using the ENCORE framework logic, but their materiality boundaries differ. TNFD applies enterprise-value materiality (financial impact on the organisation); ESRS E4 applies double materiality (financial impact AND impact on biodiversity, regardless of financial consequence). owl:equivalentClass was rejected because it would collapse the materiality distinction that bro:incommensurableWith between TNFDEnterpriseMateriality and ESRSDoubleMateriality is designed to preserve."@en,
+        "TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other."@en ;
+    :complements :SBTNAR3TTarget ;
+    :coveredByFramework :ESRS_E4 ;
+    :definedBy :TNFD .
+
+:TNFDLandUseChangeMetric a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "TNFD Land/Freshwater/Ocean-use Change Metric"@en ;
+    rdfs:comment "TNFD core cross-sector metric measuring the extent (ha) of land, freshwater or ocean-use change."@en ;
+    rdfs:subClassOf :Metric ;
+    skos:note "Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a 'difference in granularity' between these datapoints, not a semantic difference — confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes."@en ;
+    :coveredByFramework :ESRS_E4 ;
+    :definedBy :TNFD ;
+    :unit "hectares (ha)"@en .
+
+:TNFDPriorityLocation a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "TNFD Priority Location"@en ;
+    rdfs:comment "Location of high importance for biodiversity under TNFD LEAP, including areas of high biodiversity intactness, protected areas, KBAs, areas of rapid ecosystem decline, and areas of high water stress."@en ;
+    rdfs:subClassOf :FrameworkConcept ;
+    :coveredByFramework :ESRS_E4 ;
+    :definedBy :TNFD .
+
+:WaterStressRisk a owl:Class ;
+    rdfs:label "Water Stress Risk"@en ;
+    rdfs:comment "Physical risk arising from insufficient availability or quality of freshwater resources, particularly relevant for mining and agricultural sectors in the Andes. Identified as material dependency in the Santander Peru LEAP assessment (L2)."@en ;
+    rdfs:subClassOf :PhysicalRisk .
+
+:informsTargetSetting a owl:ObjectProperty ;
+    rdfs:label "informs target setting"@en ;
+    rdfs:comment "A directed property: the output of a LEAP assessment informs the science-based target-setting process of SBTN AR3T."@en ;
+    rdfs:domain :LEAPAssessment ;
+    rdfs:range :SBTNAR3TTarget .
+
+prov:Activity a owl:Class .
+
+:CIIU a owl:NamedIndividual,
+        :IndustrialClassification ;
+    rdfs:label "CIIU"@en ;
+    rdfs:comment "UN international industrial classification used in Peru. Requires manual mapping to GICS/SASB for TNFD assessments."@en ;
+    skos:note "CIIU (UN international classification used in Peru) does not map automatically to GICS or SASB/SICS sectors required for ENCORE-based TNFD assessments."@en ;
+    skos:prefLabel "Clasificación Industrial Internacional Uniforme"@en ;
+    :hasAmbiguity :CIIUtoGICSAmbiguity ;
+    :hasBridgingCondition "A lossy correspondence requires manual alignment of CIIU codes to GICS and SASB/SICS sectors, with documentation of ambiguous cases. Performed by Santander Peru during LEAP L1 scoping."@en ;
+    :hasInformationLoss :CIIUtoGICSInformationLoss ;
+    :incommensurableWith :GICS ;
+    :mappableTo :GICS,
+        :SASB_SICS .
+
+:CIIUtoGICSInformationLoss a owl:NamedIndividual,
+        :InformationLoss ;
+    rdfs:label "CIIU to GICS Information Loss"@en ;
+    rdfs:comment "A CIIU-to-GICS conversion loses national classification detail and cannot preserve a bijective sector correspondence; multiple CIIU activities may collapse into one GICS sector and some activities require expert interpretation."@en ;
+    :hasBridgingCondition "Manually align each CIIU code with the most representative GICS or SASB/SICS sector and document all ambiguous, multi-to-one and one-to-many correspondences."@en ;
+    :sourceConcept :CIIU ;
+    :targetConcept :GICS .
+
+:CNAEtoGICSInformationLoss a owl:NamedIndividual,
+        :InformationLoss ;
+    rdfs:label "CNAE to GICS Information Loss"@en ;
+    rdfs:comment "A CNAE-to-GICS conversion loses Brazilian activity-code specificity and is not automatically reversible because the standards contain multi-to-one and one-to-many sector correspondences."@en ;
+    :hasBridgingCondition "Manually map every CNAE code to the most representative GICS sector and explicitly record ambiguous and non-bijective correspondences."@en ;
+    :sourceConcept :CNAE ;
+    :targetConcept :GICS .
+
+:Cerrado a owl:NamedIndividual,
+        :Biome ;
+    rdfs:label "Cerrado Biome"@en ;
+    rdfs:comment "Brazilian tropical savanna — global biodiversity hotspot under severe agricultural pressure. 67.7% increase in deforestation in 2023. Under-sampled in GBIF for its specific endemic species."@en .
+
+:ConsumerDiscretionarySector a owl:NamedIndividual,
+        :Sector ;
+    rdfs:label "Consumer Discretionary Sector"@en ;
+    :assessedUnder :TNFD ;
+    :hasSectorClassification :GICS .
+
+:ConsumerStaplesSector a owl:NamedIndividual,
+        :Sector ;
+    rdfs:label "Consumer Staples Sector"@en ;
+    skos:definition "Companies involved in the production or sale of essential products, including food, beverages, tobacco, and hygiene products. Priority 1 in CEBDS Brazil heatmap."@en ;
+    :assessedUnder :TNFD ;
+    :hasSectorClassification :GICS .
+
+:ENCOREData a owl:NamedIndividual,
+        :BiodiversityDataSource ;
+    rdfs:label "ENCORE Tool"@en ;
+    rdfs:comment "Exploring Natural Capital Opportunities, Risks and Exposure — sector-level tool for screening nature-related impacts and dependencies. Uses a quantitative scale (3-9). Used in L2 by both Santander Peru and CEBDS Brazil."@en ;
+    schema:url <https://encorenature.org> .
+
+:ENCOREMateriality a owl:NamedIndividual,
+        :QuantitativeMaterialityScale ;
+    rdfs:label "ENCORE Quantitative Materiality Scale"@en ;
+    rdfs:comment "ENCORE scores impacts and dependencies on a numerical scale: very low=3, low=4.5, medium=6, high=7.5, very high=9. Used by TNFD for sector-level screening."@en ;
+    skos:note "ENCORE applies a quantitative composite scale (3-9) aggregating dependencies and impacts by production process. GRI 101 applies qualitative impact materiality requiring stakeholder-informed severity assessment. The two approaches operate at different epistemic levels and use incompatible measurement units."@en ;
+    :hasBridgingCondition "A lossy approximation is admissible if ENCORE sector scores are supplemented with qualitative stakeholder evidence meeting GRI 101 impact severity criteria. The numerical scale (3-9) cannot be directly compared with GRI qualitative thresholds without explicit bridging assumptions documented per sector."@en ;
+    :hasInformationLoss :ENCOREtoGRIInformationLoss ;
+    :incommensurableWith :GRI101ImpactMateriality .
+
+:ENCOREtoGRIInformationLoss a owl:NamedIndividual,
+        :InformationLoss ;
+    rdfs:label "ENCORE to GRI 101 Information Loss"@en ;
+    rdfs:comment "Converting ENCORE numerical sector scores to GRI 101 impact materiality loses the original 3–9 quantitative scale, production-process aggregation and direct comparability between scored dependencies and impacts."@en ;
+    :hasBridgingCondition "Supplement ENCORE scores with stakeholder evidence and severity criteria required by GRI 101; do not interpret the numerical thresholds as equivalent to qualitative materiality judgements."@en ;
+    :sourceConcept :ENCOREMateriality ;
+    :targetConcept :GRI101ImpactMateriality .
+
+:ESRSDoubleMateriality a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "ESRS E4 Double Materiality"@en ;
+    rdfs:comment "ESRS E4 double materiality: an issue is material if it has significant impacts on biodiversity (impact materiality) OR poses financial risks/opportunities (financial materiality)."@en ;
+    rdfs:subClassOf :MaterialityBoundary ;
+    skos:note "ESRS E4 double materiality requires assessment of both impact and financial dimensions. TNFD applies single enterprise-value materiality. The two boundaries define different populations of disclosable items; thresholds are not interchangeable."@en ;
+    :definedBy :ESRS_E4 ;
+    :hasBridgingCondition "A lossy approximation is admissible if the analyst explicitly assumes that impact-material issues under ESRS E4 are also financially material under TNFD, and documents this assumption with supporting evidence. Does not hold by default."@en ;
+    :hasInformationLoss :TNFDtoESRSMaterialityInformationLoss ;
+    :incommensurableWith :TNFDEnterpriseMateriality .
+
+:GRI101ImpactMateriality a owl:NamedIndividual,
+        :QualitativeMaterialityScale ;
+    rdfs:label "GRI 101 Impact Materiality"@en ;
+    rdfs:comment "GRI 101 applies impact materiality: issues are material based on the significance of actual or potential impacts on people and the environment, assessed through stakeholder engagement and qualitative severity criteria."@en ;
+    :hasInformationLoss :ENCOREtoGRIInformationLoss ;
+    :incommensurableWith :ENCOREMateriality .
+
+:IndustrialsSector a owl:NamedIndividual,
+        :Sector ;
+    rdfs:label "Industrials Sector"@en ;
+    :assessedUnder :TNFD ;
+    :hasSectorClassification :GICS .
+
+:InternalPolicy a owl:Class ;
+    rdfs:label "Internal Policy"@en ;
+    rdfs:comment "An organization's internal policy for managing environmental, social, climate or nature-related risks (e.g., an ESCC policy). May partially cover requirements of external disclosure frameworks."@en .
+
+:MaterialityApproach a owl:Class ;
+    rdfs:label "Materiality Approach"@en ;
+    rdfs:comment "A methodological approach for determining which nature-related impacts, risks and opportunities are material and must be disclosed. Different frameworks apply different approaches (financial, impact, or double materiality) that are not mutually equivalent."@en .
+
+:PhysicalRisk a owl:Class ;
+    rdfs:label "Physical Risk"@en ;
+    rdfs:comment "A nature-related physical risk arising from the degradation of ecosystems or natural capital, including water stress, ecosystem collapse, loss of pollination, erosion or flooding. Corresponds to TNFD and ESRS physical risk category."@en .
+
+:SBTNAR3TTargetInstance a owl:NamedIndividual,
+        :SBTNAR3TTarget ;
+    rdfs:label "SBTN AR3T Science-based Target"@en ;
+    rdfs:comment "A science-based target following the SBTN AR3T hierarchy (Avoid, Reduce, Restore, Transform), as applicable to financial institutions assessing their portfolio exposure to nature loss. Requires LEAP assessment outputs as input for geographic and sectoral target-setting."@en ;
+    :requiresInputFrom :CEBDSBrazilLocateAssessment,
+        :SantanderPeruL4Assessment .
+
+:SBTNMSAtoGRIInformationLoss a owl:NamedIndividual,
+        :InformationLoss ;
+    rdfs:label "SBTN MSA to GRI Management Approach Information Loss"@en ;
+    rdfs:comment "Converting Mean Species Abundance to a GRI management-approach disclosure loses the quantitative biodiversity-intactness value, reference condition, spatial model assumptions and the distinction between measured ecological state and organisational intent."@en ;
+    :hasBridgingCondition "Any proxy conversion must derive MSA from documented footprint data and state explicitly that a GRI management approach does not imply a specific biodiversity-state outcome."@en ;
+    :sourceConcept :SBTNMeanSpeciesAbundance ;
+    :targetConcept :GRIManagementApproach .
+
+:SBTNMeanSpeciesAbundance a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "SBTN Mean Species Abundance (MSA)"@en ;
+    rdfs:comment "State-of-nature metric measuring biodiversity intactness as the average abundance of originally present species relative to their abundance in undisturbed ecosystems (GLOBIO model)."@en ;
+    rdfs:subClassOf :Metric ;
+    skos:note "MSA is a composite quantitative index measuring biodiversity intactness as a ratio. GRI 101 management approach is a qualitative policy disclosure with no implied biodiversity-state outcome. Different epistemic levels: state measurement vs organisational intent."@en ;
+    :coveredByFramework :SBTN ;
+    :definedBy :SBTN ;
+    :hasBridgingCondition "No direct conversion exists. A lossy approximation requires deriving a proxy MSA from operational footprint data AND documenting that the GRI management approach implies no specific biodiversity-state outcome. Not recommended for regulatory compliance."@en ;
+    :hasInformationLoss :SBTNMSAtoGRIInformationLoss ;
+    :incommensurableWith :GRIManagementApproach ;
+    :unit "dimensionless ratio (0–1)"@en .
+
+:SBTNtargetToGRIConversion a owl:NamedIndividual,
+        :InformationLoss ;
+    rdfs:label "SBTN Target to GRI Management Approach Conversion"@en ;
+    rdfs:comment "Information loss documented when converting an SBTN science-based target (measurable, time-bound, science-grounded) to a GRI 101 management approach disclosure (qualitative, policy-level). Lost information includes: (1) quantitative target value, (2) scientific baseline, (3) time horizon commitment, (4) verifiability. Bridging condition: the GRI management approach must explicitly commit to SBTN-compatible targets with verified science-based baselines."@en ;
+    :hasBridgingCondition "The GRI management approach must explicitly commit to measurable SBTN-compatible targets with defined timelines, verified science-based baselines and independent verification."@en ;
+    :sourceConcept :SBTNAR3TTarget ;
+    :targetConcept :GRIManagementApproach .
+
+:TNFDtoESRSMaterialityInformationLoss a owl:NamedIndividual,
+        :InformationLoss ;
+    rdfs:label "TNFD to ESRS Materiality Information Loss"@en ;
+    rdfs:comment "A TNFD enterprise-value assessment does not preserve the impact-materiality dimension required by ESRS double materiality; impacts on biodiversity that lack an immediate financial effect may therefore be omitted."@en ;
+    :hasBridgingCondition "Supplement the TNFD enterprise-value assessment with a distinct impact-materiality assessment covering actual and potential biodiversity impacts across operations and the value chain."@en ;
+    :sourceConcept :TNFDEnterpriseMateriality ;
+    :targetConcept :ESRSDoubleMateriality .
+
+:TropicalAndes a owl:NamedIndividual,
+        :Biome ;
+    rdfs:label "Tropical Andes Biome"@en ;
+    rdfs:comment "Biodiversity hotspot in the Andes mountains of Peru, Colombia, Ecuador and Bolivia. Under-sampled in GBIF: occurrence records biased towards roads and urban areas, with insufficient coverage of high-altitude species."@en .
+
+:UtilitiesSector a owl:NamedIndividual,
+        :Sector ;
+    rdfs:label "Utilities Sector"@en ;
+    :assessedUnder :TNFD ;
+    :hasSectorClassification :GICS .
+
+:WRIAqueductData a owl:NamedIndividual,
+        :BiodiversityDataSource ;
+    rdfs:label "WRI Aqueduct"@en ;
+    rdfs:comment "World Resources Institute water risk atlas — used in LEAP L4 to identify high physical water stress zones. Used by both case study institutions."@en ;
+    schema:url <https://www.wri.org/aqueduct> .
+
+:Country a owl:Class ;
+    rdfs:label "Country"@en ;
+    rdfs:comment "A sovereign country where a financial institution operates or has portfolio exposure."@en ;
+    rdfs:subClassOf geo:Feature,
+        schema:Country .
+
+:DisclosureRequirement a owl:Class ;
+    rdfs:label "Disclosure Requirement"@en ;
+    rdfs:comment "A specific disclosure requirement within a framework, at the level of a recommended disclosure, datapoint or metric (e.g., TNFD Strategy D, ESRS E4-5, GRI 101-6)."@en .
+
+:GeographicSamplingBias a owl:Class ;
+    rdfs:label "Geographic Sampling Bias"@en ;
+    rdfs:comment "Systematic under-representation of species occurrences in GBIF/OBIS records for specific geographic regions."@en ;
+    rdfs:subClassOf :DataGap .
+
+:Metric a owl:Class ;
     rdfs:label "Metric"@en ;
-    rdfs:comment
-        "A quantitative or semi-quantitative indicator expressed in specific units or using a defined measurement approach."@en .
+    rdfs:comment "A quantitative or semi-quantitative indicator expressed in specific units or using a defined measurement approach."@en ;
+    rdfs:subClassOf :FrameworkConcept .
 
-bro:MaterialityBoundary
-    a owl:Class ;
+:SemanticAmbiguity a owl:Class ;
+    rdfs:label "Semantic Ambiguity"@en ;
+    rdfs:comment "A documented case of semantic ambiguity in the correspondence between two industrial classification standards, where a category in one standard maps to multiple non-equivalent categories in another, or vice versa."@en .
+
+:TNFDEnterpriseMateriality a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "TNFD Enterprise-value Materiality"@en ;
+    rdfs:comment "TNFD single (enterprise-value) materiality: an issue is material if it poses financial risks or opportunities to the reporting organisation."@en ;
+    rdfs:subClassOf :MaterialityBoundary ;
+    :coveredByFramework :ESRS_E4 ;
+    :definedBy :TNFD ;
+    :hasInformationLoss :TNFDtoESRSMaterialityInformationLoss ;
+    :incommensurableWith :ESRSDoubleMateriality .
+
+:DataGap a owl:Class ;
+    rdfs:label "Data Gap"@en ;
+    rdfs:comment "A systematic absence or insufficiency of biodiversity occurrence data limiting the reliability of framework-based risk assessments in a given geographic area, taxonomic group or ecosystem type."@en .
+
+:GRIManagementApproach a owl:Class,
+        owl:NamedIndividual ;
+    rdfs:label "GRI 101 Management Approach"@en ;
+    rdfs:comment "GRI 101 qualitative disclosure describing how an organisation manages its biodiversity impacts, policies, commitments and actions. No quantitative target required."@en ;
+    rdfs:subClassOf :FrameworkConcept ;
+    skos:note "GRI 101 management approach disclosures compose with TNFD nature-related risk narratives. Impact reporting under GRI informs but does not replace risk framing under TNFD."@en ;
+    :complements :TNFDImpactDependency ;
+    :definedBy :GRI101 ;
+    :hasInformationLoss :SBTNMSAtoGRIInformationLoss,
+        :SBTNtargetToGRIConversion ;
+    :incommensurableWith :SBTNAR3TTarget,
+        :SBTNMeanSpeciesAbundance .
+
+:MaterialityBoundary a owl:Class ;
     rdfs:label "Materiality Boundary"@en ;
-    rdfs:comment
-        "The scope and criteria used by a framework to determine which impacts and financial effects are material and must be disclosed."@en .
+    rdfs:comment "The scope and criteria used by a framework to determine which impacts and financial effects are material and must be disclosed."@en .
 
-# ---------------------------------------------------------------
-# L2 — Framework module: frameworks as named individuals
-# ---------------------------------------------------------------
+:MaterialityResult a owl:Class ;
+    rdfs:label "Materiality Result"@en ;
+    rdfs:comment "The output of a materiality assessment — a ranked or scored set of sectors, locations or impacts identified as material under a specific framework and approach."@en .
 
-bro:TNFD
-    a owl:NamedIndividual, bro:DisclosureFramework ;
-    rdfs:label "TNFD"@en ;
-    skos:prefLabel "Taskforce on Nature-related Financial Disclosures"@en ;
-    schema:url <https://tnfd.global> .
+:Brazil a owl:NamedIndividual,
+        :Country ;
+    rdfs:label "Brazil"@en ;
+    rdfs:comment "Most megadiverse country globally, hosting 15-20% of world biodiversity across 6 biomes. Site of CEBDS TNFD pilot."@en .
 
-bro:ESRS_E4
-    a owl:NamedIndividual, bro:DisclosureFramework ;
-    rdfs:label "CSRD/ESRS E4"@en ;
-    skos:prefLabel "European Sustainability Reporting Standard on Biodiversity and Ecosystems"@en ;
-    schema:url <https://www.efrag.org> .
-
-bro:SBTN
-    a owl:NamedIndividual, bro:DisclosureFramework ;
-    rdfs:label "SBTN"@en ;
-    skos:prefLabel "Science Based Targets Network for Nature"@en ;
-    schema:url <https://sciencebasedtargetsnetwork.org> .
-
-bro:GRI101
-    a owl:NamedIndividual, bro:DisclosureFramework ;
+:GRI101 a owl:NamedIndividual,
+        :DisclosureFramework ;
     rdfs:label "GRI 101"@en ;
     skos:prefLabel "GRI 101: Biodiversity Standard 2024"@en ;
     schema:url <https://www.globalreporting.org> .
 
-# ---------------------------------------------------------------
-# L2 — Framework module: concepts as OWL classes
-# ---------------------------------------------------------------
+:Organization a owl:Class ;
+    rdfs:label "Organization"@en ;
+    rdfs:comment "An organization that applies one or more biodiversity risk disclosure frameworks to assess its nature-related dependencies, impacts, risks and opportunities."@en ;
+    rdfs:subClassOf schema:Organization .
 
-## TNFD
+:SBTN a owl:NamedIndividual,
+        :DisclosureFramework ;
+    rdfs:label "SBTN"@en ;
+    skos:prefLabel "Science Based Targets Network for Nature"@en ;
+    schema:url <https://sciencebasedtargetsnetwork.org> .
 
-bro:TNFDPriorityLocation
-    a owl:Class ;
-    rdfs:subClassOf bro:FrameworkConcept ;
-    rdfs:label "TNFD Priority Location"@en ;
-    rdfs:comment
-        "Location of high importance for biodiversity under TNFD LEAP, including areas of high biodiversity intactness, protected areas, KBAs, areas of rapid ecosystem decline, and areas of high water stress."@en ;
-    bro:definedBy bro:TNFD .
+:BiodiversityDataSource a owl:Class ;
+    rdfs:label "Biodiversity Data Source"@en ;
+    rdfs:comment "An open or proprietary data source used to obtain species occurrence, ecosystem integrity or water risk data during a LEAP assessment (e.g., GBIF, OBIS, ENCORE, Global Forest Watch, WRI Aqueduct, IBAT)."@en ;
+    rdfs:subClassOf prov:Entity .
 
-bro:TNFDImpactDependency
-    a owl:Class ;
-    rdfs:subClassOf bro:FrameworkConcept ;
-    rdfs:label "TNFD Impacts and Dependencies on Nature"@en ;
-    rdfs:comment
-        "Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services."@en ;
-    bro:definedBy bro:TNFD .
+:LEAPAssessment a owl:Class ;
+    rdfs:label "LEAP Assessment"@en ;
+    rdfs:comment "A structured assessment following the TNFD LEAP methodology (Locate, Evaluate, Assess, Prepare), conducted by an organization to identify and assess its nature-related dependencies, impacts, risks and opportunities. Connects the organization, frameworks applied, sectors evaluated, biomes, data sources and gaps identified."@en ;
+    rdfs:subClassOf prov:Activity .
 
-bro:TNFDLandUseChangeMetric
-    a owl:Class ;
-    rdfs:subClassOf bro:Metric ;
-    rdfs:label "TNFD Land/Freshwater/Ocean-use Change Metric"@en ;
-    rdfs:comment
-        "TNFD core cross-sector metric measuring the extent (ha) of land, freshwater or ocean-use change."@en ;
-    bro:definedBy bro:TNFD ;
-    bro:unit "hectares (ha)"@en .
-
-bro:TNFDEnterpriseMateriality
-    a owl:Class ;
-    rdfs:subClassOf bro:MaterialityBoundary ;
-    rdfs:label "TNFD Enterprise-value Materiality"@en ;
-    rdfs:comment
-        "TNFD single (enterprise-value) materiality: an issue is material if it poses financial risks or opportunities to the reporting organisation."@en ;
-    bro:definedBy bro:TNFD .
-
-## CSRD/ESRS E4
-
-bro:ESRSBiodiversitySensitiveArea
-    a owl:Class ;
-    rdfs:subClassOf bro:FrameworkConcept ;
-    rdfs:label "ESRS E4 Biodiversity-sensitive Area"@en ;
-    rdfs:comment
-        "Areas designated for biodiversity protection under ESRS E4, including Natura 2000 sites, UNESCO World Heritage, KBAs, and IUCN Category I–IV protected areas."@en ;
-    bro:definedBy bro:ESRS_E4 .
-
-bro:ESRSMaterialImpactDependency
-    a owl:Class ;
-    rdfs:subClassOf bro:FrameworkConcept ;
-    rdfs:label "ESRS E4 Material Impacts and Dependencies"@en ;
-    rdfs:comment
-        "ESRS E4 disclosure of material impacts on biodiversity and material dependencies on ecosystem services, assessed under double materiality."@en ;
-    bro:definedBy bro:ESRS_E4 .
-
-bro:ESRSLandUseDatapoint
-    a owl:Class ;
-    rdfs:subClassOf bro:Metric ;
-    rdfs:label "ESRS E4 Land-use Change Datapoint"@en ;
-    rdfs:comment
-        "ESRS E4 datapoint requiring disclosure of land-use change in hectares attributable to the undertaking's own operations and value chain."@en ;
-    bro:definedBy bro:ESRS_E4 ;
-    bro:unit "hectares (ha)"@en .
-
-bro:ESRSDoubleMateriality
-    a owl:Class ;
-    rdfs:subClassOf bro:MaterialityBoundary ;
-    rdfs:label "ESRS E4 Double Materiality"@en ;
-    rdfs:comment
-        "ESRS E4 double materiality: an issue is material if it has significant impacts on biodiversity (impact materiality) OR poses financial risks/opportunities (financial materiality)."@en ;
-    bro:definedBy bro:ESRS_E4 .
-
-## SBTN
-
-bro:SBTNAR3TTarget
-    a owl:Class ;
-    rdfs:subClassOf bro:FrameworkConcept ;
+:SBTNAR3TTarget a owl:Class,
+        owl:NamedIndividual ;
     rdfs:label "SBTN Science-based Target (AR3T)"@en ;
-    rdfs:comment
-        "Measurable, time-bound target following the SBTN AR3T hierarchy: Avoid, Reduce, Restore, Transform."@en ;
-    bro:definedBy bro:SBTN .
+    rdfs:comment "Measurable, time-bound target following the SBTN AR3T hierarchy: Avoid, Reduce, Restore, Transform."@en ;
+    rdfs:subClassOf :FrameworkConcept ;
+    skos:note "An SBTN science-based target is measurable, time-bound and grounded in scientific baselines. A GRI 101 management approach describes intent without required quantification. Different epistemic status: verifiable outcome commitment vs description of policy intent."@en ;
+    :coveredByFramework :SBTN ;
+    :definedBy :SBTN ;
+    :hasBridgingCondition "A lossy approximation is admissible only if the GRI management approach explicitly commits to SBTN-compatible measurable targets with defined timelines and science-based baselines, AND those commitments are independently verified."@en ;
+    :hasInformationLoss :SBTNtargetToGRIConversion ;
+    :incommensurableWith :GRIManagementApproach .
 
-bro:SBTNMeanSpeciesAbundance
-    a owl:Class ;
-    rdfs:subClassOf bro:Metric ;
-    rdfs:label "SBTN Mean Species Abundance (MSA)"@en ;
-    rdfs:comment
-        "State-of-nature metric measuring biodiversity intactness as the average abundance of originally present species relative to their abundance in undisturbed ecosystems (GLOBIO model)."@en ;
-    bro:definedBy bro:SBTN ;
-    bro:unit "dimensionless ratio (0–1)"@en .
+:Biome a owl:Class ;
+    rdfs:label "Biome"@en ;
+    rdfs:comment "A major ecological zone characterized by distinctive climate, vegetation and biodiversity. Reuses ENVO biome concept (ENVO:00000428). In LAC, biomes are megadiverse and systematically under-sampled in GBIF/OBIS."@en .
 
-## GRI 101
+:CNAE a owl:NamedIndividual,
+        :IndustrialClassification ;
+    rdfs:label "CNAE"@en ;
+    rdfs:comment "Brazilian national industrial classification used by financial institutions for portfolio reporting. Requires manual mapping to GICS for TNFD/ENCORE assessments."@en ;
+    skos:note "CNAE (Brazilian national classification) and GICS (international standard used by ENCORE/TNFD) do not maintain a bijective correspondence. Multiple CNAE codes may map to one GICS sector and vice versa, generating semantic ambiguity in sector-level materiality assessments."@en ;
+    skos:prefLabel "Classificação Nacional de Atividades Econômicas"@en ;
+    :hasAmbiguity :CNAEtoGICSAmbiguity ;
+    :hasBridgingCondition "A lossy correspondence is admissible when each CNAE code is manually mapped to the most representative GICS sector, with explicit documentation of multi-to-one and one-to-many correspondences. This mapping was performed by EY during the CEBDS Brazil LEAP pilot and required significant expert effort. The result is not automatically reversible."@en ;
+    :hasInformationLoss :CNAEtoGICSInformationLoss ;
+    :incommensurableWith :GICS ;
+    :mappableTo :GICS .
 
-bro:GRIOperationsAdjacentProtectedAreas
-    a owl:Class ;
-    rdfs:subClassOf bro:FrameworkConcept ;
-    rdfs:label "GRI 101 Operations in/adjacent to Protected Areas and KBAs"@en ;
-    rdfs:comment
-        "GRI 101 disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas."@en ;
-    bro:definedBy bro:GRI101 .
+:FinancialInstitution a owl:Class ;
+    rdfs:label "Financial Institution"@en ;
+    rdfs:comment "A bank, investment fund, insurance company or other financial institution whose portfolio exposure to nature-related risks is assessed through biodiversity risk frameworks."@en ;
+    rdfs:subClassOf schema:BankOrCreditUnion,
+        :Organization .
 
-bro:GRIManagementApproach
-    a owl:Class ;
-    rdfs:subClassOf bro:FrameworkConcept ;
-    rdfs:label "GRI 101 Management Approach"@en ;
-    rdfs:comment
-        "GRI 101 qualitative disclosure describing how an organisation manages its biodiversity impacts, policies, commitments and actions. No quantitative target required."@en ;
-    bro:definedBy bro:GRI101 .
+:SectorPriority a owl:Class ;
+    rdfs:label "Sector Priority"@en ;
+    rdfs:comment "A context-dependent ordered entry assigning an economic sector an ordinal position within a materiality result."@en .
 
-bro:GRIImpactMateriality
-    a owl:Class ;
-    rdfs:subClassOf bro:MaterialityBoundary ;
-    rdfs:label "GRI Impact Materiality"@en ;
-    rdfs:comment
-        "GRI impact-only materiality: issues are material based on significance of actual or potential impacts on people and environment, regardless of financial consequences."@en ;
-    bro:definedBy bro:GRI101 .
+:DisclosureFramework a owl:Class ;
+    rdfs:label "Disclosure Framework"@en ;
+    rdfs:comment "A regulatory or voluntary framework requiring organisations to assess and disclose their nature-related impacts, dependencies, risks and opportunities."@en .
 
-# ---------------------------------------------------------------
-# L2 — Object properties
-# ---------------------------------------------------------------
+:IndustrialClassification a owl:Class ;
+    rdfs:label "Industrial Classification Standard"@en ;
+    rdfs:comment "A standard system for classifying economic activities into sectors and subsectors (e.g., GICS, CNAE, CIIU, SASB/SICS). Different standards may not be mutually translatable without ambiguity."@en .
 
-bro:definedBy
-    a owl:ObjectProperty ;
-    rdfs:label "defined by"@en ;
-    rdfs:comment "Relates a framework concept class to the framework that defines it."@en ;
-    rdfs:domain bro:FrameworkConcept ;
-    rdfs:range bro:DisclosureFramework .
+:InformationLoss a owl:Class ;
+    rdfs:label "Information Loss"@en ;
+    rdfs:comment "The loss of material information that occurs when translating a disclosure or target from one framework to another under an incommensurability relationship. Complements bro:hasBridgingCondition by documenting what is lost, not just under what conditions the conversion is admissible."@en .
 
-bro:unit
-    a owl:AnnotationProperty ;
-    rdfs:label "unit"@en ;
-    rdfs:comment "Unit of measurement associated with a metric."@en .
+:ESRS_E4 a owl:NamedIndividual,
+        :DisclosureFramework ;
+    rdfs:label "CSRD/ESRS E4"@en ;
+    skos:prefLabel "European Sustainability Reporting Standard on Biodiversity and Ecosystems"@en ;
+    schema:url <https://www.efrag.org> .
 
-# ---------------------------------------------------------------
-# L3 — Semantic-relation layer: object properties
-# ---------------------------------------------------------------
+:FrameworkConcept a owl:Class ;
+    rdfs:label "Framework Concept"@en ;
+    rdfs:comment "A concept, disclosure requirement, indicator or metric defined within a disclosure framework. Subclasses represent specific concepts; individuals of this class are not intended."@en .
 
-bro:complements
-    a owl:ObjectProperty, owl:SymmetricProperty ;
-    rdfs:label "complements"@en ;
-    rdfs:comment
-        "Two framework concept classes that address distinct, jointly-required facets of one assessment. Licenses composition of evidence, not substitution. Symmetric."@en ;
-    rdfs:domain owl:Class ;
-    rdfs:range owl:Class .
+:Sector a owl:Class ;
+    rdfs:label "Economic Sector"@en ;
+    rdfs:comment "An economic sector associated with potential impacts and dependencies on nature, classifiable under international standards such as GICS or SASB/SICS."@en .
 
-bro:incommensurableWith
-    a owl:ObjectProperty, owl:SymmetricProperty ;
-    rdfs:label "incommensurable with"@en ;
-    rdfs:comment
-        "Two framework concept classes for which no truth-preserving mapping exists due to different measurement units, materiality boundaries or epistemic commitments. Every assertion MUST carry bro:hasBridgingCondition. Symmetric."@en ;
-    rdfs:domain owl:Class ;
-    rdfs:range owl:Class .
+:GICS a owl:NamedIndividual,
+        :IndustrialClassification ;
+    rdfs:label "GICS"@en ;
+    rdfs:comment "International sector classification used by ENCORE and TNFD for materiality assessment."@en ;
+    skos:prefLabel "Global Industry Classification Standard"@en ;
+    :hasInformationLoss :CIIUtoGICSInformationLoss,
+        :CNAEtoGICSInformationLoss ;
+    :incommensurableWith :CIIU,
+        :CNAE .
 
-bro:hasBridgingCondition
-    a owl:AnnotationProperty ;
-    rdfs:label "has bridging condition"@en ;
-    rdfs:comment
-        "Documents the explicit assumption under which a lossy approximation between two incommensurable concepts is admissible. Required on every bro:incommensurableWith assertion."@en .
+:TNFD a owl:NamedIndividual,
+        :DisclosureFramework ;
+    rdfs:label "TNFD"@en ;
+    skos:prefLabel "Taskforce on Nature-related Financial Disclosures"@en ;
+    schema:url <https://tnfd.global> .
 
-# ---------------------------------------------------------------
-# OWL 2 Punning declarations (metamodeling)
-# These six resources serve simultaneously as owl:Class (in the
-# taxonomy) and as owl:NamedIndividual (as relata of the object
-# properties bro:incommensurableWith and bro:complements).
-# OWL 2 DL allows this under the metamodeling / punning facility
-# (OWL 2 Specification §5.8.3). The class interpretation is used
-# for subsumption reasoning; the individual interpretation is used
-# for the semantic-relation assertions. Reasoners treat the two
-# interpretations as disjoint (different names), so no logical
-# conflict arises. This design follows the approach documented in
-# Motik (2007) "Ontology-based data access with databases" and is
-# consistent with the OWL 2 DL profile used throughout this ontology.
-# ---------------------------------------------------------------
+owl:Class a owl:Class .
 
-bro:ESRSDoubleMateriality a owl:NamedIndividual .
-bro:GRIManagementApproach a owl:NamedIndividual .
-bro:SBTNAR3TTarget a owl:NamedIndividual .
-bro:SBTNMeanSpeciesAbundance a owl:NamedIndividual .
-bro:TNFDEnterpriseMateriality a owl:NamedIndividual .
-bro:TNFDImpactDependency a owl:NamedIndividual .
-
-
-
-## TNFD impact-dependency ~ ESRS E4 material impact-dependency (close match, not equivalence)
-## R1-M2 fix: owl:equivalentClass was incorrect because the materiality boundaries differ
-## (enterprise-value for TNFD vs double materiality for ESRS E4). Changed to skos:closeMatch.
-bro:TNFDImpactDependency
-    skos:closeMatch bro:ESRSMaterialImpactDependency ;
-    skos:note
-        "Close match (not equivalence): both classes identify organisational impacts on and dependencies upon nature using the ENCORE framework logic, but their materiality boundaries differ. TNFD applies enterprise-value materiality (financial impact on the organisation); ESRS E4 applies double materiality (financial impact AND impact on biodiversity, regardless of financial consequence). owl:equivalentClass was rejected because it would collapse the materiality distinction that bro:incommensurableWith between TNFDEnterpriseMateriality and ESRSDoubleMateriality is designed to preserve."@en .
-
-## TNFD land-use change metric ≡ ESRS E4 land-use datapoint (genuine equivalence)
-## Justified: both measure the same physical quantity (land-use change in ha) using the same unit.
-## GRI-TNFD mapping §2 confirms 'difference in granularity' only, not semantic difference.
-bro:TNFDLandUseChangeMetric
-    owl:equivalentClass bro:ESRSLandUseDatapoint ;
-    skos:note
-        "Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a 'difference in granularity' between these datapoints, not a semantic difference — confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes."@en .
-
-# ---------------------------------------------------------------
-# L3 — Subsumption axioms (A_⊑): rdfs:subClassOf between concepts
-# ---------------------------------------------------------------
-
-## ESRS biodiversity-sensitive area ⊑ TNFD priority location
-bro:ESRSBiodiversitySensitiveArea
-    rdfs:subClassOf bro:TNFDPriorityLocation ;
-    skos:note
-        "ESRS E4 biodiversity-sensitive areas are a strict subset of TNFD priority locations. TNFD additionally covers rapid ecosystem decline and high water stress sites absent from the ESRS definition. Treating as equivalent produces false negatives in LAC screening."@en .
-
-## GRI protected areas ⊑ TNFD priority location
-bro:GRIOperationsAdjacentProtectedAreas
-    rdfs:subClassOf bro:TNFDPriorityLocation ;
-    skos:note
-        "GRI 101 protected-area and KBA sites are a subset of TNFD areas of importance for biodiversity. TNFD applies a broader definition additionally covering areas of high biodiversity intactness beyond formal protection status."@en .
-
-# ---------------------------------------------------------------
-# L3 — Complementarity assertions (A_⊕)
-# ---------------------------------------------------------------
-
-bro:TNFDImpactDependency
-    bro:complements bro:SBTNAR3TTarget ;
-    skos:note
-        "TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other."@en .
-
-bro:GRIManagementApproach
-    bro:complements bro:TNFDImpactDependency ;
-    skos:note
-        "GRI 101 management approach disclosures compose with TNFD nature-related risk narratives. Impact reporting under GRI informs but does not replace risk framing under TNFD."@en .
-
-# ---------------------------------------------------------------
-# L3 — Incommensurability assertions (A_⊥)
-# ---------------------------------------------------------------
-
-bro:ESRSDoubleMateriality
-    bro:incommensurableWith bro:TNFDEnterpriseMateriality ;
-    bro:hasBridgingCondition
-        "A lossy approximation is admissible if the analyst explicitly assumes that impact-material issues under ESRS E4 are also financially material under TNFD, and documents this assumption with supporting evidence. Does not hold by default."@en ;
-    skos:note
-        "ESRS E4 double materiality requires assessment of both impact and financial dimensions. TNFD applies single enterprise-value materiality. The two boundaries define different populations of disclosable items; thresholds are not interchangeable."@en .
-
-bro:SBTNMeanSpeciesAbundance
-    bro:incommensurableWith bro:GRIManagementApproach ;
-    bro:hasBridgingCondition
-        "No direct conversion exists. A lossy approximation requires deriving a proxy MSA from operational footprint data AND documenting that the GRI management approach implies no specific biodiversity-state outcome. Not recommended for regulatory compliance."@en ;
-    skos:note
-        "MSA is a composite quantitative index measuring biodiversity intactness as a ratio. GRI 101 management approach is a qualitative policy disclosure with no implied biodiversity-state outcome. Different epistemic levels: state measurement vs organisational intent."@en .
-
-bro:SBTNAR3TTarget
-    bro:incommensurableWith bro:GRIManagementApproach ;
-    bro:hasBridgingCondition
-        "A lossy approximation is admissible only if the GRI management approach explicitly commits to SBTN-compatible measurable targets with defined timelines and science-based baselines, AND those commitments are independently verified."@en ;
-    skos:note
-        "An SBTN science-based target is measurable, time-bound and grounded in scientific baselines. A GRI 101 management approach describes intent without required quantification. Different epistemic status: verifiable outcome commitment vs description of policy intent."@en .
-
-# ---------------------------------------------------------------
-# L1 — Data gap module: LAC-specific sampling bias
-# ---------------------------------------------------------------
-
-bro:DataGap
-    a owl:Class ;
-    rdfs:label "Data Gap"@en ;
-    rdfs:comment
-        "A systematic absence or insufficiency of biodiversity occurrence data limiting the reliability of framework-based risk assessments in a given geographic area, taxonomic group or ecosystem type."@en .
-
-bro:GeographicSamplingBias
-    a owl:Class ;
-    rdfs:subClassOf bro:DataGap ;
-    rdfs:label "Geographic Sampling Bias"@en ;
-    rdfs:comment
-        "Systematic under-representation of species occurrences in GBIF/OBIS records for specific geographic regions."@en .
-
-bro:TaxonomicSamplingBias
-    a owl:Class ;
-    rdfs:subClassOf bro:DataGap ;
-    rdfs:label "Taxonomic Sampling Bias"@en ;
-    rdfs:comment
-        "Systematic over-representation of certain taxonomic groups (e.g. birds, vascular plants) in open biodiversity databases."@en .
-
-bro:affectsFramework
-    a owl:ObjectProperty ;
-    rdfs:label "affects framework"@en ;
-    rdfs:comment "Relates a data gap to the framework(s) whose assessments are affected."@en ;
-    rdfs:domain bro:DataGap ;
-    rdfs:range bro:DisclosureFramework .
-
-bro:LACGeographicBias
-    a owl:NamedIndividual, bro:GeographicSamplingBias ;
-    rdfs:label "LAC Geographic Sampling Bias"@en ;
-    rdfs:comment
-        "Systematic under-sampling of GBIF and OBIS records for key LAC biomes including the tropical Andes, Amazonia, the Cerrado and Caribbean marine ecosystems. Leads to false negatives in TNFD priority-location and ESRS E4 sensitive-area proximity screening."@en ;
-    bro:affectsFramework bro:TNFD, bro:ESRS_E4, bro:SBTN, bro:GRI101 .

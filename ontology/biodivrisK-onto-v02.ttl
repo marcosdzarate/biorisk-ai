@@ -29,11 +29,6 @@
         schema:affiliation "CESIMAR-CONICET, Puerto Madryn, Argentina" ;
         schema:url <https://orcid.org/0000-0001-8851-8602>
     ] ;
-    dcterms:creator [
-        a schema:Person ;
-        schema:name "Gustavo Nuñez" ;
-        schema:affiliation "CESIMAR-CONICET, Puerto Madryn, Argentina"
-    ] ;
     dcterms:created "2026-07-21"^^xsd:date ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     vann:preferredNamespacePrefix "bro" ;
@@ -781,4 +776,3 @@ bro:GICS bro:incommensurableWith bro:CIIU .
 bro:TNFDEnterpriseMateriality bro:incommensurableWith bro:ESRSDoubleMateriality .
 bro:GRIManagementApproach bro:incommensurableWith bro:SBTNMeanSpeciesAbundance .
 bro:GRIManagementApproach bro:incommensurableWith bro:SBTNAR3TTarget .
-

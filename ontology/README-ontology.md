@@ -5,7 +5,7 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![OWL 2 DL](https://img.shields.io/badge/OWL-2%20DL-blue)](https://www.w3.org/TR/owl2-overview/)
 [![Namespace](https://img.shields.io/badge/namespace-w3id.org%2FbiodivrisK--onto-green)](https://w3id.org/biodivrisK-onto)
-[![Version](https://img.shields.io/badge/version-0.2.0-orange)](https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology)
+[![Version](https://img.shields.io/badge/version-0.3.0-orange)](https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology)
 [![Documentation](https://img.shields.io/badge/docs-WIDOCO-blue)](https://marcosdzarate.github.io/biorisk-ai/)
 
 ## Overview
@@ -41,10 +41,11 @@ The ontology is grounded in two published real-world assessments from LAC:
 
 | File | Description |
 |---|---|
-| `biodivrisK-onto.ttl` | OWL 2 DL ontology v0.1.0 — core taxonomy and semantic relation axioms (Turtle) |
-| `biodivrisK-onto.owl` | OWL 2 DL ontology v0.1.0 — core taxonomy (OWL/XML) |
+| `biodivrisK-onto.owl` | Current OWL 2 DL ontology v0.3.0 (RDF/XML; canonical source) |
+| `biodivrisK-onto.ttl` | Current OWL 2 DL ontology v0.3.0 (Turtle serialization) |
 | `biodivrisK-onto-v02.ttl` | OWL 2 DL ontology v0.2.0 — with real-world instances from LAC case studies (Turtle) |
 | `biodivrisK-onto-v02.rdf` | OWL 2 DL ontology v0.2.0 — with real-world instances (RDF/XML) |
+| `competency-questions.md` | Natural-language competency questions and executable SPARQL 1.1 queries |
 
 ---
 
@@ -56,23 +57,24 @@ Prefix: bro: <https://w3id.org/biodivrisK-onto#>
 
 ---
 
-## Ontology Statistics (v0.2.0)
+## Ontology Statistics (v0.3.0)
 
 | Element | Count |
 |---|---|
-| RDF triples | 659 |
-| OWL classes | 21 |
-| Object properties | 22 |
-| Named individuals | 56 |
+| Explicit RDF triples | 770 |
+| Domain classes | 42 |
+| Object properties | 27 |
+| Datatype properties | 1 |
+| Named individuals | 70 |
 | Semantic relations | 35 |
 
 ### Semantic relations by category
 
 | Category | Property | Pairs |
 |---|---|---|
-| Equivalence (𝒜≡) | `owl:equivalentClass` | 3 |
+| Equivalence (𝒜≡) | `owl:equivalentClass` | 1 |
 | Close match | `skos:closeMatch` | 1 |
-| Subsumption (𝒜⊑) | `rdfs:subClassOf` | 23 |
+| Subsumption (𝒜⊑) | `rdfs:subClassOf` | explicit and reasoner-derivable class hierarchy |
 | Complementarity (𝒜⊕) | `bro:complements` | 2 |
 | Incommensurability (𝒜⊥) | `bro:incommensurableWith` | 6 |
 
@@ -90,14 +92,18 @@ Named individuals for TNFD, CSRD/ESRS E4, SBTN and GRI 101, plus their key conce
 Four-category taxonomy with OWL axioms. Every `bro:incommensurableWith` assertion carries `bro:hasBridgingCondition` and `skos:note` documenting what information is lost in any lossy conversion.
 
 **L4 — Query & reasoning layer**  
-15 SPARQL competency questions validated at 100% coverage. Consistent under Pellet (OWL 2 DL reasoner): 0 errors, 0 unsatisfiable classes.
+15 SPARQL competency questions validated at 100% coverage. Consistent under HermiT (OWL 2 DL reasoner): 0 errors and 0 unsatisfiable domain classes.
 
 ---
 
 ## Design notes
 
 ### OWL 2 Punning
-Six resources are declared as both `owl:Class` (for subsumption reasoning) and `owl:NamedIndividual` (as relata of `bro:incommensurableWith` and `bro:complements`). OWL 2 DL explicitly permits this under the metamodeling facility (§5.8.3). Affected resources: `bro:ESRSDoubleMateriality`, `bro:GRIManagementApproach`, `bro:SBTNAR3TTarget`, `bro:SBTNMeanSpeciesAbundance`, `bro:TNFDEnterpriseMateriality`, `bro:TNFDImpactDependency`.
+Fourteen framework concepts are declared as both `owl:Class` (for
+subsumption reasoning) and `owl:NamedIndividual` (for concept-level
+alignment assertions). OWL 2 DL permits this modelling pattern as
+punning; the class and individual interpretations remain semantically
+distinct.
 
 ### skos:closeMatch vs owl:equivalentClass
 `bro:TNFDImpactDependency skos:closeMatch bro:ESRSMaterialImpactDependency` — close match (not equivalence) because the materiality boundaries differ: TNFD applies enterprise-value materiality; ESRS E4 applies double materiality. `owl:equivalentClass` would incorrectly collapse this distinction.
@@ -134,7 +140,6 @@ bro:CerradoDataGap a bro:GeographicSamplingBias
 from rdflib import Graph
 g = Graph()
 g.parse("biodivrisK-onto.ttl", format="turtle")
-g.parse("biodivrisK-onto-v02.ttl", format="turtle")
 print(f"Loaded {len(g)} triples")
 ```
 
@@ -173,14 +178,18 @@ SELECT ?gap WHERE {
 
 ---
 
+The complete set of 15 competency questions and 16 executable SPARQL
+query blocks (CQ10 is decomposed into two subqueries) is available in
+[`competency-questions.md`](competency-questions.md).
+
 ## Validation
 
 | Criterion | Result |
 |---|---|
-| Logical consistency (Pellet) | ✅ Consistent |
-| Unsatisfiable classes | ✅ 0 / 21 classes |
+| Logical consistency (HermiT) | ✅ Consistent |
+| Unsatisfiable classes | ✅ 0 / 42 domain classes |
 | Competency questions (15/15) | ✅ 100% coverage |
-| OOPS! structural pitfalls | ✅ 0 errors, 23 warnings (justified) |
+| OOPS! structural pitfalls | ✅ 0 errors; 0 unconnected-element warnings |
 | External consistency (EFRAG-TNFD) | ✅ 7/7 relations consistent |
 
 ---
@@ -191,7 +200,7 @@ Developed following **LOT** (Linked Open Terms, Poveda-Villalón et al., 2022) i
 
 - **Sprint 1 (v0.1.0):** Core taxonomy, four-category semantic relation framework, 15 competency questions
 - **Sprint 2 (v0.2.0):** Organizational, geographic and evaluation modules + real-world instances from UC1 and UC2
-- **Sprint 3:** CQ validation (Pellet), OOPS! structural evaluation, quantitative benchmarking vs GRI-TNFD and EFRAG-TNFD mappings
+- **Sprint 3 (v0.3.0):** explicit information-loss records, ordered sector priorities, biome links, SPARQL validation, HermiT verification, OOPS! structural evaluation, and quantitative benchmarking against the GRI-TNFD and EFRAG-TNFD mappings
 
 ---
 
@@ -201,9 +210,9 @@ If you use BiodivRisk-Onto in your research, please cite:
 
 ```bibtex
 @misc{biodivrisKonto2026,
-  author    = {Zárate, Marcos Daniel and Nuñez, Gustavo},
+  author    = {Zárate, Marcos Daniel},
   title     = {{BiodivRisk-Onto}: An OWL 2 Ontology for Semantic Alignment
-               of Biodiversity Risk Disclosure Frameworks (v0.2.0)},
+               of Biodiversity Risk Disclosure Frameworks (v0.3.0)},
   year      = {2026},
   publisher = {GitHub},
   url       = {https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology},
@@ -217,5 +226,5 @@ If you use BiodivRisk-Onto in your research, please cite:
 
 [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
 
-© 2026 Marcos Daniel Zárate & Gustavo Nuñez — CESIMAR-CONICET, Puerto Madryn, Argentina  
+© 2026 Marcos Daniel Zárate — CESIMAR-CONICET, Puerto Madryn, Argentina  
 Contact: zarate@cenpat-conicet.gob.ar
