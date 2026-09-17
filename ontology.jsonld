@@ -13,31 +13,6 @@
     "@id" : "https://orcid.org/0000-0001-8851-8602"
   } ]
 }, {
-  "@id" : "_:genid2",
-  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
-    "@id" : "https://schema.org/Person"
-  } ],
-  "https://schema.org/affiliation" : [ {
-    "@value" : "CESIMAR-CONICET, Puerto Madryn, Argentina"
-  } ],
-  "https://schema.org/name" : [ {
-    "@value" : "Marcos Daniel Zárate"
-  } ],
-  "https://schema.org/url" : [ {
-    "@id" : "https://orcid.org/0000-0001-8851-8602"
-  } ]
-}, {
-  "@id" : "_:genid3",
-  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
-    "@id" : "https://schema.org/Person"
-  } ],
-  "https://schema.org/affiliation" : [ {
-    "@value" : "CESIMAR-CONICET, Puerto Madryn, Argentina"
-  } ],
-  "https://schema.org/name" : [ {
-    "@value" : "Gustavo Nuñez"
-  } ]
-}, {
   "@id" : "http://purl.obolibrary.org/obo/ENVO_00000428",
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
     "@id" : "http://www.w3.org/2002/07/owl#Class"
@@ -56,6 +31,9 @@
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
 }, {
   "@id" : "http://purl.org/dc/terms/license",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "http://purl.org/dc/terms/modified",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
 }, {
   "@id" : "http://purl.org/dc/terms/title",
@@ -84,7 +62,7 @@
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
 }, {
   "@id" : "http://www.w3.org/2004/02/skos/core#closeMatch",
-  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty", "http://www.w3.org/2002/07/owl#SymmetricProperty" ]
 }, {
   "@id" : "http://www.w3.org/2004/02/skos/core#definition",
   "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
@@ -106,7 +84,7 @@
   } ]
 }, {
   "@id" : "http://www.w3.org/ns/prov#wasAssociatedWith",
-  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ]
 }, {
   "@id" : "https://schema.org/BankOrCreditUnion",
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
@@ -142,31 +120,28 @@
   "http://purl.org/dc/terms/created" : [ {
     "@type" : "http://www.w3.org/2001/XMLSchema#date",
     "@value" : "2026-07-13"
-  }, {
-    "@type" : "http://www.w3.org/2001/XMLSchema#date",
-    "@value" : "2026-07-21"
   } ],
   "http://purl.org/dc/terms/creator" : [ {
     "@id" : "_:genid1"
-  }, {
-    "@id" : "_:genid2"
-  }, {
-    "@id" : "_:genid3"
   } ],
   "http://purl.org/dc/terms/description" : [ {
     "@language" : "en",
     "@value" : "BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC)."
   }, {
     "@language" : "en",
-    "@value" : "Extension of v0.1.0 with organizational, geographic, and evaluation modules, populated with real-world instances from the Santander Peru and CEBDS Brazil case studies."
+    "@value" : "Framework concepts intentionally use OWL 2 punning: the same IRI may denote a class for subsumption axioms and an individual for concept-level alignment relations. These interpretations remain semantically distinct under OWL 2 DL."
+  }, {
+    "@language" : "en",
+    "@value" : "Version 0.3.0 extends the core taxonomy with organizational, geographic and evaluation modules, explicit information-loss records, and populated instances from the Santander Peru and CEBDS Brazil case studies."
   } ],
   "http://purl.org/dc/terms/license" : [ {
     "@id" : "https://creativecommons.org/licenses/by/4.0/"
   } ],
+  "http://purl.org/dc/terms/modified" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#date",
+    "@value" : "2026-09-17"
+  } ],
   "http://purl.org/dc/terms/title" : [ {
-    "@language" : "en",
-    "@value" : "BiodivRisk-Onto v0.2.0: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"
-  }, {
     "@language" : "en",
     "@value" : "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"
   } ],
@@ -178,23 +153,21 @@
   } ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
     "@language" : "en",
-    "@value" : "Version 0.1.0 — core taxonomy and semantic relation framework. Extended in v0.2.0 with real-world instances from LAC case studies."
+    "@value" : "Version 0.3.0 — structural release adding explicit information-loss records, ordered sector priorities and biome links, while removing redundant or unused modelling elements."
   } ],
   "http://www.w3.org/2000/01/rdf-schema#seeAlso" : [ {
     "@id" : "https://github.com/marcosdzarate/biorisk-ai"
   }, {
     "@id" : "https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology"
   } ],
-  "http://www.w3.org/2002/07/owl#imports" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto/0.1.0"
-  } ],
-  "http://www.w3.org/2002/07/owl#versionIRI" : [ {
+  "http://www.w3.org/2002/07/owl#priorVersion" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto/0.2.0"
   } ],
+  "http://www.w3.org/2002/07/owl#versionIRI" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto/0.3.0"
+  } ],
   "http://www.w3.org/2002/07/owl#versionInfo" : [ {
-    "@value" : "0.1.0"
-  }, {
-    "@value" : "0.2.0"
+    "@value" : "0.3.0"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#AgriculturalProductsSector",
@@ -239,6 +212,9 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "Andean GBIF Data Gap"
+  } ],
+  "https://w3id.org/biodivrisK-onto#affectsBiome" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TropicalAndes"
   } ],
   "https://w3id.org/biodivrisK-onto#affectsFramework" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"
@@ -423,6 +399,15 @@
     "@language" : "en",
     "@value" : "CEBDS Brazil Sector Heatmap Result"
   } ],
+  "https://w3id.org/biodivrisK-onto#hasSectorPriority" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CEBDSPriority1ConsumerStaples"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#CEBDSPriority2ConsumerDiscretionary"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#CEBDSPriority3Utilities"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#CEBDSPriority4Industrials"
+  } ],
   "https://w3id.org/biodivrisK-onto#prioritisesSector" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector"
   }, {
@@ -431,6 +416,90 @@
     "@id" : "https://w3id.org/biodivrisK-onto#IndustrialsSector"
   }, {
     "@id" : "https://w3id.org/biodivrisK-onto#UtilitiesSector"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CEBDSPriority1ConsumerStaples",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SectorPriority"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "First-ranked sector in the CEBDS Brazil materiality heatmap."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CEBDS Priority 1: Consumer Staples"
+  } ],
+  "https://w3id.org/biodivrisK-onto#priorityRank" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#positiveInteger",
+    "@value" : "1"
+  } ],
+  "https://w3id.org/biodivrisK-onto#prioritySector" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ConsumerStaplesSector"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CEBDSPriority2ConsumerDiscretionary",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SectorPriority"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Second-ranked sector in the CEBDS Brazil materiality heatmap."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CEBDS Priority 2: Consumer Discretionary"
+  } ],
+  "https://w3id.org/biodivrisK-onto#priorityRank" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#positiveInteger",
+    "@value" : "2"
+  } ],
+  "https://w3id.org/biodivrisK-onto#prioritySector" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CEBDSPriority3Utilities",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SectorPriority"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Third-ranked sector in the CEBDS Brazil materiality heatmap."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CEBDS Priority 3: Utilities"
+  } ],
+  "https://w3id.org/biodivrisK-onto#priorityRank" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#positiveInteger",
+    "@value" : "3"
+  } ],
+  "https://w3id.org/biodivrisK-onto#prioritySector" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#UtilitiesSector"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#CEBDSPriority4Industrials",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SectorPriority"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Fourth-ranked sector in the CEBDS Brazil materiality heatmap."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CEBDS Priority 4: Industrials"
+  } ],
+  "https://w3id.org/biodivrisK-onto#priorityRank" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#positiveInteger",
+    "@value" : "4"
+  } ],
+  "https://w3id.org/biodivrisK-onto#prioritySector" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#IndustrialsSector"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#CIIU",
@@ -461,11 +530,16 @@
     "@language" : "en",
     "@value" : "A lossy correspondence requires manual alignment of CIIU codes to GICS and SASB/SICS sectors, with documentation of ambiguous cases. Performed by Santander Peru during LEAP L1 scoping."
   } ],
+  "https://w3id.org/biodivrisK-onto#hasInformationLoss" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CIIUtoGICSInformationLoss"
+  } ],
   "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#GICS"
   } ],
   "https://w3id.org/biodivrisK-onto#mappableTo" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#GICS"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#SASB_SICS"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity",
@@ -482,18 +556,28 @@
     "@value" : "CIIU to GICS Semantic Ambiguity"
   } ]
 }, {
-  "@id" : "https://w3id.org/biodivrisK-onto#CIIUtoGICSMapping",
+  "@id" : "https://w3id.org/biodivrisK-onto#CIIUtoGICSInformationLoss",
   "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#SemanticAmbiguity"
+    "@id" : "https://w3id.org/biodivrisK-onto#InformationLoss"
   } ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
     "@language" : "en",
-    "@value" : "Manual sector correspondence developed by Santander Peru to align its CIIU-classified portfolio with GICS and SASB/SICS sectors required for ENCORE-based materiality screening."
+    "@value" : "A CIIU-to-GICS conversion loses national classification detail and cannot preserve a bijective sector correspondence; multiple CIIU activities may collapse into one GICS sector and some activities require expert interpretation."
   } ],
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
-    "@value" : "CIIU to GICS/SASB Mapping (Santander Peru)"
+    "@value" : "CIIU to GICS Information Loss"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasBridgingCondition" : [ {
+    "@language" : "en",
+    "@value" : "Manually align each CIIU code with the most representative GICS or SASB/SICS sector and document all ambiguous, multi-to-one and one-to-many correspondences."
+  } ],
+  "https://w3id.org/biodivrisK-onto#sourceConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CIIU"
+  } ],
+  "https://w3id.org/biodivrisK-onto#targetConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#CNAE",
@@ -524,6 +608,9 @@
     "@language" : "en",
     "@value" : "A lossy correspondence is admissible when each CNAE code is manually mapped to the most representative GICS sector, with explicit documentation of multi-to-one and one-to-many correspondences. This mapping was performed by EY during the CEBDS Brazil LEAP pilot and required significant expert effort. The result is not automatically reversible."
   } ],
+  "https://w3id.org/biodivrisK-onto#hasInformationLoss" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CNAEtoGICSInformationLoss"
+  } ],
   "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#GICS"
   } ],
@@ -545,18 +632,28 @@
     "@value" : "CNAE to GICS Semantic Ambiguity"
   } ]
 }, {
-  "@id" : "https://w3id.org/biodivrisK-onto#CNAEtoGICSMapping",
+  "@id" : "https://w3id.org/biodivrisK-onto#CNAEtoGICSInformationLoss",
   "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#SemanticAmbiguity"
+    "@id" : "https://w3id.org/biodivrisK-onto#InformationLoss"
   } ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
     "@language" : "en",
-    "@value" : "Manual sector correspondence developed during the CEBDS Brazil LEAP pilot to align portfolio reporting under CNAE with ENCORE/TNFD materiality assessment requiring GICS classification."
+    "@value" : "A CNAE-to-GICS conversion loses Brazilian activity-code specificity and is not automatically reversible because the standards contain multi-to-one and one-to-many sector correspondences."
   } ],
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
-    "@value" : "CNAE to GICS Mapping (CEBDS Brazil)"
+    "@value" : "CNAE to GICS Information Loss"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasBridgingCondition" : [ {
+    "@language" : "en",
+    "@value" : "Manually map every CNAE code to the most representative GICS sector and explicitly record ambiguous and non-bijective correspondences."
+  } ],
+  "https://w3id.org/biodivrisK-onto#sourceConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CNAE"
+  } ],
+  "https://w3id.org/biodivrisK-onto#targetConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GICS"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#Caixa",
@@ -607,6 +704,9 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "Cerrado GBIF Data Gap"
+  } ],
+  "https://w3id.org/biodivrisK-onto#affectsBiome" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Cerrado"
   } ],
   "https://w3id.org/biodivrisK-onto#affectsFramework" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"
@@ -761,22 +861,35 @@
     "@language" : "en",
     "@value" : "A lossy approximation is admissible if ENCORE sector scores are supplemented with qualitative stakeholder evidence meeting GRI 101 impact severity criteria. The numerical scale (3-9) cannot be directly compared with GRI qualitative thresholds without explicit bridging assumptions documented per sector."
   } ],
+  "https://w3id.org/biodivrisK-onto#hasInformationLoss" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss"
+  } ],
   "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality"
   } ]
 }, {
-  "@id" : "https://w3id.org/biodivrisK-onto#ENCOREScale",
+  "@id" : "https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss",
   "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale"
+    "@id" : "https://w3id.org/biodivrisK-onto#InformationLoss"
   } ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
     "@language" : "en",
-    "@value" : "ENCORE numerical scale where 3=very low, 4.5=low, 6=medium, 7.5=high, 9=very high dependency/impact. Used in CEBDS Brazil pilot to produce heatmap weighted by loan volume and client count."
+    "@value" : "Converting ENCORE numerical sector scores to GRI 101 impact materiality loses the original 3–9 quantitative scale, production-process aggregation and direct comparability between scored dependencies and impacts."
   } ],
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
-    "@value" : "ENCORE Scale 3-9"
+    "@value" : "ENCORE to GRI 101 Information Loss"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasBridgingCondition" : [ {
+    "@language" : "en",
+    "@value" : "Supplement ENCORE scores with stakeholder evidence and severity criteria required by GRI 101; do not interpret the numerical thresholds as equivalent to qualitative materiality judgements."
+  } ],
+  "https://w3id.org/biodivrisK-onto#sourceConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ENCOREMateriality"
+  } ],
+  "https://w3id.org/biodivrisK-onto#targetConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea",
@@ -796,9 +909,6 @@
     "@id" : "https://w3id.org/biodivrisK-onto#FrameworkConcept"
   }, {
     "@id" : "https://w3id.org/biodivrisK-onto#TNFDPriorityLocation"
-  } ],
-  "http://www.w3.org/2002/07/owl#equivalentClass" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas"
   } ],
   "http://www.w3.org/2004/02/skos/core#note" : [ {
     "@language" : "en",
@@ -837,6 +947,9 @@
   "https://w3id.org/biodivrisK-onto#hasBridgingCondition" : [ {
     "@language" : "en",
     "@value" : "A lossy approximation is admissible if the analyst explicitly assumes that impact-material issues under ESRS E4 are also financially material under TNFD, and documents this assumption with supporting evidence. Does not hold by default."
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasInformationLoss" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss"
   } ],
   "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality"
@@ -971,6 +1084,11 @@
     "@language" : "en",
     "@value" : "Global Industry Classification Standard"
   } ],
+  "https://w3id.org/biodivrisK-onto#hasInformationLoss" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#CIIUtoGICSInformationLoss"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#CNAEtoGICSInformationLoss"
+  } ],
   "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#CIIU"
   }, {
@@ -1006,6 +1124,9 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "GRI 101 Impact Materiality"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasInformationLoss" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss"
   } ],
   "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#ENCOREMateriality"
@@ -1057,6 +1178,11 @@
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#GRI101"
   } ],
+  "https://w3id.org/biodivrisK-onto#hasInformationLoss" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion"
+  } ],
   "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"
   }, {
@@ -1077,9 +1203,9 @@
     "@value" : "GRI 101 Operations in/adjacent to Protected Areas and KBAs"
   } ],
   "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#FrameworkConcept"
+    "@id" : "https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea"
   }, {
-    "@id" : "https://w3id.org/biodivrisK-onto#TNFDPriorityLocation"
+    "@id" : "https://w3id.org/biodivrisK-onto#FrameworkConcept"
   } ],
   "http://www.w3.org/2004/02/skos/core#note" : [ {
     "@language" : "en",
@@ -1100,7 +1226,7 @@
   } ],
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
-    "@value" : "GRI 101 Operations in/adjacent to Protected Areas and KBAs"
+    "@value" : "GRI 101-6 Protected Areas and KBA Disclosure Requirement"
   } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#GRI101"
@@ -1228,6 +1354,15 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "LAC Geographic Sampling Bias"
+  } ],
+  "https://w3id.org/biodivrisK-onto#affectsBiome" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Amazonia"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#AtlanticForest"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#Cerrado"
+  }, {
+    "@id" : "https://w3id.org/biodivrisK-onto#TropicalAndes"
   } ],
   "https://w3id.org/biodivrisK-onto#affectsFramework" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"
@@ -1516,6 +1651,9 @@
     "@language" : "en",
     "@value" : "A lossy approximation is admissible only if the GRI management approach explicitly commits to SBTN-compatible measurable targets with defined timelines and science-based baselines, AND those commitments are independently verified."
   } ],
+  "https://w3id.org/biodivrisK-onto#hasInformationLoss" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion"
+  } ],
   "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#GRIManagementApproach"
   } ]
@@ -1537,6 +1675,30 @@
     "@id" : "https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment"
   }, {
     "@id" : "https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#InformationLoss"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Converting Mean Species Abundance to a GRI management-approach disclosure loses the quantitative biodiversity-intactness value, reference condition, spatial model assumptions and the distinction between measured ecological state and organisational intent."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "SBTN MSA to GRI Management Approach Information Loss"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasBridgingCondition" : [ {
+    "@language" : "en",
+    "@value" : "Any proxy conversion must derive MSA from documented footprint data and state explicitly that a GRI management approach does not imply a specific biodiversity-state outcome."
+  } ],
+  "https://w3id.org/biodivrisK-onto#sourceConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance"
+  } ],
+  "https://w3id.org/biodivrisK-onto#targetConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GRIManagementApproach"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance",
@@ -1569,6 +1731,9 @@
     "@language" : "en",
     "@value" : "No direct conversion exists. A lossy approximation requires deriving a proxy MSA from operational footprint data AND documenting that the GRI management approach implies no specific biodiversity-state outcome. Not recommended for regulatory compliance."
   } ],
+  "https://w3id.org/biodivrisK-onto#hasInformationLoss" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss"
+  } ],
   "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#GRIManagementApproach"
   } ],
@@ -1589,6 +1754,16 @@
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "SBTN Target to GRI Management Approach Conversion"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasBridgingCondition" : [ {
+    "@language" : "en",
+    "@value" : "The GRI management approach must explicitly commit to measurable SBTN-compatible targets with defined timelines, verified science-based baselines and independent verification."
+  } ],
+  "https://w3id.org/biodivrisK-onto#sourceConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTarget"
+  } ],
+  "https://w3id.org/biodivrisK-onto#targetConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#GRIManagementApproach"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#SantanderBrasil",
@@ -1698,6 +1873,19 @@
     "@value" : "Economic Sector"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#SectorPriority",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A context-dependent ordered entry assigning an economic sector an ordinal position within a materiality result."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Sector Priority"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#SemanticAmbiguity",
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
     "@id" : "http://www.w3.org/2002/07/owl#Class"
@@ -1749,6 +1937,9 @@
   } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasInformationLoss" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss"
   } ],
   "https://w3id.org/biodivrisK-onto#incommensurableWith" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality"
@@ -1861,6 +2052,30 @@
     "@id" : "https://w3id.org/biodivrisK-onto#TNFD"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss",
+  "@type" : [ "http://www.w3.org/2002/07/owl#NamedIndividual" ],
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#InformationLoss"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "A TNFD enterprise-value assessment does not preserve the impact-materiality dimension required by ESRS double materiality; impacts on biodiversity that lack an immediate financial effect may therefore be omitted."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "TNFD to ESRS Materiality Information Loss"
+  } ],
+  "https://w3id.org/biodivrisK-onto#hasBridgingCondition" : [ {
+    "@language" : "en",
+    "@value" : "Supplement the TNFD enterprise-value assessment with a distinct impact-materiality assessment covering actual and potential biodiversity impacts across operations and the value chain."
+  } ],
+  "https://w3id.org/biodivrisK-onto#sourceConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality"
+  } ],
+  "https://w3id.org/biodivrisK-onto#targetConcept" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#TaxonomicSamplingBias",
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [ {
     "@id" : "http://www.w3.org/2002/07/owl#Class"
@@ -1940,6 +2155,23 @@
     "@id" : "https://w3id.org/biodivrisK-onto#PhysicalRisk"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#affectsBiome",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Relates a biodiversity data gap to a biome whose assessment is affected by that gap."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#DataGap"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "affects biome"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Biome"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#affectsFramework",
   "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
@@ -1961,17 +2193,17 @@
   "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
     "@language" : "en",
-    "@value" : "Relates a materiality boundary gap to the type of physical risk whose assessment is affected."
+    "@value" : "Relates a physical risk to the materiality boundary under which that risk is assessed."
   } ],
   "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityBoundary"
+    "@id" : "https://w3id.org/biodivrisK-onto#PhysicalRisk"
   } ],
   "http://www.w3.org/2000/01/rdf-schema#label" : [ {
     "@language" : "en",
     "@value" : "affects risk assessment"
   } ],
   "http://www.w3.org/2000/01/rdf-schema#range" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#PhysicalRisk"
+    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityBoundary"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#appliesFramework",
@@ -2100,36 +2332,6 @@
     "@value" : "has bridging condition"
   } ]
 }, {
-  "@id" : "https://w3id.org/biodivrisK-onto#hasDataGapIn",
-  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
-    "@language" : "en",
-    "@value" : "Relates a disclosure framework to a biome where its data requirements cannot be met due to GBIF/OBIS sampling bias."
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#DisclosureFramework"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "has data gap in"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#Biome"
-  } ]
-}, {
-  "@id" : "https://w3id.org/biodivrisK-onto#hasDataSufficiency",
-  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "has data sufficiency"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#Biome"
-  } ]
-}, {
   "@id" : "https://w3id.org/biodivrisK-onto#hasEvaluationResult",
   "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
   "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
@@ -2160,19 +2362,6 @@
     "@id" : "https://w3id.org/biodivrisK-onto#InformationLoss"
   } ]
 }, {
-  "@id" : "https://w3id.org/biodivrisK-onto#hasMaterialityApproach",
-  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#DisclosureFramework"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "has materiality approach"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityApproach"
-  } ]
-}, {
   "@id" : "https://w3id.org/biodivrisK-onto#hasPortfolioSector",
   "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
@@ -2190,19 +2379,6 @@
     "@id" : "https://w3id.org/biodivrisK-onto#Sector"
   } ]
 }, {
-  "@id" : "https://w3id.org/biodivrisK-onto#hasScale",
-  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityApproach"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "has scale"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale"
-  } ]
-}, {
   "@id" : "https://w3id.org/biodivrisK-onto#hasSectorClassification",
   "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
   "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
@@ -2214,6 +2390,23 @@
   } ],
   "http://www.w3.org/2000/01/rdf-schema#range" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#IndustrialClassification"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#hasSectorPriority",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Relates a materiality result to an ordered sector-priority entry."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#MaterialityResult"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "has sector priority"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SectorPriority"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#incommensurableWith",
@@ -2306,6 +2499,40 @@
     "@id" : "https://w3id.org/biodivrisK-onto#Sector"
   } ]
 }, {
+  "@id" : "https://w3id.org/biodivrisK-onto#priorityRank",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "The one-based ordinal position of a sector within a materiality result."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SectorPriority"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "priority rank"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#positiveInteger"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#prioritySector",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Identifies the economic sector represented by an ordered sector-priority entry."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#SectorPriority"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "priority sector"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#Sector"
+  } ]
+}, {
   "@id" : "https://w3id.org/biodivrisK-onto#requiresDataFrom",
   "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
   "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
@@ -2337,6 +2564,40 @@
   } ],
   "http://www.w3.org/2002/07/owl#inverseOf" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#informsTargetSetting"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#sourceConcept",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Identifies the source concept in a directed lossy conversion."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#InformationLoss"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "source concept"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
+  } ]
+}, {
+  "@id" : "https://w3id.org/biodivrisK-onto#targetConcept",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@language" : "en",
+    "@value" : "Identifies the target concept in a directed lossy conversion."
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto#InformationLoss"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "target concept"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#Class"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#unit",

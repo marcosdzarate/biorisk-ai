@@ -2,18 +2,18 @@
   "_comment" : "Created with OWL2VOWL (version 0.3.5), http://vowl.visualdataweb.org",
   "header" : {
     "languages" : [ "pt", "en", "undefined" ],
-    "baseIris" : [ "https://w3id.org/biodivrisK-onto", "http://www.w3.org/1999/02/22-rdf-syntax-ns", "http://purl.obolibrary.org/obo", "http://www.w3.org/2002/07/owl", "http://www.w3.org/2000/01/rdf-schema", "https://schema.org", "http://www.w3.org/ns/prov", "http://www.w3.org/2001/XMLSchema", "http://www.opengis.net/ont/geosparql" ],
+    "baseIris" : [ "https://w3id.org/biodivrisK-onto", "http://www.w3.org/1999/02/22-rdf-syntax-ns", "http://purl.obolibrary.org/obo", "http://www.w3.org/2002/07/owl", "http://www.w3.org/2000/01/rdf-schema", "https://schema.org", "http://www.w3.org/ns/prov", "http://www.w3.org/2001/XMLSchema", "http://www.opengis.net/ont/geosparql", "http://www.w3.org/2004/02/skos/core" ],
     "title" : {
-      "en" : "BiodivRisk-Onto v0.2.0: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"
+      "en" : "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"
     },
     "iri" : "https://w3id.org/biodivrisK-onto",
-    "version" : "0.2.0",
-    "author" : [ "_:genid2147483649", "_:genid2147483648", "_:genid2147483650" ],
+    "version" : "0.3.0",
+    "author" : [ "_:genid2147483648" ],
     "description" : {
-      "en" : "Extension of v0.1.0 with organizational, geographic, and evaluation modules, populated with real-world instances from the Santander Peru and CEBDS Brazil case studies."
+      "en" : "Version 0.3.0 extends the core taxonomy with organizational, geographic and evaluation modules, explicit information-loss records, and populated instances from the Santander Peru and CEBDS Brazil case studies."
     },
     "comments" : {
-      "en" : "Version 0.1.0 — core taxonomy and semantic relation framework. Extended in v0.2.0 with real-world instances from LAC case studies."
+      "en" : "Version 0.3.0 â€” structural release adding explicit information-loss records, ordered sector priorities and biome links, while removing redundant or unused modelling elements."
     },
     "other" : {
       "license" : [ {
@@ -22,31 +22,22 @@
         "value" : "https://creativecommons.org/licenses/by/4.0/",
         "type" : "iri"
       } ],
+      "priorVersion" : [ {
+        "identifier" : "priorVersion",
+        "language" : "undefined",
+        "value" : "https://w3id.org/biodivrisK-onto/0.2.0",
+        "type" : "iri"
+      } ],
       "creator" : [ {
         "identifier" : "creator",
         "language" : "undefined",
         "value" : "_:genid2147483648",
-        "type" : "label"
-      }, {
-        "identifier" : "creator",
-        "language" : "undefined",
-        "value" : "_:genid2147483649",
-        "type" : "label"
-      }, {
-        "identifier" : "creator",
-        "language" : "undefined",
-        "value" : "_:genid2147483650",
         "type" : "label"
       } ],
       "created" : [ {
         "identifier" : "created",
         "language" : "undefined",
         "value" : "2026-07-13",
-        "type" : "label"
-      }, {
-        "identifier" : "created",
-        "language" : "undefined",
-        "value" : "2026-07-21",
         "type" : "label"
       } ],
       "preferredNamespacePrefix" : [ {
@@ -55,15 +46,16 @@
         "value" : "bro",
         "type" : "label"
       } ],
+      "modified" : [ {
+        "identifier" : "modified",
+        "language" : "undefined",
+        "value" : "2026-09-17",
+        "type" : "label"
+      } ],
       "versionInfo" : [ {
         "identifier" : "versionInfo",
         "language" : "undefined",
-        "value" : "0.2.0",
-        "type" : "label"
-      }, {
-        "identifier" : "versionInfo",
-        "language" : "undefined",
-        "value" : "0.1.0",
+        "value" : "0.3.0",
         "type" : "label"
       } ],
       "preferredNamespaceUri" : [ {
@@ -76,11 +68,6 @@
         "identifier" : "title",
         "language" : "en",
         "value" : "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks",
-        "type" : "label"
-      }, {
-        "identifier" : "title",
-        "language" : "en",
-        "value" : "BiodivRisk-Onto v0.2.0: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks",
         "type" : "label"
       } ],
       "seeAlso" : [ {
@@ -101,151 +88,160 @@
     "id" : "0",
     "type" : "owl:Class"
   }, {
-    "id" : "6",
-    "type" : "owl:Class"
-  }, {
     "id" : "9",
-    "type" : "owl:Class"
-  }, {
-    "id" : "12",
-    "type" : "owl:Class"
-  }, {
-    "id" : "16",
-    "type" : "owl:Class"
-  }, {
-    "id" : "23",
-    "type" : "owl:equivalentClass"
-  }, {
-    "id" : "47",
-    "type" : "owl:Class"
-  }, {
-    "id" : "14",
-    "type" : "owl:Class"
-  }, {
-    "id" : "41",
     "type" : "owl:Class"
   }, {
     "id" : "15",
     "type" : "owl:Class"
   }, {
-    "id" : "58",
+    "id" : "16",
     "type" : "owl:Class"
   }, {
-    "id" : "10",
+    "id" : "22",
     "type" : "owl:Class"
   }, {
-    "id" : "32",
-    "type" : "owl:Class"
-  }, {
-    "id" : "70",
-    "type" : "owl:equivalentClass"
-  }, {
-    "id" : "7",
-    "type" : "owl:Class"
-  }, {
-    "id" : "53",
-    "type" : "owl:Class"
-  }, {
-    "id" : "8",
-    "type" : "owl:Class"
-  }, {
-    "id" : "43",
-    "type" : "owl:Class"
-  }, {
-    "id" : "45",
-    "type" : "owl:Class"
-  }, {
-    "id" : "20",
-    "type" : "owl:Class"
-  }, {
-    "id" : "2",
-    "type" : "owl:Class"
-  }, {
-    "id" : "77",
-    "type" : "owl:Class"
-  }, {
-    "id" : "4",
-    "type" : "owl:Class"
-  }, {
-    "id" : "46",
-    "type" : "owl:Class"
-  }, {
-    "id" : "78",
-    "type" : "owl:Class"
-  }, {
-    "id" : "61",
-    "type" : "owl:Class"
-  }, {
-    "id" : "37",
-    "type" : "owl:Class"
-  }, {
-    "id" : "51",
-    "type" : "owl:Class"
-  }, {
-    "id" : "85",
-    "type" : "owl:equivalentClass"
-  }, {
-    "id" : "39",
-    "type" : "owl:Class"
-  }, {
-    "id" : "49",
-    "type" : "owl:Class"
-  }, {
-    "id" : "76",
-    "type" : "owl:Class"
-  }, {
-    "id" : "57",
-    "type" : "owl:Class"
-  }, {
-    "id" : "31",
-    "type" : "owl:Class"
-  }, {
-    "id" : "48",
-    "type" : "owl:Class"
-  }, {
-    "id" : "72",
-    "type" : "owl:equivalentClass"
-  }, {
-    "id" : "35",
-    "type" : "owl:Class"
-  }, {
-    "id" : "28",
-    "type" : "owl:Class"
-  }, {
-    "id" : "84",
-    "type" : "owl:Class"
-  }, {
-    "id" : "34",
-    "type" : "owl:Class"
-  }, {
-    "id" : "90",
+    "id" : "54",
     "type" : "owl:Class"
   }, {
     "id" : "55",
     "type" : "owl:Class"
   }, {
+    "id" : "48",
+    "type" : "owl:Class"
+  }, {
+    "id" : "20",
+    "type" : "owl:Class"
+  }, {
+    "id" : "21",
+    "type" : "owl:Class"
+  }, {
+    "id" : "64",
+    "type" : "owl:Class"
+  }, {
+    "id" : "17",
+    "type" : "owl:Class"
+  }, {
+    "id" : "28",
+    "type" : "owl:Class"
+  }, {
+    "id" : "77",
+    "type" : "owl:equivalentClass"
+  }, {
+    "id" : "10",
+    "type" : "owl:Class"
+  }, {
+    "id" : "44",
+    "type" : "owl:Class"
+  }, {
     "id" : "11",
+    "type" : "owl:Class"
+  }, {
+    "id" : "36",
+    "type" : "owl:Class"
+  }, {
+    "id" : "52",
+    "type" : "owl:Class"
+  }, {
+    "id" : "5",
+    "type" : "owl:Class"
+  }, {
+    "id" : "2",
+    "type" : "owl:Class"
+  }, {
+    "id" : "84",
+    "type" : "owl:Class"
+  }, {
+    "id" : "85",
+    "type" : "owl:Class"
+  }, {
+    "id" : "53",
+    "type" : "owl:Class"
+  }, {
+    "id" : "13",
+    "type" : "owl:Class"
+  }, {
+    "id" : "69",
+    "type" : "owl:Class"
+  }, {
+    "id" : "86",
+    "type" : "owl:Class"
+  }, {
+    "id" : "50",
+    "type" : "owl:Class"
+  }, {
+    "id" : "58",
+    "type" : "owl:Class"
+  }, {
+    "id" : "94",
+    "type" : "owl:equivalentClass"
+  }, {
+    "id" : "30",
+    "type" : "owl:Class"
+  }, {
+    "id" : "56",
+    "type" : "owl:Class"
+  }, {
+    "id" : "75",
+    "type" : "owl:Class"
+  }, {
+    "id" : "41",
     "type" : "owl:Class"
   }, {
     "id" : "27",
     "type" : "owl:Class"
   }, {
+    "id" : "7",
+    "type" : "owl:Class"
+  }, {
+    "id" : "8",
+    "type" : "owl:equivalentClass"
+  }, {
+    "id" : "42",
+    "type" : "owl:Class"
+  }, {
+    "id" : "31",
+    "type" : "owl:Class"
+  }, {
+    "id" : "46",
+    "type" : "owl:Class"
+  }, {
+    "id" : "93",
+    "type" : "owl:Class"
+  }, {
     "id" : "98",
     "type" : "owl:Class"
   }, {
-    "id" : "83",
+    "id" : "63",
+    "type" : "owl:Class"
+  }, {
+    "id" : "18",
+    "type" : "owl:Class"
+  }, {
+    "id" : "39",
+    "type" : "owl:Class"
+  }, {
+    "id" : "105",
+    "type" : "owl:Class"
+  }, {
+    "id" : "14",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "34",
+    "type" : "owl:Thing"
+  }, {
+    "id" : "92",
     "type" : "owl:equivalentClass"
   }, {
-    "id" : "17",
+    "id" : "23",
+    "type" : "owl:Class"
+  }, {
+    "id" : "74",
+    "type" : "owl:Class"
+  }, {
+    "id" : "4",
     "type" : "owl:Class"
   }, {
     "id" : "87",
-    "type" : "owl:Class"
-  }, {
-    "id" : "19",
-    "type" : "owl:equivalentClass"
-  }, {
-    "id" : "5",
     "type" : "owl:Class"
   } ],
   "classAttribute" : [ {
@@ -257,14 +253,112 @@
       "en" : "Information Loss"
     },
     "individuals" : [ {
+      "iri" : "https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "hasBridgingCondition" : [ {
+          "identifier" : "hasBridgingCondition",
+          "language" : "en",
+          "value" : "Any proxy conversion must derive MSA from documented footprint data and state explicitly that a GRI management approach does not imply a specific biodiversity-state outcome.",
+          "type" : "label"
+        } ]
+      },
+      "comment" : {
+        "en" : "Converting Mean Species Abundance to a GRI management-approach disclosure loses the quantitative biodiversity-intactness value, reference condition, spatial model assumptions and the distinction between measured ecological state and organisational intent."
+      },
+      "labels" : {
+        "IRI-based" : "SBTNMSAtoGRIInformationLoss",
+        "en" : "SBTN MSA to GRI Management Approach Information Loss"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#CNAEtoGICSInformationLoss",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "hasBridgingCondition" : [ {
+          "identifier" : "hasBridgingCondition",
+          "language" : "en",
+          "value" : "Manually map every CNAE code to the most representative GICS sector and explicitly record ambiguous and non-bijective correspondences.",
+          "type" : "label"
+        } ]
+      },
+      "comment" : {
+        "en" : "A CNAE-to-GICS conversion loses Brazilian activity-code specificity and is not automatically reversible because the standards contain multi-to-one and one-to-many sector correspondences."
+      },
+      "labels" : {
+        "IRI-based" : "CNAEtoGICSInformationLoss",
+        "en" : "CNAE to GICS Information Loss"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "hasBridgingCondition" : [ {
+          "identifier" : "hasBridgingCondition",
+          "language" : "en",
+          "value" : "Supplement the TNFD enterprise-value assessment with a distinct impact-materiality assessment covering actual and potential biodiversity impacts across operations and the value chain.",
+          "type" : "label"
+        } ]
+      },
+      "comment" : {
+        "en" : "A TNFD enterprise-value assessment does not preserve the impact-materiality dimension required by ESRS double materiality; impacts on biodiversity that lack an immediate financial effect may therefore be omitted."
+      },
+      "labels" : {
+        "IRI-based" : "TNFDtoESRSMaterialityInformationLoss",
+        "en" : "TNFD to ESRS Materiality Information Loss"
+      }
+    }, {
       "iri" : "https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion",
       "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "hasBridgingCondition" : [ {
+          "identifier" : "hasBridgingCondition",
+          "language" : "en",
+          "value" : "The GRI management approach must explicitly commit to measurable SBTN-compatible targets with defined timelines, verified science-based baselines and independent verification.",
+          "type" : "label"
+        } ]
+      },
       "comment" : {
         "en" : "Information loss documented when converting an SBTN science-based target (measurable, time-bound, science-grounded) to a GRI 101 management approach disclosure (qualitative, policy-level). Lost information includes: (1) quantitative target value, (2) scientific baseline, (3) time horizon commitment, (4) verifiability. Bridging condition: the GRI management approach must explicitly commit to SBTN-compatible targets with verified science-based baselines."
       },
       "labels" : {
         "IRI-based" : "SBTNtargetToGRIConversion",
         "en" : "SBTN Target to GRI Management Approach Conversion"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#CIIUtoGICSInformationLoss",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "hasBridgingCondition" : [ {
+          "identifier" : "hasBridgingCondition",
+          "language" : "en",
+          "value" : "Manually align each CIIU code with the most representative GICS or SASB/SICS sector and document all ambiguous, multi-to-one and one-to-many correspondences.",
+          "type" : "label"
+        } ]
+      },
+      "comment" : {
+        "en" : "A CIIU-to-GICS conversion loses national classification detail and cannot preserve a bijective sector correspondence; multiple CIIU activities may collapse into one GICS sector and some activities require expert interpretation."
+      },
+      "labels" : {
+        "IRI-based" : "CIIUtoGICSInformationLoss",
+        "en" : "CIIU to GICS Information Loss"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "hasBridgingCondition" : [ {
+          "identifier" : "hasBridgingCondition",
+          "language" : "en",
+          "value" : "Supplement ENCORE scores with stakeholder evidence and severity criteria required by GRI 101; do not interpret the numerical thresholds as equivalent to qualitative materiality judgements.",
+          "type" : "label"
+        } ]
+      },
+      "comment" : {
+        "en" : "Converting ENCORE numerical sector scores to GRI 101 impact materiality loses the original 3â€“9 quantitative scale, production-process aggregation and direct comparability between scored dependencies and impacts."
+      },
+      "labels" : {
+        "IRI-based" : "ENCOREtoGRIInformationLoss",
+        "en" : "ENCORE to GRI 101 Information Loss"
       }
     } ],
     "comment" : {
@@ -278,43 +372,9 @@
     "label" : {
       "IRI-based" : "Activity"
     },
-    "subClasses" : [ "7", "8" ],
+    "subClasses" : [ "10", "11" ],
     "attributes" : [ "external" ],
-    "id" : "6"
-  }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#Country",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "instances" : 0,
-    "label" : {
-      "IRI-based" : "Country",
-      "en" : "Country"
-    },
-    "individuals" : [ {
-      "iri" : "https://w3id.org/biodivrisK-onto#Brazil",
-      "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "comment" : {
-        "en" : "Most megadiverse country globally, hosting 15-20% of world biodiversity across 6 biomes. Site of CEBDS TNFD pilot."
-      },
-      "labels" : {
-        "IRI-based" : "Brazil",
-        "en" : "Brazil"
-      }
-    }, {
-      "iri" : "https://w3id.org/biodivrisK-onto#Peru",
-      "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "comment" : {
-        "en" : "Megadiverse country — one of 17 globally. Second largest copper producer worldwide. High Andean and Amazonian biodiversity with documented GBIF sampling gaps."
-      },
-      "labels" : {
-        "IRI-based" : "Peru",
-        "en" : "Peru"
-      }
-    } ],
-    "comment" : {
-      "en" : "A sovereign country where a financial institution operates or has portfolio exposure."
-    },
-    "id" : "9",
-    "superClasses" : [ "10", "11" ]
+    "id" : "9"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#Sector",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -385,7 +445,41 @@
     "comment" : {
       "en" : "An economic sector associated with potential impacts and dependencies on nature, classifiable under international standards such as GICS or SASB/SICS."
     },
-    "id" : "12"
+    "id" : "15"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#Country",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "Country",
+      "en" : "Country"
+    },
+    "individuals" : [ {
+      "iri" : "https://w3id.org/biodivrisK-onto#Brazil",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "comment" : {
+        "en" : "Most megadiverse country globally, hosting 15-20% of world biodiversity across 6 biomes. Site of CEBDS TNFD pilot."
+      },
+      "labels" : {
+        "IRI-based" : "Brazil",
+        "en" : "Brazil"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#Peru",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "comment" : {
+        "en" : "Megadiverse country â€” one of 17 globally. Second largest copper producer worldwide. High Andean and Amazonian biodiversity with documented GBIF sampling gaps."
+      },
+      "labels" : {
+        "IRI-based" : "Peru",
+        "en" : "Peru"
+      }
+    } ],
+    "comment" : {
+      "en" : "A sovereign country where a financial institution operates or has portfolio exposure."
+    },
+    "id" : "16",
+    "superClasses" : [ "17", "18" ]
   }, {
     "iri" : "http://www.w3.org/ns/prov#Entity",
     "baseIri" : "http://www.w3.org/ns/prov",
@@ -393,12 +487,11 @@
     "label" : {
       "IRI-based" : "Entity"
     },
-    "subClasses" : [ "17" ],
+    "subClasses" : [ "23" ],
     "attributes" : [ "external" ],
-    "id" : "16"
+    "id" : "22"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas",
-    "equivalent" : [ "19" ],
     "baseIri" : "https://w3id.org/biodivrisK-onto",
     "instances" : 0,
     "annotations" : {
@@ -416,9 +509,8 @@
     "comment" : {
       "en" : "GRI 101 disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas."
     },
-    "attributes" : [ "equivalent" ],
-    "id" : "23",
-    "superClasses" : [ "20", "35" ]
+    "id" : "54",
+    "superClasses" : [ "4", "42" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#GeographicSamplingBias",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -461,22 +553,8 @@
     "comment" : {
       "en" : "Systematic under-representation of species occurrences in GBIF/OBIS records for specific geographic regions."
     },
-    "id" : "47",
-    "superClasses" : [ "48" ]
-  }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#Organization",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "instances" : 0,
-    "label" : {
-      "IRI-based" : "Organization",
-      "en" : "Organization"
-    },
-    "subClasses" : [ "31" ],
-    "comment" : {
-      "en" : "An organization that applies one or more biodiversity risk disclosure frameworks to assess its nature-related dependencies, impacts, risks and opportunities."
-    },
-    "id" : "14",
-    "superClasses" : [ "49" ]
+    "id" : "55",
+    "superClasses" : [ "7" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#MaterialityResult",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -497,9 +575,23 @@
       }
     } ],
     "comment" : {
-      "en" : "The output of a materiality assessment — a ranked or scored set of sectors, locations or impacts identified as material under a specific framework and approach."
+      "en" : "The output of a materiality assessment â€” a ranked or scored set of sectors, locations or impacts identified as material under a specific framework and approach."
     },
-    "id" : "41"
+    "id" : "48"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#Organization",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "Organization",
+      "en" : "Organization"
+    },
+    "subClasses" : [ "27" ],
+    "comment" : {
+      "en" : "An organization that applies one or more biodiversity risk disclosure frameworks to assess its nature-related dependencies, impacts, risks and opportunities."
+    },
+    "id" : "20",
+    "superClasses" : [ "56" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#DisclosureFramework",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -596,7 +688,7 @@
     "comment" : {
       "en" : "A regulatory or voluntary framework requiring organisations to assess and disclose their nature-related impacts, dependencies, risks and opportunities."
     },
-    "id" : "15"
+    "id" : "21"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#TaxonomicSamplingBias",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -608,8 +700,8 @@
     "comment" : {
       "en" : "Systematic over-representation of certain taxonomic groups (e.g. birds, vascular plants) in open biodiversity databases."
     },
-    "id" : "58",
-    "superClasses" : [ "48" ]
+    "id" : "64",
+    "superClasses" : [ "7" ]
   }, {
     "iri" : "http://www.opengis.net/ont/geosparql#Feature",
     "baseIri" : "http://www.opengis.net/ont/geosparql",
@@ -617,9 +709,9 @@
     "label" : {
       "IRI-based" : "Feature"
     },
-    "subClasses" : [ "9" ],
+    "subClasses" : [ "16" ],
     "attributes" : [ "external" ],
-    "id" : "10"
+    "id" : "17"
   }, {
     "iri" : "https://schema.org/BankOrCreditUnion",
     "baseIri" : "https://schema.org",
@@ -627,9 +719,9 @@
     "label" : {
       "IRI-based" : "BankOrCreditUnion"
     },
-    "subClasses" : [ "31" ],
+    "subClasses" : [ "27" ],
     "attributes" : [ "external" ],
-    "id" : "32"
+    "id" : "28"
   }, {
     "iri" : "http://purl.obolibrary.org/obo/ENVO_00000428",
     "baseIri" : "http://purl.obolibrary.org/obo",
@@ -638,7 +730,7 @@
       "IRI-based" : "ENVO_00000428"
     },
     "attributes" : [ "equivalent", "external" ],
-    "id" : "70"
+    "id" : "77"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#LEAPAssessment",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -650,14 +742,6 @@
     "individuals" : [ {
       "iri" : "https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment",
       "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "annotations" : {
-        "wasAssociatedWith" : [ {
-          "identifier" : "wasAssociatedWith",
-          "language" : "undefined",
-          "value" : "https://w3id.org/biodivrisK-onto#SantanderPeru",
-          "type" : "iri"
-        } ]
-      },
       "comment" : {
         "en" : "Santander Peru's LEAP assessment conducted during Global Canopy's TNFD familiarisation programme in 2024, covering scoping and the full Locate phase (L1-L4). Source: Global Canopy & Santander Peru (2025)."
       },
@@ -668,36 +752,8 @@
     }, {
       "iri" : "https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment",
       "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "annotations" : {
-        "wasAssociatedWith" : [ {
-          "identifier" : "wasAssociatedWith",
-          "language" : "undefined",
-          "value" : "https://w3id.org/biodivrisK-onto#SantanderBrasil",
-          "type" : "iri"
-        }, {
-          "identifier" : "wasAssociatedWith",
-          "language" : "undefined",
-          "value" : "https://w3id.org/biodivrisK-onto#Caixa",
-          "type" : "iri"
-        }, {
-          "identifier" : "wasAssociatedWith",
-          "language" : "undefined",
-          "value" : "https://w3id.org/biodivrisK-onto#ItauUnibanco",
-          "type" : "iri"
-        }, {
-          "identifier" : "wasAssociatedWith",
-          "language" : "undefined",
-          "value" : "https://w3id.org/biodivrisK-onto#BNDES",
-          "type" : "iri"
-        }, {
-          "identifier" : "wasAssociatedWith",
-          "language" : "undefined",
-          "value" : "https://w3id.org/biodivrisK-onto#Bradesco",
-          "type" : "iri"
-        } ]
-      },
       "comment" : {
-        "en" : "Collective piloting of the TNFD LEAP Locate phase by 5 Brazilian financial institutions coordinated by CEBDS and technically led by EY, September 2023–September 2024. Source: CEBDS/EY (2024)."
+        "en" : "Collective piloting of the TNFD LEAP Locate phase by 5 Brazilian financial institutions coordinated by CEBDS and technically led by EY, September 2023â€“September 2024. Source: CEBDS/EY (2024)."
       },
       "labels" : {
         "IRI-based" : "CEBDSBrazilLocateAssessment",
@@ -707,8 +763,8 @@
     "comment" : {
       "en" : "A structured assessment following the TNFD LEAP methodology (Locate, Evaluate, Assess, Prepare), conducted by an organization to identify and assess its nature-related dependencies, impacts, risks and opportunities. Connects the organization, frameworks applied, sectors evaluated, biomes, data sources and gaps identified."
     },
-    "id" : "7",
-    "superClasses" : [ "6" ]
+    "id" : "10",
+    "superClasses" : [ "9" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#SBTNAR3TTarget",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -745,8 +801,8 @@
     "comment" : {
       "en" : "Measurable, time-bound target following the SBTN AR3T hierarchy: Avoid, Reduce, Restore, Transform."
     },
-    "id" : "53",
-    "superClasses" : [ "35" ]
+    "id" : "44",
+    "superClasses" : [ "42" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -758,8 +814,8 @@
     "comment" : {
       "en" : "An evaluation of whether available biodiversity data from sources such as GBIF and OBIS are sufficient to meet the information requirements of a given disclosure framework for a specific biome, sector and location. Quantifies data gaps arising from geographic and taxonomic sampling bias."
     },
-    "id" : "8",
-    "superClasses" : [ "6" ]
+    "id" : "11",
+    "superClasses" : [ "9" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -785,8 +841,8 @@
     "comment" : {
       "en" : "ESRS E4 double materiality: an issue is material if it has significant impacts on biodiversity (impact materiality) OR poses financial risks/opportunities (financial materiality)."
     },
-    "id" : "43",
-    "superClasses" : [ "28" ]
+    "id" : "36",
+    "superClasses" : [ "31" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#InternalPolicy",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -809,7 +865,7 @@
     "comment" : {
       "en" : "An organization's internal policy for managing environmental, social, climate or nature-related risks (e.g., an ESCC policy). May partially cover requirements of external disclosure frameworks."
     },
-    "id" : "45"
+    "id" : "52"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#TNFDPriorityLocation",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -818,12 +874,12 @@
       "IRI-based" : "TNFDPriorityLocation",
       "en" : "TNFD Priority Location"
     },
-    "subClasses" : [ "23", "19" ],
+    "subClasses" : [ "4" ],
     "comment" : {
       "en" : "Location of high importance for biodiversity under TNFD LEAP, including areas of high biodiversity intactness, protected areas, KBAs, areas of rapid ecosystem decline, and areas of high water stress."
     },
-    "id" : "20",
-    "superClasses" : [ "35" ]
+    "id" : "5",
+    "superClasses" : [ "42" ]
   }, {
     "iri" : "http://www.w3.org/2002/07/owl#Class",
     "baseIri" : "http://www.w3.org/2002/07/owl",
@@ -842,30 +898,10 @@
       "en" : "Semantic Ambiguity"
     },
     "individuals" : [ {
-      "iri" : "https://w3id.org/biodivrisK-onto#CIIUtoGICSMapping",
-      "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "comment" : {
-        "en" : "Manual sector correspondence developed by Santander Peru to align its CIIU-classified portfolio with GICS and SASB/SICS sectors required for ENCORE-based materiality screening."
-      },
-      "labels" : {
-        "IRI-based" : "CIIUtoGICSMapping",
-        "en" : "CIIU to GICS/SASB Mapping (Santander Peru)"
-      }
-    }, {
-      "iri" : "https://w3id.org/biodivrisK-onto#CNAEtoGICSMapping",
-      "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "comment" : {
-        "en" : "Manual sector correspondence developed during the CEBDS Brazil LEAP pilot to align portfolio reporting under CNAE with ENCORE/TNFD materiality assessment requiring GICS classification."
-      },
-      "labels" : {
-        "IRI-based" : "CNAEtoGICSMapping",
-        "en" : "CNAE to GICS Mapping (CEBDS Brazil)"
-      }
-    }, {
       "iri" : "https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity",
       "baseIri" : "https://w3id.org/biodivrisK-onto",
       "comment" : {
-        "en" : "Documented semantic ambiguity in the CNAE-to-GICS mapping required for TNFD/ENCORE assessments. Brazilian CNAE categories do not maintain a bijective correspondence with GICS sectors — multiple CNAE codes may map to one GICS sector or vice versa. Required significant manual effort in the CEBDS Brazil pilot."
+        "en" : "Documented semantic ambiguity in the CNAE-to-GICS mapping required for TNFD/ENCORE assessments. Brazilian CNAE categories do not maintain a bijective correspondence with GICS sectors â€” multiple CNAE codes may map to one GICS sector or vice versa. Required significant manual effort in the CEBDS Brazil pilot."
       },
       "labels" : {
         "IRI-based" : "CNAEtoGICSAmbiguity",
@@ -885,7 +921,7 @@
     "comment" : {
       "en" : "A documented case of semantic ambiguity in the correspondence between two industrial classification standards, where a category in one standard maps to multiple non-equivalent categories in another, or vice versa."
     },
-    "id" : "77"
+    "id" : "84"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#MaterialityApproach",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -894,11 +930,11 @@
       "IRI-based" : "MaterialityApproach",
       "en" : "Materiality Approach"
     },
-    "subClasses" : [ "78", "5" ],
+    "subClasses" : [ "86", "87" ],
     "comment" : {
       "en" : "A methodological approach for determining which nature-related impacts, risks and opportunities are material and must be disclosed. Different frameworks apply different approaches (financial, impact, or double materiality) that are not mutually equivalent."
     },
-    "id" : "4"
+    "id" : "85"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#DisclosureRequirement",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -925,13 +961,87 @@
       },
       "labels" : {
         "IRI-based" : "GRIProtectedAreaKBA",
-        "en" : "GRI 101 Operations in/adjacent to Protected Areas and KBAs"
+        "en" : "GRI 101-6 Protected Areas and KBA Disclosure Requirement"
       }
     } ],
     "comment" : {
       "en" : "A specific disclosure requirement within a framework, at the level of a recommended disclosure, datapoint or metric (e.g., TNFD Strategy D, ESRS E4-5, GRI 101-6)."
     },
-    "id" : "46"
+    "id" : "53"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#SectorPriority",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "SectorPriority",
+      "en" : "Sector Priority"
+    },
+    "individuals" : [ {
+      "iri" : "https://w3id.org/biodivrisK-onto#CEBDSPriority2ConsumerDiscretionary",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "comment" : {
+        "en" : "Second-ranked sector in the CEBDS Brazil materiality heatmap."
+      },
+      "labels" : {
+        "IRI-based" : "CEBDSPriority2ConsumerDiscretionary",
+        "en" : "CEBDS Priority 2: Consumer Discretionary"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#CEBDSPriority3Utilities",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "comment" : {
+        "en" : "Third-ranked sector in the CEBDS Brazil materiality heatmap."
+      },
+      "labels" : {
+        "IRI-based" : "CEBDSPriority3Utilities",
+        "en" : "CEBDS Priority 3: Utilities"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#CEBDSPriority1ConsumerStaples",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "comment" : {
+        "en" : "First-ranked sector in the CEBDS Brazil materiality heatmap."
+      },
+      "labels" : {
+        "IRI-based" : "CEBDSPriority1ConsumerStaples",
+        "en" : "CEBDS Priority 1: Consumer Staples"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#CEBDSPriority4Industrials",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "comment" : {
+        "en" : "Fourth-ranked sector in the CEBDS Brazil materiality heatmap."
+      },
+      "labels" : {
+        "IRI-based" : "CEBDSPriority4Industrials",
+        "en" : "CEBDS Priority 4: Industrials"
+      }
+    } ],
+    "comment" : {
+      "en" : "A context-dependent ordered entry assigning an economic sector an ordinal position within a materiality result."
+    },
+    "id" : "13"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#GRIManagementApproach",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "GRI 101 management approach disclosures compose with TNFD nature-related risk narratives. Impact reporting under GRI informs but does not replace risk framing under TNFD.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "GRIManagementApproach",
+      "en" : "GRI 101 Management Approach"
+    },
+    "comment" : {
+      "en" : "GRI 101 qualitative disclosure describing how an organisation manages its biodiversity impacts, policies, commitments and actions. No quantitative target required."
+    },
+    "id" : "69",
+    "superClasses" : [ "42" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -954,29 +1064,8 @@
     "comment" : {
       "en" : "A narrative or categorical approach to assessing materiality of nature-related impacts, without a fixed numerical scale (e.g., GRI 101 impact materiality approach)."
     },
-    "id" : "78",
-    "superClasses" : [ "4" ]
-  }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#GRIManagementApproach",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "instances" : 0,
-    "annotations" : {
-      "note" : [ {
-        "identifier" : "note",
-        "language" : "en",
-        "value" : "GRI 101 management approach disclosures compose with TNFD nature-related risk narratives. Impact reporting under GRI informs but does not replace risk framing under TNFD.",
-        "type" : "label"
-      } ]
-    },
-    "label" : {
-      "IRI-based" : "GRIManagementApproach",
-      "en" : "GRI 101 Management Approach"
-    },
-    "comment" : {
-      "en" : "GRI 101 qualitative disclosure describing how an organisation manages its biodiversity impacts, policies, commitments and actions. No quantitative target required."
-    },
-    "id" : "61",
-    "superClasses" : [ "35" ]
+    "id" : "86",
+    "superClasses" : [ "85" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#Metric",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -985,12 +1074,12 @@
       "IRI-based" : "Metric",
       "en" : "Metric"
     },
-    "subClasses" : [ "83", "84", "85" ],
+    "subClasses" : [ "92", "93", "94" ],
     "comment" : {
       "en" : "A quantitative or semi-quantitative indicator expressed in specific units or using a defined measurement approach."
     },
-    "id" : "37",
-    "superClasses" : [ "35" ]
+    "id" : "50",
+    "superClasses" : [ "42" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#IndustrialClassification",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1018,7 +1107,7 @@
         "prefLabel" : [ {
           "identifier" : "prefLabel",
           "language" : "en",
-          "value" : "Clasificación Industrial Internacional Uniforme",
+          "value" : "ClasificaciÃ³n Industrial Internacional Uniforme",
           "type" : "label"
         } ]
       },
@@ -1066,7 +1155,7 @@
         "prefLabel" : [ {
           "identifier" : "prefLabel",
           "language" : "en",
-          "value" : "Classificação Nacional de Atividades Econômicas",
+          "value" : "ClassificaÃ§Ã£o Nacional de Atividades EconÃ´micas",
           "type" : "label"
         } ]
       },
@@ -1096,10 +1185,10 @@
     "comment" : {
       "en" : "A standard system for classifying economic activities into sectors and subsectors (e.g., GICS, CNAE, CIIU, SASB/SICS). Different standards may not be mutually translatable without ambiguity."
     },
-    "id" : "51"
+    "id" : "58"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint",
-    "equivalent" : [ "83" ],
+    "equivalent" : [ "92" ],
     "baseIri" : "https://w3id.org/biodivrisK-onto",
     "instances" : 0,
     "annotations" : {
@@ -1118,8 +1207,8 @@
       "en" : "ESRS E4 datapoint requiring disclosure of land-use change in hectares attributable to the undertaking's own operations and value chain."
     },
     "attributes" : [ "equivalent" ],
-    "id" : "85",
-    "superClasses" : [ "37" ]
+    "id" : "94",
+    "superClasses" : [ "50" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1131,8 +1220,8 @@
     "comment" : {
       "en" : "TNFD single (enterprise-value) materiality: an issue is material if it poses financial risks or opportunities to the reporting organisation."
     },
-    "id" : "39",
-    "superClasses" : [ "28" ]
+    "id" : "30",
+    "superClasses" : [ "31" ]
   }, {
     "iri" : "https://schema.org/Organization",
     "baseIri" : "https://schema.org",
@@ -1140,9 +1229,9 @@
     "label" : {
       "IRI-based" : "Organization"
     },
-    "subClasses" : [ "14" ],
+    "subClasses" : [ "20" ],
     "attributes" : [ "external" ],
-    "id" : "49"
+    "id" : "56"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#PhysicalRisk",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1151,11 +1240,11 @@
       "IRI-based" : "PhysicalRisk",
       "en" : "Physical Risk"
     },
-    "subClasses" : [ "87" ],
+    "subClasses" : [ "74" ],
     "comment" : {
       "en" : "A nature-related physical risk arising from the degradation of ecosystems or natural capital, including water stress, ecosystem collapse, loss of pollination, erosion or flooding. Corresponds to TNFD and ESRS physical risk category."
     },
-    "id" : "76"
+    "id" : "75"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1167,8 +1256,8 @@
     "comment" : {
       "en" : "ESRS E4 disclosure of material impacts on biodiversity and material dependencies on ecosystem services, assessed under double materiality."
     },
-    "id" : "57",
-    "superClasses" : [ "35" ]
+    "id" : "41",
+    "superClasses" : [ "42" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#FinancialInstitution",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1184,7 +1273,7 @@
         "prefLabel" : [ {
           "identifier" : "prefLabel",
           "language" : "en",
-          "value" : "Banco Santander Perú S.A.",
+          "value" : "Banco Santander PerÃº S.A.",
           "type" : "label"
         } ],
         "url" : [ {
@@ -1199,21 +1288,6 @@
         "en" : "Santander Peru"
       }
     }, {
-      "iri" : "https://w3id.org/biodivrisK-onto#Caixa",
-      "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "annotations" : {
-        "url" : [ {
-          "identifier" : "url",
-          "language" : "undefined",
-          "value" : "https://www.caixa.gov.br",
-          "type" : "iri"
-        } ]
-      },
-      "labels" : {
-        "IRI-based" : "Caixa",
-        "en" : "Caixa Econômica Federal"
-      }
-    }, {
       "iri" : "https://w3id.org/biodivrisK-onto#ItauUnibanco",
       "baseIri" : "https://w3id.org/biodivrisK-onto",
       "annotations" : {
@@ -1226,7 +1300,22 @@
       },
       "labels" : {
         "IRI-based" : "ItauUnibanco",
-        "en" : "Itaú Unibanco"
+        "en" : "ItaÃº Unibanco"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#Caixa",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "url" : [ {
+          "identifier" : "url",
+          "language" : "undefined",
+          "value" : "https://www.caixa.gov.br",
+          "type" : "iri"
+        } ]
+      },
+      "labels" : {
+        "IRI-based" : "Caixa",
+        "en" : "Caixa EconÃ´mica Federal"
       }
     }, {
       "iri" : "https://w3id.org/biodivrisK-onto#SantanderBrasil",
@@ -1250,7 +1339,7 @@
         "prefLabel" : [ {
           "identifier" : "prefLabel",
           "language" : "en",
-          "value" : "Banco Nacional de Desenvolvimento Econômico e Social",
+          "value" : "Banco Nacional de Desenvolvimento EconÃ´mico e Social",
           "type" : "label"
         } ],
         "url" : [ {
@@ -1283,8 +1372,8 @@
     "comment" : {
       "en" : "A bank, investment fund, insurance company or other financial institution whose portfolio exposure to nature-related risks is assessed through biodiversity risk frameworks."
     },
-    "id" : "31",
-    "superClasses" : [ "32", "14" ]
+    "id" : "27",
+    "superClasses" : [ "28", "20" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#DataGap",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1293,14 +1382,14 @@
       "IRI-based" : "DataGap",
       "en" : "Data Gap"
     },
-    "subClasses" : [ "58", "47" ],
+    "subClasses" : [ "64", "55" ],
     "comment" : {
       "en" : "A systematic absence or insufficiency of biodiversity occurrence data limiting the reliability of framework-based risk assessments in a given geographic area, taxonomic group or ecosystem type."
     },
-    "id" : "48"
+    "id" : "7"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#Biome",
-    "equivalent" : [ "70" ],
+    "equivalent" : [ "77" ],
     "baseIri" : "https://w3id.org/biodivrisK-onto",
     "instances" : 0,
     "label" : {
@@ -1321,7 +1410,7 @@
       "iri" : "https://w3id.org/biodivrisK-onto#Cerrado",
       "baseIri" : "https://w3id.org/biodivrisK-onto",
       "comment" : {
-        "en" : "Brazilian tropical savanna — global biodiversity hotspot under severe agricultural pressure. 67.7% increase in deforestation in 2023. Under-sampled in GBIF for its specific endemic species."
+        "en" : "Brazilian tropical savanna â€” global biodiversity hotspot under severe agricultural pressure. 67.7% increase in deforestation in 2023. Under-sampled in GBIF for its specific endemic species."
       },
       "labels" : {
         "IRI-based" : "Cerrado",
@@ -1344,12 +1433,12 @@
         "altLabel" : [ {
           "identifier" : "altLabel",
           "language" : "pt",
-          "value" : "Mata Atlântica",
+          "value" : "Mata AtlÃ¢ntica",
           "type" : "label"
         } ]
       },
       "comment" : {
-        "en" : "Critical biodiversity hotspot — less than 29% of original cover remains. Among the most threatened biomes in the world. Relevant to CEBDS Brazil case."
+        "en" : "Critical biodiversity hotspot â€” less than 29% of original cover remains. Among the most threatened biomes in the world. Relevant to CEBDS Brazil case."
       },
       "labels" : {
         "IRI-based" : "AtlanticForest",
@@ -1360,7 +1449,7 @@
       "en" : "A major ecological zone characterized by distinctive climate, vegetation and biodiversity. Reuses ENVO biome concept (ENVO:00000428). In LAC, biomes are megadiverse and systematically under-sampled in GBIF/OBIS."
     },
     "attributes" : [ "equivalent" ],
-    "id" : "72"
+    "id" : "8"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#FrameworkConcept",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1369,11 +1458,11 @@
       "IRI-based" : "FrameworkConcept",
       "en" : "Framework Concept"
     },
-    "subClasses" : [ "61", "23", "20", "19", "55", "53", "57", "37", "34" ],
+    "subClasses" : [ "69", "54", "5", "4", "63", "44", "41", "50", "46" ],
     "comment" : {
       "en" : "A concept, disclosure requirement, indicator or metric defined within a disclosure framework. Subclasses represent specific concepts; individuals of this class are not intended."
     },
-    "id" : "35"
+    "id" : "42"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#MaterialityBoundary",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1382,11 +1471,37 @@
       "IRI-based" : "MaterialityBoundary",
       "en" : "Materiality Boundary"
     },
-    "subClasses" : [ "43", "39", "27" ],
+    "subClasses" : [ "36", "30", "39" ],
     "comment" : {
       "en" : "The scope and criteria used by a framework to determine which impacts and financial effects are material and must be disclosed."
     },
-    "id" : "28"
+    "id" : "31"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#TNFDImpactDependency",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other.",
+        "type" : "label"
+      }, {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "Close match (not equivalence): both classes identify organisational impacts on and dependencies upon nature using the ENCORE framework logic, but their materiality boundaries differ. TNFD applies enterprise-value materiality (financial impact on the organisation); ESRS E4 applies double materiality (financial impact AND impact on biodiversity, regardless of financial consequence). owl:equivalentClass was rejected because it would collapse the materiality distinction that bro:incommensurableWith between TNFDEnterpriseMateriality and ESRSDoubleMateriality is designed to preserve.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "TNFDImpactDependency",
+      "en" : "TNFD Impacts and Dependencies on Nature"
+    },
+    "comment" : {
+      "en" : "Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services."
+    },
+    "id" : "46",
+    "superClasses" : [ "42" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1398,16 +1513,16 @@
         "value" : "MSA is a composite quantitative index measuring biodiversity intactness as a ratio. GRI 101 management approach is a qualitative policy disclosure with no implied biodiversity-state outcome. Different epistemic levels: state measurement vs organisational intent.",
         "type" : "label"
       } ],
-      "unit" : [ {
-        "identifier" : "unit",
-        "language" : "en",
-        "value" : "dimensionless ratio (0–1)",
-        "type" : "label"
-      } ],
       "hasBridgingCondition" : [ {
         "identifier" : "hasBridgingCondition",
         "language" : "en",
         "value" : "No direct conversion exists. A lossy approximation requires deriving a proxy MSA from operational footprint data AND documenting that the GRI management approach implies no specific biodiversity-state outcome. Not recommended for regulatory compliance.",
+        "type" : "label"
+      } ],
+      "unit" : [ {
+        "identifier" : "unit",
+        "language" : "en",
+        "value" : "dimensionless ratio (0â€“1)",
         "type" : "label"
       } ]
     },
@@ -1418,40 +1533,8 @@
     "comment" : {
       "en" : "State-of-nature metric measuring biodiversity intactness as the average abundance of originally present species relative to their abundance in undisturbed ecosystems (GLOBIO model)."
     },
-    "id" : "84",
-    "superClasses" : [ "37" ]
-  }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#TNFDImpactDependency",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "instances" : 0,
-    "annotations" : {
-      "note" : [ {
-        "identifier" : "note",
-        "language" : "en",
-        "value" : "Close match (not equivalence): both classes identify organisational impacts on and dependencies upon nature using the ENCORE framework logic, but their materiality boundaries differ. TNFD applies enterprise-value materiality (financial impact on the organisation); ESRS E4 applies double materiality (financial impact AND impact on biodiversity, regardless of financial consequence). owl:equivalentClass was rejected because it would collapse the materiality distinction that bro:incommensurableWith between TNFDEnterpriseMateriality and ESRSDoubleMateriality is designed to preserve.",
-        "type" : "label"
-      }, {
-        "identifier" : "note",
-        "language" : "en",
-        "value" : "TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other.",
-        "type" : "label"
-      } ],
-      "closeMatch" : [ {
-        "identifier" : "closeMatch",
-        "language" : "undefined",
-        "value" : "https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency",
-        "type" : "iri"
-      } ]
-    },
-    "label" : {
-      "IRI-based" : "TNFDImpactDependency",
-      "en" : "TNFD Impacts and Dependencies on Nature"
-    },
-    "comment" : {
-      "en" : "Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services."
-    },
-    "id" : "34",
-    "superClasses" : [ "35" ]
+    "id" : "93",
+    "superClasses" : [ "50" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#Portfolio",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1463,7 +1546,7 @@
     "comment" : {
       "en" : "A credit or investment portfolio of a financial institution, composed of assets across multiple economic sectors and geographic locations."
     },
-    "id" : "90"
+    "id" : "98"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#PriorityLocation",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1475,8 +1558,8 @@
     "comment" : {
       "en" : "A geographic location identified as high-priority for biodiversity assessment under TNFD LEAP L4, based on five sensitive location criteria: (1) important for biodiversity; (2) high ecosystem integrity; (3) rapid ecosystem decline; (4) high physical water risk; (5) important for ecosystem services provision."
     },
-    "id" : "55",
-    "superClasses" : [ "35" ]
+    "id" : "63",
+    "superClasses" : [ "42" ]
   }, {
     "iri" : "https://schema.org/Country",
     "baseIri" : "https://schema.org",
@@ -1484,9 +1567,9 @@
     "label" : {
       "IRI-based" : "Country"
     },
-    "subClasses" : [ "9" ],
+    "subClasses" : [ "16" ],
     "attributes" : [ "external" ],
-    "id" : "11"
+    "id" : "18"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#GRIImpactMateriality",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1498,8 +1581,8 @@
     "comment" : {
       "en" : "GRI impact-only materiality: issues are material based on significance of actual or potential impacts on people and environment, regardless of financial consequences."
     },
-    "id" : "27",
-    "superClasses" : [ "28" ]
+    "id" : "39",
+    "superClasses" : [ "31" ]
   }, {
     "iri" : "https://schema.org/Person",
     "baseIri" : "https://schema.org",
@@ -1508,17 +1591,31 @@
       "IRI-based" : "Person"
     },
     "attributes" : [ "external" ],
-    "id" : "98"
+    "id" : "105"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#positiveInteger",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "14",
+    "label" : {
+      "IRI-based" : "positiveInteger"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2002/07/owl#Thing",
+    "baseIri" : "http://owl2vowl.de",
+    "id" : "34",
+    "label" : {
+      "undefined" : "Thing"
+    }
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric",
-    "equivalent" : [ "85" ],
+    "equivalent" : [ "94" ],
     "baseIri" : "https://w3id.org/biodivrisK-onto",
     "instances" : 0,
     "annotations" : {
       "note" : [ {
         "identifier" : "note",
         "language" : "en",
-        "value" : "Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a 'difference in granularity' between these datapoints, not a semantic difference — confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes.",
+        "value" : "Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a 'difference in granularity' between these datapoints, not a semantic difference â€” confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes.",
         "type" : "label"
       } ],
       "unit" : [ {
@@ -1536,8 +1633,8 @@
       "en" : "TNFD core cross-sector metric measuring the extent (ha) of land, freshwater or ocean-use change."
     },
     "attributes" : [ "equivalent" ],
-    "id" : "83",
-    "superClasses" : [ "37" ]
+    "id" : "92",
+    "superClasses" : [ "50" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#BiodiversityDataSource",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1547,24 +1644,6 @@
       "en" : "Biodiversity Data Source"
     },
     "individuals" : [ {
-      "iri" : "https://w3id.org/biodivrisK-onto#OBISData",
-      "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "annotations" : {
-        "url" : [ {
-          "identifier" : "url",
-          "language" : "undefined",
-          "value" : "https://obis.org",
-          "type" : "iri"
-        } ]
-      },
-      "comment" : {
-        "en" : "Ocean Biodiversity Information System — primary open source for marine species occurrence records. Under-representation of Caribbean marine ecosystems."
-      },
-      "labels" : {
-        "IRI-based" : "OBISData",
-        "en" : "OBIS Marine Data"
-      }
-    }, {
       "iri" : "https://w3id.org/biodivrisK-onto#GBIFData",
       "baseIri" : "https://w3id.org/biodivrisK-onto",
       "annotations" : {
@@ -1576,11 +1655,29 @@
         } ]
       },
       "comment" : {
-        "en" : "Global Biodiversity Information Facility — primary open source for terrestrial and freshwater species occurrence records. Exhibits geographic sampling bias in LAC: under-representation of Andes, Amazonia and Cerrado."
+        "en" : "Global Biodiversity Information Facility â€” primary open source for terrestrial and freshwater species occurrence records. Exhibits geographic sampling bias in LAC: under-representation of Andes, Amazonia and Cerrado."
       },
       "labels" : {
         "IRI-based" : "GBIFData",
         "en" : "GBIF Occurrence Data"
+      }
+    }, {
+      "iri" : "https://w3id.org/biodivrisK-onto#OBISData",
+      "baseIri" : "https://w3id.org/biodivrisK-onto",
+      "annotations" : {
+        "url" : [ {
+          "identifier" : "url",
+          "language" : "undefined",
+          "value" : "https://obis.org",
+          "type" : "iri"
+        } ]
+      },
+      "comment" : {
+        "en" : "Ocean Biodiversity Information System â€” primary open source for marine species occurrence records. Under-representation of Caribbean marine ecosystems."
+      },
+      "labels" : {
+        "IRI-based" : "OBISData",
+        "en" : "OBIS Marine Data"
       }
     }, {
       "iri" : "https://w3id.org/biodivrisK-onto#ENCOREData",
@@ -1594,7 +1691,7 @@
         } ]
       },
       "comment" : {
-        "en" : "Exploring Natural Capital Opportunities, Risks and Exposure — sector-level tool for screening nature-related impacts and dependencies. Uses a quantitative scale (3-9). Used in L2 by both Santander Peru and CEBDS Brazil."
+        "en" : "Exploring Natural Capital Opportunities, Risks and Exposure â€” sector-level tool for screening nature-related impacts and dependencies. Uses a quantitative scale (3-9). Used in L2 by both Santander Peru and CEBDS Brazil."
       },
       "labels" : {
         "IRI-based" : "ENCOREData",
@@ -1612,7 +1709,7 @@
         } ]
       },
       "comment" : {
-        "en" : "World Resources Institute water risk atlas — used in LEAP L4 to identify high physical water stress zones. Used by both case study institutions."
+        "en" : "World Resources Institute water risk atlas â€” used in LEAP L4 to identify high physical water stress zones. Used by both case study institutions."
       },
       "labels" : {
         "IRI-based" : "WRIAqueductData",
@@ -1640,8 +1737,8 @@
     "comment" : {
       "en" : "An open or proprietary data source used to obtain species occurrence, ecosystem integrity or water risk data during a LEAP assessment (e.g., GBIF, OBIS, ENCORE, Global Forest Watch, WRI Aqueduct, IBAT)."
     },
-    "id" : "17",
-    "superClasses" : [ "16" ]
+    "id" : "23",
+    "superClasses" : [ "22" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#WaterStressRisk",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1664,11 +1761,10 @@
     "comment" : {
       "en" : "Physical risk arising from insufficient availability or quality of freshwater resources, particularly relevant for mining and agricultural sectors in the Andes. Identified as material dependency in the Santander Peru LEAP assessment (L2)."
     },
-    "id" : "87",
-    "superClasses" : [ "76" ]
+    "id" : "74",
+    "superClasses" : [ "75" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea",
-    "equivalent" : [ "23" ],
     "baseIri" : "https://w3id.org/biodivrisK-onto",
     "instances" : 0,
     "annotations" : {
@@ -1688,12 +1784,12 @@
       "IRI-based" : "ESRSBiodiversitySensitiveArea",
       "en" : "ESRS E4 Biodiversity-sensitive Area"
     },
+    "subClasses" : [ "54" ],
     "comment" : {
-      "en" : "Areas designated for biodiversity protection under ESRS E4, including Natura 2000 sites, UNESCO World Heritage, KBAs, and IUCN Category I–IV protected areas."
+      "en" : "Areas designated for biodiversity protection under ESRS E4, including Natura 2000 sites, UNESCO World Heritage, KBAs, and IUCN Category Iâ€“IV protected areas."
     },
-    "attributes" : [ "equivalent" ],
-    "id" : "19",
-    "superClasses" : [ "20", "35" ]
+    "id" : "4",
+    "superClasses" : [ "5", "42" ]
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -1703,16 +1799,6 @@
       "en" : "Quantitative Materiality Scale"
     },
     "individuals" : [ {
-      "iri" : "https://w3id.org/biodivrisK-onto#ENCOREScale",
-      "baseIri" : "https://w3id.org/biodivrisK-onto",
-      "comment" : {
-        "en" : "ENCORE numerical scale where 3=very low, 4.5=low, 6=medium, 7.5=high, 9=very high dependency/impact. Used in CEBDS Brazil pilot to produce heatmap weighted by loan volume and client count."
-      },
-      "labels" : {
-        "IRI-based" : "ENCOREScale",
-        "en" : "ENCORE Scale 3-9"
-      }
-    }, {
       "iri" : "https://w3id.org/biodivrisK-onto#ENCOREMateriality",
       "baseIri" : "https://w3id.org/biodivrisK-onto",
       "annotations" : {
@@ -1740,27 +1826,24 @@
     "comment" : {
       "en" : "A numerical scale used to score materiality of nature-related impacts and dependencies (e.g., ENCORE scale 3-9: very low=3, low=4.5, medium=6, high=7.5, very high=9)."
     },
-    "id" : "5",
-    "superClasses" : [ "4" ]
+    "id" : "87",
+    "superClasses" : [ "85" ]
   } ],
   "property" : [ {
     "id" : "1",
     "type" : "owl:objectProperty"
   }, {
     "id" : "3",
-    "type" : "owl:objectProperty"
-  }, {
-    "id" : "13",
-    "type" : "owl:objectProperty"
-  }, {
-    "id" : "18",
     "type" : "rdfs:SubClassOf"
   }, {
-    "id" : "21",
+    "id" : "6",
     "type" : "owl:objectProperty"
   }, {
-    "id" : "22",
-    "type" : "rdfs:SubClassOf"
+    "id" : "12",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "19",
+    "type" : "owl:objectProperty"
   }, {
     "id" : "24",
     "type" : "rdfs:SubClassOf"
@@ -1774,53 +1857,53 @@
     "id" : "29",
     "type" : "rdfs:SubClassOf"
   }, {
-    "id" : "30",
-    "type" : "rdfs:SubClassOf"
+    "id" : "32",
+    "type" : "owl:objectProperty"
   }, {
     "id" : "33",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "35",
     "type" : "rdfs:SubClassOf"
   }, {
-    "id" : "36",
+    "id" : "37",
     "type" : "rdfs:SubClassOf"
   }, {
     "id" : "38",
     "type" : "rdfs:SubClassOf"
   }, {
     "id" : "40",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "43",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "45",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "47",
     "type" : "owl:objectProperty"
   }, {
-    "id" : "42",
+    "id" : "49",
     "type" : "rdfs:SubClassOf"
   }, {
-    "id" : "44",
+    "id" : "51",
     "type" : "owl:objectProperty"
   }, {
-    "id" : "50",
+    "id" : "57",
     "type" : "owl:objectProperty"
-  }, {
-    "id" : "52",
-    "type" : "rdfs:SubClassOf"
-  }, {
-    "id" : "54",
-    "type" : "rdfs:SubClassOf"
-  }, {
-    "id" : "56",
-    "type" : "rdfs:SubClassOf"
   }, {
     "id" : "59",
-    "type" : "rdfs:SubClassOf"
+    "type" : "owl:objectProperty"
   }, {
     "id" : "60",
     "type" : "rdfs:SubClassOf"
   }, {
+    "id" : "61",
+    "type" : "rdfs:SubClassOf"
+  }, {
     "id" : "62",
     "type" : "rdfs:SubClassOf"
-  }, {
-    "id" : "63",
-    "type" : "rdfs:SubClassOf"
-  }, {
-    "id" : "64",
-    "type" : "owl:objectProperty"
   }, {
     "id" : "65",
     "type" : "rdfs:SubClassOf"
@@ -1832,24 +1915,24 @@
     "type" : "rdfs:SubClassOf"
   }, {
     "id" : "68",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "70",
     "type" : "owl:objectProperty"
   }, {
     "id" : "71",
-    "type" : "owl:objectProperty"
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "72",
+    "type" : "rdfs:SubClassOf"
   }, {
     "id" : "73",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "76",
     "type" : "owl:objectProperty"
   }, {
-    "id" : "74",
-    "type" : "owl:objectProperty"
-  }, {
-    "id" : "69",
-    "type" : "owl:objectProperty"
-  }, {
-    "id" : "75",
-    "type" : "owl:objectProperty"
-  }, {
-    "id" : "79",
+    "id" : "78",
     "type" : "owl:objectProperty"
   }, {
     "id" : "80",
@@ -1858,11 +1941,14 @@
     "id" : "81",
     "type" : "owl:objectProperty"
   }, {
+    "id" : "79",
+    "type" : "owl:objectProperty"
+  }, {
     "id" : "82",
     "type" : "owl:objectProperty"
   }, {
-    "id" : "86",
-    "type" : "owl:objectProperty"
+    "id" : "83",
+    "type" : "rdfs:SubClassOf"
   }, {
     "id" : "88",
     "type" : "owl:objectProperty"
@@ -1870,26 +1956,20 @@
     "id" : "89",
     "type" : "owl:objectProperty"
   }, {
+    "id" : "90",
+    "type" : "owl:objectProperty"
+  }, {
     "id" : "91",
     "type" : "owl:objectProperty"
   }, {
-    "id" : "92",
-    "type" : "rdfs:SubClassOf"
-  }, {
-    "id" : "93",
-    "type" : "rdfs:SubClassOf"
-  }, {
-    "id" : "94",
-    "type" : "rdfs:SubClassOf"
-  }, {
     "id" : "95",
-    "type" : "rdfs:SubClassOf"
+    "type" : "owl:objectProperty"
   }, {
     "id" : "96",
-    "type" : "rdfs:SubClassOf"
+    "type" : "owl:objectProperty"
   }, {
     "id" : "97",
-    "type" : "rdfs:SubClassOf"
+    "type" : "owl:objectProperty"
   }, {
     "id" : "99",
     "type" : "rdfs:SubClassOf"
@@ -1901,15 +1981,33 @@
     "type" : "rdfs:SubClassOf"
   }, {
     "id" : "102",
-    "type" : "owl:objectProperty"
+    "type" : "rdfs:SubClassOf"
   }, {
     "id" : "103",
     "type" : "rdfs:SubClassOf"
   }, {
     "id" : "104",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "106",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "107",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "108",
     "type" : "owl:objectProperty"
   }, {
-    "id" : "105",
+    "id" : "109",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "110",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "111",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "112",
     "type" : "owl:objectProperty"
   } ],
   "propertyAttribute" : [ {
@@ -1927,356 +2025,409 @@
     "attributes" : [ "object" ],
     "id" : "1"
   }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#hasScale",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
     "range" : "5",
-    "label" : {
-      "IRI-based" : "hasScale",
-      "en" : "has scale"
-    },
     "domain" : "4",
-    "attributes" : [ "object" ],
+    "attributes" : [ "anonymous", "object" ],
     "id" : "3"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#affectsBiome",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "8",
+    "label" : {
+      "IRI-based" : "affectsBiome",
+      "en" : "affects biome"
+    },
+    "domain" : "7",
+    "comment" : {
+      "en" : "Relates a biodiversity data gap to a biome whose assessment is affected by that gap."
+    },
+    "attributes" : [ "object" ],
+    "id" : "6"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#priorityRank",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "14",
+    "label" : {
+      "IRI-based" : "priorityRank",
+      "en" : "priority rank"
+    },
+    "domain" : "13",
+    "comment" : {
+      "en" : "The one-based ordinal position of a sector within a materiality result."
+    },
+    "attributes" : [ "datatype" ],
+    "id" : "12"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#appliesFramework",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "15",
+    "range" : "21",
     "label" : {
       "IRI-based" : "appliesFramework",
       "en" : "applies framework"
     },
-    "domain" : "14",
+    "domain" : "20",
     "comment" : {
       "en" : "Relates an organization to a disclosure framework it applies or is subject to."
     },
     "attributes" : [ "object" ],
-    "id" : "13"
+    "id" : "19"
   }, {
-    "range" : "20",
-    "domain" : "19",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "18"
+    "range" : "18",
+    "domain" : "16",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "24"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#assessedUnder",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "15",
+    "range" : "21",
     "label" : {
       "IRI-based" : "assessedUnder",
       "en" : "assessed under"
     },
-    "domain" : "12",
+    "domain" : "15",
     "comment" : {
       "en" : "Relates a sector or portfolio to the disclosure framework under which it was assessed for materiality."
     },
-    "attributes" : [ "object" ],
-    "id" : "21"
-  }, {
-    "range" : "20",
-    "domain" : "23",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "22"
-  }, {
-    "range" : "10",
-    "domain" : "9",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "24"
-  }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#requiresDataFrom",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "17",
-    "label" : {
-      "IRI-based" : "requiresDataFrom",
-      "en" : "requires data from"
-    },
-    "domain" : "7",
     "attributes" : [ "object" ],
     "id" : "25"
   }, {
     "range" : "28",
     "domain" : "27",
-    "attributes" : [ "object", "anonymous" ],
+    "attributes" : [ "anonymous", "object" ],
     "id" : "26"
   }, {
-    "range" : "11",
-    "domain" : "9",
-    "attributes" : [ "object", "anonymous" ],
+    "range" : "31",
+    "domain" : "30",
+    "attributes" : [ "anonymous", "object" ],
     "id" : "29"
   }, {
-    "range" : "32",
-    "domain" : "31",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "30"
+    "iri" : "https://w3id.org/biodivrisK-onto#requiresDataFrom",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "23",
+    "label" : {
+      "IRI-based" : "requiresDataFrom",
+      "en" : "requires data from"
+    },
+    "domain" : "10",
+    "attributes" : [ "object" ],
+    "id" : "32"
   }, {
-    "range" : "35",
+    "iri" : "http://www.w3.org/ns/prov#wasAssociatedWith",
+    "baseIri" : "http://www.w3.org/ns/prov",
+    "range" : "34",
+    "label" : {
+      "IRI-based" : "wasAssociatedWith"
+    },
     "domain" : "34",
-    "attributes" : [ "object", "anonymous" ],
+    "attributes" : [ "external", "object" ],
     "id" : "33"
   }, {
-    "range" : "35",
-    "domain" : "37",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "36"
+    "range" : "31",
+    "domain" : "36",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "35"
   }, {
-    "range" : "28",
+    "range" : "17",
+    "domain" : "16",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "37"
+  }, {
+    "range" : "31",
     "domain" : "39",
-    "attributes" : [ "object", "anonymous" ],
+    "attributes" : [ "anonymous", "object" ],
     "id" : "38"
+  }, {
+    "range" : "42",
+    "domain" : "41",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "40"
+  }, {
+    "range" : "42",
+    "domain" : "44",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "43"
+  }, {
+    "range" : "42",
+    "domain" : "46",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "45"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#hasEvaluationResult",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "41",
+    "range" : "48",
     "label" : {
       "IRI-based" : "hasEvaluationResult",
       "en" : "has evaluation result"
     },
-    "domain" : "7",
+    "domain" : "10",
     "attributes" : [ "object" ],
-    "id" : "40"
+    "id" : "47"
   }, {
-    "range" : "28",
-    "domain" : "43",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "42"
+    "range" : "42",
+    "domain" : "50",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "49"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#coversRequirement",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "46",
+    "range" : "53",
     "label" : {
       "IRI-based" : "coversRequirement",
       "en" : "covers requirement"
     },
-    "domain" : "45",
+    "domain" : "52",
     "comment" : {
       "en" : "Relates an internal policy to the disclosure requirements of external frameworks that it partially or fully covers."
     },
     "attributes" : [ "object" ],
-    "id" : "44"
+    "id" : "51"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#hasSectorClassification",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "51",
+    "range" : "58",
     "label" : {
       "IRI-based" : "hasSectorClassification",
       "en" : "has sector classification"
     },
-    "domain" : "12",
+    "domain" : "15",
     "attributes" : [ "object" ],
-    "id" : "50"
+    "id" : "57"
   }, {
-    "range" : "35",
-    "domain" : "53",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "52"
-  }, {
-    "range" : "35",
-    "domain" : "55",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "54"
-  }, {
-    "range" : "35",
-    "domain" : "57",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "56"
-  }, {
-    "range" : "35",
-    "domain" : "23",
-    "attributes" : [ "object", "anonymous" ],
+    "iri" : "https://w3id.org/biodivrisK-onto#hasSectorPriority",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "13",
+    "label" : {
+      "IRI-based" : "hasSectorPriority",
+      "en" : "has sector priority"
+    },
+    "domain" : "48",
+    "comment" : {
+      "en" : "Relates a materiality result to an ordered sector-priority entry."
+    },
+    "attributes" : [ "object" ],
     "id" : "59"
   }, {
-    "range" : "35",
-    "domain" : "61",
-    "attributes" : [ "object", "anonymous" ],
+    "range" : "42",
+    "domain" : "4",
+    "attributes" : [ "anonymous", "object" ],
     "id" : "60"
   }, {
-    "range" : "35",
-    "domain" : "19",
-    "attributes" : [ "object", "anonymous" ],
+    "range" : "42",
+    "domain" : "5",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "61"
+  }, {
+    "range" : "42",
+    "domain" : "63",
+    "attributes" : [ "anonymous", "object" ],
     "id" : "62"
   }, {
-    "range" : "35",
-    "domain" : "20",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "63"
+    "range" : "7",
+    "domain" : "55",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "65"
+  }, {
+    "range" : "7",
+    "domain" : "64",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "66"
+  }, {
+    "range" : "42",
+    "domain" : "54",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "67"
+  }, {
+    "range" : "42",
+    "domain" : "69",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "68"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#prioritisesSector",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "12",
+    "range" : "15",
     "label" : {
       "IRI-based" : "prioritisesSector",
       "en" : "prioritises sector"
     },
-    "domain" : "41",
+    "domain" : "48",
     "attributes" : [ "object" ],
-    "id" : "64"
+    "id" : "70"
   }, {
-    "range" : "14",
-    "domain" : "31",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "65"
+    "range" : "56",
+    "domain" : "20",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "71"
   }, {
-    "range" : "48",
-    "domain" : "47",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "66"
+    "range" : "20",
+    "domain" : "27",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "72"
   }, {
-    "range" : "48",
-    "domain" : "58",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "67"
+    "range" : "75",
+    "domain" : "74",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "73"
+  }, {
+    "iri" : "http://www.w3.org/2004/02/skos/core#closeMatch",
+    "baseIri" : "http://www.w3.org/2004/02/skos/core",
+    "range" : "34",
+    "label" : {
+      "IRI-based" : "closeMatch"
+    },
+    "domain" : "34",
+    "attributes" : [ "external", "symmetric", "object" ],
+    "id" : "76"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#requiresInputFrom",
-    "inverse" : "69",
+    "inverse" : "79",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "7",
+    "range" : "10",
     "label" : {
       "IRI-based" : "requiresInputFrom",
       "en" : "requires input from"
     },
-    "domain" : "53",
+    "domain" : "44",
     "comment" : {
       "en" : "A directed property: SBTN AR3T target setting requires location and materiality data produced by a TNFD LEAP assessment."
     },
     "attributes" : [ "object" ],
-    "id" : "68"
+    "id" : "78"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#operatesInBiome",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "72",
+    "range" : "8",
     "label" : {
       "IRI-based" : "operatesInBiome",
       "en" : "operates in biome"
     },
-    "domain" : "14",
+    "domain" : "20",
     "attributes" : [ "object" ],
-    "id" : "71"
+    "id" : "80"
   }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#hasDataSufficiency",
+    "iri" : "https://w3id.org/biodivrisK-onto#sourceConcept",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "72",
+    "range" : "2",
     "label" : {
-      "IRI-based" : "hasDataSufficiency",
-      "en" : "has data sufficiency"
+      "IRI-based" : "sourceConcept",
+      "en" : "source concept"
     },
-    "domain" : "8",
-    "attributes" : [ "object" ],
-    "id" : "73"
-  }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#hasMaterialityApproach",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "4",
-    "label" : {
-      "IRI-based" : "hasMaterialityApproach",
-      "en" : "has materiality approach"
+    "domain" : "0",
+    "comment" : {
+      "en" : "Identifies the source concept in a directed lossy conversion."
     },
-    "domain" : "15",
     "attributes" : [ "object" ],
-    "id" : "74"
+    "id" : "81"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#informsTargetSetting",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "53",
+    "range" : "44",
     "label" : {
       "IRI-based" : "informsTargetSetting",
       "en" : "informs target setting"
     },
-    "domain" : "7",
+    "domain" : "10",
     "comment" : {
       "en" : "A directed property: the output of a LEAP assessment informs the science-based target-setting process of SBTN AR3T."
     },
     "attributes" : [ "object" ],
-    "id" : "69"
+    "id" : "79"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#affectsRiskAssessment",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "76",
+    "range" : "31",
     "label" : {
       "IRI-based" : "affectsRiskAssessment",
       "en" : "affects risk assessment"
     },
-    "domain" : "28",
+    "domain" : "75",
     "comment" : {
-      "en" : "Relates a materiality boundary gap to the type of physical risk whose assessment is affected."
-    },
-    "attributes" : [ "object" ],
-    "id" : "75"
-  }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#usesClassification",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "51",
-    "label" : {
-      "IRI-based" : "usesClassification",
-      "en" : "uses classification"
-    },
-    "domain" : "14",
-    "attributes" : [ "object" ],
-    "id" : "79"
-  }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#affectsFramework",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "15",
-    "label" : {
-      "IRI-based" : "affectsFramework",
-      "en" : "affects framework"
-    },
-    "domain" : "48",
-    "comment" : {
-      "en" : "Relates a data gap to the framework(s) whose assessments are affected."
-    },
-    "attributes" : [ "object" ],
-    "id" : "80"
-  }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#hasAmbiguity",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "77",
-    "label" : {
-      "IRI-based" : "hasAmbiguity",
-      "en" : "has ambiguity"
-    },
-    "domain" : "51",
-    "attributes" : [ "object" ],
-    "id" : "81"
-  }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#hasPortfolioSector",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "12",
-    "label" : {
-      "IRI-based" : "hasPortfolioSector",
-      "en" : "has portfolio sector"
-    },
-    "domain" : "31",
-    "comment" : {
-      "en" : "Relates a financial institution to an economic sector represented in its credit or investment portfolio."
+      "en" : "Relates a physical risk to the materiality boundary under which that risk is assessed."
     },
     "attributes" : [ "object" ],
     "id" : "82"
   }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#definedBy",
+    "range" : "4",
+    "domain" : "54",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "83"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#usesClassification",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "58",
+    "label" : {
+      "IRI-based" : "usesClassification",
+      "en" : "uses classification"
+    },
+    "domain" : "20",
+    "attributes" : [ "object" ],
+    "id" : "88"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#affectsFramework",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "21",
+    "label" : {
+      "IRI-based" : "affectsFramework",
+      "en" : "affects framework"
+    },
+    "domain" : "7",
+    "comment" : {
+      "en" : "Relates a data gap to the framework(s) whose assessments are affected."
+    },
+    "attributes" : [ "object" ],
+    "id" : "89"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#hasAmbiguity",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "84",
+    "label" : {
+      "IRI-based" : "hasAmbiguity",
+      "en" : "has ambiguity"
+    },
+    "domain" : "58",
+    "attributes" : [ "object" ],
+    "id" : "90"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#hasPortfolioSector",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
     "range" : "15",
+    "label" : {
+      "IRI-based" : "hasPortfolioSector",
+      "en" : "has portfolio sector"
+    },
+    "domain" : "27",
+    "comment" : {
+      "en" : "Relates a financial institution to an economic sector represented in its credit or investment portfolio."
+    },
+    "attributes" : [ "object" ],
+    "id" : "91"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#definedBy",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "21",
     "label" : {
       "IRI-based" : "definedBy",
       "en" : "defined by"
     },
-    "domain" : "35",
+    "domain" : "42",
     "comment" : {
       "en" : "Relates a framework concept class to the framework that defines it."
     },
     "attributes" : [ "object" ],
-    "id" : "86"
+    "id" : "95"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#coveredByFramework",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "15",
+    "range" : "21",
     "label" : {
       "IRI-based" : "coveredByFramework",
       "en" : "covered by framework"
     },
-    "domain" : "35",
+    "domain" : "42",
     "comment" : {
       "en" : "Relates a framework concept to the frameworks that include or address it."
     },
     "attributes" : [ "object" ],
-    "id" : "88"
+    "id" : "96"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#incommensurableWith",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -2289,83 +2440,59 @@
     "comment" : {
       "en" : "Two framework concept classes for which no truth-preserving mapping exists due to different measurement units, materiality boundaries or epistemic commitments. Every assertion MUST carry bro:hasBridgingCondition. Symmetric."
     },
-    "attributes" : [ "object", "symmetric" ],
-    "id" : "89"
-  }, {
-    "iri" : "https://w3id.org/biodivrisK-onto#hasDataGapIn",
-    "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "72",
-    "label" : {
-      "IRI-based" : "hasDataGapIn",
-      "en" : "has data gap in"
-    },
-    "domain" : "15",
-    "comment" : {
-      "en" : "Relates a disclosure framework to a biome where its data requirements cannot be met due to GBIF/OBIS sampling bias."
-    },
-    "attributes" : [ "object" ],
-    "id" : "91"
-  }, {
-    "range" : "4",
-    "domain" : "78",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "92"
-  }, {
-    "range" : "4",
-    "domain" : "5",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "93"
-  }, {
-    "range" : "16",
-    "domain" : "17",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "94"
-  }, {
-    "range" : "37",
-    "domain" : "83",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "95"
-  }, {
-    "range" : "37",
-    "domain" : "84",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "96"
-  }, {
-    "range" : "37",
-    "domain" : "85",
-    "attributes" : [ "object", "anonymous" ],
+    "attributes" : [ "symmetric", "object" ],
     "id" : "97"
   }, {
-    "range" : "49",
-    "domain" : "14",
-    "attributes" : [ "object", "anonymous" ],
+    "range" : "9",
+    "domain" : "10",
+    "attributes" : [ "anonymous", "object" ],
     "id" : "99"
   }, {
-    "range" : "76",
-    "domain" : "87",
-    "attributes" : [ "object", "anonymous" ],
+    "range" : "9",
+    "domain" : "11",
+    "attributes" : [ "anonymous", "object" ],
     "id" : "100"
   }, {
-    "range" : "6",
-    "domain" : "7",
-    "attributes" : [ "object", "anonymous" ],
+    "range" : "85",
+    "domain" : "86",
+    "attributes" : [ "anonymous", "object" ],
     "id" : "101"
+  }, {
+    "range" : "85",
+    "domain" : "87",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "102"
+  }, {
+    "range" : "22",
+    "domain" : "23",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "103"
+  }, {
+    "range" : "50",
+    "domain" : "92",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "104"
+  }, {
+    "range" : "50",
+    "domain" : "93",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "106"
+  }, {
+    "range" : "50",
+    "domain" : "94",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "107"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#operatesInCountry",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "9",
+    "range" : "16",
     "label" : {
       "IRI-based" : "operatesInCountry",
       "en" : "operates in country"
     },
-    "domain" : "14",
+    "domain" : "20",
     "attributes" : [ "object" ],
-    "id" : "102"
-  }, {
-    "range" : "6",
-    "domain" : "8",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "103"
+    "id" : "108"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#complements",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
@@ -2378,21 +2505,49 @@
     "comment" : {
       "en" : "Two framework concept classes that address distinct, jointly-required facets of one assessment. Licenses composition of evidence, not substitution. Symmetric."
     },
-    "attributes" : [ "object", "symmetric" ],
-    "id" : "104"
+    "attributes" : [ "symmetric", "object" ],
+    "id" : "109"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#prioritySector",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "15",
+    "label" : {
+      "IRI-based" : "prioritySector",
+      "en" : "priority sector"
+    },
+    "domain" : "13",
+    "comment" : {
+      "en" : "Identifies the economic sector represented by an ordered sector-priority entry."
+    },
+    "attributes" : [ "object" ],
+    "id" : "110"
+  }, {
+    "iri" : "https://w3id.org/biodivrisK-onto#targetConcept",
+    "baseIri" : "https://w3id.org/biodivrisK-onto",
+    "range" : "2",
+    "label" : {
+      "IRI-based" : "targetConcept",
+      "en" : "target concept"
+    },
+    "domain" : "0",
+    "comment" : {
+      "en" : "Identifies the target concept in a directed lossy conversion."
+    },
+    "attributes" : [ "object" ],
+    "id" : "111"
   }, {
     "iri" : "https://w3id.org/biodivrisK-onto#mappableTo",
     "baseIri" : "https://w3id.org/biodivrisK-onto",
-    "range" : "51",
+    "range" : "58",
     "label" : {
       "IRI-based" : "mappableTo",
       "en" : "mappable to"
     },
-    "domain" : "51",
+    "domain" : "58",
     "comment" : {
       "en" : "A lossy correspondence between two industrial classification standards requiring manual effort and producing semantic ambiguity."
     },
     "attributes" : [ "object" ],
-    "id" : "105"
+    "id" : "112"
   } ]
 }

@@ -7,39 +7,27 @@
 @base <https://w3id.org/biodivrisK-onto#> .
 
 <https://w3id.org/biodivrisK-onto> rdf:type owl:Ontology ;
-                                    owl:versionIRI <https://w3id.org/biodivrisK-onto/0.2.0> ;
-                                    owl:imports <https://w3id.org/biodivrisK-onto/0.1.0> ;
-                                    <http://purl.org/dc/terms/created> "2026-07-13"^^xsd:date ,
-                                                                       "2026-07-21"^^xsd:date ;
-                                    <http://purl.org/dc/terms/creator> _:genid1 ,
-                                                                       _:genid2 ,
-                                                                       _:genid3 ;
+                                    owl:versionIRI <https://w3id.org/biodivrisK-onto/0.3.0> ;
+                                    <http://purl.org/dc/terms/created> "2026-07-13"^^xsd:date ;
+                                    <http://purl.org/dc/terms/creator> _:genid1 ;
                                     <http://purl.org/dc/terms/description> "BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC)."@en ,
-                                                                           "Extension of v0.1.0 with organizational, geographic, and evaluation modules, populated with real-world instances from the Santander Peru and CEBDS Brazil case studies."@en ;
+                                                                           "Framework concepts intentionally use OWL 2 punning: the same IRI may denote a class for subsumption axioms and an individual for concept-level alignment relations. These interpretations remain semantically distinct under OWL 2 DL."@en ,
+                                                                           "Version 0.3.0 extends the core taxonomy with organizational, geographic and evaluation modules, explicit information-loss records, and populated instances from the Santander Peru and CEBDS Brazil case studies."@en ;
                                     <http://purl.org/dc/terms/license> <https://creativecommons.org/licenses/by/4.0/> ;
-                                    <http://purl.org/dc/terms/title> "BiodivRisk-Onto v0.2.0: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"@en ,
-                                                                     "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"@en ;
+                                    <http://purl.org/dc/terms/modified> "2026-09-17"^^xsd:date ;
+                                    <http://purl.org/dc/terms/title> "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"@en ;
                                     <http://purl.org/vocab/vann/preferredNamespacePrefix> "bro" ;
                                     <http://purl.org/vocab/vann/preferredNamespaceUri> "https://w3id.org/biodivrisK-onto#" ;
-                                    rdfs:comment "Version 0.1.0 — core taxonomy and semantic relation framework. Extended in v0.2.0 with real-world instances from LAC case studies."@en ;
+                                    rdfs:comment "Version 0.3.0 — structural release adding explicit information-loss records, ordered sector priorities and biome links, while removing redundant or unused modelling elements."@en ;
                                     rdfs:seeAlso <https://github.com/marcosdzarate/biorisk-ai> ,
                                                  <https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology> ;
-                                    owl:versionInfo "0.1.0" ,
-                                                    "0.2.0" .
+                                    owl:priorVersion <https://w3id.org/biodivrisK-onto/0.2.0> ;
+                                    owl:versionInfo "0.3.0" .
 
 _:genid1 rdf:type <https://schema.org/Person> ;
           <https://schema.org/affiliation> "CESIMAR-CONICET, Puerto Madryn, Argentina" ;
           <https://schema.org/name> "Marcos Daniel Zárate" ;
           <https://schema.org/url> <https://orcid.org/0000-0001-8851-8602> .
-
-_:genid2 rdf:type <https://schema.org/Person> ;
-          <https://schema.org/affiliation> "CESIMAR-CONICET, Puerto Madryn, Argentina" ;
-          <https://schema.org/name> "Marcos Daniel Zárate" ;
-          <https://schema.org/url> <https://orcid.org/0000-0001-8851-8602> .
-
-_:genid3 rdf:type <https://schema.org/Person> ;
-          <https://schema.org/affiliation> "CESIMAR-CONICET, Puerto Madryn, Argentina" ;
-          <https://schema.org/name> "Gustavo Nuñez" .
 
 #################################################################
 #    Annotation properties
@@ -61,6 +49,10 @@ _:genid3 rdf:type <https://schema.org/Person> ;
 <http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
 
 
+###  http://purl.org/dc/terms/modified
+<http://purl.org/dc/terms/modified> rdf:type owl:AnnotationProperty .
+
+
 ###  http://purl.org/dc/terms/title
 <http://purl.org/dc/terms/title> rdf:type owl:AnnotationProperty .
 
@@ -77,10 +69,6 @@ _:genid3 rdf:type <https://schema.org/Person> ;
 <http://www.w3.org/2004/02/skos/core#altLabel> rdf:type owl:AnnotationProperty .
 
 
-###  http://www.w3.org/2004/02/skos/core#closeMatch
-<http://www.w3.org/2004/02/skos/core#closeMatch> rdf:type owl:AnnotationProperty .
-
-
 ###  http://www.w3.org/2004/02/skos/core#definition
 <http://www.w3.org/2004/02/skos/core#definition> rdf:type owl:AnnotationProperty .
 
@@ -91,10 +79,6 @@ _:genid3 rdf:type <https://schema.org/Person> ;
 
 ###  http://www.w3.org/2004/02/skos/core#prefLabel
 <http://www.w3.org/2004/02/skos/core#prefLabel> rdf:type owl:AnnotationProperty .
-
-
-###  http://www.w3.org/ns/prov#wasAssociatedWith
-<http://www.w3.org/ns/prov#wasAssociatedWith> rdf:type owl:AnnotationProperty .
 
 
 ###  https://schema.org/affiliation
@@ -133,6 +117,23 @@ xsd:date rdf:type rdfs:Datatype .
 #    Object Properties
 #################################################################
 
+###  http://www.w3.org/2004/02/skos/core#closeMatch
+<http://www.w3.org/2004/02/skos/core#closeMatch> rdf:type owl:ObjectProperty ,
+                                                          owl:SymmetricProperty .
+
+
+###  http://www.w3.org/ns/prov#wasAssociatedWith
+<http://www.w3.org/ns/prov#wasAssociatedWith> rdf:type owl:ObjectProperty .
+
+
+###  https://w3id.org/biodivrisK-onto#affectsBiome
+:affectsBiome rdf:type owl:ObjectProperty ;
+              rdfs:domain :DataGap ;
+              rdfs:range :Biome ;
+              rdfs:comment "Relates a biodiversity data gap to a biome whose assessment is affected by that gap."@en ;
+              rdfs:label "affects biome"@en .
+
+
 ###  https://w3id.org/biodivrisK-onto#affectsFramework
 :affectsFramework rdf:type owl:ObjectProperty ;
                   rdfs:domain :DataGap ;
@@ -143,9 +144,9 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  https://w3id.org/biodivrisK-onto#affectsRiskAssessment
 :affectsRiskAssessment rdf:type owl:ObjectProperty ;
-                       rdfs:domain :MaterialityBoundary ;
-                       rdfs:range :PhysicalRisk ;
-                       rdfs:comment "Relates a materiality boundary gap to the type of physical risk whose assessment is affected."@en ;
+                       rdfs:domain :PhysicalRisk ;
+                       rdfs:range :MaterialityBoundary ;
+                       rdfs:comment "Relates a physical risk to the materiality boundary under which that risk is assessed."@en ;
                        rdfs:label "affects risk assessment"@en .
 
 
@@ -205,21 +206,6 @@ xsd:date rdf:type rdfs:Datatype .
               rdfs:label "has ambiguity"@en .
 
 
-###  https://w3id.org/biodivrisK-onto#hasDataGapIn
-:hasDataGapIn rdf:type owl:ObjectProperty ;
-              rdfs:domain :DisclosureFramework ;
-              rdfs:range :Biome ;
-              rdfs:comment "Relates a disclosure framework to a biome where its data requirements cannot be met due to GBIF/OBIS sampling bias."@en ;
-              rdfs:label "has data gap in"@en .
-
-
-###  https://w3id.org/biodivrisK-onto#hasDataSufficiency
-:hasDataSufficiency rdf:type owl:ObjectProperty ;
-                    rdfs:domain :DataSufficiencyAssessment ;
-                    rdfs:range :Biome ;
-                    rdfs:label "has data sufficiency"@en .
-
-
 ###  https://w3id.org/biodivrisK-onto#hasEvaluationResult
 :hasEvaluationResult rdf:type owl:ObjectProperty ;
                      rdfs:domain :LEAPAssessment ;
@@ -235,13 +221,6 @@ xsd:date rdf:type rdfs:Datatype .
                     rdfs:label "has information loss"@en .
 
 
-###  https://w3id.org/biodivrisK-onto#hasMaterialityApproach
-:hasMaterialityApproach rdf:type owl:ObjectProperty ;
-                        rdfs:domain :DisclosureFramework ;
-                        rdfs:range :MaterialityApproach ;
-                        rdfs:label "has materiality approach"@en .
-
-
 ###  https://w3id.org/biodivrisK-onto#hasPortfolioSector
 :hasPortfolioSector rdf:type owl:ObjectProperty ;
                     rdfs:domain :FinancialInstitution ;
@@ -250,18 +229,19 @@ xsd:date rdf:type rdfs:Datatype .
                     rdfs:label "has portfolio sector"@en .
 
 
-###  https://w3id.org/biodivrisK-onto#hasScale
-:hasScale rdf:type owl:ObjectProperty ;
-          rdfs:domain :MaterialityApproach ;
-          rdfs:range :QuantitativeMaterialityScale ;
-          rdfs:label "has scale"@en .
-
-
 ###  https://w3id.org/biodivrisK-onto#hasSectorClassification
 :hasSectorClassification rdf:type owl:ObjectProperty ;
                          rdfs:domain :Sector ;
                          rdfs:range :IndustrialClassification ;
                          rdfs:label "has sector classification"@en .
+
+
+###  https://w3id.org/biodivrisK-onto#hasSectorPriority
+:hasSectorPriority rdf:type owl:ObjectProperty ;
+                   rdfs:domain :MaterialityResult ;
+                   rdfs:range :SectorPriority ;
+                   rdfs:comment "Relates a materiality result to an ordered sector-priority entry."@en ;
+                   rdfs:label "has sector priority"@en .
 
 
 ###  https://w3id.org/biodivrisK-onto#incommensurableWith
@@ -310,6 +290,14 @@ xsd:date rdf:type rdfs:Datatype .
                    rdfs:label "prioritises sector"@en .
 
 
+###  https://w3id.org/biodivrisK-onto#prioritySector
+:prioritySector rdf:type owl:ObjectProperty ;
+                rdfs:domain :SectorPriority ;
+                rdfs:range :Sector ;
+                rdfs:comment "Identifies the economic sector represented by an ordered sector-priority entry."@en ;
+                rdfs:label "priority sector"@en .
+
+
 ###  https://w3id.org/biodivrisK-onto#requiresDataFrom
 :requiresDataFrom rdf:type owl:ObjectProperty ;
                   rdfs:domain :LEAPAssessment ;
@@ -326,11 +314,39 @@ xsd:date rdf:type rdfs:Datatype .
                    rdfs:label "requires input from"@en .
 
 
+###  https://w3id.org/biodivrisK-onto#sourceConcept
+:sourceConcept rdf:type owl:ObjectProperty ;
+               rdfs:domain :InformationLoss ;
+               rdfs:range owl:Class ;
+               rdfs:comment "Identifies the source concept in a directed lossy conversion."@en ;
+               rdfs:label "source concept"@en .
+
+
+###  https://w3id.org/biodivrisK-onto#targetConcept
+:targetConcept rdf:type owl:ObjectProperty ;
+               rdfs:domain :InformationLoss ;
+               rdfs:range owl:Class ;
+               rdfs:comment "Identifies the target concept in a directed lossy conversion."@en ;
+               rdfs:label "target concept"@en .
+
+
 ###  https://w3id.org/biodivrisK-onto#usesClassification
 :usesClassification rdf:type owl:ObjectProperty ;
                     rdfs:domain :Organization ;
                     rdfs:range :IndustrialClassification ;
                     rdfs:label "uses classification"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://w3id.org/biodivrisK-onto#priorityRank
+:priorityRank rdf:type owl:DatatypeProperty ;
+              rdfs:domain :SectorPriority ;
+              rdfs:range xsd:positiveInteger ;
+              rdfs:comment "The one-based ordinal position of a sector within a materiality result."@en ;
+              rdfs:label "priority rank"@en .
 
 
 #################################################################
@@ -422,7 +438,6 @@ owl:Class rdf:type owl:Class .
 
 ###  https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea
 :ESRSBiodiversitySensitiveArea rdf:type owl:Class ;
-                               owl:equivalentClass :GRIOperationsAdjacentProtectedAreas ;
                                rdfs:subClassOf :FrameworkConcept ,
                                                :TNFDPriorityLocation .
 
@@ -469,8 +484,8 @@ owl:Class rdf:type owl:Class .
 
 ###  https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas
 :GRIOperationsAdjacentProtectedAreas rdf:type owl:Class ;
-                                     rdfs:subClassOf :FrameworkConcept ,
-                                                     :TNFDPriorityLocation .
+                                     rdfs:subClassOf :ESRSBiodiversitySensitiveArea ,
+                                                     :FrameworkConcept .
 
 
 ###  https://w3id.org/biodivrisK-onto#GeographicSamplingBias
@@ -584,6 +599,12 @@ owl:Class rdf:type owl:Class .
         rdfs:label "Economic Sector"@en .
 
 
+###  https://w3id.org/biodivrisK-onto#SectorPriority
+:SectorPriority rdf:type owl:Class ;
+                rdfs:comment "A context-dependent ordered entry assigning an economic sector an ordinal position within a materiality result."@en ;
+                rdfs:label "Sector Priority"@en .
+
+
 ###  https://w3id.org/biodivrisK-onto#SemanticAmbiguity
 :SemanticAmbiguity rdf:type owl:Class ;
                    rdfs:comment "A documented case of semantic ambiguity in the correspondence between two industrial classification standards, where a category in one standard maps to multiple non-equivalent categories in another, or vice versa."@en ;
@@ -646,6 +667,7 @@ owl:Class rdf:type owl:Class .
 ###  https://w3id.org/biodivrisK-onto#AndeanDataGap
 :AndeanDataGap rdf:type owl:NamedIndividual ,
                         :GeographicSamplingBias ;
+               :affectsBiome :TropicalAndes ;
                :affectsFramework :ESRS_E4 ,
                                  :TNFD ;
                rdfs:comment "Documented under-sampling of species occurrence records in GBIF for the tropical Andes biome, including Peru. Bias towards roads, cities and protected area boundaries. Leads to false negatives in TNFD priority-location screening. Empirically documented in Santander Peru LEAP L3-L4 assessment."@en ;
@@ -699,23 +721,27 @@ owl:Class rdf:type owl:Class .
 ###  https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment
 :CEBDSBrazilLocateAssessment rdf:type owl:NamedIndividual ,
                                       :LEAPAssessment ;
+                             <http://www.w3.org/ns/prov#wasAssociatedWith> :BNDES ,
+                                                                           :Bradesco ,
+                                                                           :Caixa ,
+                                                                           :ItauUnibanco ,
+                                                                           :SantanderBrasil ;
                              :hasEvaluationResult :CEBDSHeatmapResult ;
                              :informsTargetSetting :SBTNAR3TTargetInstance ;
                              :requiresDataFrom :ENCOREData ,
                                                :GBIFData ,
                                                :WRIAqueductData ;
                              rdfs:comment "Collective piloting of the TNFD LEAP Locate phase by 5 Brazilian financial institutions coordinated by CEBDS and technically led by EY, September 2023–September 2024. Source: CEBDS/EY (2024)."@en ;
-                             rdfs:label "CEBDS Brazil TNFD Locate Phase Pilot"@en ;
-                             <http://www.w3.org/ns/prov#wasAssociatedWith> :BNDES ,
-                                                                           :Bradesco ,
-                                                                           :Caixa ,
-                                                                           :ItauUnibanco ,
-                                                                           :SantanderBrasil .
+                             rdfs:label "CEBDS Brazil TNFD Locate Phase Pilot"@en .
 
 
 ###  https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult
 :CEBDSHeatmapResult rdf:type owl:NamedIndividual ,
                              :MaterialityResult ;
+                    :hasSectorPriority :CEBDSPriority1ConsumerStaples ,
+                                       :CEBDSPriority2ConsumerDiscretionary ,
+                                       :CEBDSPriority3Utilities ,
+                                       :CEBDSPriority4Industrials ;
                     :prioritisesSector :ConsumerDiscretionarySector ,
                                        :ConsumerStaplesSector ,
                                        :IndustrialsSector ,
@@ -724,12 +750,50 @@ owl:Class rdf:type owl:Class .
                     rdfs:label "CEBDS Brazil Sector Heatmap Result"@en .
 
 
+###  https://w3id.org/biodivrisK-onto#CEBDSPriority1ConsumerStaples
+:CEBDSPriority1ConsumerStaples rdf:type owl:NamedIndividual ,
+                                        :SectorPriority ;
+                               :prioritySector :ConsumerStaplesSector ;
+                               :priorityRank "1"^^xsd:positiveInteger ;
+                               rdfs:comment "First-ranked sector in the CEBDS Brazil materiality heatmap."@en ;
+                               rdfs:label "CEBDS Priority 1: Consumer Staples"@en .
+
+
+###  https://w3id.org/biodivrisK-onto#CEBDSPriority2ConsumerDiscretionary
+:CEBDSPriority2ConsumerDiscretionary rdf:type owl:NamedIndividual ,
+                                              :SectorPriority ;
+                                     :prioritySector :ConsumerDiscretionarySector ;
+                                     :priorityRank "2"^^xsd:positiveInteger ;
+                                     rdfs:comment "Second-ranked sector in the CEBDS Brazil materiality heatmap."@en ;
+                                     rdfs:label "CEBDS Priority 2: Consumer Discretionary"@en .
+
+
+###  https://w3id.org/biodivrisK-onto#CEBDSPriority3Utilities
+:CEBDSPriority3Utilities rdf:type owl:NamedIndividual ,
+                                  :SectorPriority ;
+                         :prioritySector :UtilitiesSector ;
+                         :priorityRank "3"^^xsd:positiveInteger ;
+                         rdfs:comment "Third-ranked sector in the CEBDS Brazil materiality heatmap."@en ;
+                         rdfs:label "CEBDS Priority 3: Utilities"@en .
+
+
+###  https://w3id.org/biodivrisK-onto#CEBDSPriority4Industrials
+:CEBDSPriority4Industrials rdf:type owl:NamedIndividual ,
+                                    :SectorPriority ;
+                           :prioritySector :IndustrialsSector ;
+                           :priorityRank "4"^^xsd:positiveInteger ;
+                           rdfs:comment "Fourth-ranked sector in the CEBDS Brazil materiality heatmap."@en ;
+                           rdfs:label "CEBDS Priority 4: Industrials"@en .
+
+
 ###  https://w3id.org/biodivrisK-onto#CIIU
 :CIIU rdf:type owl:NamedIndividual ,
                :IndustrialClassification ;
       :hasAmbiguity :CIIUtoGICSAmbiguity ;
+      :hasInformationLoss :CIIUtoGICSInformationLoss ;
       :incommensurableWith :GICS ;
-      :mappableTo :GICS ;
+      :mappableTo :GICS ,
+                  :SASB_SICS ;
       rdfs:comment "UN international industrial classification used in Peru. Requires manual mapping to GICS/SASB for TNFD assessments."@en ;
       rdfs:label "CIIU"@en ;
       <http://www.w3.org/2004/02/skos/core#note> "CIIU (UN international classification used in Peru) does not map automatically to GICS or SASB/SICS sectors required for ENCORE-based TNFD assessments."@en ;
@@ -744,17 +808,21 @@ owl:Class rdf:type owl:Class .
                      rdfs:label "CIIU to GICS Semantic Ambiguity"@en .
 
 
-###  https://w3id.org/biodivrisK-onto#CIIUtoGICSMapping
-:CIIUtoGICSMapping rdf:type owl:NamedIndividual ,
-                            :SemanticAmbiguity ;
-                   rdfs:comment "Manual sector correspondence developed by Santander Peru to align its CIIU-classified portfolio with GICS and SASB/SICS sectors required for ENCORE-based materiality screening."@en ;
-                   rdfs:label "CIIU to GICS/SASB Mapping (Santander Peru)"@en .
+###  https://w3id.org/biodivrisK-onto#CIIUtoGICSInformationLoss
+:CIIUtoGICSInformationLoss rdf:type owl:NamedIndividual ,
+                                    :InformationLoss ;
+                           :sourceConcept :CIIU ;
+                           :targetConcept :GICS ;
+                           rdfs:comment "A CIIU-to-GICS conversion loses national classification detail and cannot preserve a bijective sector correspondence; multiple CIIU activities may collapse into one GICS sector and some activities require expert interpretation."@en ;
+                           rdfs:label "CIIU to GICS Information Loss"@en ;
+                           :hasBridgingCondition "Manually align each CIIU code with the most representative GICS or SASB/SICS sector and document all ambiguous, multi-to-one and one-to-many correspondences."@en .
 
 
 ###  https://w3id.org/biodivrisK-onto#CNAE
 :CNAE rdf:type owl:NamedIndividual ,
                :IndustrialClassification ;
       :hasAmbiguity :CNAEtoGICSAmbiguity ;
+      :hasInformationLoss :CNAEtoGICSInformationLoss ;
       :incommensurableWith :GICS ;
       :mappableTo :GICS ;
       rdfs:comment "Brazilian national industrial classification used by financial institutions for portfolio reporting. Requires manual mapping to GICS for TNFD/ENCORE assessments."@en ;
@@ -771,11 +839,14 @@ owl:Class rdf:type owl:Class .
                      rdfs:label "CNAE to GICS Semantic Ambiguity"@en .
 
 
-###  https://w3id.org/biodivrisK-onto#CNAEtoGICSMapping
-:CNAEtoGICSMapping rdf:type owl:NamedIndividual ,
-                            :SemanticAmbiguity ;
-                   rdfs:comment "Manual sector correspondence developed during the CEBDS Brazil LEAP pilot to align portfolio reporting under CNAE with ENCORE/TNFD materiality assessment requiring GICS classification."@en ;
-                   rdfs:label "CNAE to GICS Mapping (CEBDS Brazil)"@en .
+###  https://w3id.org/biodivrisK-onto#CNAEtoGICSInformationLoss
+:CNAEtoGICSInformationLoss rdf:type owl:NamedIndividual ,
+                                    :InformationLoss ;
+                           :sourceConcept :CNAE ;
+                           :targetConcept :GICS ;
+                           rdfs:comment "A CNAE-to-GICS conversion loses Brazilian activity-code specificity and is not automatically reversible because the standards contain multi-to-one and one-to-many sector correspondences."@en ;
+                           rdfs:label "CNAE to GICS Information Loss"@en ;
+                           :hasBridgingCondition "Manually map every CNAE code to the most representative GICS sector and explicitly record ambiguous and non-bijective correspondences."@en .
 
 
 ###  https://w3id.org/biodivrisK-onto#Caixa
@@ -798,6 +869,7 @@ owl:Class rdf:type owl:Class .
 ###  https://w3id.org/biodivrisK-onto#CerradoDataGap
 :CerradoDataGap rdf:type owl:NamedIndividual ,
                          :GeographicSamplingBias ;
+                :affectsBiome :Cerrado ;
                 :affectsFramework :ESRS_E4 ,
                                   :TNFD ;
                 rdfs:comment "Documented under-sampling of species occurrence records in GBIF for the Cerrado biome, particularly invertebrates and endemic species. Documented in the CEBDS Brazil LEAP pilot as a challenge for L4 sensitive site identification."@en ;
@@ -832,6 +904,7 @@ owl:Class rdf:type owl:Class .
 ###  https://w3id.org/biodivrisK-onto#ENCOREMateriality
 :ENCOREMateriality rdf:type owl:NamedIndividual ,
                             :QuantitativeMaterialityScale ;
+                   :hasInformationLoss :ENCOREtoGRIInformationLoss ;
                    :incommensurableWith :GRI101ImpactMateriality ;
                    rdfs:comment "ENCORE scores impacts and dependencies on a numerical scale: very low=3, low=4.5, medium=6, high=7.5, very high=9. Used by TNFD for sector-level screening."@en ;
                    rdfs:label "ENCORE Quantitative Materiality Scale"@en ;
@@ -839,11 +912,14 @@ owl:Class rdf:type owl:Class .
                    :hasBridgingCondition "A lossy approximation is admissible if ENCORE sector scores are supplemented with qualitative stakeholder evidence meeting GRI 101 impact severity criteria. The numerical scale (3-9) cannot be directly compared with GRI qualitative thresholds without explicit bridging assumptions documented per sector."@en .
 
 
-###  https://w3id.org/biodivrisK-onto#ENCOREScale
-:ENCOREScale rdf:type owl:NamedIndividual ,
-                      :QuantitativeMaterialityScale ;
-             rdfs:comment "ENCORE numerical scale where 3=very low, 4.5=low, 6=medium, 7.5=high, 9=very high dependency/impact. Used in CEBDS Brazil pilot to produce heatmap weighted by loan volume and client count."@en ;
-             rdfs:label "ENCORE Scale 3-9"@en .
+###  https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss
+:ENCOREtoGRIInformationLoss rdf:type owl:NamedIndividual ,
+                                     :InformationLoss ;
+                            :sourceConcept :ENCOREMateriality ;
+                            :targetConcept :GRI101ImpactMateriality ;
+                            rdfs:comment "Converting ENCORE numerical sector scores to GRI 101 impact materiality loses the original 3–9 quantitative scale, production-process aggregation and direct comparability between scored dependencies and impacts."@en ;
+                            rdfs:label "ENCORE to GRI 101 Information Loss"@en ;
+                            :hasBridgingCondition "Supplement ENCORE scores with stakeholder evidence and severity criteria required by GRI 101; do not interpret the numerical thresholds as equivalent to qualitative materiality judgements."@en .
 
 
 ###  https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea
@@ -854,6 +930,7 @@ owl:Class rdf:type owl:Class .
 ###  https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality
 :ESRSDoubleMateriality rdf:type owl:NamedIndividual ;
                        :definedBy :ESRS_E4 ;
+                       :hasInformationLoss :TNFDtoESRSMaterialityInformationLoss ;
                        :incommensurableWith :TNFDEnterpriseMateriality .
 
 
@@ -886,6 +963,8 @@ owl:Class rdf:type owl:Class .
 ###  https://w3id.org/biodivrisK-onto#GICS
 :GICS rdf:type owl:NamedIndividual ,
                :IndustrialClassification ;
+      :hasInformationLoss :CIIUtoGICSInformationLoss ,
+                          :CNAEtoGICSInformationLoss ;
       :incommensurableWith :CIIU ,
                            :CNAE ;
       rdfs:comment "International sector classification used by ENCORE and TNFD for materiality assessment."@en ;
@@ -904,6 +983,7 @@ owl:Class rdf:type owl:Class .
 ###  https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality
 :GRI101ImpactMateriality rdf:type owl:NamedIndividual ,
                                   :QualitativeMaterialityScale ;
+                         :hasInformationLoss :ENCOREtoGRIInformationLoss ;
                          :incommensurableWith :ENCOREMateriality ;
                          rdfs:comment "GRI 101 applies impact materiality: issues are material based on the significance of actual or potential impacts on people and the environment, assessed through stakeholder engagement and qualitative severity criteria."@en ;
                          rdfs:label "GRI 101 Impact Materiality"@en .
@@ -918,6 +998,8 @@ owl:Class rdf:type owl:Class .
 :GRIManagementApproach rdf:type owl:NamedIndividual ;
                        :complements :TNFDImpactDependency ;
                        :definedBy :GRI101 ;
+                       :hasInformationLoss :SBTNMSAtoGRIInformationLoss ,
+                                           :SBTNtargetToGRIConversion ;
                        :incommensurableWith :SBTNAR3TTarget ,
                                             :SBTNMeanSpeciesAbundance .
 
@@ -932,7 +1014,7 @@ owl:Class rdf:type owl:Class .
                               :DisclosureRequirement ;
                      :definedBy :GRI101 ;
                      rdfs:comment "GRI 101-6: disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas."@en ;
-                     rdfs:label "GRI 101 Operations in/adjacent to Protected Areas and KBAs"@en .
+                     rdfs:label "GRI 101-6 Protected Areas and KBA Disclosure Requirement"@en .
 
 
 ###  https://w3id.org/biodivrisK-onto#GlobalForestWatchData
@@ -964,6 +1046,10 @@ owl:Class rdf:type owl:Class .
 ###  https://w3id.org/biodivrisK-onto#LACGeographicBias
 :LACGeographicBias rdf:type owl:NamedIndividual ,
                             :GeographicSamplingBias ;
+                   :affectsBiome :Amazonia ,
+                                 :AtlanticForest ,
+                                 :Cerrado ,
+                                 :TropicalAndes ;
                    :affectsFramework :ESRS_E4 ,
                                      :GRI101 ,
                                      :SBTN ,
@@ -1020,6 +1106,7 @@ owl:Class rdf:type owl:Class .
 :SBTNAR3TTarget rdf:type owl:NamedIndividual ;
                 :coveredByFramework :SBTN ;
                 :definedBy :SBTN ;
+                :hasInformationLoss :SBTNtargetToGRIConversion ;
                 :incommensurableWith :GRIManagementApproach .
 
 
@@ -1032,18 +1119,32 @@ owl:Class rdf:type owl:Class .
                         rdfs:label "SBTN AR3T Science-based Target"@en .
 
 
+###  https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss
+:SBTNMSAtoGRIInformationLoss rdf:type owl:NamedIndividual ,
+                                      :InformationLoss ;
+                             :sourceConcept :SBTNMeanSpeciesAbundance ;
+                             :targetConcept :GRIManagementApproach ;
+                             rdfs:comment "Converting Mean Species Abundance to a GRI management-approach disclosure loses the quantitative biodiversity-intactness value, reference condition, spatial model assumptions and the distinction between measured ecological state and organisational intent."@en ;
+                             rdfs:label "SBTN MSA to GRI Management Approach Information Loss"@en ;
+                             :hasBridgingCondition "Any proxy conversion must derive MSA from documented footprint data and state explicitly that a GRI management approach does not imply a specific biodiversity-state outcome."@en .
+
+
 ###  https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance
 :SBTNMeanSpeciesAbundance rdf:type owl:NamedIndividual ;
                           :coveredByFramework :SBTN ;
                           :definedBy :SBTN ;
+                          :hasInformationLoss :SBTNMSAtoGRIInformationLoss ;
                           :incommensurableWith :GRIManagementApproach .
 
 
 ###  https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion
 :SBTNtargetToGRIConversion rdf:type owl:NamedIndividual ,
                                     :InformationLoss ;
+                           :sourceConcept :SBTNAR3TTarget ;
+                           :targetConcept :GRIManagementApproach ;
                            rdfs:comment "Information loss documented when converting an SBTN science-based target (measurable, time-bound, science-grounded) to a GRI 101 management approach disclosure (qualitative, policy-level). Lost information includes: (1) quantitative target value, (2) scientific baseline, (3) time horizon commitment, (4) verifiability. Bridging condition: the GRI management approach must explicitly commit to SBTN-compatible targets with verified science-based baselines."@en ;
-                           rdfs:label "SBTN Target to GRI Management Approach Conversion"@en .
+                           rdfs:label "SBTN Target to GRI Management Approach Conversion"@en ;
+                           :hasBridgingCondition "The GRI management approach must explicitly commit to measurable SBTN-compatible targets with defined timelines, verified science-based baselines and independent verification."@en .
 
 
 ###  https://w3id.org/biodivrisK-onto#SantanderBrasil
@@ -1079,13 +1180,13 @@ owl:Class rdf:type owl:Class .
 ###  https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment
 :SantanderPeruL4Assessment rdf:type owl:NamedIndividual ,
                                     :LEAPAssessment ;
+                           <http://www.w3.org/ns/prov#wasAssociatedWith> :SantanderPeru ;
                            :informsTargetSetting :SBTNAR3TTargetInstance ;
                            :requiresDataFrom :ENCOREData ,
                                              :GlobalForestWatchData ,
                                              :WRIAqueductData ;
                            rdfs:comment "Santander Peru's LEAP assessment conducted during Global Canopy's TNFD familiarisation programme in 2024, covering scoping and the full Locate phase (L1-L4). Source: Global Canopy & Santander Peru (2025)."@en ;
-                           rdfs:label "Santander Peru LEAP L4 Assessment"@en ;
-                           <http://www.w3.org/ns/prov#wasAssociatedWith> :SantanderPeru .
+                           rdfs:label "Santander Peru LEAP L4 Assessment"@en .
 
 
 ###  https://w3id.org/biodivrisK-onto#TNFD
@@ -1100,11 +1201,13 @@ owl:Class rdf:type owl:Class .
 :TNFDEnterpriseMateriality rdf:type owl:NamedIndividual ;
                            :coveredByFramework :ESRS_E4 ;
                            :definedBy :TNFD ;
+                           :hasInformationLoss :TNFDtoESRSMaterialityInformationLoss ;
                            :incommensurableWith :ESRSDoubleMateriality .
 
 
 ###  https://w3id.org/biodivrisK-onto#TNFDImpactDependency
 :TNFDImpactDependency rdf:type owl:NamedIndividual ;
+                      <http://www.w3.org/2004/02/skos/core#closeMatch> :ESRSMaterialImpactDependency ;
                       :complements :SBTNAR3TTarget ;
                       :coveredByFramework :ESRS_E4 ;
                       :definedBy :TNFD .
@@ -1128,6 +1231,16 @@ owl:Class rdf:type owl:Class .
                :definedBy :TNFD ;
                rdfs:comment "TNFD recommended disclosure Strategy D: disclose the locations of assets and/or activities in direct operations and, where possible, upstream and downstream value chains that meet the criteria for priority locations."@en ;
                rdfs:label "TNFD Strategy D"@en .
+
+
+###  https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss
+:TNFDtoESRSMaterialityInformationLoss rdf:type owl:NamedIndividual ,
+                                               :InformationLoss ;
+                                      :sourceConcept :TNFDEnterpriseMateriality ;
+                                      :targetConcept :ESRSDoubleMateriality ;
+                                      rdfs:comment "A TNFD enterprise-value assessment does not preserve the impact-materiality dimension required by ESRS double materiality; impacts on biodiversity that lack an immediate financial effect may therefore be omitted."@en ;
+                                      rdfs:label "TNFD to ESRS Materiality Information Loss"@en ;
+                                      :hasBridgingCondition "Supplement the TNFD enterprise-value assessment with a distinct impact-materiality assessment covering actual and potential biodiversity impacts across operations and the value chain."@en .
 
 
 ###  https://w3id.org/biodivrisK-onto#TropicalAndes
@@ -1215,7 +1328,6 @@ owl:Class rdf:type owl:Class .
 
 :TNFDImpactDependency rdfs:comment "Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services."@en ;
                       rdfs:label "TNFD Impacts and Dependencies on Nature"@en ;
-                      <http://www.w3.org/2004/02/skos/core#closeMatch> :ESRSMaterialImpactDependency ;
                       <http://www.w3.org/2004/02/skos/core#note> "Close match (not equivalence): both classes identify organisational impacts on and dependencies upon nature using the ENCORE framework logic, but their materiality boundaries differ. TNFD applies enterprise-value materiality (financial impact on the organisation); ESRS E4 applies double materiality (financial impact AND impact on biodiversity, regardless of financial consequence). owl:equivalentClass was rejected because it would collapse the materiality distinction that bro:incommensurableWith between TNFDEnterpriseMateriality and ESRSDoubleMateriality is designed to preserve."@en ,
                                                                  "TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other."@en .
 
