@@ -132,14 +132,14 @@
     "@value" : "Framework concepts intentionally use OWL 2 punning: the same IRI may denote a class for subsumption axioms and an individual for concept-level alignment relations. These interpretations remain semantically distinct under OWL 2 DL."
   }, {
     "@language" : "en",
-    "@value" : "Version 0.3.0 extends the core taxonomy with organizational, geographic and evaluation modules, explicit information-loss records, and populated instances from the Santander Peru and CEBDS Brazil case studies."
+    "@value" : "Version 0.3.1 is a maintenance release that applies conservative framework alignments, documents 12 reproducible interoperability pairs, and synchronises competency questions and documentation."
   } ],
   "http://purl.org/dc/terms/license" : [ {
     "@id" : "https://creativecommons.org/licenses/by/4.0/"
   } ],
   "http://purl.org/dc/terms/modified" : [ {
     "@type" : "http://www.w3.org/2001/XMLSchema#date",
-    "@value" : "2026-09-17"
+    "@value" : "2026-09-18"
   } ],
   "http://purl.org/dc/terms/title" : [ {
     "@language" : "en",
@@ -153,7 +153,7 @@
   } ],
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
     "@language" : "en",
-    "@value" : "Version 0.3.0 — structural release adding explicit information-loss records, ordered sector priorities and biome links, while removing redundant or unused modelling elements."
+    "@value" : "Version 0.3.1 — maintenance release replacing an unsupported cross-framework equivalence with skos:closeMatch and adding a reproducible interoperability-pair count."
   } ],
   "http://www.w3.org/2000/01/rdf-schema#seeAlso" : [ {
     "@id" : "https://github.com/marcosdzarate/biorisk-ai"
@@ -161,13 +161,13 @@
     "@id" : "https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology"
   } ],
   "http://www.w3.org/2002/07/owl#priorVersion" : [ {
-    "@id" : "https://w3id.org/biodivrisK-onto/0.2.0"
-  } ],
-  "http://www.w3.org/2002/07/owl#versionIRI" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto/0.3.0"
   } ],
+  "http://www.w3.org/2002/07/owl#versionIRI" : [ {
+    "@id" : "https://w3id.org/biodivrisK-onto/0.3.1"
+  } ],
   "http://www.w3.org/2002/07/owl#versionInfo" : [ {
-    "@value" : "0.3.0"
+    "@value" : "0.3.1"
   } ]
 }, {
   "@id" : "https://w3id.org/biodivrisK-onto#AgriculturalProductsSector",
@@ -971,7 +971,7 @@
   "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#Metric"
   } ],
-  "http://www.w3.org/2002/07/owl#equivalentClass" : [ {
+  "http://www.w3.org/2004/02/skos/core#closeMatch" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric"
   } ],
   "https://w3id.org/biodivrisK-onto#definedBy" : [ {
@@ -1999,7 +1999,7 @@
   } ],
   "http://www.w3.org/2004/02/skos/core#note" : [ {
     "@language" : "en",
-    "@value" : "Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a 'difference in granularity' between these datapoints, not a semantic difference — confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes."
+    "@value" : "Close match, not equivalence. Both concepts concern area-based change in land, freshwater or ocean use, but the official TNFD-ESRS correspondence mapping records differences in semantics and scope for TNFD metric C1.1 and ESRS E4-5 paragraph 38(a). TNFD recommends a specific metric and breakdown by ecosystem type and business activity, whereas ESRS requires relevant metrics without prescribing the same metric. owl:equivalentClass was therefore rejected because the classes do not have demonstrated identical extensions."
   } ],
   "https://w3id.org/biodivrisK-onto#coveredByFramework" : [ {
     "@id" : "https://w3id.org/biodivrisK-onto#ESRS_E4"

@@ -42,6 +42,22 @@ trap 'rm -rf "$WIDOCO_TEMP_DIR"' EXIT HUP INT TERM
 # GitHub Pages serves index.html at the site root.
 cp "$WIDOCO_OUTPUT_DIR/index-en.html" "$WIDOCO_OUTPUT_DIR/index.html"
 
+# Replace WIDOCO's generic repository README with project-specific metadata.
+cat > "$WIDOCO_OUTPUT_DIR/readme.md" <<'EOF'
+# BiodivRisk-Onto documentation
+
+This directory contains the WIDOCO-generated documentation for
+**BiodivRisk-Onto v0.3.1**.
+
+- [Open the ontology documentation](index.html)
+- [Browse the WebVOWL visualisation](webvowl/index.html)
+- [Review the competency questions and SPARQL queries](competency-questions.md)
+- [Download the ontology source](ontology.owl)
+
+The canonical namespace is <https://w3id.org/biodivrisK-onto#>.
+The ontology is maintained by Marcos Daniel Zárate, CESIMAR-CONICET.
+EOF
+
 # WIDOCO 1.4.25 omits the fragment marker for this local annotation-property
 # link. Correct both entry pages until the upstream renderer is fixed.
 sed -i 's/href="hasBridgingCondition"/href="#hasBridgingCondition"/g' \

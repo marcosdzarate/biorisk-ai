@@ -1,7 +1,7 @@
 # BiodivRisk-Onto competency questions
 
 This document provides the natural-language competency questions (CQs) used to
-validate BiodivRisk-Onto v0.3.0 and their executable SPARQL 1.1 translations.
+validate BiodivRisk-Onto v0.3.1 and their executable SPARQL 1.1 translations.
 The queries are designed for the explicit ontology graph distributed as
 `ontology.owl`; they do not require OWL entailment unless explicitly stated.
 
@@ -17,26 +17,28 @@ Each query includes all prefixes required for direct execution.
 > assertional graph. The queries below follow the representation appropriate
 > to each CQ.
 
-## CQ1 — TNFD–ESRS E4 equivalence
+## CQ1 — TNFD–ESRS E4 close correspondence
 
-**Natural-language question.** What concepts of TNFD are semantically
-equivalent to concepts of ESRS E4?
+**Natural-language question.** What TNFD concepts are closely matched to,
+but not asserted equivalent to, concepts of ESRS E4?
 
 ```sparql
 PREFIX bro:  <https://w3id.org/biodivrisK-onto#>
-PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 SELECT DISTINCT ?tnfdConcept ?esrsConcept
 WHERE {
   ?tnfdConcept bro:definedBy bro:TNFD ;
-               (owl:equivalentClass|^owl:equivalentClass) ?esrsConcept .
+               (skos:closeMatch|^skos:closeMatch) ?esrsConcept .
   ?esrsConcept bro:definedBy bro:ESRS_E4 .
 }
 ORDER BY ?tnfdConcept ?esrsConcept
 ```
 
-**Expected result.** One pair: `bro:TNFDLandUseChangeMetric` and
-`bro:ESRSLandUseDatapoint`.
+**Expected result.** Two pairs: `bro:TNFDImpactDependency` with
+`bro:ESRSMaterialImpactDependency`, and `bro:TNFDLandUseChangeMetric` with
+`bro:ESRSLandUseDatapoint`. Neither pair is asserted with
+`owl:equivalentClass`.
 
 ## CQ2 — TNFD concepts covered by ESRS E4 but not GRI 101
 
@@ -386,9 +388,66 @@ ORDER BY ?nationalClassification ?internationalClassification
 one for CIIU. The CIIU resource is also declared mappable to SASB/SICS; the
 same CIIU ambiguity record applies to that correspondence.
 
+## Reproducibility control — interoperability-pair count
+
+This control query is not an additional competency question. It makes the
+ontology-level summary statistic reported in the paper and README reproducible.
+An interoperability pair is an unordered pair linked by `skos:closeMatch`,
+`bro:complements` or `bro:incommensurableWith`, or by an explicit
+cross-framework `rdfs:subClassOf` assertion. Generic hierarchy axioms and the
+external `bro:Biome`/ENVO reuse alignment are excluded. Symmetric relations are
+deduplicated by ordering the two IRIs lexically.
+
+```sparql
+PREFIX bro:  <https://w3id.org/biodivrisK-onto#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?category (COUNT(*) AS ?uniquePairs)
+WHERE {
+  {
+    SELECT DISTINCT ?category ?left ?right
+    WHERE {
+      {
+        ?a (skos:closeMatch|^skos:closeMatch) ?b .
+        BIND("close match" AS ?category)
+      }
+      UNION
+      {
+        ?a (bro:complements|^bro:complements) ?b .
+        BIND("complementarity" AS ?category)
+      }
+      UNION
+      {
+        ?a (bro:incommensurableWith|^bro:incommensurableWith) ?b .
+        BIND("incommensurability" AS ?category)
+      }
+      UNION
+      {
+        ?a rdfs:subClassOf ?b ; bro:definedBy ?frameworkA .
+        ?b bro:definedBy ?frameworkB .
+        FILTER(?frameworkA != ?frameworkB)
+        BIND("cross-framework subsumption" AS ?category)
+      }
+      FILTER(STRSTARTS(STR(?a), STR(bro:)))
+      FILTER(STRSTARTS(STR(?b), STR(bro:)))
+      BIND(IF(STR(?a) < STR(?b), ?a, ?b) AS ?left)
+      BIND(IF(STR(?a) < STR(?b), ?b, ?a) AS ?right)
+    }
+  }
+}
+GROUP BY ?category
+ORDER BY ?category
+```
+
+**Expected result.** 2 close-match pairs, 2 complementarity pairs, 2
+cross-framework subsumption pairs and 6 incommensurability pairs: **12 unique
+interoperability pairs in total**. Nine directly connect the four focal
+frameworks; three involve auxiliary tools or classifications.
+
 ## Validation scope
 
-These queries validate whether the explicit v0.3.0 graph contains the
+These queries validate whether the explicit v0.3.1 graph contains the
 knowledge needed to answer each CQ. They are not intended to infer facts absent
 from the ontology or to treat `skos:closeMatch`, `rdfs:subClassOf`, and
 `owl:equivalentClass` as interchangeable relations. Query results should be

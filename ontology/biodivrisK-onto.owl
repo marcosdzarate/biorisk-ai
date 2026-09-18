@@ -13,22 +13,22 @@
      xmlns:schema="https://schema.org/"
      xmlns:biodivrisK-onto="https://w3id.org/biodivrisK-onto#">
     <owl:Ontology rdf:about="https://w3id.org/biodivrisK-onto">
-        <owl:versionIRI rdf:resource="https://w3id.org/biodivrisK-onto/0.3.0"/>
-        <owl:priorVersion rdf:resource="https://w3id.org/biodivrisK-onto/0.2.0"/>
+        <owl:versionIRI rdf:resource="https://w3id.org/biodivrisK-onto/0.3.1"/>
+        <owl:priorVersion rdf:resource="https://w3id.org/biodivrisK-onto/0.3.0"/>
         <terms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-07-13</terms:created>
-        <terms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-09-17</terms:modified>
+        <terms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-09-18</terms:modified>
         <terms:creator rdf:nodeID="genid1"/>
         <terms:description xml:lang="en">BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC).</terms:description>
-        <terms:description xml:lang="en">Version 0.3.0 extends the core taxonomy with organizational, geographic and evaluation modules, explicit information-loss records, and populated instances from the Santander Peru and CEBDS Brazil case studies.</terms:description>
+        <terms:description xml:lang="en">Version 0.3.1 is a maintenance release that applies conservative framework alignments, documents 12 reproducible interoperability pairs, and synchronises competency questions and documentation.</terms:description>
         <terms:description xml:lang="en">Framework concepts intentionally use OWL 2 punning: the same IRI may denote a class for subsumption axioms and an individual for concept-level alignment relations. These interpretations remain semantically distinct under OWL 2 DL.</terms:description>
         <terms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
         <terms:title xml:lang="en">BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks</terms:title>
         <vann:preferredNamespacePrefix>bro</vann:preferredNamespacePrefix>
         <vann:preferredNamespaceUri>https://w3id.org/biodivrisK-onto#</vann:preferredNamespaceUri>
-        <rdfs:comment xml:lang="en">Version 0.3.0 — structural release adding explicit information-loss records, ordered sector priorities and biome links, while removing redundant or unused modelling elements.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Version 0.3.1 — maintenance release replacing an unsupported cross-framework equivalence with skos:closeMatch and adding a reproducible interoperability-pair count.</rdfs:comment>
         <rdfs:seeAlso rdf:resource="https://github.com/marcosdzarate/biorisk-ai"/>
         <rdfs:seeAlso rdf:resource="https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology"/>
-        <owl:versionInfo>0.3.0</owl:versionInfo>
+        <owl:versionInfo>0.3.1</owl:versionInfo>
     </owl:Ontology>
     <rdf:Description rdf:nodeID="genid1">
         <rdf:type rdf:resource="https://schema.org/Person"/>
@@ -718,7 +718,7 @@
 
 
     <owl:Class rdf:about="https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint">
-        <owl:equivalentClass rdf:resource="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric"/>
+        <skos:closeMatch rdf:resource="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/biodivrisK-onto#Metric"/>
     </owl:Class>
     
@@ -2033,7 +2033,7 @@
     <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric">
         <rdfs:comment xml:lang="en">TNFD core cross-sector metric measuring the extent (ha) of land, freshwater or ocean-use change.</rdfs:comment>
         <rdfs:label xml:lang="en">TNFD Land/Freshwater/Ocean-use Change Metric</rdfs:label>
-        <skos:note xml:lang="en">Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a &apos;difference in granularity&apos; between these datapoints, not a semantic difference — confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes.</skos:note>
+        <skos:note xml:lang="en">Close match, not equivalence. Both concepts concern area-based change in land, freshwater or ocean use, but the official TNFD-ESRS correspondence mapping records differences in semantics and scope for TNFD metric C1.1 and ESRS E4-5 paragraph 38(a). TNFD recommends a specific metric and breakdown by ecosystem type and business activity, whereas ESRS requires relevant metrics without prescribing the same metric. owl:equivalentClass was therefore rejected because the classes do not have demonstrated identical extensions.</skos:note>
         <unit xml:lang="en">hectares (ha)</unit>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/biodivrisK-onto#TNFDPriorityLocation">

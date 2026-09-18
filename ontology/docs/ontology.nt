@@ -1,5 +1,5 @@
 <https://w3id.org/biodivrisK-onto> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
-<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2002/07/owl#versionIRI> <https://w3id.org/biodivrisK-onto/0.3.0> .
+<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2002/07/owl#versionIRI> <https://w3id.org/biodivrisK-onto/0.3.1> .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/created> "2026-07-13"^^<http://www.w3.org/2001/XMLSchema#date> .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/creator> _:genid1 .
 _:genid1 <https://schema.org/url> <https://orcid.org/0000-0001-8851-8602> .
@@ -8,144 +8,144 @@ _:genid1 <https://schema.org/affiliation> "CESIMAR-CONICET, Puerto Madryn, Argen
 _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/Person> .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/description> "BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC)."@en .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/description> "Framework concepts intentionally use OWL 2 punning: the same IRI may denote a class for subsumption axioms and an individual for concept-level alignment relations. These interpretations remain semantically distinct under OWL 2 DL."@en .
-<https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/description> "Version 0.3.0 extends the core taxonomy with organizational, geographic and evaluation modules, explicit information-loss records, and populated instances from the Santander Peru and CEBDS Brazil case studies."@en .
+<https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/description> "Version 0.3.1 is a maintenance release that applies conservative framework alignments, documents 12 reproducible interoperability pairs, and synchronises competency questions and documentation."@en .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/license> <https://creativecommons.org/licenses/by/4.0/> .
-<https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/modified> "2026-09-17"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/modified> "2026-09-18"^^<http://www.w3.org/2001/XMLSchema#date> .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/dc/terms/title> "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"@en .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/vocab/vann/preferredNamespacePrefix> "bro" .
 <https://w3id.org/biodivrisK-onto> <http://purl.org/vocab/vann/preferredNamespaceUri> "https://w3id.org/biodivrisK-onto#" .
-<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2000/01/rdf-schema#comment> "Version 0.3.0 — structural release adding explicit information-loss records, ordered sector priorities and biome links, while removing redundant or unused modelling elements."@en .
+<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2000/01/rdf-schema#comment> "Version 0.3.1 — maintenance release replacing an unsupported cross-framework equivalence with skos:closeMatch and adding a reproducible interoperability-pair count."@en .
 <https://w3id.org/biodivrisK-onto> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <https://github.com/marcosdzarate/biorisk-ai> .
 <https://w3id.org/biodivrisK-onto> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology> .
-<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2002/07/owl#priorVersion> <https://w3id.org/biodivrisK-onto/0.2.0> .
-<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2002/07/owl#versionInfo> "0.3.0" .
-# 
-# 
+<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2002/07/owl#priorVersion> <https://w3id.org/biodivrisK-onto/0.3.0> .
+<https://w3id.org/biodivrisK-onto> <http://www.w3.org/2002/07/owl#versionInfo> "0.3.1" .
+#
+#
 # #################################################################
 # #
 # #    Annotation properties
 # #
 # #################################################################
-# 
-# 
+#
+#
 # http://purl.org/dc/terms/created
 <http://purl.org/dc/terms/created> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # http://purl.org/dc/terms/creator
 <http://purl.org/dc/terms/creator> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # http://purl.org/dc/terms/description
 <http://purl.org/dc/terms/description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # http://purl.org/dc/terms/license
 <http://purl.org/dc/terms/license> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # http://purl.org/dc/terms/modified
 <http://purl.org/dc/terms/modified> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # http://purl.org/dc/terms/title
 <http://purl.org/dc/terms/title> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # http://purl.org/vocab/vann/preferredNamespacePrefix
 <http://purl.org/vocab/vann/preferredNamespacePrefix> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # http://purl.org/vocab/vann/preferredNamespaceUri
 <http://purl.org/vocab/vann/preferredNamespaceUri> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # http://www.w3.org/2004/02/skos/core#altLabel
 <http://www.w3.org/2004/02/skos/core#altLabel> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # http://www.w3.org/2004/02/skos/core#definition
 <http://www.w3.org/2004/02/skos/core#definition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # http://www.w3.org/2004/02/skos/core#note
 <http://www.w3.org/2004/02/skos/core#note> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # http://www.w3.org/2004/02/skos/core#prefLabel
 <http://www.w3.org/2004/02/skos/core#prefLabel> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # https://schema.org/affiliation
 <https://schema.org/affiliation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # https://schema.org/name
 <https://schema.org/name> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # https://schema.org/url
 <https://schema.org/url> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#hasBridgingCondition
 <https://w3id.org/biodivrisK-onto#hasBridgingCondition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
 <https://w3id.org/biodivrisK-onto#hasBridgingCondition> <http://www.w3.org/2000/01/rdf-schema#comment> "Documents the explicit assumption under which a lossy approximation between two incommensurable concepts is admissible. Required on every bro:incommensurableWith assertion."@en .
 <https://w3id.org/biodivrisK-onto#hasBridgingCondition> <http://www.w3.org/2000/01/rdf-schema#label> "has bridging condition"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#unit
 <https://w3id.org/biodivrisK-onto#unit> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .
 <https://w3id.org/biodivrisK-onto#unit> <http://www.w3.org/2000/01/rdf-schema#comment> "Unit of measurement associated with a metric."@en .
 <https://w3id.org/biodivrisK-onto#unit> <http://www.w3.org/2000/01/rdf-schema#label> "unit"@en .
-# 
-# 
-# 
+#
+#
+#
 # #################################################################
 # #
 # #    Datatypes
 # #
 # #################################################################
-# 
-# 
+#
+#
 # http://www.w3.org/2001/XMLSchema#date
 <http://www.w3.org/2001/XMLSchema#date> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Datatype> .
-# 
-# 
-# 
+#
+#
+#
 # #################################################################
 # #
 # #    Object Properties
 # #
 # #################################################################
-# 
-# 
+#
+#
 # http://www.w3.org/2004/02/skos/core#closeMatch
 <http://www.w3.org/2004/02/skos/core#closeMatch> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <http://www.w3.org/2004/02/skos/core#closeMatch> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#SymmetricProperty> .
-# 
+#
 # http://www.w3.org/ns/prov#wasAssociatedWith
 <http://www.w3.org/ns/prov#wasAssociatedWith> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#affectsBiome
 <https://w3id.org/biodivrisK-onto#affectsBiome> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#affectsBiome> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#DataGap> .
 <https://w3id.org/biodivrisK-onto#affectsBiome> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#Biome> .
 <https://w3id.org/biodivrisK-onto#affectsBiome> <http://www.w3.org/2000/01/rdf-schema#comment> "Relates a biodiversity data gap to a biome whose assessment is affected by that gap."@en .
 <https://w3id.org/biodivrisK-onto#affectsBiome> <http://www.w3.org/2000/01/rdf-schema#label> "affects biome"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#affectsFramework
 <https://w3id.org/biodivrisK-onto#affectsFramework> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#affectsFramework> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#DataGap> .
 <https://w3id.org/biodivrisK-onto#affectsFramework> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#DisclosureFramework> .
 <https://w3id.org/biodivrisK-onto#affectsFramework> <http://www.w3.org/2000/01/rdf-schema#comment> "Relates a data gap to the framework(s) whose assessments are affected."@en .
 <https://w3id.org/biodivrisK-onto#affectsFramework> <http://www.w3.org/2000/01/rdf-schema#label> "affects framework"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#affectsRiskAssessment
 <https://w3id.org/biodivrisK-onto#affectsRiskAssessment> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#affectsRiskAssessment> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#PhysicalRisk> .
 <https://w3id.org/biodivrisK-onto#affectsRiskAssessment> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#MaterialityBoundary> .
 <https://w3id.org/biodivrisK-onto#affectsRiskAssessment> <http://www.w3.org/2000/01/rdf-schema#comment> "Relates a physical risk to the materiality boundary under which that risk is assessed."@en .
 <https://w3id.org/biodivrisK-onto#affectsRiskAssessment> <http://www.w3.org/2000/01/rdf-schema#label> "affects risk assessment"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#appliesFramework
 <https://w3id.org/biodivrisK-onto#appliesFramework> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#appliesFramework> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#Organization> .
 <https://w3id.org/biodivrisK-onto#appliesFramework> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#DisclosureFramework> .
 <https://w3id.org/biodivrisK-onto#appliesFramework> <http://www.w3.org/2000/01/rdf-schema#comment> "Relates an organization to a disclosure framework it applies or is subject to."@en .
 <https://w3id.org/biodivrisK-onto#appliesFramework> <http://www.w3.org/2000/01/rdf-schema#label> "applies framework"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#assessedUnder
 <https://w3id.org/biodivrisK-onto#assessedUnder> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#assessedUnder> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#Sector> .
 <https://w3id.org/biodivrisK-onto#assessedUnder> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#DisclosureFramework> .
 <https://w3id.org/biodivrisK-onto#assessedUnder> <http://www.w3.org/2000/01/rdf-schema#comment> "Relates a sector or portfolio to the disclosure framework under which it was assessed for materiality."@en .
 <https://w3id.org/biodivrisK-onto#assessedUnder> <http://www.w3.org/2000/01/rdf-schema#label> "assessed under"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#complements
 <https://w3id.org/biodivrisK-onto#complements> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#complements> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#SymmetricProperty> .
@@ -153,67 +153,67 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#complements> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#complements> <http://www.w3.org/2000/01/rdf-schema#comment> "Two framework concept classes that address distinct, jointly-required facets of one assessment. Licenses composition of evidence, not substitution. Symmetric."@en .
 <https://w3id.org/biodivrisK-onto#complements> <http://www.w3.org/2000/01/rdf-schema#label> "complements"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#coveredByFramework
 <https://w3id.org/biodivrisK-onto#coveredByFramework> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#coveredByFramework> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
 <https://w3id.org/biodivrisK-onto#coveredByFramework> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#DisclosureFramework> .
 <https://w3id.org/biodivrisK-onto#coveredByFramework> <http://www.w3.org/2000/01/rdf-schema#comment> "Relates a framework concept to the frameworks that include or address it."@en .
 <https://w3id.org/biodivrisK-onto#coveredByFramework> <http://www.w3.org/2000/01/rdf-schema#label> "covered by framework"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#coversRequirement
 <https://w3id.org/biodivrisK-onto#coversRequirement> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#coversRequirement> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#InternalPolicy> .
 <https://w3id.org/biodivrisK-onto#coversRequirement> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#DisclosureRequirement> .
 <https://w3id.org/biodivrisK-onto#coversRequirement> <http://www.w3.org/2000/01/rdf-schema#comment> "Relates an internal policy to the disclosure requirements of external frameworks that it partially or fully covers."@en .
 <https://w3id.org/biodivrisK-onto#coversRequirement> <http://www.w3.org/2000/01/rdf-schema#label> "covers requirement"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#definedBy
 <https://w3id.org/biodivrisK-onto#definedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#definedBy> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
 <https://w3id.org/biodivrisK-onto#definedBy> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#DisclosureFramework> .
 <https://w3id.org/biodivrisK-onto#definedBy> <http://www.w3.org/2000/01/rdf-schema#comment> "Relates a framework concept class to the framework that defines it."@en .
 <https://w3id.org/biodivrisK-onto#definedBy> <http://www.w3.org/2000/01/rdf-schema#label> "defined by"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#hasAmbiguity
 <https://w3id.org/biodivrisK-onto#hasAmbiguity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#hasAmbiguity> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#IndustrialClassification> .
 <https://w3id.org/biodivrisK-onto#hasAmbiguity> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#SemanticAmbiguity> .
 <https://w3id.org/biodivrisK-onto#hasAmbiguity> <http://www.w3.org/2000/01/rdf-schema#label> "has ambiguity"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#hasEvaluationResult
 <https://w3id.org/biodivrisK-onto#hasEvaluationResult> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#hasEvaluationResult> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#LEAPAssessment> .
 <https://w3id.org/biodivrisK-onto#hasEvaluationResult> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#MaterialityResult> .
 <https://w3id.org/biodivrisK-onto#hasEvaluationResult> <http://www.w3.org/2000/01/rdf-schema#label> "has evaluation result"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#hasInformationLoss
 <https://w3id.org/biodivrisK-onto#hasInformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#hasInformationLoss> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#hasInformationLoss> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#InformationLoss> .
 <https://w3id.org/biodivrisK-onto#hasInformationLoss> <http://www.w3.org/2000/01/rdf-schema#comment> "Documents what information is lost when converting between two incommensurable framework concepts."@en .
 <https://w3id.org/biodivrisK-onto#hasInformationLoss> <http://www.w3.org/2000/01/rdf-schema#label> "has information loss"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#hasPortfolioSector
 <https://w3id.org/biodivrisK-onto#hasPortfolioSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#hasPortfolioSector> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#FinancialInstitution> .
 <https://w3id.org/biodivrisK-onto#hasPortfolioSector> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#Sector> .
 <https://w3id.org/biodivrisK-onto#hasPortfolioSector> <http://www.w3.org/2000/01/rdf-schema#comment> "Relates a financial institution to an economic sector represented in its credit or investment portfolio."@en .
 <https://w3id.org/biodivrisK-onto#hasPortfolioSector> <http://www.w3.org/2000/01/rdf-schema#label> "has portfolio sector"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#hasSectorClassification
 <https://w3id.org/biodivrisK-onto#hasSectorClassification> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#hasSectorClassification> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#Sector> .
 <https://w3id.org/biodivrisK-onto#hasSectorClassification> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#IndustrialClassification> .
 <https://w3id.org/biodivrisK-onto#hasSectorClassification> <http://www.w3.org/2000/01/rdf-schema#label> "has sector classification"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#hasSectorPriority
 <https://w3id.org/biodivrisK-onto#hasSectorPriority> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#hasSectorPriority> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#MaterialityResult> .
 <https://w3id.org/biodivrisK-onto#hasSectorPriority> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#SectorPriority> .
 <https://w3id.org/biodivrisK-onto#hasSectorPriority> <http://www.w3.org/2000/01/rdf-schema#comment> "Relates a materiality result to an ordered sector-priority entry."@en .
 <https://w3id.org/biodivrisK-onto#hasSectorPriority> <http://www.w3.org/2000/01/rdf-schema#label> "has sector priority"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#incommensurableWith
 <https://w3id.org/biodivrisK-onto#incommensurableWith> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#incommensurableWith> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#SymmetricProperty> .
@@ -221,52 +221,52 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#incommensurableWith> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#incommensurableWith> <http://www.w3.org/2000/01/rdf-schema#comment> "Two framework concept classes for which no truth-preserving mapping exists due to different measurement units, materiality boundaries or epistemic commitments. Every assertion MUST carry bro:hasBridgingCondition. Symmetric."@en .
 <https://w3id.org/biodivrisK-onto#incommensurableWith> <http://www.w3.org/2000/01/rdf-schema#label> "incommensurable with"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#informsTargetSetting
 <https://w3id.org/biodivrisK-onto#informsTargetSetting> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#informsTargetSetting> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#LEAPAssessment> .
 <https://w3id.org/biodivrisK-onto#informsTargetSetting> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> .
 <https://w3id.org/biodivrisK-onto#informsTargetSetting> <http://www.w3.org/2000/01/rdf-schema#comment> "A directed property: the output of a LEAP assessment informs the science-based target-setting process of SBTN AR3T."@en .
 <https://w3id.org/biodivrisK-onto#informsTargetSetting> <http://www.w3.org/2000/01/rdf-schema#label> "informs target setting"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#mappableTo
 <https://w3id.org/biodivrisK-onto#mappableTo> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#mappableTo> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#IndustrialClassification> .
 <https://w3id.org/biodivrisK-onto#mappableTo> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#IndustrialClassification> .
 <https://w3id.org/biodivrisK-onto#mappableTo> <http://www.w3.org/2000/01/rdf-schema#comment> "A lossy correspondence between two industrial classification standards requiring manual effort and producing semantic ambiguity."@en .
 <https://w3id.org/biodivrisK-onto#mappableTo> <http://www.w3.org/2000/01/rdf-schema#label> "mappable to"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#operatesInBiome
 <https://w3id.org/biodivrisK-onto#operatesInBiome> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#operatesInBiome> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#Organization> .
 <https://w3id.org/biodivrisK-onto#operatesInBiome> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#Biome> .
 <https://w3id.org/biodivrisK-onto#operatesInBiome> <http://www.w3.org/2000/01/rdf-schema#label> "operates in biome"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#operatesInCountry
 <https://w3id.org/biodivrisK-onto#operatesInCountry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#operatesInCountry> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#Organization> .
 <https://w3id.org/biodivrisK-onto#operatesInCountry> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#Country> .
 <https://w3id.org/biodivrisK-onto#operatesInCountry> <http://www.w3.org/2000/01/rdf-schema#label> "operates in country"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#prioritisesSector
 <https://w3id.org/biodivrisK-onto#prioritisesSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#prioritisesSector> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#MaterialityResult> .
 <https://w3id.org/biodivrisK-onto#prioritisesSector> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#Sector> .
 <https://w3id.org/biodivrisK-onto#prioritisesSector> <http://www.w3.org/2000/01/rdf-schema#label> "prioritises sector"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#prioritySector
 <https://w3id.org/biodivrisK-onto#prioritySector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#prioritySector> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#SectorPriority> .
 <https://w3id.org/biodivrisK-onto#prioritySector> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#Sector> .
 <https://w3id.org/biodivrisK-onto#prioritySector> <http://www.w3.org/2000/01/rdf-schema#comment> "Identifies the economic sector represented by an ordered sector-priority entry."@en .
 <https://w3id.org/biodivrisK-onto#prioritySector> <http://www.w3.org/2000/01/rdf-schema#label> "priority sector"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#requiresDataFrom
 <https://w3id.org/biodivrisK-onto#requiresDataFrom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#requiresDataFrom> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#LEAPAssessment> .
 <https://w3id.org/biodivrisK-onto#requiresDataFrom> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#BiodiversityDataSource> .
 <https://w3id.org/biodivrisK-onto#requiresDataFrom> <http://www.w3.org/2000/01/rdf-schema#label> "requires data from"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#requiresInputFrom
 <https://w3id.org/biodivrisK-onto#requiresInputFrom> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#requiresInputFrom> <http://www.w3.org/2002/07/owl#inverseOf> <https://w3id.org/biodivrisK-onto#informsTargetSetting> .
@@ -274,315 +274,314 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#requiresInputFrom> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#LEAPAssessment> .
 <https://w3id.org/biodivrisK-onto#requiresInputFrom> <http://www.w3.org/2000/01/rdf-schema#comment> "A directed property: SBTN AR3T target setting requires location and materiality data produced by a TNFD LEAP assessment."@en .
 <https://w3id.org/biodivrisK-onto#requiresInputFrom> <http://www.w3.org/2000/01/rdf-schema#label> "requires input from"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#sourceConcept
 <https://w3id.org/biodivrisK-onto#sourceConcept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#sourceConcept> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#InformationLoss> .
 <https://w3id.org/biodivrisK-onto#sourceConcept> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#sourceConcept> <http://www.w3.org/2000/01/rdf-schema#comment> "Identifies the source concept in a directed lossy conversion."@en .
 <https://w3id.org/biodivrisK-onto#sourceConcept> <http://www.w3.org/2000/01/rdf-schema#label> "source concept"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#targetConcept
 <https://w3id.org/biodivrisK-onto#targetConcept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#targetConcept> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#InformationLoss> .
 <https://w3id.org/biodivrisK-onto#targetConcept> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#targetConcept> <http://www.w3.org/2000/01/rdf-schema#comment> "Identifies the target concept in a directed lossy conversion."@en .
 <https://w3id.org/biodivrisK-onto#targetConcept> <http://www.w3.org/2000/01/rdf-schema#label> "target concept"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#usesClassification
 <https://w3id.org/biodivrisK-onto#usesClassification> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
 <https://w3id.org/biodivrisK-onto#usesClassification> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#Organization> .
 <https://w3id.org/biodivrisK-onto#usesClassification> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/biodivrisK-onto#IndustrialClassification> .
 <https://w3id.org/biodivrisK-onto#usesClassification> <http://www.w3.org/2000/01/rdf-schema#label> "uses classification"@en .
-# 
-# 
-# 
+#
+#
+#
 # #################################################################
 # #
 # #    Data properties
 # #
 # #################################################################
-# 
-# 
+#
+#
 # https://w3id.org/biodivrisK-onto#priorityRank
 <https://w3id.org/biodivrisK-onto#priorityRank> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <https://w3id.org/biodivrisK-onto#priorityRank> <http://www.w3.org/2000/01/rdf-schema#domain> <https://w3id.org/biodivrisK-onto#SectorPriority> .
 <https://w3id.org/biodivrisK-onto#priorityRank> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#positiveInteger> .
 <https://w3id.org/biodivrisK-onto#priorityRank> <http://www.w3.org/2000/01/rdf-schema#comment> "The one-based ordinal position of a sector within a materiality result."@en .
 <https://w3id.org/biodivrisK-onto#priorityRank> <http://www.w3.org/2000/01/rdf-schema#label> "priority rank"@en .
-# 
-# 
-# 
+#
+#
+#
 # #################################################################
 # #
 # #    Classes
 # #
 # #################################################################
-# 
-# 
+#
+#
 # http://purl.obolibrary.org/obo/ENVO_00000428
 <http://purl.obolibrary.org/obo/ENVO_00000428> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://purl.obolibrary.org/obo/ENVO_00000428> <http://www.w3.org/2002/07/owl#equivalentClass> <https://w3id.org/biodivrisK-onto#Biome> .
-# 
+#
 # http://www.opengis.net/ont/geosparql#Feature
 <http://www.opengis.net/ont/geosparql#Feature> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-# 
+#
 # http://www.w3.org/2002/07/owl#Class
 <http://www.w3.org/2002/07/owl#Class> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-# 
+#
 # http://www.w3.org/ns/prov#Activity
 <http://www.w3.org/ns/prov#Activity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-# 
+#
 # http://www.w3.org/ns/prov#Entity
 <http://www.w3.org/ns/prov#Entity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-# 
+#
 # https://schema.org/BankOrCreditUnion
 <https://schema.org/BankOrCreditUnion> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-# 
+#
 # https://schema.org/Country
 <https://schema.org/Country> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-# 
+#
 # https://schema.org/Organization
 <https://schema.org/Organization> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-# 
+#
 # https://schema.org/Person
 <https://schema.org/Person> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#BiodiversityDataSource
 <https://w3id.org/biodivrisK-onto#BiodiversityDataSource> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#BiodiversityDataSource> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/ns/prov#Entity> .
 <https://w3id.org/biodivrisK-onto#BiodiversityDataSource> <http://www.w3.org/2000/01/rdf-schema#comment> "An open or proprietary data source used to obtain species occurrence, ecosystem integrity or water risk data during a LEAP assessment (e.g., GBIF, OBIS, ENCORE, Global Forest Watch, WRI Aqueduct, IBAT)."@en .
 <https://w3id.org/biodivrisK-onto#BiodiversityDataSource> <http://www.w3.org/2000/01/rdf-schema#label> "Biodiversity Data Source"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#Biome
 <https://w3id.org/biodivrisK-onto#Biome> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#Biome> <http://www.w3.org/2000/01/rdf-schema#comment> "A major ecological zone characterized by distinctive climate, vegetation and biodiversity. Reuses ENVO biome concept (ENVO:00000428). In LAC, biomes are megadiverse and systematically under-sampled in GBIF/OBIS."@en .
 <https://w3id.org/biodivrisK-onto#Biome> <http://www.w3.org/2000/01/rdf-schema#label> "Biome"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#Country
 <https://w3id.org/biodivrisK-onto#Country> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#Country> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.opengis.net/ont/geosparql#Feature> .
 <https://w3id.org/biodivrisK-onto#Country> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://schema.org/Country> .
 <https://w3id.org/biodivrisK-onto#Country> <http://www.w3.org/2000/01/rdf-schema#comment> "A sovereign country where a financial institution operates or has portfolio exposure."@en .
 <https://w3id.org/biodivrisK-onto#Country> <http://www.w3.org/2000/01/rdf-schema#label> "Country"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#DataGap
 <https://w3id.org/biodivrisK-onto#DataGap> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#DataGap> <http://www.w3.org/2000/01/rdf-schema#comment> "A systematic absence or insufficiency of biodiversity occurrence data limiting the reliability of framework-based risk assessments in a given geographic area, taxonomic group or ecosystem type."@en .
 <https://w3id.org/biodivrisK-onto#DataGap> <http://www.w3.org/2000/01/rdf-schema#label> "Data Gap"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment
 <https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/ns/prov#Activity> .
 <https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment> <http://www.w3.org/2000/01/rdf-schema#comment> "An evaluation of whether available biodiversity data from sources such as GBIF and OBIS are sufficient to meet the information requirements of a given disclosure framework for a specific biome, sector and location. Quantifies data gaps arising from geographic and taxonomic sampling bias."@en .
 <https://w3id.org/biodivrisK-onto#DataSufficiencyAssessment> <http://www.w3.org/2000/01/rdf-schema#label> "Data Sufficiency Assessment"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#DisclosureFramework
 <https://w3id.org/biodivrisK-onto#DisclosureFramework> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#DisclosureFramework> <http://www.w3.org/2000/01/rdf-schema#comment> "A regulatory or voluntary framework requiring organisations to assess and disclose their nature-related impacts, dependencies, risks and opportunities."@en .
 <https://w3id.org/biodivrisK-onto#DisclosureFramework> <http://www.w3.org/2000/01/rdf-schema#label> "Disclosure Framework"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#DisclosureRequirement
 <https://w3id.org/biodivrisK-onto#DisclosureRequirement> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#DisclosureRequirement> <http://www.w3.org/2000/01/rdf-schema#comment> "A specific disclosure requirement within a framework, at the level of a recommended disclosure, datapoint or metric (e.g., TNFD Strategy D, ESRS E4-5, GRI 101-6)."@en .
 <https://w3id.org/biodivrisK-onto#DisclosureRequirement> <http://www.w3.org/2000/01/rdf-schema#label> "Disclosure Requirement"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea
 <https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
 <https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#TNFDPriorityLocation> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality
 <https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#MaterialityBoundary> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint
 <https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
-<https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint> <http://www.w3.org/2002/07/owl#equivalentClass> <https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> .
 <https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#Metric> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency
 <https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#FinancialInstitution
 <https://w3id.org/biodivrisK-onto#FinancialInstitution> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#FinancialInstitution> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://schema.org/BankOrCreditUnion> .
 <https://w3id.org/biodivrisK-onto#FinancialInstitution> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#Organization> .
 <https://w3id.org/biodivrisK-onto#FinancialInstitution> <http://www.w3.org/2000/01/rdf-schema#comment> "A bank, investment fund, insurance company or other financial institution whose portfolio exposure to nature-related risks is assessed through biodiversity risk frameworks."@en .
 <https://w3id.org/biodivrisK-onto#FinancialInstitution> <http://www.w3.org/2000/01/rdf-schema#label> "Financial Institution"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#FrameworkConcept
 <https://w3id.org/biodivrisK-onto#FrameworkConcept> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#FrameworkConcept> <http://www.w3.org/2000/01/rdf-schema#comment> "A concept, disclosure requirement, indicator or metric defined within a disclosure framework. Subclasses represent specific concepts; individuals of this class are not intended."@en .
 <https://w3id.org/biodivrisK-onto#FrameworkConcept> <http://www.w3.org/2000/01/rdf-schema#label> "Framework Concept"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#GRIImpactMateriality
 <https://w3id.org/biodivrisK-onto#GRIImpactMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#GRIImpactMateriality> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#MaterialityBoundary> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#GRIManagementApproach
 <https://w3id.org/biodivrisK-onto#GRIManagementApproach> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#GRIManagementApproach> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas
 <https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea> .
 <https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#GeographicSamplingBias
 <https://w3id.org/biodivrisK-onto#GeographicSamplingBias> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#GeographicSamplingBias> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#DataGap> .
 <https://w3id.org/biodivrisK-onto#GeographicSamplingBias> <http://www.w3.org/2000/01/rdf-schema#comment> "Systematic under-representation of species occurrences in GBIF/OBIS records for specific geographic regions."@en .
 <https://w3id.org/biodivrisK-onto#GeographicSamplingBias> <http://www.w3.org/2000/01/rdf-schema#label> "Geographic Sampling Bias"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#IndustrialClassification
 <https://w3id.org/biodivrisK-onto#IndustrialClassification> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#IndustrialClassification> <http://www.w3.org/2000/01/rdf-schema#comment> "A standard system for classifying economic activities into sectors and subsectors (e.g., GICS, CNAE, CIIU, SASB/SICS). Different standards may not be mutually translatable without ambiguity."@en .
 <https://w3id.org/biodivrisK-onto#IndustrialClassification> <http://www.w3.org/2000/01/rdf-schema#label> "Industrial Classification Standard"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#InformationLoss
 <https://w3id.org/biodivrisK-onto#InformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#InformationLoss> <http://www.w3.org/2000/01/rdf-schema#comment> "The loss of material information that occurs when translating a disclosure or target from one framework to another under an incommensurability relationship. Complements bro:hasBridgingCondition by documenting what is lost, not just under what conditions the conversion is admissible."@en .
 <https://w3id.org/biodivrisK-onto#InformationLoss> <http://www.w3.org/2000/01/rdf-schema#label> "Information Loss"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#InternalPolicy
 <https://w3id.org/biodivrisK-onto#InternalPolicy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#InternalPolicy> <http://www.w3.org/2000/01/rdf-schema#comment> "An organization's internal policy for managing environmental, social, climate or nature-related risks (e.g., an ESCC policy). May partially cover requirements of external disclosure frameworks."@en .
 <https://w3id.org/biodivrisK-onto#InternalPolicy> <http://www.w3.org/2000/01/rdf-schema#label> "Internal Policy"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#LEAPAssessment
 <https://w3id.org/biodivrisK-onto#LEAPAssessment> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#LEAPAssessment> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/ns/prov#Activity> .
 <https://w3id.org/biodivrisK-onto#LEAPAssessment> <http://www.w3.org/2000/01/rdf-schema#comment> "A structured assessment following the TNFD LEAP methodology (Locate, Evaluate, Assess, Prepare), conducted by an organization to identify and assess its nature-related dependencies, impacts, risks and opportunities. Connects the organization, frameworks applied, sectors evaluated, biomes, data sources and gaps identified."@en .
 <https://w3id.org/biodivrisK-onto#LEAPAssessment> <http://www.w3.org/2000/01/rdf-schema#label> "LEAP Assessment"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#MaterialityApproach
 <https://w3id.org/biodivrisK-onto#MaterialityApproach> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#MaterialityApproach> <http://www.w3.org/2000/01/rdf-schema#comment> "A methodological approach for determining which nature-related impacts, risks and opportunities are material and must be disclosed. Different frameworks apply different approaches (financial, impact, or double materiality) that are not mutually equivalent."@en .
 <https://w3id.org/biodivrisK-onto#MaterialityApproach> <http://www.w3.org/2000/01/rdf-schema#label> "Materiality Approach"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#MaterialityBoundary
 <https://w3id.org/biodivrisK-onto#MaterialityBoundary> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#MaterialityBoundary> <http://www.w3.org/2000/01/rdf-schema#comment> "The scope and criteria used by a framework to determine which impacts and financial effects are material and must be disclosed."@en .
 <https://w3id.org/biodivrisK-onto#MaterialityBoundary> <http://www.w3.org/2000/01/rdf-schema#label> "Materiality Boundary"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#MaterialityResult
 <https://w3id.org/biodivrisK-onto#MaterialityResult> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#MaterialityResult> <http://www.w3.org/2000/01/rdf-schema#comment> "The output of a materiality assessment — a ranked or scored set of sectors, locations or impacts identified as material under a specific framework and approach."@en .
 <https://w3id.org/biodivrisK-onto#MaterialityResult> <http://www.w3.org/2000/01/rdf-schema#label> "Materiality Result"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#Metric
 <https://w3id.org/biodivrisK-onto#Metric> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#Metric> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
 <https://w3id.org/biodivrisK-onto#Metric> <http://www.w3.org/2000/01/rdf-schema#comment> "A quantitative or semi-quantitative indicator expressed in specific units or using a defined measurement approach."@en .
 <https://w3id.org/biodivrisK-onto#Metric> <http://www.w3.org/2000/01/rdf-schema#label> "Metric"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#Organization
 <https://w3id.org/biodivrisK-onto#Organization> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#Organization> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://schema.org/Organization> .
 <https://w3id.org/biodivrisK-onto#Organization> <http://www.w3.org/2000/01/rdf-schema#comment> "An organization that applies one or more biodiversity risk disclosure frameworks to assess its nature-related dependencies, impacts, risks and opportunities."@en .
 <https://w3id.org/biodivrisK-onto#Organization> <http://www.w3.org/2000/01/rdf-schema#label> "Organization"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#PhysicalRisk
 <https://w3id.org/biodivrisK-onto#PhysicalRisk> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#PhysicalRisk> <http://www.w3.org/2000/01/rdf-schema#comment> "A nature-related physical risk arising from the degradation of ecosystems or natural capital, including water stress, ecosystem collapse, loss of pollination, erosion or flooding. Corresponds to TNFD and ESRS physical risk category."@en .
 <https://w3id.org/biodivrisK-onto#PhysicalRisk> <http://www.w3.org/2000/01/rdf-schema#label> "Physical Risk"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#Portfolio
 <https://w3id.org/biodivrisK-onto#Portfolio> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#Portfolio> <http://www.w3.org/2000/01/rdf-schema#comment> "A credit or investment portfolio of a financial institution, composed of assets across multiple economic sectors and geographic locations."@en .
 <https://w3id.org/biodivrisK-onto#Portfolio> <http://www.w3.org/2000/01/rdf-schema#label> "Portfolio"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#PriorityLocation
 <https://w3id.org/biodivrisK-onto#PriorityLocation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#PriorityLocation> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale
 <https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#MaterialityApproach> .
 <https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale> <http://www.w3.org/2000/01/rdf-schema#comment> "A narrative or categorical approach to assessing materiality of nature-related impacts, without a fixed numerical scale (e.g., GRI 101 impact materiality approach)."@en .
 <https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale> <http://www.w3.org/2000/01/rdf-schema#label> "Qualitative Materiality Scale"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale
 <https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#MaterialityApproach> .
 <https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale> <http://www.w3.org/2000/01/rdf-schema#comment> "A numerical scale used to score materiality of nature-related impacts and dependencies (e.g., ENCORE scale 3-9: very low=3, low=4.5, medium=6, high=7.5, very high=9)."@en .
 <https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale> <http://www.w3.org/2000/01/rdf-schema#label> "Quantitative Materiality Scale"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#SBTNAR3TTarget
 <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance
 <https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#Metric> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#Sector
 <https://w3id.org/biodivrisK-onto#Sector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#Sector> <http://www.w3.org/2000/01/rdf-schema#comment> "An economic sector associated with potential impacts and dependencies on nature, classifiable under international standards such as GICS or SASB/SICS."@en .
 <https://w3id.org/biodivrisK-onto#Sector> <http://www.w3.org/2000/01/rdf-schema#label> "Economic Sector"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#SectorPriority
 <https://w3id.org/biodivrisK-onto#SectorPriority> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#SectorPriority> <http://www.w3.org/2000/01/rdf-schema#comment> "A context-dependent ordered entry assigning an economic sector an ordinal position within a materiality result."@en .
 <https://w3id.org/biodivrisK-onto#SectorPriority> <http://www.w3.org/2000/01/rdf-schema#label> "Sector Priority"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#SemanticAmbiguity
 <https://w3id.org/biodivrisK-onto#SemanticAmbiguity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#SemanticAmbiguity> <http://www.w3.org/2000/01/rdf-schema#comment> "A documented case of semantic ambiguity in the correspondence between two industrial classification standards, where a category in one standard maps to multiple non-equivalent categories in another, or vice versa."@en .
 <https://w3id.org/biodivrisK-onto#SemanticAmbiguity> <http://www.w3.org/2000/01/rdf-schema#label> "Semantic Ambiguity"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality
 <https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#MaterialityBoundary> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#TNFDImpactDependency
 <https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric
 <https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#Metric> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#TNFDPriorityLocation
 <https://w3id.org/biodivrisK-onto#TNFDPriorityLocation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#TNFDPriorityLocation> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#FrameworkConcept> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#TaxonomicSamplingBias
 <https://w3id.org/biodivrisK-onto#TaxonomicSamplingBias> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#TaxonomicSamplingBias> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#DataGap> .
 <https://w3id.org/biodivrisK-onto#TaxonomicSamplingBias> <http://www.w3.org/2000/01/rdf-schema#comment> "Systematic over-representation of certain taxonomic groups (e.g. birds, vascular plants) in open biodiversity databases."@en .
 <https://w3id.org/biodivrisK-onto#TaxonomicSamplingBias> <http://www.w3.org/2000/01/rdf-schema#label> "Taxonomic Sampling Bias"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#WaterStressRisk
 <https://w3id.org/biodivrisK-onto#WaterStressRisk> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/biodivrisK-onto#WaterStressRisk> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://w3id.org/biodivrisK-onto#PhysicalRisk> .
 <https://w3id.org/biodivrisK-onto#WaterStressRisk> <http://www.w3.org/2000/01/rdf-schema#comment> "Physical risk arising from insufficient availability or quality of freshwater resources, particularly relevant for mining and agricultural sectors in the Andes. Identified as material dependency in the Santander Peru LEAP assessment (L2)."@en .
 <https://w3id.org/biodivrisK-onto#WaterStressRisk> <http://www.w3.org/2000/01/rdf-schema#label> "Water Stress Risk"@en .
-# 
-# 
-# 
+#
+#
+#
 # #################################################################
 # #
 # #    Individuals
 # #
 # #################################################################
-# 
-# 
+#
+#
 # https://w3id.org/biodivrisK-onto#AgriculturalProductsSector
 <https://w3id.org/biodivrisK-onto#AgriculturalProductsSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#AgriculturalProductsSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Sector> .
 <https://w3id.org/biodivrisK-onto#AgriculturalProductsSector> <https://w3id.org/biodivrisK-onto#assessedUnder> <https://w3id.org/biodivrisK-onto#TNFD> .
 <https://w3id.org/biodivrisK-onto#AgriculturalProductsSector> <https://w3id.org/biodivrisK-onto#hasSectorClassification> <https://w3id.org/biodivrisK-onto#GICS> .
 <https://w3id.org/biodivrisK-onto#AgriculturalProductsSector> <http://www.w3.org/2000/01/rdf-schema#label> "Agricultural Products Sector"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#Amazonia
 <https://w3id.org/biodivrisK-onto#Amazonia> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#Amazonia> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Biome> .
 <https://w3id.org/biodivrisK-onto#Amazonia> <http://www.w3.org/2000/01/rdf-schema#comment> "Largest tropical rainforest biome globally. Under-sampled in GBIF particularly for invertebrates and cryptic taxa. Relevant to both Santander Peru and CEBDS Brazil cases."@en .
 <https://w3id.org/biodivrisK-onto#Amazonia> <http://www.w3.org/2000/01/rdf-schema#label> "Amazonia Biome"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#AndeanDataGap
 <https://w3id.org/biodivrisK-onto#AndeanDataGap> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#AndeanDataGap> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#GeographicSamplingBias> .
@@ -591,21 +590,21 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#AndeanDataGap> <https://w3id.org/biodivrisK-onto#affectsFramework> <https://w3id.org/biodivrisK-onto#TNFD> .
 <https://w3id.org/biodivrisK-onto#AndeanDataGap> <http://www.w3.org/2000/01/rdf-schema#comment> "Documented under-sampling of species occurrence records in GBIF for the tropical Andes biome, including Peru. Bias towards roads, cities and protected area boundaries. Leads to false negatives in TNFD priority-location screening. Empirically documented in Santander Peru LEAP L3-L4 assessment."@en .
 <https://w3id.org/biodivrisK-onto#AndeanDataGap> <http://www.w3.org/2000/01/rdf-schema#label> "Andean GBIF Data Gap"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk
 <https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#WaterStressRisk> .
 <https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk> <https://w3id.org/biodivrisK-onto#affectsRiskAssessment> <https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> .
 <https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk> <http://www.w3.org/2000/01/rdf-schema#comment> "Physical risk from insufficient freshwater availability in Andean mining and agricultural operations in Peru. Identified as a material dependency in Santander Peru LEAP L2: groundwater use and protection against flooding were the most material ecosystem service dependencies. High water stress zones identified via WRI Aqueduct in LEAP L4."@en .
 <https://w3id.org/biodivrisK-onto#AndeanWaterStressRisk> <http://www.w3.org/2000/01/rdf-schema#label> "Andean Water Stress Risk"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#AtlanticForest
 <https://w3id.org/biodivrisK-onto#AtlanticForest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#AtlanticForest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Biome> .
 <https://w3id.org/biodivrisK-onto#AtlanticForest> <http://www.w3.org/2000/01/rdf-schema#comment> "Critical biodiversity hotspot — less than 29% of original cover remains. Among the most threatened biomes in the world. Relevant to CEBDS Brazil case."@en .
 <https://w3id.org/biodivrisK-onto#AtlanticForest> <http://www.w3.org/2000/01/rdf-schema#label> "Atlantic Forest Biome"@en .
 <https://w3id.org/biodivrisK-onto#AtlanticForest> <http://www.w3.org/2004/02/skos/core#altLabel> "Mata Atlântica"@pt .
-# 
+#
 # https://w3id.org/biodivrisK-onto#BNDES
 <https://w3id.org/biodivrisK-onto#BNDES> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#BNDES> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#FinancialInstitution> .
@@ -615,7 +614,7 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#BNDES> <http://www.w3.org/2000/01/rdf-schema#label> "BNDES"@en .
 <https://w3id.org/biodivrisK-onto#BNDES> <http://www.w3.org/2004/02/skos/core#prefLabel> "Banco Nacional de Desenvolvimento Econômico e Social"@en .
 <https://w3id.org/biodivrisK-onto#BNDES> <https://schema.org/url> <https://www.bndes.gov.br> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#Bradesco
 <https://w3id.org/biodivrisK-onto#Bradesco> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#Bradesco> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#FinancialInstitution> .
@@ -624,13 +623,13 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#Bradesco> <https://w3id.org/biodivrisK-onto#usesClassification> <https://w3id.org/biodivrisK-onto#CNAE> .
 <https://w3id.org/biodivrisK-onto#Bradesco> <http://www.w3.org/2000/01/rdf-schema#label> "Banco Bradesco"@en .
 <https://w3id.org/biodivrisK-onto#Bradesco> <https://schema.org/url> <https://www.bradesco.com.br> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#Brazil
 <https://w3id.org/biodivrisK-onto#Brazil> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#Brazil> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Country> .
 <https://w3id.org/biodivrisK-onto#Brazil> <http://www.w3.org/2000/01/rdf-schema#comment> "Most megadiverse country globally, hosting 15-20% of world biodiversity across 6 biomes. Site of CEBDS TNFD pilot."@en .
 <https://w3id.org/biodivrisK-onto#Brazil> <http://www.w3.org/2000/01/rdf-schema#label> "Brazil"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment
 <https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#LEAPAssessment> .
@@ -646,7 +645,7 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment> <https://w3id.org/biodivrisK-onto#requiresDataFrom> <https://w3id.org/biodivrisK-onto#WRIAqueductData> .
 <https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment> <http://www.w3.org/2000/01/rdf-schema#comment> "Collective piloting of the TNFD LEAP Locate phase by 5 Brazilian financial institutions coordinated by CEBDS and technically led by EY, September 2023–September 2024. Source: CEBDS/EY (2024)."@en .
 <https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment> <http://www.w3.org/2000/01/rdf-schema#label> "CEBDS Brazil TNFD Locate Phase Pilot"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult
 <https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#MaterialityResult> .
@@ -660,7 +659,7 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult> <https://w3id.org/biodivrisK-onto#prioritisesSector> <https://w3id.org/biodivrisK-onto#UtilitiesSector> .
 <https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult> <http://www.w3.org/2000/01/rdf-schema#comment> "Sectoral materiality ranking from the CEBDS Brazil LEAP pilot using ENCORE scores combined with loan volume and number of clients data. Priority order: 1st Consumer Staples, 2nd Consumer Discretionary, 3rd Utilities, 4th Industrials."@en .
 <https://w3id.org/biodivrisK-onto#CEBDSHeatmapResult> <http://www.w3.org/2000/01/rdf-schema#label> "CEBDS Brazil Sector Heatmap Result"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CEBDSPriority1ConsumerStaples
 <https://w3id.org/biodivrisK-onto#CEBDSPriority1ConsumerStaples> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority1ConsumerStaples> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#SectorPriority> .
@@ -668,7 +667,7 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#CEBDSPriority1ConsumerStaples> <https://w3id.org/biodivrisK-onto#priorityRank> "1"^^<http://www.w3.org/2001/XMLSchema#positiveInteger> .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority1ConsumerStaples> <http://www.w3.org/2000/01/rdf-schema#comment> "First-ranked sector in the CEBDS Brazil materiality heatmap."@en .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority1ConsumerStaples> <http://www.w3.org/2000/01/rdf-schema#label> "CEBDS Priority 1: Consumer Staples"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CEBDSPriority2ConsumerDiscretionary
 <https://w3id.org/biodivrisK-onto#CEBDSPriority2ConsumerDiscretionary> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority2ConsumerDiscretionary> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#SectorPriority> .
@@ -676,7 +675,7 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#CEBDSPriority2ConsumerDiscretionary> <https://w3id.org/biodivrisK-onto#priorityRank> "2"^^<http://www.w3.org/2001/XMLSchema#positiveInteger> .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority2ConsumerDiscretionary> <http://www.w3.org/2000/01/rdf-schema#comment> "Second-ranked sector in the CEBDS Brazil materiality heatmap."@en .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority2ConsumerDiscretionary> <http://www.w3.org/2000/01/rdf-schema#label> "CEBDS Priority 2: Consumer Discretionary"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CEBDSPriority3Utilities
 <https://w3id.org/biodivrisK-onto#CEBDSPriority3Utilities> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority3Utilities> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#SectorPriority> .
@@ -684,7 +683,7 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#CEBDSPriority3Utilities> <https://w3id.org/biodivrisK-onto#priorityRank> "3"^^<http://www.w3.org/2001/XMLSchema#positiveInteger> .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority3Utilities> <http://www.w3.org/2000/01/rdf-schema#comment> "Third-ranked sector in the CEBDS Brazil materiality heatmap."@en .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority3Utilities> <http://www.w3.org/2000/01/rdf-schema#label> "CEBDS Priority 3: Utilities"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CEBDSPriority4Industrials
 <https://w3id.org/biodivrisK-onto#CEBDSPriority4Industrials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority4Industrials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#SectorPriority> .
@@ -692,7 +691,7 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#CEBDSPriority4Industrials> <https://w3id.org/biodivrisK-onto#priorityRank> "4"^^<http://www.w3.org/2001/XMLSchema#positiveInteger> .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority4Industrials> <http://www.w3.org/2000/01/rdf-schema#comment> "Fourth-ranked sector in the CEBDS Brazil materiality heatmap."@en .
 <https://w3id.org/biodivrisK-onto#CEBDSPriority4Industrials> <http://www.w3.org/2000/01/rdf-schema#label> "CEBDS Priority 4: Industrials"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CIIU
 <https://w3id.org/biodivrisK-onto#CIIU> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CIIU> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#IndustrialClassification> .
@@ -706,13 +705,13 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#CIIU> <http://www.w3.org/2004/02/skos/core#note> "CIIU (UN international classification used in Peru) does not map automatically to GICS or SASB/SICS sectors required for ENCORE-based TNFD assessments."@en .
 <https://w3id.org/biodivrisK-onto#CIIU> <http://www.w3.org/2004/02/skos/core#prefLabel> "Clasificación Industrial Internacional Uniforme"@en .
 <https://w3id.org/biodivrisK-onto#CIIU> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "A lossy correspondence requires manual alignment of CIIU codes to GICS and SASB/SICS sectors, with documentation of ambiguous cases. Performed by Santander Peru during LEAP L1 scoping."@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity
 <https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#SemanticAmbiguity> .
 <https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity> <http://www.w3.org/2000/01/rdf-schema#comment> "Documented semantic ambiguity in the CIIU-to-GICS/SASB mapping required for TNFD assessments in Peru. Peruvian CIIU categories require manual alignment with GICS and SASB/SICS sector definitions."@en .
 <https://w3id.org/biodivrisK-onto#CIIUtoGICSAmbiguity> <http://www.w3.org/2000/01/rdf-schema#label> "CIIU to GICS Semantic Ambiguity"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CIIUtoGICSInformationLoss
 <https://w3id.org/biodivrisK-onto#CIIUtoGICSInformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CIIUtoGICSInformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#InformationLoss> .
@@ -721,7 +720,7 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#CIIUtoGICSInformationLoss> <http://www.w3.org/2000/01/rdf-schema#comment> "A CIIU-to-GICS conversion loses national classification detail and cannot preserve a bijective sector correspondence; multiple CIIU activities may collapse into one GICS sector and some activities require expert interpretation."@en .
 <https://w3id.org/biodivrisK-onto#CIIUtoGICSInformationLoss> <http://www.w3.org/2000/01/rdf-schema#label> "CIIU to GICS Information Loss"@en .
 <https://w3id.org/biodivrisK-onto#CIIUtoGICSInformationLoss> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "Manually align each CIIU code with the most representative GICS or SASB/SICS sector and document all ambiguous, multi-to-one and one-to-many correspondences."@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CNAE
 <https://w3id.org/biodivrisK-onto#CNAE> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CNAE> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#IndustrialClassification> .
@@ -734,13 +733,13 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#CNAE> <http://www.w3.org/2004/02/skos/core#note> "CNAE (Brazilian national classification) and GICS (international standard used by ENCORE/TNFD) do not maintain a bijective correspondence. Multiple CNAE codes may map to one GICS sector and vice versa, generating semantic ambiguity in sector-level materiality assessments."@en .
 <https://w3id.org/biodivrisK-onto#CNAE> <http://www.w3.org/2004/02/skos/core#prefLabel> "Classificação Nacional de Atividades Econômicas"@en .
 <https://w3id.org/biodivrisK-onto#CNAE> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "A lossy correspondence is admissible when each CNAE code is manually mapped to the most representative GICS sector, with explicit documentation of multi-to-one and one-to-many correspondences. This mapping was performed by EY during the CEBDS Brazil LEAP pilot and required significant expert effort. The result is not automatically reversible."@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity
 <https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#SemanticAmbiguity> .
 <https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity> <http://www.w3.org/2000/01/rdf-schema#comment> "Documented semantic ambiguity in the CNAE-to-GICS mapping required for TNFD/ENCORE assessments. Brazilian CNAE categories do not maintain a bijective correspondence with GICS sectors — multiple CNAE codes may map to one GICS sector or vice versa. Required significant manual effort in the CEBDS Brazil pilot."@en .
 <https://w3id.org/biodivrisK-onto#CNAEtoGICSAmbiguity> <http://www.w3.org/2000/01/rdf-schema#label> "CNAE to GICS Semantic Ambiguity"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CNAEtoGICSInformationLoss
 <https://w3id.org/biodivrisK-onto#CNAEtoGICSInformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CNAEtoGICSInformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#InformationLoss> .
@@ -749,7 +748,7 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#CNAEtoGICSInformationLoss> <http://www.w3.org/2000/01/rdf-schema#comment> "A CNAE-to-GICS conversion loses Brazilian activity-code specificity and is not automatically reversible because the standards contain multi-to-one and one-to-many sector correspondences."@en .
 <https://w3id.org/biodivrisK-onto#CNAEtoGICSInformationLoss> <http://www.w3.org/2000/01/rdf-schema#label> "CNAE to GICS Information Loss"@en .
 <https://w3id.org/biodivrisK-onto#CNAEtoGICSInformationLoss> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "Manually map every CNAE code to the most representative GICS sector and explicitly record ambiguous and non-bijective correspondences."@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#Caixa
 <https://w3id.org/biodivrisK-onto#Caixa> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#Caixa> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#FinancialInstitution> .
@@ -758,13 +757,13 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#Caixa> <https://w3id.org/biodivrisK-onto#usesClassification> <https://w3id.org/biodivrisK-onto#CNAE> .
 <https://w3id.org/biodivrisK-onto#Caixa> <http://www.w3.org/2000/01/rdf-schema#label> "Caixa Econômica Federal"@en .
 <https://w3id.org/biodivrisK-onto#Caixa> <https://schema.org/url> <https://www.caixa.gov.br> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#Cerrado
 <https://w3id.org/biodivrisK-onto#Cerrado> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#Cerrado> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Biome> .
 <https://w3id.org/biodivrisK-onto#Cerrado> <http://www.w3.org/2000/01/rdf-schema#comment> "Brazilian tropical savanna — global biodiversity hotspot under severe agricultural pressure. 67.7% increase in deforestation in 2023. Under-sampled in GBIF for its specific endemic species."@en .
 <https://w3id.org/biodivrisK-onto#Cerrado> <http://www.w3.org/2000/01/rdf-schema#label> "Cerrado Biome"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#CerradoDataGap
 <https://w3id.org/biodivrisK-onto#CerradoDataGap> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#CerradoDataGap> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#GeographicSamplingBias> .
@@ -773,14 +772,14 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#CerradoDataGap> <https://w3id.org/biodivrisK-onto#affectsFramework> <https://w3id.org/biodivrisK-onto#TNFD> .
 <https://w3id.org/biodivrisK-onto#CerradoDataGap> <http://www.w3.org/2000/01/rdf-schema#comment> "Documented under-sampling of species occurrence records in GBIF for the Cerrado biome, particularly invertebrates and endemic species. Documented in the CEBDS Brazil LEAP pilot as a challenge for L4 sensitive site identification."@en .
 <https://w3id.org/biodivrisK-onto#CerradoDataGap> <http://www.w3.org/2000/01/rdf-schema#label> "Cerrado GBIF Data Gap"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector
 <https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Sector> .
 <https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector> <https://w3id.org/biodivrisK-onto#assessedUnder> <https://w3id.org/biodivrisK-onto#TNFD> .
 <https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector> <https://w3id.org/biodivrisK-onto#hasSectorClassification> <https://w3id.org/biodivrisK-onto#GICS> .
 <https://w3id.org/biodivrisK-onto#ConsumerDiscretionarySector> <http://www.w3.org/2000/01/rdf-schema#label> "Consumer Discretionary Sector"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ConsumerStaplesSector
 <https://w3id.org/biodivrisK-onto#ConsumerStaplesSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#ConsumerStaplesSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Sector> .
@@ -788,14 +787,14 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#ConsumerStaplesSector> <https://w3id.org/biodivrisK-onto#hasSectorClassification> <https://w3id.org/biodivrisK-onto#GICS> .
 <https://w3id.org/biodivrisK-onto#ConsumerStaplesSector> <http://www.w3.org/2000/01/rdf-schema#label> "Consumer Staples Sector"@en .
 <https://w3id.org/biodivrisK-onto#ConsumerStaplesSector> <http://www.w3.org/2004/02/skos/core#definition> "Companies involved in the production or sale of essential products, including food, beverages, tobacco, and hygiene products. Priority 1 in CEBDS Brazil heatmap."@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ENCOREData
 <https://w3id.org/biodivrisK-onto#ENCOREData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#ENCOREData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#BiodiversityDataSource> .
 <https://w3id.org/biodivrisK-onto#ENCOREData> <http://www.w3.org/2000/01/rdf-schema#comment> "Exploring Natural Capital Opportunities, Risks and Exposure — sector-level tool for screening nature-related impacts and dependencies. Uses a quantitative scale (3-9). Used in L2 by both Santander Peru and CEBDS Brazil."@en .
 <https://w3id.org/biodivrisK-onto#ENCOREData> <http://www.w3.org/2000/01/rdf-schema#label> "ENCORE Tool"@en .
 <https://w3id.org/biodivrisK-onto#ENCOREData> <https://schema.org/url> <https://encorenature.org> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ENCOREMateriality
 <https://w3id.org/biodivrisK-onto#ENCOREMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#ENCOREMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#QuantitativeMaterialityScale> .
@@ -805,7 +804,7 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#ENCOREMateriality> <http://www.w3.org/2000/01/rdf-schema#label> "ENCORE Quantitative Materiality Scale"@en .
 <https://w3id.org/biodivrisK-onto#ENCOREMateriality> <http://www.w3.org/2004/02/skos/core#note> "ENCORE applies a quantitative composite scale (3-9) aggregating dependencies and impacts by production process. GRI 101 applies qualitative impact materiality requiring stakeholder-informed severity assessment. The two approaches operate at different epistemic levels and use incompatible measurement units."@en .
 <https://w3id.org/biodivrisK-onto#ENCOREMateriality> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "A lossy approximation is admissible if ENCORE sector scores are supplemented with qualitative stakeholder evidence meeting GRI 101 impact severity criteria. The numerical scale (3-9) cannot be directly compared with GRI qualitative thresholds without explicit bridging assumptions documented per sector."@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss
 <https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#InformationLoss> .
@@ -814,39 +813,40 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss> <http://www.w3.org/2000/01/rdf-schema#comment> "Converting ENCORE numerical sector scores to GRI 101 impact materiality loses the original 3–9 quantitative scale, production-process aggregation and direct comparability between scored dependencies and impacts."@en .
 <https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss> <http://www.w3.org/2000/01/rdf-schema#label> "ENCORE to GRI 101 Information Loss"@en .
 <https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "Supplement ENCORE scores with stakeholder evidence and severity criteria required by GRI 101; do not interpret the numerical thresholds as equivalent to qualitative materiality judgements."@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea
 <https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#ESRS_E4> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality
 <https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#ESRS_E4> .
 <https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> <https://w3id.org/biodivrisK-onto#hasInformationLoss> <https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss> .
 <https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint
 <https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint> <http://www.w3.org/2004/02/skos/core#closeMatch> <https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> .
 <https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#ESRS_E4> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency
 <https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#ESRS_E4> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#ESRS_E4
 <https://w3id.org/biodivrisK-onto#ESRS_E4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#ESRS_E4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#DisclosureFramework> .
 <https://w3id.org/biodivrisK-onto#ESRS_E4> <http://www.w3.org/2000/01/rdf-schema#label> "CSRD/ESRS E4"@en .
 <https://w3id.org/biodivrisK-onto#ESRS_E4> <http://www.w3.org/2004/02/skos/core#prefLabel> "European Sustainability Reporting Standard on Biodiversity and Ecosystems"@en .
 <https://w3id.org/biodivrisK-onto#ESRS_E4> <https://schema.org/url> <https://www.efrag.org> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#GBIFData
 <https://w3id.org/biodivrisK-onto#GBIFData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#GBIFData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#BiodiversityDataSource> .
 <https://w3id.org/biodivrisK-onto#GBIFData> <http://www.w3.org/2000/01/rdf-schema#comment> "Global Biodiversity Information Facility — primary open source for terrestrial and freshwater species occurrence records. Exhibits geographic sampling bias in LAC: under-representation of Andes, Amazonia and Cerrado."@en .
 <https://w3id.org/biodivrisK-onto#GBIFData> <http://www.w3.org/2000/01/rdf-schema#label> "GBIF Occurrence Data"@en .
 <https://w3id.org/biodivrisK-onto#GBIFData> <https://schema.org/url> <https://www.gbif.org> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#GICS
 <https://w3id.org/biodivrisK-onto#GICS> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#GICS> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#IndustrialClassification> .
@@ -857,17 +857,331 @@ _:genid1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/P
 <https://w3id.org/biodivrisK-onto#GICS> <http://www.w3.org/2000/01/rdf-schema#comment> "International sector classification used by ENCORE and TNFD for materiality assessment."@en .
 <https://w3id.org/biodivrisK-onto#GICS> <http://www.w3.org/2000/01/rdf-schema#label> "GICS"@en .
 <https://w3id.org/biodivrisK-onto#GICS> <http://www.w3.org/2004/02/skos/core#prefLabel> "Global Industry Classification Standard"@en .
-# 
+#
 # https://w3id.org/biodivrisK-onto#GRI101
 <https://w3id.org/biodivrisK-onto#GRI101> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#GRI101> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#DisclosureFramework> .
 <https://w3id.org/biodivrisK-onto#GRI101> <http://www.w3.org/2000/01/rdf-schema#label> "GRI 101"@en .
 <https://w3id.org/biodivrisK-onto#GRI101> <http://www.w3.org/2004/02/skos/core#prefLabel> "GRI 101: Biodiversity Standard 2024"@en .
 <https://w3id.org/biodivrisK-onto#GRI101> <https://schema.org/url> <https://www.globalreporting.org> .
-# 
+#
 # https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality
 <https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#QualitativeMaterialityScale> .
 <https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality> <https://w3id.org/biodivrisK-onto#hasInformationLoss> <https://w3id.org/biodivrisK-onto#ENCOREtoGRIInformationLoss> .
 <https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#ENCOREMateriality> .
-<https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality> <http://www.w3.org/2000/01/rdf-schema#comment> "GRI 101 applies impact materiality: issues are material based on the significance of actual or potential impacts on people and the e
+<https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality> <http://www.w3.org/2000/01/rdf-schema#comment> "GRI 101 applies impact materiality: issues are material based on the significance of actual or potential impacts on people and the environment, assessed through stakeholder engagement and qualitative severity criteria."@en .
+<https://w3id.org/biodivrisK-onto#GRI101ImpactMateriality> <http://www.w3.org/2000/01/rdf-schema#label> "GRI 101 Impact Materiality"@en .
+#
+# https://w3id.org/biodivrisK-onto#GRIImpactMateriality
+<https://w3id.org/biodivrisK-onto#GRIImpactMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#GRIImpactMateriality> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#GRI101> .
+#
+# https://w3id.org/biodivrisK-onto#GRIManagementApproach
+<https://w3id.org/biodivrisK-onto#GRIManagementApproach> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#GRIManagementApproach> <https://w3id.org/biodivrisK-onto#complements> <https://w3id.org/biodivrisK-onto#TNFDImpactDependency> .
+<https://w3id.org/biodivrisK-onto#GRIManagementApproach> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#GRI101> .
+<https://w3id.org/biodivrisK-onto#GRIManagementApproach> <https://w3id.org/biodivrisK-onto#hasInformationLoss> <https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss> .
+<https://w3id.org/biodivrisK-onto#GRIManagementApproach> <https://w3id.org/biodivrisK-onto#hasInformationLoss> <https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion> .
+<https://w3id.org/biodivrisK-onto#GRIManagementApproach> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> .
+<https://w3id.org/biodivrisK-onto#GRIManagementApproach> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> .
+#
+# https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas
+<https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#GRI101> .
+#
+# https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA
+<https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#DisclosureRequirement> .
+<https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#GRI101> .
+<https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA> <http://www.w3.org/2000/01/rdf-schema#comment> "GRI 101-6: disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas."@en .
+<https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA> <http://www.w3.org/2000/01/rdf-schema#label> "GRI 101-6 Protected Areas and KBA Disclosure Requirement"@en .
+#
+# https://w3id.org/biodivrisK-onto#GlobalForestWatchData
+<https://w3id.org/biodivrisK-onto#GlobalForestWatchData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#GlobalForestWatchData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#BiodiversityDataSource> .
+<https://w3id.org/biodivrisK-onto#GlobalForestWatchData> <http://www.w3.org/2000/01/rdf-schema#comment> "Near real-time forest monitoring platform used by Santander Peru in LEAP L3/L4 to map protected areas and KBAs across Peru."@en .
+<https://w3id.org/biodivrisK-onto#GlobalForestWatchData> <http://www.w3.org/2000/01/rdf-schema#label> "Global Forest Watch"@en .
+<https://w3id.org/biodivrisK-onto#GlobalForestWatchData> <https://schema.org/url> <https://www.globalforestwatch.org> .
+#
+# https://w3id.org/biodivrisK-onto#IndustrialsSector
+<https://w3id.org/biodivrisK-onto#IndustrialsSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#IndustrialsSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Sector> .
+<https://w3id.org/biodivrisK-onto#IndustrialsSector> <https://w3id.org/biodivrisK-onto#assessedUnder> <https://w3id.org/biodivrisK-onto#TNFD> .
+<https://w3id.org/biodivrisK-onto#IndustrialsSector> <https://w3id.org/biodivrisK-onto#hasSectorClassification> <https://w3id.org/biodivrisK-onto#GICS> .
+<https://w3id.org/biodivrisK-onto#IndustrialsSector> <http://www.w3.org/2000/01/rdf-schema#label> "Industrials Sector"@en .
+#
+# https://w3id.org/biodivrisK-onto#ItauUnibanco
+<https://w3id.org/biodivrisK-onto#ItauUnibanco> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#ItauUnibanco> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#FinancialInstitution> .
+<https://w3id.org/biodivrisK-onto#ItauUnibanco> <https://w3id.org/biodivrisK-onto#appliesFramework> <https://w3id.org/biodivrisK-onto#TNFD> .
+<https://w3id.org/biodivrisK-onto#ItauUnibanco> <https://w3id.org/biodivrisK-onto#operatesInCountry> <https://w3id.org/biodivrisK-onto#Brazil> .
+<https://w3id.org/biodivrisK-onto#ItauUnibanco> <https://w3id.org/biodivrisK-onto#usesClassification> <https://w3id.org/biodivrisK-onto#CNAE> .
+<https://w3id.org/biodivrisK-onto#ItauUnibanco> <http://www.w3.org/2000/01/rdf-schema#label> "Itaú Unibanco"@en .
+<https://w3id.org/biodivrisK-onto#ItauUnibanco> <https://schema.org/url> <https://www.itau.com.br> .
+#
+# https://w3id.org/biodivrisK-onto#LACGeographicBias
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#GeographicSamplingBias> .
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <https://w3id.org/biodivrisK-onto#affectsBiome> <https://w3id.org/biodivrisK-onto#Amazonia> .
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <https://w3id.org/biodivrisK-onto#affectsBiome> <https://w3id.org/biodivrisK-onto#AtlanticForest> .
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <https://w3id.org/biodivrisK-onto#affectsBiome> <https://w3id.org/biodivrisK-onto#Cerrado> .
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <https://w3id.org/biodivrisK-onto#affectsBiome> <https://w3id.org/biodivrisK-onto#TropicalAndes> .
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <https://w3id.org/biodivrisK-onto#affectsFramework> <https://w3id.org/biodivrisK-onto#ESRS_E4> .
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <https://w3id.org/biodivrisK-onto#affectsFramework> <https://w3id.org/biodivrisK-onto#GRI101> .
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <https://w3id.org/biodivrisK-onto#affectsFramework> <https://w3id.org/biodivrisK-onto#SBTN> .
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <https://w3id.org/biodivrisK-onto#affectsFramework> <https://w3id.org/biodivrisK-onto#TNFD> .
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <http://www.w3.org/2000/01/rdf-schema#comment> "Systematic under-sampling of GBIF and OBIS records for key LAC biomes including the tropical Andes, Amazonia, the Cerrado and Caribbean marine ecosystems. Leads to false negatives in TNFD priority-location and ESRS E4 sensitive-area proximity screening."@en .
+<https://w3id.org/biodivrisK-onto#LACGeographicBias> <http://www.w3.org/2000/01/rdf-schema#label> "LAC Geographic Sampling Bias"@en .
+#
+# https://w3id.org/biodivrisK-onto#MiningAndMetalsSector
+<https://w3id.org/biodivrisK-onto#MiningAndMetalsSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#MiningAndMetalsSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Sector> .
+<https://w3id.org/biodivrisK-onto#MiningAndMetalsSector> <https://w3id.org/biodivrisK-onto#assessedUnder> <https://w3id.org/biodivrisK-onto#TNFD> .
+<https://w3id.org/biodivrisK-onto#MiningAndMetalsSector> <https://w3id.org/biodivrisK-onto#hasSectorClassification> <https://w3id.org/biodivrisK-onto#GICS> .
+<https://w3id.org/biodivrisK-onto#MiningAndMetalsSector> <http://www.w3.org/2000/01/rdf-schema#label> "Mining and Metals Sector"@en .
+<https://w3id.org/biodivrisK-onto#MiningAndMetalsSector> <http://www.w3.org/2004/02/skos/core#altLabel> "Materials (GICS)"@en .
+#
+# https://w3id.org/biodivrisK-onto#OBISData
+<https://w3id.org/biodivrisK-onto#OBISData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#OBISData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#BiodiversityDataSource> .
+<https://w3id.org/biodivrisK-onto#OBISData> <http://www.w3.org/2000/01/rdf-schema#comment> "Ocean Biodiversity Information System — primary open source for marine species occurrence records. Under-representation of Caribbean marine ecosystems."@en .
+<https://w3id.org/biodivrisK-onto#OBISData> <http://www.w3.org/2000/01/rdf-schema#label> "OBIS Marine Data"@en .
+<https://w3id.org/biodivrisK-onto#OBISData> <https://schema.org/url> <https://obis.org> .
+#
+# https://w3id.org/biodivrisK-onto#Peru
+<https://w3id.org/biodivrisK-onto#Peru> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#Peru> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Country> .
+<https://w3id.org/biodivrisK-onto#Peru> <http://www.w3.org/2000/01/rdf-schema#comment> "Megadiverse country — one of 17 globally. Second largest copper producer worldwide. High Andean and Amazonian biodiversity with documented GBIF sampling gaps."@en .
+<https://w3id.org/biodivrisK-onto#Peru> <http://www.w3.org/2000/01/rdf-schema#label> "Peru"@en .
+#
+# https://w3id.org/biodivrisK-onto#PriorityLocation
+<https://w3id.org/biodivrisK-onto#PriorityLocation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#PriorityLocation> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#TNFD> .
+#
+# https://w3id.org/biodivrisK-onto#SASB_SICS
+<https://w3id.org/biodivrisK-onto#SASB_SICS> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#SASB_SICS> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#IndustrialClassification> .
+<https://w3id.org/biodivrisK-onto#SASB_SICS> <http://www.w3.org/2000/01/rdf-schema#label> "SASB SICS"@en .
+<https://w3id.org/biodivrisK-onto#SASB_SICS> <http://www.w3.org/2004/02/skos/core#prefLabel> "SASB Sustainable Industry Classification System"@en .
+#
+# https://w3id.org/biodivrisK-onto#SBTN
+<https://w3id.org/biodivrisK-onto#SBTN> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#SBTN> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#DisclosureFramework> .
+<https://w3id.org/biodivrisK-onto#SBTN> <http://www.w3.org/2000/01/rdf-schema#label> "SBTN"@en .
+<https://w3id.org/biodivrisK-onto#SBTN> <http://www.w3.org/2004/02/skos/core#prefLabel> "Science Based Targets Network for Nature"@en .
+<https://w3id.org/biodivrisK-onto#SBTN> <https://schema.org/url> <https://sciencebasedtargetsnetwork.org> .
+#
+# https://w3id.org/biodivrisK-onto#SBTNAR3TTarget
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <https://w3id.org/biodivrisK-onto#coveredByFramework> <https://w3id.org/biodivrisK-onto#SBTN> .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#SBTN> .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <https://w3id.org/biodivrisK-onto#hasInformationLoss> <https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion> .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#GRIManagementApproach> .
+#
+# https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance> <https://w3id.org/biodivrisK-onto#requiresInputFrom> <https://w3id.org/biodivrisK-onto#CEBDSBrazilLocateAssessment> .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance> <https://w3id.org/biodivrisK-onto#requiresInputFrom> <https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment> .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance> <http://www.w3.org/2000/01/rdf-schema#comment> "A science-based target following the SBTN AR3T hierarchy (Avoid, Reduce, Restore, Transform), as applicable to financial institutions assessing their portfolio exposure to nature loss. Requires LEAP assessment outputs as input for geographic and sectoral target-setting."@en .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance> <http://www.w3.org/2000/01/rdf-schema#label> "SBTN AR3T Science-based Target"@en .
+#
+# https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss
+<https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#InformationLoss> .
+<https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss> <https://w3id.org/biodivrisK-onto#sourceConcept> <https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> .
+<https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss> <https://w3id.org/biodivrisK-onto#targetConcept> <https://w3id.org/biodivrisK-onto#GRIManagementApproach> .
+<https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss> <http://www.w3.org/2000/01/rdf-schema#comment> "Converting Mean Species Abundance to a GRI management-approach disclosure loses the quantitative biodiversity-intactness value, reference condition, spatial model assumptions and the distinction between measured ecological state and organisational intent."@en .
+<https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss> <http://www.w3.org/2000/01/rdf-schema#label> "SBTN MSA to GRI Management Approach Information Loss"@en .
+<https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "Any proxy conversion must derive MSA from documented footprint data and state explicitly that a GRI management approach does not imply a specific biodiversity-state outcome."@en .
+#
+# https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance
+<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <https://w3id.org/biodivrisK-onto#coveredByFramework> <https://w3id.org/biodivrisK-onto#SBTN> .
+<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#SBTN> .
+<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <https://w3id.org/biodivrisK-onto#hasInformationLoss> <https://w3id.org/biodivrisK-onto#SBTNMSAtoGRIInformationLoss> .
+<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#GRIManagementApproach> .
+#
+# https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion
+<https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#InformationLoss> .
+<https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion> <https://w3id.org/biodivrisK-onto#sourceConcept> <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> .
+<https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion> <https://w3id.org/biodivrisK-onto#targetConcept> <https://w3id.org/biodivrisK-onto#GRIManagementApproach> .
+<https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion> <http://www.w3.org/2000/01/rdf-schema#comment> "Information loss documented when converting an SBTN science-based target (measurable, time-bound, science-grounded) to a GRI 101 management approach disclosure (qualitative, policy-level). Lost information includes: (1) quantitative target value, (2) scientific baseline, (3) time horizon commitment, (4) verifiability. Bridging condition: the GRI management approach must explicitly commit to SBTN-compatible targets with verified science-based baselines."@en .
+<https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion> <http://www.w3.org/2000/01/rdf-schema#label> "SBTN Target to GRI Management Approach Conversion"@en .
+<https://w3id.org/biodivrisK-onto#SBTNtargetToGRIConversion> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "The GRI management approach must explicitly commit to measurable SBTN-compatible targets with defined timelines, verified science-based baselines and independent verification."@en .
+#
+# https://w3id.org/biodivrisK-onto#SantanderBrasil
+<https://w3id.org/biodivrisK-onto#SantanderBrasil> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#SantanderBrasil> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#FinancialInstitution> .
+<https://w3id.org/biodivrisK-onto#SantanderBrasil> <https://w3id.org/biodivrisK-onto#appliesFramework> <https://w3id.org/biodivrisK-onto#TNFD> .
+<https://w3id.org/biodivrisK-onto#SantanderBrasil> <https://w3id.org/biodivrisK-onto#operatesInCountry> <https://w3id.org/biodivrisK-onto#Brazil> .
+<https://w3id.org/biodivrisK-onto#SantanderBrasil> <https://w3id.org/biodivrisK-onto#usesClassification> <https://w3id.org/biodivrisK-onto#CNAE> .
+<https://w3id.org/biodivrisK-onto#SantanderBrasil> <http://www.w3.org/2000/01/rdf-schema#label> "Santander Brasil"@en .
+<https://w3id.org/biodivrisK-onto#SantanderBrasil> <https://schema.org/url> <https://www.santander.com.br> .
+#
+# https://w3id.org/biodivrisK-onto#SantanderPeru
+<https://w3id.org/biodivrisK-onto#SantanderPeru> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#SantanderPeru> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#FinancialInstitution> .
+<https://w3id.org/biodivrisK-onto#SantanderPeru> <https://w3id.org/biodivrisK-onto#appliesFramework> <https://w3id.org/biodivrisK-onto#TNFD> .
+<https://w3id.org/biodivrisK-onto#SantanderPeru> <https://w3id.org/biodivrisK-onto#hasPortfolioSector> <https://w3id.org/biodivrisK-onto#AgriculturalProductsSector> .
+<https://w3id.org/biodivrisK-onto#SantanderPeru> <https://w3id.org/biodivrisK-onto#hasPortfolioSector> <https://w3id.org/biodivrisK-onto#MiningAndMetalsSector> .
+<https://w3id.org/biodivrisK-onto#SantanderPeru> <https://w3id.org/biodivrisK-onto#operatesInCountry> <https://w3id.org/biodivrisK-onto#Peru> .
+<https://w3id.org/biodivrisK-onto#SantanderPeru> <http://www.w3.org/2000/01/rdf-schema#label> "Santander Peru"@en .
+<https://w3id.org/biodivrisK-onto#SantanderPeru> <http://www.w3.org/2004/02/skos/core#prefLabel> "Banco Santander Perú S.A."@en .
+<https://w3id.org/biodivrisK-onto#SantanderPeru> <https://schema.org/url> <https://www.santander.com.pe> .
+#
+# https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy
+<https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#InternalPolicy> .
+<https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy> <https://w3id.org/biodivrisK-onto#coversRequirement> <https://w3id.org/biodivrisK-onto#GRIProtectedAreaKBA> .
+<https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy> <http://www.w3.org/2000/01/rdf-schema#comment> "Santander Peru's Environmental, Social, Climate and Compliance (ESCC) risk management policy. Covers IUCN protected areas and Ramsar sites but does not extend to all TNFD sensitive location criteria (rapid ecosystem decline, high water stress)."@en .
+<https://w3id.org/biodivrisK-onto#SantanderPeruESCCPolicy> <http://www.w3.org/2000/01/rdf-schema#label> "Santander Peru ESCC Risk Policy"@en .
+#
+# https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment
+<https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#LEAPAssessment> .
+<https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment> <http://www.w3.org/ns/prov#wasAssociatedWith> <https://w3id.org/biodivrisK-onto#SantanderPeru> .
+<https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment> <https://w3id.org/biodivrisK-onto#informsTargetSetting> <https://w3id.org/biodivrisK-onto#SBTNAR3TTargetInstance> .
+<https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment> <https://w3id.org/biodivrisK-onto#requiresDataFrom> <https://w3id.org/biodivrisK-onto#ENCOREData> .
+<https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment> <https://w3id.org/biodivrisK-onto#requiresDataFrom> <https://w3id.org/biodivrisK-onto#GlobalForestWatchData> .
+<https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment> <https://w3id.org/biodivrisK-onto#requiresDataFrom> <https://w3id.org/biodivrisK-onto#WRIAqueductData> .
+<https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment> <http://www.w3.org/2000/01/rdf-schema#comment> "Santander Peru's LEAP assessment conducted during Global Canopy's TNFD familiarisation programme in 2024, covering scoping and the full Locate phase (L1-L4). Source: Global Canopy & Santander Peru (2025)."@en .
+<https://w3id.org/biodivrisK-onto#SantanderPeruL4Assessment> <http://www.w3.org/2000/01/rdf-schema#label> "Santander Peru LEAP L4 Assessment"@en .
+#
+# https://w3id.org/biodivrisK-onto#TNFD
+<https://w3id.org/biodivrisK-onto#TNFD> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#TNFD> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#DisclosureFramework> .
+<https://w3id.org/biodivrisK-onto#TNFD> <http://www.w3.org/2000/01/rdf-schema#label> "TNFD"@en .
+<https://w3id.org/biodivrisK-onto#TNFD> <http://www.w3.org/2004/02/skos/core#prefLabel> "Taskforce on Nature-related Financial Disclosures"@en .
+<https://w3id.org/biodivrisK-onto#TNFD> <https://schema.org/url> <https://tnfd.global> .
+#
+# https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality
+<https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <https://w3id.org/biodivrisK-onto#coveredByFramework> <https://w3id.org/biodivrisK-onto#ESRS_E4> .
+<https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#TNFD> .
+<https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <https://w3id.org/biodivrisK-onto#hasInformationLoss> <https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss> .
+<https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <https://w3id.org/biodivrisK-onto#incommensurableWith> <https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> .
+#
+# https://w3id.org/biodivrisK-onto#TNFDImpactDependency
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2004/02/skos/core#closeMatch> <https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency> .
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <https://w3id.org/biodivrisK-onto#complements> <https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> .
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <https://w3id.org/biodivrisK-onto#coveredByFramework> <https://w3id.org/biodivrisK-onto#ESRS_E4> .
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#TNFD> .
+#
+# https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric
+<https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <https://w3id.org/biodivrisK-onto#coveredByFramework> <https://w3id.org/biodivrisK-onto#ESRS_E4> .
+<https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#TNFD> .
+#
+# https://w3id.org/biodivrisK-onto#TNFDPriorityLocation
+<https://w3id.org/biodivrisK-onto#TNFDPriorityLocation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#TNFDPriorityLocation> <https://w3id.org/biodivrisK-onto#coveredByFramework> <https://w3id.org/biodivrisK-onto#ESRS_E4> .
+<https://w3id.org/biodivrisK-onto#TNFDPriorityLocation> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#TNFD> .
+#
+# https://w3id.org/biodivrisK-onto#TNFDStrategyD
+<https://w3id.org/biodivrisK-onto#TNFDStrategyD> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#TNFDStrategyD> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#DisclosureRequirement> .
+<https://w3id.org/biodivrisK-onto#TNFDStrategyD> <https://w3id.org/biodivrisK-onto#definedBy> <https://w3id.org/biodivrisK-onto#TNFD> .
+<https://w3id.org/biodivrisK-onto#TNFDStrategyD> <http://www.w3.org/2000/01/rdf-schema#comment> "TNFD recommended disclosure Strategy D: disclose the locations of assets and/or activities in direct operations and, where possible, upstream and downstream value chains that meet the criteria for priority locations."@en .
+<https://w3id.org/biodivrisK-onto#TNFDStrategyD> <http://www.w3.org/2000/01/rdf-schema#label> "TNFD Strategy D"@en .
+#
+# https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss
+<https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#InformationLoss> .
+<https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss> <https://w3id.org/biodivrisK-onto#sourceConcept> <https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> .
+<https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss> <https://w3id.org/biodivrisK-onto#targetConcept> <https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> .
+<https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss> <http://www.w3.org/2000/01/rdf-schema#comment> "A TNFD enterprise-value assessment does not preserve the impact-materiality dimension required by ESRS double materiality; impacts on biodiversity that lack an immediate financial effect may therefore be omitted."@en .
+<https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss> <http://www.w3.org/2000/01/rdf-schema#label> "TNFD to ESRS Materiality Information Loss"@en .
+<https://w3id.org/biodivrisK-onto#TNFDtoESRSMaterialityInformationLoss> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "Supplement the TNFD enterprise-value assessment with a distinct impact-materiality assessment covering actual and potential biodiversity impacts across operations and the value chain."@en .
+#
+# https://w3id.org/biodivrisK-onto#TropicalAndes
+<https://w3id.org/biodivrisK-onto#TropicalAndes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#TropicalAndes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Biome> .
+<https://w3id.org/biodivrisK-onto#TropicalAndes> <http://www.w3.org/2000/01/rdf-schema#comment> "Biodiversity hotspot in the Andes mountains of Peru, Colombia, Ecuador and Bolivia. Under-sampled in GBIF: occurrence records biased towards roads and urban areas, with insufficient coverage of high-altitude species."@en .
+<https://w3id.org/biodivrisK-onto#TropicalAndes> <http://www.w3.org/2000/01/rdf-schema#label> "Tropical Andes Biome"@en .
+#
+# https://w3id.org/biodivrisK-onto#UtilitiesSector
+<https://w3id.org/biodivrisK-onto#UtilitiesSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#UtilitiesSector> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#Sector> .
+<https://w3id.org/biodivrisK-onto#UtilitiesSector> <https://w3id.org/biodivrisK-onto#assessedUnder> <https://w3id.org/biodivrisK-onto#TNFD> .
+<https://w3id.org/biodivrisK-onto#UtilitiesSector> <https://w3id.org/biodivrisK-onto#hasSectorClassification> <https://w3id.org/biodivrisK-onto#GICS> .
+<https://w3id.org/biodivrisK-onto#UtilitiesSector> <http://www.w3.org/2000/01/rdf-schema#label> "Utilities Sector"@en .
+#
+# https://w3id.org/biodivrisK-onto#WRIAqueductData
+<https://w3id.org/biodivrisK-onto#WRIAqueductData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://w3id.org/biodivrisK-onto#WRIAqueductData> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/biodivrisK-onto#BiodiversityDataSource> .
+<https://w3id.org/biodivrisK-onto#WRIAqueductData> <http://www.w3.org/2000/01/rdf-schema#comment> "World Resources Institute water risk atlas — used in LEAP L4 to identify high physical water stress zones. Used by both case study institutions."@en .
+<https://w3id.org/biodivrisK-onto#WRIAqueductData> <http://www.w3.org/2000/01/rdf-schema#label> "WRI Aqueduct"@en .
+<https://w3id.org/biodivrisK-onto#WRIAqueductData> <https://schema.org/url> <https://www.wri.org/aqueduct> .
+#
+#
+#
+# #################################################################
+# #
+# #    Annotations
+# #
+# #################################################################
+#
+#
+<https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea> <http://www.w3.org/2000/01/rdf-schema#comment> "Areas designated for biodiversity protection under ESRS E4, including Natura 2000 sites, UNESCO World Heritage, KBAs, and IUCN Category I–IV protected areas."@en .
+<https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea> <http://www.w3.org/2000/01/rdf-schema#label> "ESRS E4 Biodiversity-sensitive Area"@en .
+<https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea> <http://www.w3.org/2004/02/skos/core#note> "ESRS E4 biodiversity-sensitive areas are a strict subset of TNFD priority locations. TNFD additionally covers rapid ecosystem decline and high water stress sites absent from the ESRS definition. Treating as equivalent produces false negatives in LAC screening."@en .
+<https://w3id.org/biodivrisK-onto#ESRSBiodiversitySensitiveArea> <http://www.w3.org/2004/02/skos/core#note> "Partial equivalence with difference in reference: both concepts cover protected areas and KBAs, but ESRS E4 explicitly references Natura 2000 sites and IUCN Category I-IV protected areas, while GRI 101 uses a broader definition based on IUCN and Ramsar without the Natura 2000 specificity. The equivalence holds for the KBA criterion; the normative reference to EU-specific designations introduces a scope difference."@en .
+#
+<https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> <http://www.w3.org/2000/01/rdf-schema#comment> "ESRS E4 double materiality: an issue is material if it has significant impacts on biodiversity (impact materiality) OR poses financial risks/opportunities (financial materiality)."@en .
+<https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> <http://www.w3.org/2000/01/rdf-schema#label> "ESRS E4 Double Materiality"@en .
+<https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> <http://www.w3.org/2004/02/skos/core#note> "ESRS E4 double materiality requires assessment of both impact and financial dimensions. TNFD applies single enterprise-value materiality. The two boundaries define different populations of disclosable items; thresholds are not interchangeable."@en .
+<https://w3id.org/biodivrisK-onto#ESRSDoubleMateriality> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "A lossy approximation is admissible if the analyst explicitly assumes that impact-material issues under ESRS E4 are also financially material under TNFD, and documents this assumption with supporting evidence. Does not hold by default."@en .
+#
+<https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint> <http://www.w3.org/2000/01/rdf-schema#comment> "ESRS E4 datapoint requiring disclosure of land-use change in hectares attributable to the undertaking's own operations and value chain."@en .
+<https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint> <http://www.w3.org/2000/01/rdf-schema#label> "ESRS E4 Land-use Change Datapoint"@en .
+<https://w3id.org/biodivrisK-onto#ESRSLandUseDatapoint> <https://w3id.org/biodivrisK-onto#unit> "hectares (ha)"@en .
+#
+<https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency> <http://www.w3.org/2000/01/rdf-schema#comment> "ESRS E4 disclosure of material impacts on biodiversity and material dependencies on ecosystem services, assessed under double materiality."@en .
+<https://w3id.org/biodivrisK-onto#ESRSMaterialImpactDependency> <http://www.w3.org/2000/01/rdf-schema#label> "ESRS E4 Material Impacts and Dependencies"@en .
+#
+<https://w3id.org/biodivrisK-onto#GRIImpactMateriality> <http://www.w3.org/2000/01/rdf-schema#comment> "GRI impact-only materiality: issues are material based on significance of actual or potential impacts on people and environment, regardless of financial consequences."@en .
+<https://w3id.org/biodivrisK-onto#GRIImpactMateriality> <http://www.w3.org/2000/01/rdf-schema#label> "GRI Impact Materiality"@en .
+#
+<https://w3id.org/biodivrisK-onto#GRIManagementApproach> <http://www.w3.org/2000/01/rdf-schema#comment> "GRI 101 qualitative disclosure describing how an organisation manages its biodiversity impacts, policies, commitments and actions. No quantitative target required."@en .
+<https://w3id.org/biodivrisK-onto#GRIManagementApproach> <http://www.w3.org/2000/01/rdf-schema#label> "GRI 101 Management Approach"@en .
+<https://w3id.org/biodivrisK-onto#GRIManagementApproach> <http://www.w3.org/2004/02/skos/core#note> "GRI 101 management approach disclosures compose with TNFD nature-related risk narratives. Impact reporting under GRI informs but does not replace risk framing under TNFD."@en .
+#
+<https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas> <http://www.w3.org/2000/01/rdf-schema#comment> "GRI 101 disclosure of operations located in, adjacent to, or containing protected areas or Key Biodiversity Areas."@en .
+<https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas> <http://www.w3.org/2000/01/rdf-schema#label> "GRI 101 Operations in/adjacent to Protected Areas and KBAs"@en .
+<https://w3id.org/biodivrisK-onto#GRIOperationsAdjacentProtectedAreas> <http://www.w3.org/2004/02/skos/core#note> "GRI 101 protected-area and KBA sites are a subset of TNFD areas of importance for biodiversity. TNFD applies a broader definition additionally covering areas of high biodiversity intactness beyond formal protection status."@en .
+#
+<https://w3id.org/biodivrisK-onto#PriorityLocation> <http://www.w3.org/2000/01/rdf-schema#comment> "A geographic location identified as high-priority for biodiversity assessment under TNFD LEAP L4, based on five sensitive location criteria: (1) important for biodiversity; (2) high ecosystem integrity; (3) rapid ecosystem decline; (4) high physical water risk; (5) important for ecosystem services provision."@en .
+<https://w3id.org/biodivrisK-onto#PriorityLocation> <http://www.w3.org/2000/01/rdf-schema#label> "Priority Location"@en .
+#
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <http://www.w3.org/2000/01/rdf-schema#comment> "Measurable, time-bound target following the SBTN AR3T hierarchy: Avoid, Reduce, Restore, Transform."@en .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <http://www.w3.org/2000/01/rdf-schema#label> "SBTN Science-based Target (AR3T)"@en .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <http://www.w3.org/2004/02/skos/core#note> "An SBTN science-based target is measurable, time-bound and grounded in scientific baselines. A GRI 101 management approach describes intent without required quantification. Different epistemic status: verifiable outcome commitment vs description of policy intent."@en .
+<https://w3id.org/biodivrisK-onto#SBTNAR3TTarget> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "A lossy approximation is admissible only if the GRI management approach explicitly commits to SBTN-compatible measurable targets with defined timelines and science-based baselines, AND those commitments are independently verified."@en .
+#
+<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <http://www.w3.org/2000/01/rdf-schema#comment> "State-of-nature metric measuring biodiversity intactness as the average abundance of originally present species relative to their abundance in undisturbed ecosystems (GLOBIO model)."@en .
+<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <http://www.w3.org/2000/01/rdf-schema#label> "SBTN Mean Species Abundance (MSA)"@en .
+<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <http://www.w3.org/2004/02/skos/core#note> "MSA is a composite quantitative index measuring biodiversity intactness as a ratio. GRI 101 management approach is a qualitative policy disclosure with no implied biodiversity-state outcome. Different epistemic levels: state measurement vs organisational intent."@en .
+<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <https://w3id.org/biodivrisK-onto#hasBridgingCondition> "No direct conversion exists. A lossy approximation requires deriving a proxy MSA from operational footprint data AND documenting that the GRI management approach implies no specific biodiversity-state outcome. Not recommended for regulatory compliance."@en .
+<https://w3id.org/biodivrisK-onto#SBTNMeanSpeciesAbundance> <https://w3id.org/biodivrisK-onto#unit> "dimensionless ratio (0–1)"@en .
+#
+<https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <http://www.w3.org/2000/01/rdf-schema#comment> "TNFD single (enterprise-value) materiality: an issue is material if it poses financial risks or opportunities to the reporting organisation."@en .
+<https://w3id.org/biodivrisK-onto#TNFDEnterpriseMateriality> <http://www.w3.org/2000/01/rdf-schema#label> "TNFD Enterprise-value Materiality"@en .
+#
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2000/01/rdf-schema#comment> "Core TNFD concept requiring organisations to identify both their impacts on nature and their dependencies on ecosystem services."@en .
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2000/01/rdf-schema#label> "TNFD Impacts and Dependencies on Nature"@en .
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2004/02/skos/core#note> "Close match (not equivalence): both classes identify organisational impacts on and dependencies upon nature using the ENCORE framework logic, but their materiality boundaries differ. TNFD applies enterprise-value materiality (financial impact on the organisation); ESRS E4 applies double materiality (financial impact AND impact on biodiversity, regardless of financial consequence). owl:equivalentClass was rejected because it would collapse the materiality distinction that bro:incommensurableWith between TNFDEnterpriseMateriality and ESRSDoubleMateriality is designed to preserve."@en .
+<https://w3id.org/biodivrisK-onto#TNFDImpactDependency> <http://www.w3.org/2004/02/skos/core#note> "TNFD LEAP provides the assessment and disclosure process; SBTN AR3T provides science-based target-setting. SBTN targets feed into the TNFD strategy phase. Neither substitutes the other."@en .
+#
+<https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <http://www.w3.org/2000/01/rdf-schema#comment> "TNFD core cross-sector metric measuring the extent (ha) of land, freshwater or ocean-use change."@en .
+<https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <http://www.w3.org/2000/01/rdf-schema#label> "TNFD Land/Freshwater/Ocean-use Change Metric"@en .
+<https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <http://www.w3.org/2004/02/skos/core#note> "Close match, not equivalence. Both concepts concern area-based change in land, freshwater or ocean use, but the official TNFD-ESRS correspondence mapping records differences in semantics and scope for TNFD metric C1.1 and ESRS E4-5 paragraph 38(a). TNFD recommends a specific metric and breakdown by ecosystem type and business activity, whereas ESRS requires relevant metrics without prescribing the same metric. owl:equivalentClass was therefore rejected because the classes do not have demonstrated identical extensions."@en .
+<https://w3id.org/biodivrisK-onto#TNFDLandUseChangeMetric> <https://w3id.org/biodivrisK-onto#unit> "hectares (ha)"@en .
+#
+<https://w3id.org/biodivrisK-onto#TNFDPriorityLocation> <http://www.w3.org/2000/01/rdf-schema#comment> "Location of high importance for biodiversity under TNFD LEAP, including areas of high biodiversity intactness, protected areas, KBAs, areas of rapid ecosystem decline, and areas of high water stress."@en .
+<https://w3id.org/biodivrisK-onto#TNFDPriorityLocation> <http://www.w3.org/2000/01/rdf-schema#label> "TNFD Priority Location"@en .
+#
+# Generated by the OWL API (version 5.1.18) https://github.com/owlcs/owlapi/

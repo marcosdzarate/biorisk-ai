@@ -5,7 +5,7 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![OWL 2 DL](https://img.shields.io/badge/OWL-2%20DL-blue)](https://www.w3.org/TR/owl2-overview/)
 [![Namespace](https://img.shields.io/badge/namespace-w3id.org%2FbiodivrisK--onto-green)](https://w3id.org/biodivrisK-onto)
-[![Version](https://img.shields.io/badge/version-0.3.0-orange)](https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology)
+[![Version](https://img.shields.io/badge/version-0.3.1-orange)](https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology)
 [![Documentation](https://img.shields.io/badge/docs-WIDOCO-blue)](https://marcosdzarate.github.io/biorisk-ai/)
 
 ## Overview
@@ -41,11 +41,12 @@ The ontology is grounded in two published real-world assessments from LAC:
 
 | File | Description |
 |---|---|
-| `biodivrisK-onto.owl` | Current OWL 2 DL ontology v0.3.0 (RDF/XML; canonical source) |
-| `biodivrisK-onto.ttl` | Current OWL 2 DL ontology v0.3.0 (Turtle serialization) |
+| `biodivrisK-onto.owl` | Current OWL 2 DL ontology v0.3.1 (RDF/XML; canonical source) |
+| `biodivrisK-onto.ttl` | Current OWL 2 DL ontology v0.3.1 (Turtle serialization) |
 | `biodivrisK-onto-v02.ttl` | OWL 2 DL ontology v0.2.0 — with real-world instances from LAC case studies (Turtle) |
 | `biodivrisK-onto-v02.rdf` | OWL 2 DL ontology v0.2.0 — with real-world instances (RDF/XML) |
 | `competency-questions.md` | Natural-language competency questions and executable SPARQL 1.1 queries |
+| `CHANGELOG.md` | Versioned record of semantic and documentation changes |
 
 ---
 
@@ -57,7 +58,7 @@ Prefix: bro: <https://w3id.org/biodivrisK-onto#>
 
 ---
 
-## Ontology Statistics (v0.3.0)
+## Ontology Statistics (v0.3.1)
 
 | Element | Count |
 |---|---|
@@ -66,17 +67,25 @@ Prefix: bro: <https://w3id.org/biodivrisK-onto#>
 | Object properties | 27 |
 | Datatype properties | 1 |
 | Named individuals | 70 |
-| Semantic relations | 35 |
+| Unique interoperability pairs | 12 |
 
 ### Semantic relations by category
 
-| Category | Property | Pairs |
+| Category | Property | Unique pairs |
 |---|---|---|
-| Equivalence (𝒜≡) | `owl:equivalentClass` | 1 |
-| Close match | `skos:closeMatch` | 1 |
-| Subsumption (𝒜⊑) | `rdfs:subClassOf` | explicit and reasoner-derivable class hierarchy |
+| Equivalence (𝒜≡) | `owl:equivalentClass` | 0 inter-framework pairs; 1 external reuse alignment (`bro:Biome` ≡ ENVO biome) |
+| Close match | `skos:closeMatch` | 2 |
+| Subsumption (𝒜⊑) | `rdfs:subClassOf` | 2 cross-framework pairs |
 | Complementarity (𝒜⊕) | `bro:complements` | 2 |
 | Incommensurability (𝒜⊥) | `bro:incommensurableWith` | 6 |
+
+The total is computed over unordered pairs, so symmetric relations are counted
+once. Nine pairs directly connect concepts from TNFD, ESRS E4, SBTN or GRI 101;
+three pairs involve auxiliary systems used in the case studies (ENCORE and the
+CNAE/CIIU–GICS classifications). Generic class-hierarchy axioms and the
+`bro:Biome` reuse alignment with ENVO are excluded. The reproducibility query
+at the end of [`competency-questions.md`](competency-questions.md) returns the
+same 12-pair total and its category breakdown.
 
 ---
 
@@ -143,14 +152,14 @@ g.parse("biodivrisK-onto.ttl", format="turtle")
 print(f"Loaded {len(g)} triples")
 ```
 
-### Example SPARQL — CQ1: Equivalences between TNFD and ESRS E4
+### Example SPARQL — CQ1: Close correspondences between TNFD and ESRS E4
 ```sparql
 PREFIX bro: <https://w3id.org/biodivrisK-onto#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
-SELECT ?tnfdConcept ?esrsConcept WHERE {
+SELECT DISTINCT ?tnfdConcept ?esrsConcept WHERE {
     ?tnfdConcept bro:definedBy bro:TNFD ;
-                 owl:equivalentClass ?esrsConcept .
+                 (skos:closeMatch|^skos:closeMatch) ?esrsConcept .
     ?esrsConcept bro:definedBy bro:ESRS_E4 .
 }
 ```
@@ -178,8 +187,9 @@ SELECT ?gap WHERE {
 
 ---
 
-The complete set of 15 competency questions and 16 executable SPARQL
-query blocks (CQ10 is decomposed into two subqueries) is available in
+The complete set of 15 competency questions and 17 executable SPARQL
+query blocks (CQ10 is decomposed into two subqueries and one non-CQ
+control query reproduces the interoperability-pair count) is available in
 [`competency-questions.md`](competency-questions.md).
 
 ## Validation
@@ -190,7 +200,7 @@ query blocks (CQ10 is decomposed into two subqueries) is available in
 | Unsatisfiable classes | ✅ 0 / 42 domain classes |
 | Competency questions (15/15) | ✅ 100% coverage |
 | OOPS! structural pitfalls | ✅ 0 errors; 0 unconnected-element warnings |
-| External consistency (EFRAG-TNFD) | ✅ 7/7 relations consistent |
+| Internal traceability (EFRAG-TNFD) | ✅ 7/7 represented relations traceable |
 
 ---
 
@@ -201,6 +211,7 @@ Developed following **LOT** (Linked Open Terms, Poveda-Villalón et al., 2022) i
 - **Sprint 1 (v0.1.0):** Core taxonomy, four-category semantic relation framework, 15 competency questions
 - **Sprint 2 (v0.2.0):** Organizational, geographic and evaluation modules + real-world instances from UC1 and UC2
 - **Sprint 3 (v0.3.0):** explicit information-loss records, ordered sector priorities, biome links, SPARQL validation, HermiT verification, OOPS! structural evaluation, and quantitative benchmarking against the GRI-TNFD and EFRAG-TNFD mappings
+- **Maintenance release (v0.3.1):** conservative TNFD–ESRS land-use alignment (`skos:closeMatch` rather than `owl:equivalentClass`), reproducible count of 12 unique interoperability pairs, and synchronised competency questions and documentation
 
 ---
 
@@ -212,7 +223,7 @@ If you use BiodivRisk-Onto in your research, please cite:
 @misc{biodivrisKonto2026,
   author    = {Zárate, Marcos Daniel},
   title     = {{BiodivRisk-Onto}: An OWL 2 Ontology for Semantic Alignment
-               of Biodiversity Risk Disclosure Frameworks (v0.3.0)},
+               of Biodiversity Risk Disclosure Frameworks (v0.3.1)},
   year      = {2026},
   publisher = {GitHub},
   url       = {https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology},

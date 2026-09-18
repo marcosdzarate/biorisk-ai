@@ -55,18 +55,18 @@ schema:url a owl:AnnotationProperty .
             schema:url <https://orcid.org/0000-0001-8851-8602> ] ;
     dcterms:description "BiodivRisk-Onto provides a formal OWL 2 DL representation of the semantic relations between four international biodiversity risk disclosure frameworks — TNFD, CSRD/ESRS E4, SBTN and GRI 101 — with particular attention to the data gaps arising from GBIF/OBIS sampling bias in Latin America and the Caribbean (LAC)."@en,
         "Framework concepts intentionally use OWL 2 punning: the same IRI may denote a class for subsumption axioms and an individual for concept-level alignment relations. These interpretations remain semantically distinct under OWL 2 DL."@en,
-        "Version 0.3.0 extends the core taxonomy with organizational, geographic and evaluation modules, explicit information-loss records, and populated instances from the Santander Peru and CEBDS Brazil case studies."@en ;
+        "Version 0.3.1 is a maintenance release that applies conservative framework alignments, documents 12 reproducible interoperability pairs, and synchronises competency questions and documentation."@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:modified "2026-09-17"^^xsd:date ;
+    dcterms:modified "2026-09-18"^^xsd:date ;
     dcterms:title "BiodivRisk-Onto: An Ontology for Semantic Alignment of Biodiversity Risk Disclosure Frameworks"@en ;
     vann:preferredNamespacePrefix "bro" ;
     vann:preferredNamespaceUri "https://w3id.org/biodivrisK-onto#" ;
-    rdfs:comment "Version 0.3.0 — structural release adding explicit information-loss records, ordered sector priorities and biome links, while removing redundant or unused modelling elements."@en ;
+    rdfs:comment "Version 0.3.1 — maintenance release replacing an unsupported cross-framework equivalence with skos:closeMatch and adding a reproducible interoperability-pair count."@en ;
     rdfs:seeAlso <https://github.com/marcosdzarate/biorisk-ai>,
         <https://github.com/marcosdzarate/biorisk-ai/tree/main/ontology> ;
-    owl:priorVersion <https://w3id.org/biodivrisK-onto/0.2.0> ;
-    owl:versionIRI <https://w3id.org/biodivrisK-onto/0.3.0> ;
-    owl:versionInfo "0.3.0" .
+    owl:priorVersion <https://w3id.org/biodivrisK-onto/0.3.0> ;
+    owl:versionIRI <https://w3id.org/biodivrisK-onto/0.3.1> ;
+    owl:versionInfo "0.3.1" .
 
 :AndeanDataGap a owl:NamedIndividual,
         :GeographicSamplingBias ;
@@ -100,7 +100,7 @@ schema:url a owl:AnnotationProperty .
     rdfs:label "ESRS E4 Land-use Change Datapoint"@en ;
     rdfs:comment "ESRS E4 datapoint requiring disclosure of land-use change in hectares attributable to the undertaking's own operations and value chain."@en ;
     rdfs:subClassOf :Metric ;
-    owl:equivalentClass :TNFDLandUseChangeMetric ;
+    skos:closeMatch :TNFDLandUseChangeMetric ;
     :definedBy :ESRS_E4 ;
     :unit "hectares (ha)"@en .
 
@@ -567,7 +567,7 @@ schema:Person a owl:Class .
     rdfs:label "TNFD Land/Freshwater/Ocean-use Change Metric"@en ;
     rdfs:comment "TNFD core cross-sector metric measuring the extent (ha) of land, freshwater or ocean-use change."@en ;
     rdfs:subClassOf :Metric ;
-    skos:note "Genuine equivalence: both classes measure land-use change in hectares as the unit of account, using the same physical definition. The GRI-TNFD interoperability mapping (July 2024) identifies only a 'difference in granularity' between these datapoints, not a semantic difference — confirming that the underlying concept is the same. This is one of the rare cases where owl:equivalentClass is appropriate between framework concepts. Note: granularity differences (how finely the metric must be disaggregated) are captured separately as bro:incommensurableWith between the reporting formats, not between the conceptual classes."@en ;
+    skos:note "Close match, not equivalence. Both concepts concern area-based change in land, freshwater or ocean use, but the official TNFD-ESRS correspondence mapping records differences in semantics and scope for TNFD metric C1.1 and ESRS E4-5 paragraph 38(a). TNFD recommends a specific metric and breakdown by ecosystem type and business activity, whereas ESRS requires relevant metrics without prescribing the same metric. owl:equivalentClass was therefore rejected because the classes do not have demonstrated identical extensions."@en ;
     :coveredByFramework :ESRS_E4 ;
     :definedBy :TNFD ;
     :unit "hectares (ha)"@en .
@@ -932,4 +932,3 @@ prov:Activity a owl:Class .
     schema:url <https://tnfd.global> .
 
 owl:Class a owl:Class .
-
